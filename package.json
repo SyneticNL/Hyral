@@ -1,0 +1,28 @@
+{
+  "name": "hyral",
+  "version": "0.0.1",
+  "description": "Hypermedia oriented Resource Api Layer",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/Hyral.git"
+  },
+  "keywords": [
+    "Api",
+    "Rest",
+    "JsonApi"
+  ],
+  "author": "SyneticNL",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SyneticNL/Hyral/issues"
+  },
+  "homepage": "https://github.com/SyneticNL/Hyral#readme"
+}
