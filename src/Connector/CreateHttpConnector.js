@@ -8,18 +8,27 @@
  * @property {function} delete
  */
 
+/**
+ * @typedef UrlSerializer
+ * @type {object}
+ * @property {function} fetch
+ * @property {function} fetchOne
+ * @property {function} create
+ * @property {function} update
+ * @property {function} delete
+ */
 import HttpConnector from './HttpConnector';
 
+/* eslint-disable no-param-reassign */
 /**
  * @param {Object} connector
  * @param {AxiosInstance} axios
- * @param {function} urlSerializer
+ * @param {UrlSerializer} urlSerializer
  * @param {function} paramsSerializer
  * @param {function} requestSerializer
  * @param {function} responseNormalizer
  * @returns {HyralConnector}
  */
-
 function createHttpConnector(
   connector,
   axios,

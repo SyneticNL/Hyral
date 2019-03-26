@@ -6,16 +6,18 @@
  * Http connector class.
  */
 export default {
+  /**
+   * @param {HyralResourceRepository} repository
+   * @param {ParameterBag} parameterBag
+   */
   fetch(repository, parameterBag) {
-    this.axios.request({
-      repository,
+    return this.axios.get(this.urlSerializer.fetch(repository), {
       params: parameterBag,
     });
   },
 
-  fetchOne(repository, parameterBag) {
-    this.axios.get({
-      repository,
+  fetchOne(repository, id, parameterBag) {
+    return this.axios.get(this.urlSerializer.fetchOne(repository, id), {
       params: parameterBag,
     });
   },
