@@ -43,15 +43,15 @@ describe('The resource repository', () => {
 
   it('should use the connector fetch once for the find method to do requests.', () => {
     repository.find(parameterBag);
-    expect(connector.fetch.mock.calls.length).toBe(1);
+    expect(connector.fetch.mock.calls).toHaveLength(1);
   });
   it('should use the connector fetch once for the findOne method to do requests.', () => {
     repository.findOne(parameterBag);
-    expect(connector.fetch.mock.calls.length).toBe(1);
+    expect(connector.fetch.mock.calls).toHaveLength(1);
   });
   it('should use the connector fetchOne once for the findById method to do requests.', () => {
     repository.findById(1);
-    expect(connector.fetchOne.mock.calls.length).toBe(1);
+    expect(connector.fetchOne.mock.calls).toHaveLength(1);
   });
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a find containing the data array', () => {
@@ -62,7 +62,7 @@ describe('The resource repository', () => {
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
     return repository.findOne(parameterBag).then((data) => {
-      expect(data).toBe(responseData[0]);
+      expect(data).toEqual(responseData[0]);
     });
   });
   it('should return the promise of the connector after a findById containing the data', () => {
