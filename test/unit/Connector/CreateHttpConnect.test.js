@@ -1,4 +1,4 @@
-import createHttpConnector from '../../src/Connector/CreateHttpConnector';
+import createHttpConnector from '../../../src/Connector/CreateHttpConnector';
 
 describe('The create http connector should create a objects', () => {
   const axiosMock1 = {

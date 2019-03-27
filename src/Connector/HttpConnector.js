@@ -1,8 +1,4 @@
 /**
- * @file
- */
-
-/**
  * Http connector class.
  */
 export default {
@@ -16,6 +12,11 @@ export default {
     });
   },
 
+  /**
+   * @param {HyralResourceRepository} repository
+   * @param {number|string} id
+   * @param {ParameterBag} parameterBag
+   */
   fetchOne(repository, id, parameterBag) {
     return this.axios.get(this.urlSerializer.fetchOne(repository, id), {
       params: parameterBag,
@@ -34,7 +35,7 @@ export default {
   },
 
   /**
-   * @param repository
+   * @param {HyralResourceRepository} repository
    * @param {ParameterBag} parameterBag
    */
   update(repository, parameterBag) {
@@ -45,7 +46,7 @@ export default {
   },
 
   /**
-   * @param repository
+   * @param {HyralResourceRepository} repository
    * @param {ParameterBag} parameterBag
    */
   delete(repository, parameterBag) {

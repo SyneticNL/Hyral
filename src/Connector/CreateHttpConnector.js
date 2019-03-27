@@ -3,6 +3,7 @@
  * @type {Object}
  * @property {AxiosInstance} axios - AxiosInstance
  * @property {function} fetch
+ * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
  * @property {function} delete
@@ -19,14 +20,14 @@
  */
 import HttpConnector from './HttpConnector';
 
-/* eslint-disable no-param-reassign */
 /**
- * @param {Object} connector
+ * @param {HyralConnector} connector
  * @param {AxiosInstance} axios
  * @param {UrlSerializer} urlSerializer
  * @param {function} paramsSerializer
  * @param {function} requestSerializer
  * @param {function} responseNormalizer
+ *
  * @returns {HyralConnector}
  */
 function createHttpConnector(
@@ -37,9 +38,11 @@ function createHttpConnector(
   requestSerializer,
   responseNormalizer,
 ) {
+  /* eslint-disable no-param-reassign */
   axios.defaults.paramsSerializer = paramsSerializer;
   axios.defaults.transformRequest.push(requestSerializer);
   axios.defaults.transformResponse.push(responseNormalizer);
+  /* eslint-enable no-param-reassign */
   return Object.create(connector, {
     axios: {
       writable: false,
