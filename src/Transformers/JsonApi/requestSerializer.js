@@ -3,5 +3,5 @@
  * @param {Object} headers
  */
 export default function requestSerializer(data, headers) {
-
+  return data;
 }

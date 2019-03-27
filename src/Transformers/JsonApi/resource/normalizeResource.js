@@ -1,6 +1,3 @@
-/**
- * @param {Object} resource
- */
 import resourceFactory from '../../../Resource/Factory/resourceFactory';
 import relationshipGetType from './relationship/relationshipGetType';
 

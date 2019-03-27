@@ -10,8 +10,6 @@ describe('Validations for the responseNormalizer', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
     expect(result).toHaveLength(2);
-
-    expect(resourceJsonSchema).toBeValidSchema();
     expect(result[0]).toMatchSchema(resourceJsonSchema);
   });
 
@@ -48,7 +46,7 @@ describe('Validations for the responseNormalizer', () => {
     expect(result[0].data.title).toEqual('The title');
   });
 
-  test('that the responseNormalizer returns an relation that is not included', () => {
+  test('that the responseNormalizer returns a relation that is not included', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
     expect(result[0].data).toHaveProperty('consultant');
@@ -58,7 +56,7 @@ describe('Validations for the responseNormalizer', () => {
     expect(result[0].data.consultant.metadata.loading).toBeFalsy();
   });
 
-  test('that the responseNormalizer returns an relation that is included', () => {
+  test('that the responseNormalizer returns a relation that is included', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
     expect(result[0].data).toHaveProperty('thumbnail');

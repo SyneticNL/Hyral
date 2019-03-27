@@ -1,5 +1,5 @@
 /**
- * @param {Object} params
+ * @param {ParameterBag} params
  */
 export default function paramsSerializer(params) {
 

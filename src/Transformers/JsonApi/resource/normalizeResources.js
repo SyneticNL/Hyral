@@ -1,8 +1,3 @@
-/**
- * @param {Array} included
- *
- * @return {Map}
- */
 import normalizeResource from './normalizeResource';
 
 /**

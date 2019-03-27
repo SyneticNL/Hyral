@@ -1,11 +1,11 @@
 /**
  * @param {{id: String, type: String, data: Object}} relation
  *
- * @returns {String|undefined}
+ * @returns {String|null}
  */
 export default function relationshipGetType(relation) {
   if (!relation.data || (Array.isArray(relation.data) && relation.data.length === 0)) {
-    return undefined;
+    return null;
   }
 
   if (Array.isArray(relation.data)) {
