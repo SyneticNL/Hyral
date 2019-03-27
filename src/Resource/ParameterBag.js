@@ -3,7 +3,6 @@
  * @type {Object}
  * @property {string} field - The field to filter on
  * @property {string} value - The value to filter with
- * @property {string} [operator] - The operator to use.
  */
 
 /**
@@ -18,7 +17,6 @@
  * @property {number} offset=0 - The starting record.
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
-
 
 /**
  * ParameterBag.
@@ -42,10 +40,17 @@ export default class ParameterBag {
   }
 
   /**
-   * @param {HyralFilter[]} value
+   * @param {HyralFilter[]} filter
    */
-  set filters(value) {
-    this.parameters.filters = value;
+  addFilter(filter) {
+    this.parameters.filters.push(filter);
+  }
+
+  /**
+   * @param {HyralFilter[]} filters
+   */
+  setFilters(filters) {
+    this.parameters.filters = filters;
   }
 
   /**
@@ -56,10 +61,10 @@ export default class ParameterBag {
   }
 
   /**
-   * @param {HyralPaging} value
+   * @param {HyralPaging} paging
    */
-  set paging(value) {
-    this.parameters.paging = value;
+  setPaging(paging) {
+    this.parameters.paging = paging;
   }
 
   /**
@@ -70,10 +75,10 @@ export default class ParameterBag {
   }
 
   /**
-   * @param {HyralSorting[]} value
+   * @param {HyralSorting[]} sorting
    */
-  set sorting(value) {
-    this.parameters.sorting = value;
+  setSorting(sorting) {
+    this.parameters.sorting = sorting;
   }
 
   /**
@@ -84,9 +89,17 @@ export default class ParameterBag {
   }
 
   /**
-   * @param {Object} value
+   * @param {string} key
+   * @param value
    */
-  set params(value) {
-    this.parameters.params = value;
+  addParam(key, value) {
+    this.parameters.params[key] = value;
+  }
+
+  /**
+   * @param {Object} params
+   */
+  setParams(params) {
+    this.parameters.params = params;
   }
 }
