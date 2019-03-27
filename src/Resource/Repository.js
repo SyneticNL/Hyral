@@ -14,7 +14,7 @@ export default {
    * @returns {Promise<HyralResource>}
    */
   findOne(parameterBag) {
-    return this.find(parameterBag).then((response) => response[0]);
+    return this.find(parameterBag).then(response => response[0]);
   },
 
   /**
@@ -23,7 +23,7 @@ export default {
    * @returns {Promise<HyralResource>}
    */
   findById(id) {
-    return this.connector.fetchOne(this, id, {}).then(result => result);
+    return this.connector.fetchOne(this, id, {});
   },
 
   /**
