@@ -4,7 +4,8 @@
   "description": "Hypermedia oriented Resource Api Layer",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "qs": "^6.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

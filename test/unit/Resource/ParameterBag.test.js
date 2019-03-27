@@ -11,7 +11,7 @@ describe('The parameter bag', () => {
   });
 
   it('should contain proper setters and getters for filters, paging, sorting and params', () => {
-    const params = {
+    let params = {
       key1: 'value1',
       key2: 'value2',
     };
@@ -30,14 +30,28 @@ describe('The parameter bag', () => {
         direction: 'asc',
       },
     ];
-    parameterBag.filters = filters;
-    parameterBag.params = params;
-    parameterBag.paging = paging;
-    parameterBag.sorting = sorting;
+
+    parameterBag.setFilters(filters);
+    parameterBag.setParams(params);
+    parameterBag.setPaging(paging);
+    parameterBag.setSorting(sorting);
 
     expect(parameterBag.filters).toBe(filters);
     expect(parameterBag.params).toBe(params);
     expect(parameterBag.paging).toBe(paging);
     expect(parameterBag.sorting).toBe(sorting);
+
+    const extraFilter = {
+      field: 'f2',
+      value: 'v2',
+    };
+    filters.push(extraFilter);
+
+    parameterBag.addFilter(extraFilter);
+    expect(parameterBag.filters).toBe(filters);
+
+    params.key3 = 'value3';
+    parameterBag.addParam('key3', 'value3');
+    expect(parameterBag.params).toBe(params);
   });
 });
