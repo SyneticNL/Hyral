@@ -3,7 +3,7 @@
  */
 const urlSerializer = {
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    *
    * @returns {string}
    */
@@ -12,7 +12,7 @@ const urlSerializer = {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {Number} id
    *
    * @returns {string}
@@ -22,7 +22,7 @@ const urlSerializer = {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    *
    * @returns {string}
    */
@@ -31,7 +31,7 @@ const urlSerializer = {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {Number} id
    *
    * @returns {string}
@@ -41,7 +41,7 @@ const urlSerializer = {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {Number} id
    *
    * @returns {string}
