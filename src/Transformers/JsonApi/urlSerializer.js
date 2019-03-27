@@ -27,7 +27,7 @@ const urlSerializer = {
    * @returns {string}
    */
   create(repository) {
-    return this.fetch(repository);
+    return `/${repository.resourceType}`;
   },
 
   /**
@@ -37,7 +37,7 @@ const urlSerializer = {
    * @returns {string}
    */
   update(repository, id) {
-    return this.fetchOne(repository, id);
+    return `/${repository.resourceType}/${id}`;
   },
 
   /**
@@ -47,7 +47,7 @@ const urlSerializer = {
    * @returns {string}
    */
   delete(repository, id) {
-    return this.fetchOne(repository, id);
+    return `/${repository.resourceType}/${id}`;
   },
 };
 
