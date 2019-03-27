@@ -2,7 +2,7 @@ export default {
   /**
    * @param {ParameterBag} parameterBag
    *
-   * @returns {Promise<Array>}
+   * @returns {Promise<HyralResource[]>}
    */
   find(parameterBag) {
     return this.connector.fetch(this, parameterBag);
