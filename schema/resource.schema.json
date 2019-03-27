@@ -1,0 +1,73 @@
+{
+  "$id": "resource.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "description": "A resource object",
+  "type": "object",
+  "definitions": {
+    "id": {
+      "type": ["null", "number", "string"]
+    },
+    "relationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "many-relationship": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/relationship"
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "isMany": {
+          "type": "boolean"
+        },
+        "data": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/relationship"
+            },
+            {
+              "$ref": "#/definitions/many-relationship"
+            }
+          ]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "loaded": { "type": "boolean" },
+        "loading": { "type": "boolean" },
+        "relationships": { "$ref": "#/definitions/relationships" }
+      },
+      "required": ["loaded", "loading"]
+    }
+  },
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "type": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    },
+    "metadata": {
+      "$ref": "#/definitions/metadata"
+    }
+  },
+  "required": [ "id", "type", "data", "metadata" ]
+}

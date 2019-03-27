@@ -7,12 +7,16 @@
     "axios": "^0.18.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-jest": "^24.5.0",
     "babel-preset-env": "^1.7.0",
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "jest-json-schema": "^2.0.2"
   },
   "scripts": {
     "test": "jest --watchAll"
