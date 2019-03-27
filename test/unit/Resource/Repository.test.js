@@ -50,7 +50,7 @@ describe('The resource repository', () => {
     expect(connector.fetch.mock.calls.length).toBe(1);
   });
   it('should use the connector fetchOne once for the findById method to do requests.', () => {
-    repository.findById(parameterBag);
+    repository.findById(1);
     expect(connector.fetchOne.mock.calls.length).toBe(1);
   });
   /* eslint-disable arrow-body-style */
