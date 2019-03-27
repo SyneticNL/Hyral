@@ -13,7 +13,7 @@ const urlSerializer = {
 
   /**
    * @param {HyralRepository} repository
-   * @param {Number} id
+   * @param {number|string} id
    *
    * @returns {string}
    */
@@ -32,7 +32,7 @@ const urlSerializer = {
 
   /**
    * @param {HyralRepository} repository
-   * @param {Number} id
+   * @param {number|string} id
    *
    * @returns {string}
    */
@@ -42,7 +42,7 @@ const urlSerializer = {
 
   /**
    * @param {HyralRepository} repository
-   * @param {Number} id
+   * @param {number|string} id
    *
    * @returns {string}
    */
