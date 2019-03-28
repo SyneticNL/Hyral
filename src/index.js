@@ -6,12 +6,12 @@ import jsonApiRequestSerializer from './Transformers/JsonApi/requestSerializer';
 import jsonApiUrlSerializer from './Transformers/JsonApi/urlSerializer';
 import ParameterBag from './Resource/ParameterBag';
 
-const jsonApiSerializers = {
+const jsonApiTransformers = {
   pramsSerializer: jsonApiParamsSerializer,
   responseNormalizer: jsonApiResponseNormalizer,
   requestSerializer: jsonApiRequestSerializer,
   urlSerializer: jsonApiUrlSerializer,
 };
 
-export { createHttpConnector, jsonApiSerializers, ParameterBag };
+export { createHttpConnector, jsonApiTransformers, ParameterBag };
 export default createResourceRepository;
