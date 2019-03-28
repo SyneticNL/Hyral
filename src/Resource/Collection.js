@@ -40,11 +40,36 @@ export default class Collection {
     return this.metadata.parameterBag;
   }
 
+  set parameterBag(parameterBag) {
+    this.metadata.parameterBag = parameterBag;
+  }
+
   /**
-   * @returns {number|null}
+   * @returns {number}
    */
   get length() {
-    return this.metadata.paging.count;
+    return this.metadata.paging.count || 0;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get pages() {
+    return this.metadata.paging.pages || 0;
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get isLoading() {
+    return this.metadata.loading;
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get isLoaded() {
+    return this.metadata.loaded;
   }
 
   /**
@@ -66,7 +91,8 @@ export default class Collection {
    */
   load() {
     return this.repository.find(this.parameterBag).then((response) => {
-      this.items = response;
+      this.items = response.data;
+      this.metadata.paging = response.paging;
     }).finally(() => {
       this.metadata.loading = false;
       this.metadata.loaded = true;
