@@ -3,11 +3,11 @@
     "version": "1.0"
   },
   "links": {
-    "self": "\/products?page[number]=1&page[size]=100",
-    "first": "\/products?page[number]=1&page[size]=100",
-    "last": "\/products?page[number]=1&page[size]=100",
+    "self": "\/products?page[number]=1&page[size]=20",
+    "first": "\/products?page[number]=1&page[size]=20",
+    "last": "\/products?page[number]=5&page[size]=20",
     "prev": null,
-    "next": null
+    "next": "\/products?page[number]=2&page[size]=20"
   },
   "data": [
     {

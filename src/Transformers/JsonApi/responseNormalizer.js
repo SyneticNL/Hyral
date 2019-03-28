@@ -1,11 +1,40 @@
-
 import normalizeResources from './resource/normalizeResources';
 import relationshipApplyToData from './resource/relationship/relationshipApplyToData';
+import normalizePaging from './resource/normalizePaging';
 
 /**
- * @param {{included: Array, data: Array|Object}} response
+ * @typedef JsonApiResponse
  *
- * @returns {HyralResource[]}
+ * @type {Object}
+ * @property {JsonApiResource[]} included
+ * @property {JsonApiResource[]} data
+ * @property {Object} links
+ * @property {String} links.self
+ * @property {String} links.prev
+ * @property {String} links.next
+ * @property {String} links.first
+ * @property {String} links.last
+ * @property {Object} jsonapi
+ * @property {String} jsonapi.version
+ * @property {Object} metadata
+ *
+ */
+
+/**
+ * @typedef JsonApiResource
+ *
+ * @type {Object}
+ * @property {String|Number} id
+ * @property {String} type
+ * @property {Object} attributes
+ * @property {Object} relationships
+ *
+ */
+
+/**
+ * @param {JsonApiResponse} response
+ *
+ * @returns {{data: HyralResource[]|HyralResource, paging: {count: number, pages: number}}}
  */
 export default function responseNormalizer(response) {
   const singleMode = !Array.isArray(response.data);
@@ -17,5 +46,15 @@ export default function responseNormalizer(response) {
   relationshipApplyToData(rootResources, includedResources);
 
   const normalizedItems = Object.values(rootResources);
-  return singleMode ? normalizedItems.shift() : normalizedItems;
+
+  if (singleMode) {
+    return {
+      data: normalizedItems.shift(),
+    };
+  }
+
+  return {
+    data: normalizedItems,
+    paging: normalizePaging(response),
+  };
 }
