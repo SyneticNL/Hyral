@@ -5,6 +5,7 @@ import jsonApiResponseNormalizer from './Transformers/JsonApi/responseNormalizer
 import jsonApiRequestSerializer from './Transformers/JsonApi/requestSerializer';
 import jsonApiUrlSerializer from './Transformers/JsonApi/urlSerializer';
 import ParameterBag from './Resource/ParameterBag';
+import Collection from './Resource/Collection';
 
 const jsonApiTransformers = {
   pramsSerializer: jsonApiParamsSerializer,
@@ -15,8 +16,9 @@ const jsonApiTransformers = {
 
 
 export {
-  createHttpConnector,
   jsonApiTransformers,
   ParameterBag,
+  Collection,
+  createHttpConnector,
   createResourceRepository,
 };
