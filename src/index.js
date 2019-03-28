@@ -13,5 +13,10 @@ const jsonApiTransformers = {
   urlSerializer: jsonApiUrlSerializer,
 };
 
-export { createHttpConnector, jsonApiTransformers, ParameterBag };
-export default createResourceRepository;
+
+export {
+  createHttpConnector,
+  jsonApiTransformers,
+  ParameterBag,
+  createResourceRepository,
+};
