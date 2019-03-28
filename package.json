@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "axios": "^0.18.0",
-    "qs": "^6.7.0"
+    "qs": "^6.7.0",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

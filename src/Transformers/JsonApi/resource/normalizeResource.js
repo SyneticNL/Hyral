@@ -2,17 +2,6 @@ import resourceFactory from '../../../Resource/Factory/resourceFactory';
 import relationshipGetType from './relationship/relationshipGetType';
 
 /**
- * @typedef JsonApiResource
- *
- * @type {Object}
- * @property {String|Number} id
- * @property {String} type
- * @property {Object} attributes
- * @property {Object} relationships
- *
- */
-
-/**
  * @param {JsonApiResource} data
  *
  * @returns {HyralResource}
