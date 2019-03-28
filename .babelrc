@@ -3,6 +3,12 @@
   "env": {
     "test": {
       "presets": ["@babel/preset-env"]
+    },
+    "production": {
+      "presets": ["@babel/preset-env", "minify"],
+      "plugins": [
+        "add-module-exports"
+      ]
     }
   }
 }
