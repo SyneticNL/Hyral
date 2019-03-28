@@ -4,7 +4,7 @@ import url from 'url';
 /**
  * @param {JsonApiResponse} response
  *
- * @returns {{count: Number, pages: Number}}
+ * @returns {{count: number, pages: number}}
  */
 export default function normalizePaging(response) {
   if (!response.links.last) {

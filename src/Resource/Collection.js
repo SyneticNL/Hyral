@@ -24,9 +24,6 @@ export default class Collection {
     };
 
     /** @private */
-    this.loadingPromise = null;
-
-    /** @private */
     this.data = {
       items: [],
     };
@@ -80,18 +77,12 @@ export default class Collection {
   }
 
   /**
-   * @param {Array} items
-   */
-  set items(items) {
-    this.data.items = items;
-  }
-
-  /**
    * @returns {Promise}
    */
   load() {
+    this.metadata.loading = true;
     return this.repository.find(this.parameterBag).then((response) => {
-      this.items = response.data;
+      this.data.items = response.data;
       this.metadata.paging = response.paging;
     }).finally(() => {
       this.metadata.loading = false;

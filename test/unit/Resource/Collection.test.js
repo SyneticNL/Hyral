@@ -1,6 +1,6 @@
 import Collection from '../../../src/Resource/Collection';
 
-describe('The parameter bag', () => {
+describe('The collection', () => {
   const mockResponse = {
     paging: {
       pages: 5,
