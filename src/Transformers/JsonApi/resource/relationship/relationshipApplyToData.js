@@ -7,6 +7,9 @@ import relationshipGetResource from './relationshipGetResource';
 export default function relationshipApplyToData(items, includedRelations) {
   Object.keys(items).forEach((key) => {
     Object.entries(items[key].metadata.relationships).forEach(([field, relation]) => {
+      if (relation.data === null) {
+        return;
+      }
       if (!relation.isMany) {
         // eslint-disable-next-line no-param-reassign
         items[key].data[field] = relationshipGetResource(relation.data, includedRelations);
@@ -15,7 +18,7 @@ export default function relationshipApplyToData(items, includedRelations) {
 
       // eslint-disable-next-line no-param-reassign
       items[key].data[field] = relation.data.map(
-        item => relationshipGetResource(item, includedRelations)
+        item => relationshipGetResource(item, includedRelations),
       );
     });
   });
