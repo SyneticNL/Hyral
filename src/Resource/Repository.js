@@ -5,7 +5,8 @@ export default {
    * @returns {Promise<HyralResource[]>}
    */
   find(parameterBag) {
-    return this.connector.fetch(this, parameterBag);
+    return this.connector.fetch(this, parameterBag)
+      .then(response => response.data);
   },
 
   /**

@@ -9,14 +9,16 @@ describe('The resource repository', () => {
   let repository;
   let connector;
 
-  const responseData = [
-    {
-      data: 'data',
-    },
-    {
-      data: 'data',
-    },
-  ];
+  const responseData = {
+    data: [
+      {
+        data: 'data',
+      },
+      {
+        data: 'data',
+      },
+    ],
+  };
 
   beforeEach(() => {
     connector = {
@@ -56,13 +58,13 @@ describe('The resource repository', () => {
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a find containing the data array', () => {
     return repository.find(parameterBag).then((data) => {
-      expect(data).toBe(responseData);
+      expect(data).toBe(responseData.data);
     });
   });
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
     return repository.findOne(parameterBag).then((data) => {
-      expect(data).toEqual(responseData[0]);
+      expect(data).toEqual(responseData.data[0]);
     });
   });
   it('should return the promise of the connector after a findById containing the data', () => {
