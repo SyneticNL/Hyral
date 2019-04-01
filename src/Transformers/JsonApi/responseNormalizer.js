@@ -37,6 +37,9 @@ import normalizePaging from './resource/normalizePaging';
  * @returns {{data: HyralResource[]|HyralResource, paging: {count: number, pages: number}}}
  */
 export default function responseNormalizer(response) {
+  if (response.errors) {
+    return response;
+  }
   const singleMode = !Array.isArray(response.data);
 
   const includedResources = response.included ? normalizeResources(response.included) : {};
