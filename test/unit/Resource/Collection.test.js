@@ -29,13 +29,33 @@ describe('The collection', () => {
     expect(collection.items).toHaveLength(0);
   });
 
-  test('that the collection correctly uses the repository to find items', () => {
-    return collection.load().then(() => {
+  test('that the collection correctly uses the repository to find items',
+    () => collection.load().then(() => {
       expect(collection.length).toEqual(100);
       expect(collection.pages).toEqual(5);
       expect(collection.items).toHaveLength(2);
       expect(collection.isLoading).toBeFalsy();
       expect(collection.isLoaded).toBeTruthy();
-    });
-  });
+    }));
+
+  test('that the repository find is not called if the data has been loaded and the state has not changed',
+    () => collection.load().then(() => {
+      expect(productRepository.find.mock.calls).toHaveLength(1);
+
+      expect(collection.length).toEqual(100);
+      expect(collection.pages).toEqual(5);
+      expect(collection.items).toHaveLength(2);
+      expect(collection.isLoading).toBeFalsy();
+      expect(collection.isLoaded).toBeTruthy();
+
+      collection.load().then(() => {
+        expect(productRepository.find.mock.calls).toHaveLength(1);
+
+        expect(collection.length).toEqual(100);
+        expect(collection.pages).toEqual(5);
+        expect(collection.items).toHaveLength(2);
+        expect(collection.isLoading).toBeFalsy();
+        expect(collection.isLoaded).toBeTruthy();
+      });
+    }));
 });

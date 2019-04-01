@@ -1,6 +1,6 @@
 import ParameterBag from '../../../src/Resource/ParameterBag';
 
-describe('The parameter bag', () => {
+describe('The ParameterBag', () => {
   test('that it is initialized with default empty values', () => {
     const parameterBag = new ParameterBag();
 
