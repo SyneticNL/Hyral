@@ -15,7 +15,7 @@ export default {
    * @returns {Promise<HyralResource>}
    */
   findOne(parameterBag) {
-    return this.find(parameterBag).then(response => response[0]);
+    return this.find(parameterBag).then(response => response.data[0] || {});
   },
 
   /**
