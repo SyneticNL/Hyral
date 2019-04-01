@@ -9,6 +9,6 @@ export default function serializeSorting(parameterBag) {
   });
 
   return {
-    sort: sorting.join(','),
+    sort: sorting.join(',') || {},
   };
 }
