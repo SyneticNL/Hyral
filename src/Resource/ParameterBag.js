@@ -2,7 +2,7 @@
  * @typedef HyralFilter
  * @type {Object}
  * @property {string} field - The field to filter on
- * @property {string} value - The value to filter with
+ * @property {string|number|boolean|null} value - The value to filter with
  */
 
 /**
@@ -18,75 +18,99 @@
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
 
-/**
- * ParameterBag.
- */
-export default class ParameterBag {
-  constructor() {
-    /** @private */
-    this.parameters = {
+function ParameterBag() {
+  if (!new.target) {
+    throw Error('ParameterBag() must be called with new');
+  }
+
+  Object.defineProperty(this, 'parameters', {
+    enumerable: false,
+    configurable: false,
+    value: {
       filters: [],
       sorting: [],
       paging: {},
       params: {},
-    };
-  }
+    },
+  });
 
+  Object.defineProperty(this, 'metadata', {
+    enumerable: false,
+    configurable: false,
+    value: {
+      stateId: 0,
+    },
+  });
+
+  Object.defineProperty(this, 'updateStateId', {
+    enumerable: false,
+    configurable: false,
+    value: () => {
+      this.metadata.stateId += 1;
+    },
+  });
+}
+
+ParameterBag.prototype = {
   /**
    * @returns {HyralFilter[]}
    */
   get filters() {
     return this.parameters.filters;
-  }
+  },
 
   /**
-   * @param {HyralFilter[]} filter
+   * @param {HyralFilter} filter
    */
   addFilter(filter) {
     this.parameters.filters.push(filter);
-  }
+    this.updateStateId();
+  },
 
   /**
    * @param {HyralFilter[]} filters
    */
   setFilters(filters) {
     this.parameters.filters = filters;
-  }
+    this.updateStateId();
+  },
 
   /**
    * @returns {HyralPaging}
    */
   get paging() {
     return this.parameters.paging;
-  }
+  },
 
   /**
    * @param {HyralPaging} paging
    */
   setPaging(paging) {
     this.parameters.paging = paging;
-  }
+    this.updateStateId();
+  },
 
   /**
    * @returns {HyralSorting[]}
    */
   get sorting() {
     return this.parameters.sorting;
-  }
+  },
 
   /**
    * @param {HyralSorting[]} sorting
    */
   setSorting(sorting) {
     this.parameters.sorting = sorting;
-  }
+    this.updateStateId();
+  },
 
   /**
    * @returns {Object}
    */
   get params() {
     return this.parameters.params;
-  }
+  },
 
   /**
    * @param {string} key
@@ -94,12 +118,20 @@ export default class ParameterBag {
    */
   addParam(key, value) {
     this.parameters.params[key] = value;
-  }
+    this.updateStateId();
+  },
 
   /**
    * @param {Object} params
    */
   setParams(params) {
     this.parameters.params = params;
-  }
-}
+    this.updateStateId();
+  },
+
+  get stateId() {
+    return this.metadata.stateId;
+  },
+};
+
+export default ParameterBag;
