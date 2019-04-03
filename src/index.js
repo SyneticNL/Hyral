@@ -8,7 +8,7 @@ import ParameterBag from './Resource/ParameterBag';
 import Collection from './Resource/Collection';
 
 const jsonApiTransformers = {
-  pramsSerializer: jsonApiParamsSerializer,
+  paramsSerializer: jsonApiParamsSerializer,
   responseNormalizer: jsonApiResponseNormalizer,
   requestSerializer: jsonApiRequestSerializer,
   urlSerializer: jsonApiUrlSerializer,

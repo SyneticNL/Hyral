@@ -104,7 +104,7 @@ Collection.prototype = {
     }
 
     this.metadata.loading = true;
-    return this.repository.find(this.parameterBag).then((response) => {
+    return this.repository.find(this.metadata.parameterBag).then((response) => {
       this.data.items = response.data;
       this.metadata.paging = response.paging;
     }).finally(() => {
