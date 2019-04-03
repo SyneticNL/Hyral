@@ -17,6 +17,10 @@
  * @property {number} offset=0 - The starting record.
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
+const cloneReducer = (accumulator, item) => {
+  accumulator.push({ ...item });
+  return accumulator;
+};
 
 function ParameterBag() {
   if (!new.target) {
@@ -131,6 +135,15 @@ ParameterBag.prototype = {
 
   get stateId() {
     return this.metadata.stateId;
+  },
+
+  clone() {
+    const clone = new ParameterBag();
+    clone.setFilters(this.parameters.filters.reduce(cloneReducer, []));
+    clone.setPaging({ ...this.paging });
+    clone.setSorting({ ...this.sorting });
+    clone.setParams({ ...this.params });
+    return clone;
   },
 };
 

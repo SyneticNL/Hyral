@@ -136,4 +136,28 @@ describe('The ParameterBag', () => {
     parameterBag.setFilters([]);
     expect(parameterBag.stateId).not.toBe(currentStateId);
   });
+
+  it('should have a clone method.', () => {
+    const filters = [
+      {
+        field: 'original',
+        value: 'test',
+      },
+    ];
+    const params = {
+      original: 'original',
+    };
+    const original = new ParameterBag();
+    original.setFilters(filters);
+    original.setParams(params);
+    const clone = original.clone();
+    clone.addFilter({
+      field: 'clone',
+      value: 'test',
+    });
+    clone.addParam('clone', 'clone');
+    expect(clone).not.toBe(original);
+    expect(clone.filters).not.toEqual(original.filters);
+    expect(clone.params).not.toEqual(original.params);
+  });
 });

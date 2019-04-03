@@ -139,7 +139,7 @@ Collection.prototype = {
       count: this.metadata.paging.count,
       pages: this.metadata.paging.pages,
       loaded: this.metadata.loaded,
-      parameterBag: this.parameterBag,
+      parameterBag: this.parameterBag.clone(),
     });
     return clone;
   },
