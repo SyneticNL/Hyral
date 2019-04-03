@@ -1,15 +1,15 @@
 import ParameterBag from './ParameterBag';
 
-/**
- * @param {String} name
- * @param {HyralRepository} repository
- */
-function Collection(name, repository) {
-  if (!new.target) {
-    throw Error('Collection() must be called with new');
-  }
-
-  Object.defineProperties(this, {
+function defineCollectionProperties(collection, {
+  name,
+  repository,
+  items = [],
+  count = null,
+  pages = null,
+  loaded = false,
+  parameterBag = null,
+}) {
+  Object.defineProperties(collection, {
     name: {
       enumerable: true,
       configurable: false,
@@ -27,12 +27,12 @@ function Collection(name, repository) {
       configurable: false,
       value: {
         loading: false,
-        loaded: false,
-        parameterBag: null,
+        loaded,
+        parameterBag,
         lastParameterBagState: null,
         paging: {
-          count: null,
-          pages: null,
+          count,
+          pages,
         },
       },
     },
@@ -40,10 +40,22 @@ function Collection(name, repository) {
       enumerable: false,
       configurable: false,
       value: {
-        items: [],
+        items,
       },
     },
   });
+}
+
+/**
+ * @param {String} name
+ * @param {HyralRepository} repository
+ */
+function Collection(name, repository) {
+  if (!new.target) {
+    throw Error('Collection() must be called with new');
+  }
+
+  defineCollectionProperties(this, { name, repository });
 }
 
 Collection.prototype = {
@@ -113,6 +125,23 @@ Collection.prototype = {
 
       this.metadata.lastParameterBagState = this.parameterBag.stateId;
     });
+  },
+
+  /**
+   * @returns {Collection}
+   */
+  clone() {
+    const clone = Object.create(Collection.prototype);
+    defineCollectionProperties(clone, {
+      name: this.name,
+      repository: this.repository,
+      items: this.data.items,
+      count: this.metadata.paging.count,
+      pages: this.metadata.paging.pages,
+      loaded: this.metadata.loaded,
+      parameterBag: this.parameterBag,
+    });
+    return clone;
   },
 };
 

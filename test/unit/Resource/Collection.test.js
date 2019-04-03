@@ -58,4 +58,16 @@ describe('The collection', () => {
         expect(collection.isLoaded).toBeTruthy();
       });
     }));
+  it('can be cloned using the clone method.', () => {
+    const collectionName = 'colname';
+    const original = new Collection(collectionName, repositoryFindMock);
+    const clone = original.clone();
+
+    expect(clone.name).toEqual(original.name);
+    expect(clone.repository).toBe(original.repository);
+    expect(clone.items).toEqual(original.items);
+    expect(clone.length).toEqual(original.length);
+    expect(clone.isLoaded).toEqual(original.isLoaded);
+    expect(clone.isLoading).toEqual(false);
+  });
 });
