@@ -1,3 +1,5 @@
+import ParameterBag from './ParameterBag';
+
 export default {
   /**
    * @param {ParameterBag} parameterBag
@@ -24,7 +26,7 @@ export default {
    * @returns {Promise<HyralResource>}
    */
   findById(id) {
-    return this.connector.fetchOne(this, id, {});
+    return this.connector.fetchOne(this, id, new ParameterBag());
   },
 
   /**
