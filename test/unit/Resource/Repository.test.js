@@ -9,21 +9,27 @@ describe('The resource repository', () => {
   let repository;
   let connector;
 
-  const responseData = {
-    data: [
-      {
-        data: 'data',
+  const axiosResponseData = {
+    data: {
+      data: [
+        {
+          id: 1,
+          title: 'test',
+        },
+      ],
+      paging: {
+        count: 0,
+        pages: 0,
       },
-      {
-        data: 'data',
-      },
-    ],
+    },
+    status: 200,
+    statusText: 'OK',
   };
 
   beforeEach(() => {
     connector = {
-      fetch: jest.fn(() => Promise.resolve(responseData)),
-      fetchOne: jest.fn(() => Promise.resolve(responseData)),
+      fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
+      fetchOne: jest.fn(() => Promise.resolve(axiosResponseData.data)),
     };
     repository = createResourceRepository(connector, resourceType, identifier);
   });
@@ -58,18 +64,18 @@ describe('The resource repository', () => {
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a find containing the data array', () => {
     return repository.find(parameterBag).then((data) => {
-      expect(data).toBe(responseData.data);
+      expect(data).toBe(axiosResponseData.data);
     });
   });
   /* eslint-disable arrow-body-style */
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
     return repository.findOne(parameterBag).then((data) => {
-      expect(data).toEqual(responseData.data[0]);
+      expect(data).toEqual(axiosResponseData.data.data[0]);
     });
   });
   it('should return the promise of the connector after a findById containing the data', () => {
     return repository.findById(1).then((data) => {
-      expect(data).toBe(responseData);
+      expect(data).toBe(axiosResponseData.data);
     });
   });
 });
