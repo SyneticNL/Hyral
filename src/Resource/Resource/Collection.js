@@ -1,4 +1,4 @@
-import ParameterBag from './ParameterBag';
+import ParameterBag from '../ParameterBag';
 
 /**
  * @param {String} name

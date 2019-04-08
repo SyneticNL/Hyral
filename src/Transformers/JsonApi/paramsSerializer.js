@@ -1,8 +1,8 @@
 import qs from 'qs';
-import serializeFilters from './params/serializeFilters';
-import serializeParams from './params/serializeParams';
-import serializeSorting from './params/serializeSorting';
-import serializePaging from './params/serializePaging';
+import serializeFilters from './Params/serializeFilters';
+import serializeParams from './Params/serializeParams';
+import serializeSorting from './Params/serializeSorting';
+import serializePaging from './Params/serializePaging';
 
 /**
  * @param {ParameterBag} parameterBag

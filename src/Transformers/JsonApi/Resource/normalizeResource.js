@@ -1,5 +1,5 @@
-import resourceFactory from '../../../Resource/Factory/resourceFactory';
-import relationshipGetType from './relationship/relationshipGetType';
+import createResource from '../../../Resource/Resource/ResourceFactory';
+import relationshipGetType from './Relationship/relationshipGetType';
 
 /**
  * @param {JsonApiResource} data
@@ -7,7 +7,7 @@ import relationshipGetType from './relationship/relationshipGetType';
  * @returns {HyralResource}
  */
 export default function normalizeResource(data) {
-  const resource = resourceFactory(data.id, data.type, data.attributes);
+  const resource = createResource(data.id, data.type, data.attributes);
 
   resource.metadata.relationships = {};
 

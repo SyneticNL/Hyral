@@ -1,5 +1,5 @@
-import createResourceRepository from '../../../src/Resource/RepositoryFactory';
-import ParameterBag from '../../../src/Resource/ParameterBag';
+import RepositoryManager from '../../../../src/Resource/Repository/RepositoryManager';
+import ParameterBag from '../../../../src/Resource/ParameterBag';
 
 describe('The resource repository', () => {
   const resourceType = 'testtype';
@@ -31,7 +31,7 @@ describe('The resource repository', () => {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
       fetchOne: jest.fn(() => Promise.resolve(axiosResponseData.data)),
     };
-    repository = createResourceRepository(connector, resourceType, identifier);
+    repository = RepositoryManager.createRepository(connector, resourceType, identifier);
   });
 
   it('should have the correct identifier and resource type after the creation', () => {
@@ -40,7 +40,7 @@ describe('The resource repository', () => {
   });
 
   it('should default the id to "id" when the id is omitted in the factory', () => {
-    repository = createResourceRepository(connector, resourceType);
+    repository = RepositoryManager.createRepository(connector, resourceType);
     expect(repository.identifier).toBe('id');
   });
 

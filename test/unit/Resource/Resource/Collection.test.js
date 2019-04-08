@@ -1,4 +1,4 @@
-import Collection from '../../../src/Resource/Collection';
+import Collection from '../../../../src/Resource/Resource/Collection';
 
 describe('The collection', () => {
   const mockResponse = {

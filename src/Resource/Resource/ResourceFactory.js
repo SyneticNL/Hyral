@@ -18,7 +18,7 @@
  *
  * @returns {HyralResource}
  */
-export default function resourceFactory(id, type, data = null) {
+export default function createResource(id, type, data = null) {
   return {
     id,
     type,
