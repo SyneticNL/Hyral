@@ -112,5 +112,4 @@ describe('paramSerializer', () => {
       'filter%5Bf1%5D=v1&page%5Boffset%5D=20&page%5Blimit%5D=20&sort=field1%2C-field2&simple=value',
     );
   });
-
 });

@@ -1,5 +1,7 @@
 
-export default function createRepository(manager, repositoryDefinition, connector, resourceType, identifier) {
+export default function createRepository(
+  manager, repositoryDefinition, connector, resourceType, identifier,
+) {
   const repository = Object.create(repositoryDefinition, {
     connector: {
       writable: false,
