@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/fp/cloneDeep';
 /**
  * @typedef HyralFilter
  * @type {Object}
@@ -137,6 +138,9 @@ ParameterBag.prototype = {
     return this.metadata.stateId;
   },
 
+  /**
+   * @return {ParameterBag}
+   */
   clone() {
     const clone = new ParameterBag();
     clone.setFilters(this.parameters.filters.reduce(cloneReducer, []));
@@ -145,6 +149,30 @@ ParameterBag.prototype = {
     clone.setParams({ ...this.params });
     return clone;
   },
+
+  /**
+   * @return {Object}
+   */
+  serialize() {
+    return cloneDeep({
+      params: this.params,
+      filters: this.filters,
+      paging: this.paging,
+      sorting: this.sorting,
+    });
+  },
+};
+
+/**
+ * @return {ParameterBag}
+ */
+ParameterBag.createFromData = (data) => {
+  const parameterBag = new ParameterBag();
+  parameterBag.setFilters(data.filters);
+  parameterBag.setParams(data.params);
+  parameterBag.setPaging(data.paging);
+  parameterBag.setSorting(data.sorting);
+  return parameterBag;
 };
 
 export default ParameterBag;

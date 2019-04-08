@@ -160,4 +160,66 @@ describe('The ParameterBag', () => {
     expect(clone.filters).not.toEqual(original.filters);
     expect(clone.params).not.toEqual(original.params);
   });
+
+  it('should have a serialize method which returns a copy of the data.', () => {
+    const serializedData = {
+      params: {
+        key1: 'value1',
+        key2: 'value2',
+      },
+      filters: [
+        {
+          field: 'f1',
+          value: 'v1',
+        },
+      ],
+      paging: {
+        offset: 0,
+      },
+      sorting: [
+        {
+          field: 'f1',
+          direction: 'asc',
+        },
+      ],
+    };
+    const parameterBag = new ParameterBag();
+    parameterBag.setFilters(serializedData.filters);
+    parameterBag.setParams(serializedData.params);
+    parameterBag.setPaging(serializedData.paging);
+    parameterBag.setSorting(serializedData.sorting);
+    expect(parameterBag.serialize()).toEqual(serializedData);
+    expect(parameterBag.serialize().params).not.toBe(serializedData.params);
+    expect(parameterBag.serialize().filters).not.toBe(serializedData.filters);
+    expect(parameterBag.serialize().paging).not.toBe(serializedData.paging);
+    expect(parameterBag.serialize().sorting).not.toBe(serializedData.sorting);
+  });
+  it('Can be recreated based on serialized data.', () => {
+    const serializedData = {
+      params: {
+        key1: 'value1',
+        key2: 'value2',
+      },
+      filters: [
+        {
+          field: 'f1',
+          value: 'v1',
+        },
+      ],
+      paging: {
+        offset: 0,
+      },
+      sorting: [
+        {
+          field: 'f1',
+          direction: 'asc',
+        },
+      ],
+    };
+    const parameterBag = ParameterBag.createFromData(serializedData);
+    expect(parameterBag.params).toEqual(serializedData.params);
+    expect(parameterBag.filters).toEqual(serializedData.filters);
+    expect(parameterBag.paging).toEqual(serializedData.paging);
+    expect(parameterBag.sorting).toEqual(serializedData.sorting);
+  });
 });
