@@ -58,27 +58,58 @@ describe('The collection', () => {
         expect(collection.isLoaded).toBeTruthy();
       });
     }));
-  it('can be cloned using the clone method.', () => {
-    const collectionName = 'colname';
-    const original = new Collection(collectionName, repositoryFindMock);
-    const clone = original.clone();
+  describe('can be cloned', () => {
+    const publicData = {
+      name: 'collection1',
+      items: [{
+        name: 'item1',
+      }],
+      metadata: {
+        loaded: true,
+        parameterBag: {
+          name: 'parameterbagMock',
+        },
+        paging: {
+          count: 100,
+          pages: 10,
+        },
+      },
+    };
 
-    expect(clone.name).toEqual(original.name);
-    expect(clone.items).toEqual(original.items);
-    expect(clone.length).toEqual(original.length);
-    expect(clone.isLoaded).toEqual(original.isLoaded);
-    expect(clone.isLoading).toEqual(false);
-  });
-  it('has a cloned versions of the parameterbag after a clone', () => {
-    const collectionName = 'colname';
-    const original = new Collection(collectionName, repositoryFindMock);
-    const clone = original.clone();
-    expect(clone.parameterBag).not.toBe(original.parameterBag);
-  });
-  it('has a repository that is a reference to the original repository after a clone', () => {
-    const collectionName = 'colname';
-    const original = new Collection(collectionName, repositoryFindMock);
-    const clone = original.clone();
-    expect(clone.repository).toBe(original.repository);
+    it('using the clone method.', () => {
+      const collectionName = 'colname';
+      const original = new Collection(collectionName, repositoryFindMock);
+      const clone = original.clone();
+
+      expect(clone.name).toEqual(original.name);
+      expect(clone.items).toEqual(original.items);
+      expect(clone.length).toEqual(original.length);
+      expect(clone.isLoaded).toEqual(original.isLoaded);
+      expect(clone.isLoading).toEqual(false);
+    });
+    it('so it has a cloned versions of the parameterbag after a clone', () => {
+      const collectionName = 'colname';
+      const original = new Collection(collectionName, repositoryFindMock);
+      const clone = original.clone();
+      expect(clone.parameterBag).not.toBe(original.parameterBag);
+    });
+    it('has a repository that is a reference to the original repository after a clone', () => {
+      const collectionName = 'colname';
+      const original = new Collection(collectionName, repositoryFindMock);
+      const clone = original.clone();
+      expect(clone.repository).toBe(original.repository);
+    });
+    const collectionDeSerialized = new Collection(publicData.name, productRepository, publicData);
+    it('can be constructed based on serialized data', () => {
+      expect(collectionDeSerialized.name).toEqual(publicData.name);
+      expect(collectionDeSerialized.items).toEqual(publicData.items);
+      expect(collectionDeSerialized.isLoaded).toEqual(publicData.metadata.loaded);
+      expect(collectionDeSerialized.length).toEqual(publicData.metadata.paging.count);
+      expect(collectionDeSerialized.pages).toEqual(publicData.metadata.paging.pages);
+    });
+    it('has a serialize method which returns the public data which is not the same as the original.', () => {
+      expect(collectionDeSerialized.serialize()).toEqual(publicData);
+      expect(collectionDeSerialized.serialize()).not.toBe(publicData);
+    });
   });
 });
