@@ -21,12 +21,12 @@ function Collection(name, repository, serializedData = {
   if (!new.target) {
     throw Error('Collection() must be called with new');
   }
-  const publicData = cloneDeep(serializedData);
+  const serializebleData = cloneDeep(serializedData);
   const privateData = {
     loading: false,
     lastParameterBagState: null,
-    parameterBag: publicData.metadata.parameterBagData
-      ? ParameterBag.createFromData(publicData.metadata.parameterBagData)
+    parameterBag: serializebleData.metadata.parameterBagData
+      ? ParameterBag.createFromData(serializebleData.metadata.parameterBagData)
       : null,
   };
 
@@ -62,7 +62,7 @@ function Collection(name, repository, serializedData = {
        * @returns {number}
        */
       get() {
-        return publicData.metadata.paging.count || 0;
+        return serializebleData.metadata.paging.count || 0;
       },
     },
     pages: {
@@ -70,7 +70,7 @@ function Collection(name, repository, serializedData = {
        * @returns {number}
        */
       get() {
-        return publicData.metadata.paging.pages || 0;
+        return serializebleData.metadata.paging.pages || 0;
       },
     },
     isLoading: {
@@ -86,7 +86,7 @@ function Collection(name, repository, serializedData = {
        * @returns {boolean}
        */
       get() {
-        return publicData.metadata.loaded;
+        return serializebleData.metadata.loaded;
       },
     },
     items: {
@@ -94,7 +94,7 @@ function Collection(name, repository, serializedData = {
         /**
          * @returns {Array}
          */
-        return publicData.items;
+        return serializebleData.items;
       },
     },
   });
@@ -109,11 +109,11 @@ function Collection(name, repository, serializedData = {
     }
     privateData.loading = true;
     return this.repository.find(this.parameterBag).then((response) => {
-      publicData.items = response.data;
-      publicData.metadata.paging = response.paging;
+      serializebleData.items = response.data;
+      serializebleData.metadata.paging = response.paging;
     }).finally(() => {
       privateData.loading = false;
-      publicData.metadata.loaded = true;
+      serializebleData.metadata.loaded = true;
 
       privateData.lastParameterBagState = this.parameterBag.stateId;
     });
@@ -128,7 +128,7 @@ function Collection(name, repository, serializedData = {
    * @returns {Object}
    */
   this.serialize = () => {
-    const data = cloneDeep(publicData);
+    const data = cloneDeep(serializebleData);
     data.metadata.parameterBagData = privateData.parameterBag
       ? privateData.parameterBag.serialize()
       : null;
