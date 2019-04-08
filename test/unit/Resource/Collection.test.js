@@ -66,8 +66,11 @@ describe('The collection', () => {
       }],
       metadata: {
         loaded: true,
-        parameterBag: {
-          name: 'parameterbagMock',
+        parameterBagData: {
+          filters: null,
+          paging: null,
+          params: null,
+          sorting: null,
         },
         paging: {
           count: 100,

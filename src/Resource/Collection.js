@@ -25,7 +25,9 @@ function Collection(name, repository, serializedData = {
   const privateData = {
     loading: false,
     lastParameterBagState: null,
-    parameterBag: null,
+    parameterBag: publicData.metadata.parameterBagData
+      ? ParameterBag.createFromData(publicData.metadata.parameterBagData)
+      : null,
   };
 
 
@@ -125,7 +127,13 @@ function Collection(name, repository, serializedData = {
   /**
    * @returns {Object}
    */
-  this.serialize = () => cloneDeep(publicData);
+  this.serialize = () => {
+    const data = cloneDeep(publicData);
+    data.metadata.parameterBagData = privateData.parameterBag
+      ? privateData.parameterBag.serialize()
+      : null;
+    return data;
+  };
 }
 
 export default Collection;
