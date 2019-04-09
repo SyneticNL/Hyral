@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
+
 /**
  * @typedef HyralFilter
  * @type {Object}
@@ -12,12 +13,14 @@ import cloneDeep from 'lodash/fp/cloneDeep';
  * @property {string} field - The field to sort on
  * @property {string} [direction]="asc" - The direction for this field
  */
+
 /**
  * @typedef HyralPaging
  * @type {Object}
  * @property {number} offset=0 - The starting record.
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
+
 const cloneReducer = (accumulator, item) => {
   accumulator.push({ ...item });
   return accumulator;
@@ -143,10 +146,11 @@ ParameterBag.prototype = {
    */
   clone() {
     const clone = new ParameterBag();
-    clone.setFilters(this.parameters.filters.reduce(cloneReducer, []));
+    clone.setFilters(this.filters.reduce(cloneReducer, []));
     clone.setPaging({ ...this.paging });
-    clone.setSorting({ ...this.sorting });
+    clone.setSorting(this.sorting.reduce(cloneReducer, []));
     clone.setParams({ ...this.params });
+
     return clone;
   },
 
