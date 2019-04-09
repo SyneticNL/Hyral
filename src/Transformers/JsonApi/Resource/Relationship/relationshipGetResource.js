@@ -1,4 +1,4 @@
-import resourceFactory from '../../../../Resource/Factory/resourceFactory';
+import createResource from '../../../../Resource/Resource/ResourceFactory';
 
 /**
  * @param {{id: String, type: String}} item
@@ -7,7 +7,7 @@ import resourceFactory from '../../../../Resource/Factory/resourceFactory';
  * @returns {HyralResource}
  */
 export default function relationshipGetResource(item, includedRelations) {
-  return includedRelations[`${item.type}-${item.id}`] || resourceFactory(
+  return includedRelations[`${item.type}-${item.id}`] || createResource(
     item.id,
     item.type,
   );

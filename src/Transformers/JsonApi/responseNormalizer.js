@@ -1,6 +1,6 @@
-import normalizeResources from './resource/normalizeResources';
-import relationshipApplyToData from './resource/relationship/relationshipApplyToData';
-import normalizePaging from './resource/normalizePaging';
+import normalizeResources from './Resource/normalizeResources';
+import relationshipApplyToData from './Resource/Relationship/relationshipApplyToData';
+import normalizePaging from './Resource/normalizePaging';
 
 /**
  * @typedef JsonApiResponse

@@ -1,9 +1,9 @@
 import ParameterBag from '../../../../src/Resource/ParameterBag';
 import paramsSerializer from '../../../../src/Transformers/JsonApi/paramsSerializer';
-import serializePaging from '../../../../src/Transformers/JsonApi/params/serializePaging';
-import serializeFilters from '../../../../src/Transformers/JsonApi/params/serializeFilters';
-import serializeParams from '../../../../src/Transformers/JsonApi/params/serializeParams';
-import serializeSorting from '../../../../src/Transformers/JsonApi/params/serializeSorting';
+import serializePaging from '../../../../src/Transformers/JsonApi/Params/serializePaging';
+import serializeFilters from '../../../../src/Transformers/JsonApi/Params/serializeFilters';
+import serializeParams from '../../../../src/Transformers/JsonApi/Params/serializeParams';
+import serializeSorting from '../../../../src/Transformers/JsonApi/Params/serializeSorting';
 
 describe('paramSerializer', () => {
   test('that serializeParams gives a valid JsonApi response', () => {
@@ -112,5 +112,4 @@ describe('paramSerializer', () => {
       'filter%5Bf1%5D=v1&page%5Boffset%5D=20&page%5Blimit%5D=20&sort=field1%2C-field2&simple=value',
     );
   });
-
 });

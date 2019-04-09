@@ -1,3 +1,17 @@
+/**
+ * @typedef HyralRepository
+ * @type {Object}
+ * @property {HyralConnector} connector
+ * @property {string} resourceType
+ * @property {string} identifier
+ * @property {function} find
+ * @property {function} findOne
+ * @property {function} findById
+ * @property {function} create
+ * @property {function} update
+ * @property {function} delete
+ */
+
 export default {
   /**
    * @param {ParameterBag} parameterBag

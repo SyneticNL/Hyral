@@ -3,7 +3,7 @@
  */
 export default {
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {ParameterBag} parameterBag
    */
   fetch(repository, parameterBag) {
@@ -13,7 +13,7 @@ export default {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {number|string} id
    * @param {ParameterBag} parameterBag
    */
@@ -24,7 +24,7 @@ export default {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {ParameterBag} parameterBag
    */
   create(repository, parameterBag) {
@@ -35,7 +35,7 @@ export default {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {ParameterBag} parameterBag
    */
   update(repository, parameterBag) {
@@ -46,7 +46,7 @@ export default {
   },
 
   /**
-   * @param {HyralResourceRepository} repository
+   * @param {HyralRepository} repository
    * @param {ParameterBag} parameterBag
    */
   delete(repository, parameterBag) {
