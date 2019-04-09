@@ -28,5 +28,9 @@ describe('The resource factory', () => {
   test('that we can retrieve the repositories after they have been registered', () => {
     expect(RepositoryManager.getRepository(resourceType1)).toBe(resource1);
     expect(RepositoryManager.getRepository(resourceType2)).toBe(resource2);
+
+    const repositories = RepositoryManager.getRepositories();
+    expect(repositories[resourceType1]).toBe(resource1);
+    expect(repositories[resourceType2]).toBe(resource2);
   });
 });

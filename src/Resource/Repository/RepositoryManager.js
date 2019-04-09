@@ -1,7 +1,7 @@
 import createRepository from './RepositoryFactory';
 import Repository from './Repository';
 
-const repositories = new Map();
+const repositories = {};
 
 const RepositoryManager = {};
 
@@ -20,13 +20,24 @@ Object.assign(RepositoryManager, {
    * @param {HyralRepository} resourceRepository
    */
   addRepository(resourceRepository) {
-    repositories.set(resourceRepository.resourceType, resourceRepository);
+    if (typeof repositories[resourceRepository.resourceType] !== 'undefined') {
+      throw Error(`Trying to add a repository for ${resourceRepository.resourceType} while there already exists a repository for that type.`);
+    }
+    repositories[resourceRepository.resourceType] = resourceRepository;
   },
   /**
    * @param resourceType
+   *
+   * @returns HyralRepository|null
    */
   getRepository(resourceType) {
-    return repositories.get(resourceType);
+    return repositories[resourceType] || null;
+  },
+  /**
+   * @returns {{resourceType: HyralRepository}}
+   */
+  getRepositories() {
+    return repositories;
   },
 });
 
