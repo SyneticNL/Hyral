@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash": "^4.17.11",
     "qs": "^6.7.0",
     "url": "^0.11.0"
   },
