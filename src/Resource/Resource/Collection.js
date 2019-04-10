@@ -107,7 +107,7 @@ Collection.prototype = {
    * @param newState {object}
    */
   set newState(newState) {
-    this._state = cloneDeep(newState);
+    this._state = newState;
   },
 
   /**
@@ -134,7 +134,7 @@ Collection.prototype = {
 
 Collection.fromState = (state, repository) => {
   const newCollection = new Collection(state.name, repository);
-  newCollection.newState = state;
+  newCollection.newState = Object.assign(newCollection.state, state);
   return newCollection;
 };
 
