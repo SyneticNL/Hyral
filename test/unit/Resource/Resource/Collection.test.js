@@ -58,4 +58,52 @@ describe('The collection', () => {
         expect(collection.isLoaded).toBeTruthy();
       });
     }));
+  test('that the collection state can be retrieved using the state getter and is well formed.', () => {
+    expect(collection.state.name).toEqual('product');
+    expect(collection.state).toHaveProperty('data');
+    expect(collection.state.data).toHaveProperty('items');
+    expect(collection.state).toHaveProperty('metadata');
+    expect(collection.state.metadata).toHaveProperty('loading');
+    expect(collection.state.metadata).toHaveProperty('loaded');
+    expect(collection.state.metadata).toHaveProperty('parameterBag');
+    expect(collection.state.metadata).toHaveProperty('lastParameterBagState');
+    expect(collection.state.metadata).toHaveProperty('paging');
+  });
+  const state = {
+    name: 'test',
+    data: {
+      items: [
+        {
+          id: 1,
+          title: 'title',
+        },
+      ],
+    },
+    metadata: {
+      loading: false,
+      loaded: true,
+      parameterBag: null,
+      lastParameterBagState: null,
+      paging: {
+        count: 10,
+        pages: 1,
+      },
+    },
+  };
+  test('that the collection state can be set from data', () => {
+    const newCollection = new Collection(state.name, productRepository);
+    newCollection.newState = state;
+    expect(newCollection.name).toEqual('test');
+    expect(newCollection.items).toEqual(state.data.items);
+    expect(newCollection.isLoaded).toBeTruthy();
+    expect(newCollection.isLoading).toBeFalsy();
+    expect(newCollection.pages).toEqual(state.metadata.paging.pages);
+    expect(newCollection.length).toEqual(state.metadata.paging.count);
+  });
+  test('that a new collection can be made based on state and repository', () => {
+    const newCollection = Collection.fromState(state, productRepository);
+    expect(newCollection.repository).toBe(productRepository);
+    expect(newCollection.items).toEqual(state.data.items);
+    expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
+  });
 });

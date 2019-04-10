@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+import cloneDeep from 'lodash/fp/cloneDeep';
 import ParameterBag from '../ParameterBag';
 
 /**
@@ -9,89 +11,97 @@ function Collection(name, repository) {
     throw Error('Collection() must be called with new');
   }
 
+  this._repository = repository;
+
   Object.defineProperties(this, {
-    name: {
-      enumerable: true,
-      configurable: false,
-      writable: false,
-      value: name,
-    },
-    repository: {
-      enumerable: true,
-      configurable: false,
-      writable: false,
-      value: repository,
-    },
-    metadata: {
+    _state: {
       enumerable: false,
       configurable: false,
+      writable: true,
       value: {
-        loading: false,
-        loaded: false,
-        parameterBag: null,
-        lastParameterBagState: null,
-        paging: {
-          count: null,
-          pages: null,
+        name,
+        data: {
+          items: [],
         },
-      },
-    },
-    data: {
-      enumerable: false,
-      configurable: false,
-      value: {
-        items: [],
+        metadata: {
+          loading: false,
+          loaded: false,
+          parameterBag: null,
+          lastParameterBagState: null,
+          paging: {
+            count: null,
+            pages: null,
+          },
+        },
       },
     },
   });
 }
 
 Collection.prototype = {
-  get parameterBag() {
-    if (!this.metadata.parameterBag) {
-      this.metadata.parameterBag = new ParameterBag();
-    }
+  get name() {
+    return this._state.name;
+  },
 
-    return this.metadata.parameterBag;
+  get repository() {
+    return this._repository;
+  },
+
+  get parameterBag() {
+    return ParameterBag.fromState(this._state.metadata.parameterBag || {});
   },
 
   set parameterBag(parameterBag) {
-    this.metadata.parameterBag = parameterBag;
+    this._state.metadata.parameterBag = parameterBag.state;
   },
 
   /**
    * @returns {number}
    */
   get length() {
-    return this.metadata.paging.count || 0;
+    return this._state.metadata.paging.count || 0;
   },
 
   /**
    * @returns {number}
    */
   get pages() {
-    return this.metadata.paging.pages || 0;
+    return this._state.metadata.paging.pages || 0;
   },
 
   /**
    * @returns {boolean}
    */
   get isLoading() {
-    return this.metadata.loading;
+    return this._state.metadata.loading;
   },
 
   /**
    * @returns {boolean}
    */
   get isLoaded() {
-    return this.metadata.loaded;
+    return this._state.metadata.loaded;
   },
 
   /**
    * @returns {Array}
    */
   get items() {
-    return this.data.items;
+    return this._state.data.items;
+  },
+
+  /**
+   * @returns {object}
+   */
+  get state() {
+    return cloneDeep(this._state);
+  },
+
+  /**
+   * @param newState {object}
+   */
+  set newState(newState) {
+    this._state = cloneDeep(newState);
   },
 
   /**
@@ -99,21 +109,27 @@ Collection.prototype = {
    */
   load() {
     if (this.isLoaded === true
-      && this.metadata.lastParameterBagState === this.parameterBag.stateId) {
+      && this._state.metadata.lastParameterBagState === this.parameterBag.stateId) {
       return Promise.resolve();
     }
 
-    this.metadata.loading = true;
-    return this.repository.find(this.metadata.parameterBag).then((response) => {
-      this.data.items = response.data;
-      this.metadata.paging = response.paging;
+    this._state.metadata.loading = true;
+    return this.repository.find(this.parameterBag).then((response) => {
+      this._state.data.items = response.data;
+      this._state.metadata.paging = response.paging;
     }).finally(() => {
-      this.metadata.loading = false;
-      this.metadata.loaded = true;
+      this._state.metadata.loading = false;
+      this._state.metadata.loaded = true;
 
-      this.metadata.lastParameterBagState = this.parameterBag.stateId;
+      this._state.metadata.lastParameterBagState = this.parameterBag.stateId;
     });
   },
+};
+
+Collection.fromState = (state, repository) => {
+  const newCollection = new Collection(state.name, repository);
+  newCollection.newState = state;
+  return newCollection;
 };
 
 export default Collection;

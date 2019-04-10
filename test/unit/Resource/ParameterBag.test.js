@@ -22,30 +22,6 @@ describe('The ParameterBag', () => {
     expect(parameterBag.filters).not.toEqual(parameterBag2.filters);
   });
 
-  test('that the inner variables are not writable', () => {
-    const parameterBag = new ParameterBag();
-
-    expect(() => {
-      parameterBag.parameters = {};
-    }).toThrow(TypeError);
-
-    expect(() => {
-      parameterBag.filters = [];
-    }).toThrow(TypeError);
-
-    expect(() => {
-      parameterBag.sorting = [];
-    }).toThrow(TypeError);
-
-    expect(() => {
-      parameterBag.paging = {};
-    }).toThrow(TypeError);
-
-    expect(() => {
-      parameterBag.params = [];
-    }).toThrow(TypeError);
-  });
-
   test('that it contains setters and getters for filters, paging, sorting and params', () => {
     const parameterBag = new ParameterBag();
 
@@ -135,5 +111,50 @@ describe('The ParameterBag', () => {
     const currentStateId = parameterBag.stateId;
     parameterBag.setFilters([]);
     expect(parameterBag.stateId).not.toBe(currentStateId);
+  });
+  test('that the parameterBag state can be retrieved using the state getter and is well formed.', () => {
+    const parameterBag = new ParameterBag();
+    expect(parameterBag.state).toHaveProperty('parameters');
+    expect(parameterBag.state.parameters).toHaveProperty('filters');
+    expect(parameterBag.state.parameters).toHaveProperty('sorting');
+    expect(parameterBag.state.parameters).toHaveProperty('paging');
+    expect(parameterBag.state.parameters).toHaveProperty('params');
+    expect(parameterBag.state).toHaveProperty('metadata');
+    expect(parameterBag.state.metadata).toHaveProperty('stateId');
+  });
+  test('that the parameterBag state can be set from data', () => {
+    const newState = {
+      parameters: {
+        filters: [
+          {
+            field: 'f1',
+            value: 'v1',
+          },
+        ],
+        sorting: [
+          {
+            field: 'f1',
+            direction: 'asc',
+          },
+        ],
+        paging: {
+          offset: 0,
+        },
+        params: {
+          key1: 'value1',
+          key2: 'value2',
+        },
+      },
+      metadata: {
+        stateId: 0,
+      },
+    };
+    const parameterBag = new ParameterBag();
+    parameterBag.newState = newState;
+    expect(parameterBag.filters).toEqual(newState.parameters.filters);
+    expect(parameterBag.sorting).toEqual(newState.parameters.sorting);
+    expect(parameterBag.paging).toEqual(newState.parameters.paging);
+    expect(parameterBag.params).toEqual(newState.parameters.params);
+    expect(parameterBag.stateId).toEqual(newState.metadata.stateId);
   });
 });
