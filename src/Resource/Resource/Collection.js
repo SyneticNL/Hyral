@@ -53,7 +53,7 @@ Collection.prototype = {
       this._state.metadata.parameterBag = parameterBag.state;
       return parameterBag;
     }
-    parameterBag.state = this._state.metadata.parameterBag;
+    parameterBag.newState = this._state.metadata.parameterBag;
     return parameterBag;
   },
 
@@ -106,7 +106,7 @@ Collection.prototype = {
   /**
    * @param newState {object}
    */
-  set state(newState) {
+  set newState(newState) {
     this._state = cloneDeep(newState);
   },
 
@@ -130,6 +130,12 @@ Collection.prototype = {
       this._state.metadata.lastParameterBagState = this.parameterBag.stateId;
     });
   },
+};
+
+Collection.fromState = (state, repository) => {
+  const newCollection = new Collection(state.name, repository);
+  newCollection.newState = state;
+  return newCollection;
 };
 
 export default Collection;

@@ -140,7 +140,7 @@ ParameterBag.prototype = {
   /**
    * @param newState {object}
    */
-  set state(newState) {
+  set newState(newState) {
     this._state = cloneDeep(newState);
   },
 };

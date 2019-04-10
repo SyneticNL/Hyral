@@ -92,12 +92,18 @@ describe('The collection', () => {
   };
   test('that the collection state can be set from data', () => {
     const newCollection = new Collection(state.name, productRepository);
-    newCollection.state = state;
+    newCollection.newState = state;
     expect(newCollection.name).toEqual('test');
     expect(newCollection.items).toEqual(state.data.items);
     expect(newCollection.isLoaded).toBeTruthy();
     expect(newCollection.isLoading).toBeFalsy();
     expect(newCollection.pages).toEqual(state.metadata.paging.pages);
     expect(newCollection.length).toEqual(state.metadata.paging.count);
+  });
+  test('that a new collection can be made based on state and repository', () => {
+    const newCollection = Collection.fromState(state, productRepository);
+    expect(newCollection.repository).toBe(productRepository);
+    expect(newCollection.items).toEqual(state.data.items);
+    expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
   });
 });

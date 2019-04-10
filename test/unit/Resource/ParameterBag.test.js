@@ -150,7 +150,7 @@ describe('The ParameterBag', () => {
       },
     };
     const parameterBag = new ParameterBag();
-    parameterBag.state = newState;
+    parameterBag.newState = newState;
     expect(parameterBag.filters).toEqual(newState.parameters.filters);
     expect(parameterBag.sorting).toEqual(newState.parameters.sorting);
     expect(parameterBag.paging).toEqual(newState.parameters.paging);
