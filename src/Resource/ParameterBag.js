@@ -145,4 +145,11 @@ ParameterBag.prototype = {
   },
 };
 
+ParameterBag.fromState = (state) => {
+  const parameterBag = new ParameterBag();
+  parameterBag.newState = Object.assign(parameterBag.state, state);
+  return parameterBag;
+};
+
+
 export default ParameterBag;

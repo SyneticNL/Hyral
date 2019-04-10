@@ -48,13 +48,7 @@ Collection.prototype = {
   },
 
   get parameterBag() {
-    const parameterBag = new ParameterBag();
-    if (!this._state.metadata.parameterBag) {
-      this._state.metadata.parameterBag = parameterBag.state;
-      return parameterBag;
-    }
-    parameterBag.newState = this._state.metadata.parameterBag;
-    return parameterBag;
+    return ParameterBag.fromState(this._state.metadata.parameterBag || {});
   },
 
   set parameterBag(parameterBag) {
