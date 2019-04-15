@@ -1,6 +1,7 @@
 import normalizeResources from './Resource/normalizeResources';
 import relationshipApplyToData from './Resource/Relationship/relationshipApplyToData';
 import normalizePaging from './Resource/normalizePaging';
+import ResourceManager from '../../Resource/Resource/ResourceManager';
 
 /**
  * @typedef JsonApiResponse
@@ -32,27 +33,36 @@ import normalizePaging from './Resource/normalizePaging';
  */
 
 /**
+ * @param {object} resources
+ * @returns {object}
+ */
+function freezeResources(resources) {
+  Object.keys(resources).forEach((id) => {
+    ResourceManager.freezeResource(resources[id]);
+  });
+
+  return resources;
+}
+
+/**
  * @param {JsonApiResponse} response
  *
- * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}}
+ * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}|{data: Resource}}
  */
 export default function responseNormalizer(response) {
   if (response.errors) {
     return response;
   }
+
   const singleMode = !Array.isArray(response.data);
 
   const includedResources = response.included ? normalizeResources(response.included) : {};
   relationshipApplyToData(includedResources, includedResources);
-  Object.keys(includedResources).forEach((id) => {
-    Object.freeze(includedResources[id].state);
-  });
+  freezeResources(includedResources);
 
   const rootResources = normalizeResources(singleMode ? [response.data] : response.data);
   relationshipApplyToData(rootResources, includedResources);
-  Object.keys(rootResources).forEach((id) => {
-    Object.freeze(rootResources[id].state);
-  });
+  freezeResources(rootResources);
 
   const normalizedItems = Object.values(rootResources);
   if (singleMode) {

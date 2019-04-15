@@ -9,8 +9,6 @@ import relationshipGetType from './Relationship/relationshipGetType';
 export default function normalizeResource(data) {
   const resource = createResource(data.id, data.type, data.attributes);
 
-  resource.relationships = {};
-
   if (!data.relationships) {
     return resource;
   }
