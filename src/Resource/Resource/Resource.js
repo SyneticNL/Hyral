@@ -22,7 +22,6 @@ function Resource(id, type, data = null, relationships = null) {
         type,
         data: data || {},
         relationships: relationships || {},
-        persisted: data !== null && id !== null,
       }],
     },
     _metadata: {
@@ -63,6 +62,12 @@ Resource.prototype = {
    * @param {object} data
    */
   set data(data) {
+    if (!Object.isFrozen(this.state)) {
+      this.state.data = data;
+
+      return;
+    }
+
     const newState = cloneDeep(this.state);
     newState.data = data;
 
@@ -80,6 +85,12 @@ Resource.prototype = {
    * @param {object} relationships
    */
   set relationships(relationships) {
+    if (!Object.isFrozen(this.state)) {
+      this.state.relationships = relationships;
+
+      return;
+    }
+
     const newState = cloneDeep(this.state);
     newState.relationships = relationships;
 
@@ -105,18 +116,10 @@ Resource.prototype = {
    */
   set state(state) {
     const newState = cloneDeep(state);
-    newState.persisted = false;
 
     this._state.push(newState);
 
     this._activeState = this._state.length - 1;
-  },
-
-  /**
-   * @param {boolean} persisted
-   */
-  set persisted(persisted) {
-    this.state.persisted = persisted;
   },
 };
 

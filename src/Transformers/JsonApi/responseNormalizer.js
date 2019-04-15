@@ -44,12 +44,17 @@ export default function responseNormalizer(response) {
 
   const includedResources = response.included ? normalizeResources(response.included) : {};
   relationshipApplyToData(includedResources, includedResources);
+  Object.keys(includedResources).forEach((id) => {
+    Object.freeze(includedResources[id].state);
+  });
 
   const rootResources = normalizeResources(singleMode ? [response.data] : response.data);
   relationshipApplyToData(rootResources, includedResources);
+  Object.keys(rootResources).forEach((id) => {
+    Object.freeze(rootResources[id].state);
+  });
 
   const normalizedItems = Object.values(rootResources);
-
   if (singleMode) {
     return {
       data: normalizedItems.shift(),
