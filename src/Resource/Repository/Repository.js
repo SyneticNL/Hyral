@@ -16,7 +16,7 @@ export default {
   /**
    * @param {ParameterBag} parameterBag
    *
-   * @returns {Promise<HyralResource[]>}
+   * @returns {Promise<Resource[]>}
    */
   find(parameterBag) {
     return this.connector.fetch(this, parameterBag)
@@ -26,7 +26,7 @@ export default {
   /**
    * @param {ParameterBag} parameterBag
    *
-   * @returns {Promise<HyralResource>}
+   * @returns {Promise<Resource>}
    */
   findOne(parameterBag) {
     return this.find(parameterBag).then(result => result.data[0] || null);
@@ -35,7 +35,7 @@ export default {
   /**
    * @param {String|Number} id
    *
-   * @returns {Promise<HyralResource>}
+   * @returns {Promise<Resource>}
    */
   findById(id) {
     return this.connector.fetchOne(this, id, {});
@@ -44,7 +44,7 @@ export default {
   /**
    * @param {Object} entity
    *
-   * @returns {Promise<HyralResource>}
+   * @returns {Promise<Resource>}
    */
   create(entity) {
     return this.connector.create(this, entity);
@@ -53,7 +53,7 @@ export default {
   /**
    * @param {Object} entity
    *
-   * @returns {Promise<HyralResource>}
+   * @returns {Promise<Resource>}
    */
   update(entity) {
     return this.connector.create(this, entity);

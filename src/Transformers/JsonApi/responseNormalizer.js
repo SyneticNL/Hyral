@@ -34,7 +34,7 @@ import normalizePaging from './Resource/normalizePaging';
 /**
  * @param {JsonApiResponse} response
  *
- * @returns {{data: HyralResource[]|HyralResource, paging: {count: number, pages: number}}}
+ * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}}
  */
 export default function responseNormalizer(response) {
   if (response.errors) {

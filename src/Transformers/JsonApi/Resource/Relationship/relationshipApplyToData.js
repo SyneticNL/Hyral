@@ -1,12 +1,12 @@
 import relationshipGetResource from './relationshipGetResource';
 
 /**
- * @param {Object<HyralResource[]>} items
- * @param {Object<HyralResource[]>} includedRelations
+ * @param {Object<Resource[]>} items
+ * @param {Object<Resource[]>} includedRelations
  */
 export default function relationshipApplyToData(items, includedRelations) {
   Object.keys(items).forEach((key) => {
-    Object.entries(items[key].metadata.relationships).forEach(([field, relation]) => {
+    Object.entries(items[key].relationships).forEach(([field, relation]) => {
       if (relation.data === null) {
         return;
       }

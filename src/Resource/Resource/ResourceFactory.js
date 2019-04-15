@@ -1,32 +1,16 @@
-/**
- * @typedef HyralResource
- *
- * @type {Object}
- * @property {string|number|null} [id] - The resource id
- * @property {string} type - The resource type
- * @property {object} data - The resource data
- * @property {object} metadata - The resource metadata
- * @property {Boolean} metadata.loaded - Loaded state.
- * @property {Boolean} metadata.loading - Loading state.
- * @property {Object} metadata.relationships - Available relationships
- */
+import Resource from './Resource';
 
 /**
  * @param {string|number|null} id
  * @param {string} type
  * @param {object|null} data
+ * @param {object|null} relationships
+ * @param {object|null} metadata
  *
- * @returns {HyralResource}
+ * @returns {Resource}
  */
-export default function createResource(id, type, data = null) {
-  return {
-    id,
-    type,
-    data: data || {},
-    metadata: {
-      loaded: data !== null,
-      loading: false,
-      relationships: {},
-    },
-  };
+function createResource(id, type, data = null, relationships = null, metadata = null) {
+  return new Resource(id, type, data, relationships, metadata);
 }
+
+export default createResource;

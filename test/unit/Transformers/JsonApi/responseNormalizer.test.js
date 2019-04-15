@@ -17,24 +17,24 @@ describe('Validations for the responseNormalizer', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
     expect(result.data[0]).toHaveProperty('metadata');
-    expect(result.data[0].metadata).toHaveProperty('relationships');
+    expect(result.data[0]).toHaveProperty('relationships');
 
-    expect(result.data[0].metadata.relationships).toHaveProperty('consultant');
-    expect(result.data[0].metadata.relationships.consultant.type).toBe('people');
-    expect(result.data[0].metadata.relationships.consultant.isMany).toBeFalsy();
-    expect(result.data[0].metadata.relationships.consultant.data).toHaveProperty('id');
-    expect(result.data[0].metadata.relationships.consultant.data).toHaveProperty('type');
+    expect(result.data[0].relationships).toHaveProperty('consultant');
+    expect(result.data[0].relationships.consultant.type).toBe('people');
+    expect(result.data[0].relationships.consultant.isMany).toBeFalsy();
+    expect(result.data[0].relationships.consultant.data).toHaveProperty('id');
+    expect(result.data[0].relationships.consultant.data).toHaveProperty('type');
 
-    expect(result.data[0].metadata.relationships).toHaveProperty('thumbnail');
-    expect(result.data[0].metadata.relationships.thumbnail.type).toBe('images');
-    expect(result.data[0].metadata.relationships.thumbnail.isMany).toBeFalsy();
+    expect(result.data[0].relationships).toHaveProperty('thumbnail');
+    expect(result.data[0].relationships.thumbnail.type).toBe('images');
+    expect(result.data[0].relationships.thumbnail.isMany).toBeFalsy();
 
-    expect(result.data[1].metadata.relationships).toHaveProperty('images');
-    expect(result.data[1].metadata.relationships.images.isMany).toBeTruthy();
-    expect(result.data[1].metadata.relationships.images.type).toBe('images');
-    expect(result.data[1].metadata.relationships.images.data).toHaveLength(2);
-    expect(result.data[1].metadata.relationships.images.data[0]).toHaveProperty('id');
-    expect(result.data[1].metadata.relationships.images.data[0]).toHaveProperty('type');
+    expect(result.data[1].relationships).toHaveProperty('images');
+    expect(result.data[1].relationships.images.isMany).toBeTruthy();
+    expect(result.data[1].relationships.images.type).toBe('images');
+    expect(result.data[1].relationships.images.data).toHaveLength(2);
+    expect(result.data[1].relationships.images.data[0]).toHaveProperty('id');
+    expect(result.data[1].relationships.images.data[0]).toHaveProperty('type');
   });
 
   test('that the responseNormalizer returns the expected resource with properties as in the fixture data', () => {
