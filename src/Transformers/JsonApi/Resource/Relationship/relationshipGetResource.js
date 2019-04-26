@@ -1,4 +1,4 @@
-import createResource from '../../../../Resource/Resource/ResourceFactory';
+import Resource from '../../../../Resource/Resource/Resource';
 
 /**
  * @param {{id: String, type: String}} item
@@ -7,7 +7,7 @@ import createResource from '../../../../Resource/Resource/ResourceFactory';
  * @returns {Resource}
  */
 export default function relationshipGetResource(item, includedRelations) {
-  return includedRelations[`${item.type}-${item.id}`] || createResource(
+  return includedRelations[`${item.type}-${item.id}`] || Resource(
     item.id,
     item.type,
   );

@@ -1,4 +1,4 @@
-import createResource from '../../../Resource/Resource/ResourceFactory';
+import Resource from '../../../Resource/Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
 /**
@@ -7,7 +7,7 @@ import relationshipGetType from './Relationship/relationshipGetType';
  * @returns {Resource}
  */
 export default function normalizeResource(data) {
-  const resource = createResource(data.id, data.type, data.attributes);
+  const resource = Resource(data.id, data.type, data.attributes);
 
   if (!data.relationships) {
     return resource;

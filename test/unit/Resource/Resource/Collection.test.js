@@ -1,4 +1,5 @@
 import Collection from '../../../../src/Resource/Resource/Collection';
+import { setState } from '../../../../src/State/State';
 
 describe('The collection', () => {
   const mockResponse = {
@@ -63,12 +64,13 @@ describe('The collection', () => {
     expect(collection.state).toHaveProperty('data');
     expect(collection.state.data).toHaveProperty('items');
     expect(collection.state).toHaveProperty('metadata');
+    expect(collection.state).toHaveProperty('parameterBag');
     expect(collection.state.metadata).toHaveProperty('loading');
     expect(collection.state.metadata).toHaveProperty('loaded');
-    expect(collection.state.metadata).toHaveProperty('parameterBag');
     expect(collection.state.metadata).toHaveProperty('lastParameterBagState');
     expect(collection.state.metadata).toHaveProperty('paging');
   });
+
   const state = {
     name: 'test',
     data: {
@@ -91,8 +93,9 @@ describe('The collection', () => {
     },
   };
   test('that the collection state can be set from data', () => {
-    const newCollection = new Collection(state.name, productRepository);
-    newCollection.newState = state;
+    const newCollection = Collection(state.name, productRepository);
+    setState(newCollection.stateStack, state);
+
     expect(newCollection.name).toEqual('test');
     expect(newCollection.items).toEqual(state.data.items);
     expect(newCollection.isLoaded).toBeTruthy();

@@ -1,4 +1,3 @@
-import createRepository from './RepositoryFactory';
 import Repository from './Repository';
 
 const repositories = {};
@@ -14,7 +13,11 @@ Object.assign(RepositoryManager, {
    * @returns HyralRepository
    */
   createRepository(connector, resourceType, identifier = 'id') {
-    return createRepository(RepositoryManager, Repository, connector, resourceType, identifier);
+    const repository = Repository(connector, resourceType, identifier);
+
+    this.addRepository(repository);
+
+    return repository;
   },
   /**
    * @param {HyralRepository} resourceRepository

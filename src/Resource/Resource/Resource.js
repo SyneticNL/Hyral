@@ -1,126 +1,113 @@
-/* eslint-disable no-underscore-dangle */
-import cloneDeep from 'lodash/fp/cloneDeep';
 
-function Resource(id, type, data = null, relationships = null) {
-  if (!new.target) {
-    throw Error('Resource() must be called with new');
-  }
+/**
+ * @typedef HyralResource
+ * @type {Object}
+ * @property {string|number} id
+ * @property {string} type
+ * @property {object} data
+ * @property {object} relationships
+ * @property {object} metadata
+ * @property {object} state
+ * @property {boolean} metadata.loading
+ * @property {boolean} metadata.loaded
+ */
 
-  Object.defineProperties(this, {
-    _activeState: {
-      enumerable: false,
-      configurable: false,
-      writable: true,
-      value: 0,
+import { currentState, setState } from '../../State/State';
+
+/**
+ * @param {string|number|null} id
+ * @param {string|null} type
+ * @param {object|null} data
+ * @param {object|null} relationships
+ *
+ * @returns {HyralResource}
+ */
+function Resource(id = null, type = null, data = null, relationships = null) {
+  const state = [{
+    id,
+    type,
+    data: data || {},
+    relationships: relationships || {},
+  }];
+
+  const metadata = {
+    loaded: data !== null,
+    loading: false,
+  };
+
+  return {
+    /**
+     * @returns {string|number}
+     */
+    get id() {
+      return currentState(state).id;
     },
-    _state: {
-      enumerable: false,
-      configurable: false,
-      writable: true,
-      value: [{
-        id,
-        type,
-        data: data || {},
-        relationships: relationships || {},
-      }],
+
+    /**
+     * @returns {string}
+     */
+    get type() {
+      return currentState(state).type;
     },
-    _metadata: {
-      enumerable: false,
-      configurable: false,
-      writable: true,
-      value: {
-        loaded: data !== null,
-        loading: false,
-      },
+
+    /**
+     * @returns {object}
+     */
+    get data() {
+      return currentState(state).data;
     },
-  });
+
+    /**
+     * @param {object} newData
+     */
+    set data(newData) {
+      setState(state, { data: newData });
+    },
+
+    /**
+     * @returns {object}
+     */
+    get relationships() {
+      return currentState(state).relationships;
+    },
+
+    /**
+     * @param {object} newRelationships
+     */
+    set relationships(newRelationships) {
+      setState(state, { relationships: newRelationships });
+    },
+
+    /**
+     * @returns {object}
+     */
+    get metadata() {
+      return metadata;
+    },
+
+    /**
+     * @returns {[{}]}
+     */
+    get stateStack() {
+      return state;
+    },
+
+    /**
+     * @returns {Object}
+     */
+    get state() {
+      return currentState(state);
+    },
+  };
 }
 
-Resource.prototype = {
-  /**
-   * @returns {string|number}
-   */
-  get id() {
-    return this.state.id;
-  },
+Resource.fromState = (state) => {
+  const resource = Resource();
 
-  /**
-   * @returns {string}
-   */
-  get type() {
-    return this.state.type;
-  },
+  setState(resource.stateStack, state);
 
-  /**
-   * @returns {object}
-   */
-  get data() {
-    return this.state.data;
-  },
-
-  /**
-   * @param {object} data
-   */
-  set data(data) {
-    if (!Object.isFrozen(this.state)) {
-      this.state.data = data;
-
-      return;
-    }
-
-    const newState = cloneDeep(this.state);
-    newState.data = data;
-
-    this.state = newState;
-  },
-
-  /**
-   * @returns {object}
-   */
-  get relationships() {
-    return this.state.relationships;
-  },
-
-  /**
-   * @param {object} relationships
-   */
-  set relationships(relationships) {
-    if (!Object.isFrozen(this.state)) {
-      this.state.relationships = relationships;
-
-      return;
-    }
-
-    const newState = cloneDeep(this.state);
-    newState.relationships = relationships;
-
-    this.state = newState;
-  },
-
-  /**
-   * @returns {object}
-   */
-  get metadata() {
-    return this._metadata;
-  },
-
-  /**
-   * @returns {object}
-   */
-  get state() {
-    return this._state[this._activeState];
-  },
-
-  /**
-   * @param state {object}
-   */
-  set state(state) {
-    const newState = cloneDeep(state);
-
-    this._state.push(newState);
-
-    this._activeState = this._state.length - 1;
-  },
+  return resource;
 };
+
 
 export default Resource;

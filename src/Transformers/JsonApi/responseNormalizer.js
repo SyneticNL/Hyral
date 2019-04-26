@@ -1,7 +1,6 @@
 import normalizeResources from './Resource/normalizeResources';
 import relationshipApplyToData from './Resource/Relationship/relationshipApplyToData';
 import normalizePaging from './Resource/normalizePaging';
-import ResourceManager from '../../Resource/Resource/ResourceManager';
 
 /**
  * @typedef JsonApiResponse
@@ -33,18 +32,6 @@ import ResourceManager from '../../Resource/Resource/ResourceManager';
  */
 
 /**
- * @param {object} resources
- * @returns {object}
- */
-function freezeResources(resources) {
-  Object.keys(resources).forEach((id) => {
-    ResourceManager.freezeResource(resources[id]);
-  });
-
-  return resources;
-}
-
-/**
  * @param {JsonApiResponse} response
  *
  * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}|{data: Resource}}
@@ -58,11 +45,9 @@ export default function responseNormalizer(response) {
 
   const includedResources = response.included ? normalizeResources(response.included) : {};
   relationshipApplyToData(includedResources, includedResources);
-  freezeResources(includedResources);
 
   const rootResources = normalizeResources(singleMode ? [response.data] : response.data);
   relationshipApplyToData(rootResources, includedResources);
-  freezeResources(rootResources);
 
   const normalizedItems = Object.values(rootResources);
   if (singleMode) {
