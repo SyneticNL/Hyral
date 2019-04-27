@@ -1,119 +1,137 @@
 import ParameterBag from './ParameterBag';
+import { currentState, setState } from '../State/State';
+
+/**
+ * @param state
+ * @returns {Promise}
+ */
+function collectionLoad(state) {
+  if (this.isLoaded === true
+    && currentState(state).metadata.lastParameterBagState === this.parameterBag.stateId) {
+    return Promise.resolve();
+  }
+
+  currentState(state).metadata.loading = true;
+  return this.repository.find(this.parameterBag).then((response) => {
+    setState(state, {
+      data: {
+        items: response.data,
+      },
+      metadata: {
+        paging: response.paging,
+      },
+    });
+  }).finally(() => {
+    setState(state, {
+      metadata: {
+        loading: false,
+        loaded: true,
+        lastParameterBagState: this.parameterBag.stateId,
+      },
+    });
+  });
+}
 
 /**
  * @param {String} name
  * @param {HyralRepository} repository
  */
 function Collection(name, repository) {
-  if (!new.target) {
-    throw Error('Collection() must be called with new');
-  }
-
-  Object.defineProperties(this, {
-    name: {
-      enumerable: true,
-      configurable: false,
-      writable: false,
-      value: name,
-    },
-    repository: {
-      enumerable: true,
-      configurable: false,
-      writable: false,
-      value: repository,
-    },
-    metadata: {
-      enumerable: false,
-      configurable: false,
-      value: {
-        loading: false,
-        loaded: false,
-        parameterBag: null,
-        lastParameterBagState: null,
-        paging: {
-          count: null,
-          pages: null,
-        },
-      },
-    },
+  const state = [{
+    name,
     data: {
-      enumerable: false,
-      configurable: false,
-      value: {
-        items: [],
+      items: [],
+    },
+    parameterBag: null,
+    metadata: {
+      loading: false,
+      loaded: false,
+      lastParameterBagState: null,
+      paging: {
+        count: null,
+        pages: null,
       },
     },
-  });
+  }];
+
+  const collection = {
+    get name() {
+      return currentState(state).name;
+    },
+
+    get repository() {
+      return repository;
+    },
+
+    get parameterBag() {
+      return ParameterBag.fromState(state.parameterBag || {});
+    },
+
+    set parameterBag(parameterBag) {
+      setState(state, { parameterBag: parameterBag.state });
+    },
+
+    /**
+     * @returns {number}
+     */
+    get length() {
+      return currentState(state).metadata.paging.count || 0;
+    },
+
+    /**
+     * @returns {number}
+     */
+    get pages() {
+      return currentState(state).metadata.paging.pages || 0;
+    },
+
+    /**
+     * @returns {boolean}
+     */
+    get isLoading() {
+      return currentState(state).metadata.loading;
+    },
+
+    /**
+     * @returns {boolean}
+     */
+    get isLoaded() {
+      return currentState(state).metadata.loaded;
+    },
+
+    /**
+     * @returns {Array}
+     */
+    get items() {
+      return currentState(state).data.items;
+    },
+
+    /**
+     * @returns {[{}]}
+     */
+    get stateStack() {
+      return state;
+    },
+
+    /**
+     * @returns {object}
+     */
+    get state() {
+      return currentState(state);
+    },
+  };
+
+  collection.load = collectionLoad.bind(collection, state);
+
+  return collection;
 }
 
-Collection.prototype = {
-  get parameterBag() {
-    if (!this.metadata.parameterBag) {
-      this.metadata.parameterBag = new ParameterBag();
-    }
+Collection.fromState = (state, repository) => {
+  const newCollection = Collection(state.name, repository);
 
-    return this.metadata.parameterBag;
-  },
+  setState(newCollection.stateStack, state);
 
-  set parameterBag(parameterBag) {
-    this.metadata.parameterBag = parameterBag;
-  },
-
-  /**
-   * @returns {number}
-   */
-  get length() {
-    return this.metadata.paging.count || 0;
-  },
-
-  /**
-   * @returns {number}
-   */
-  get pages() {
-    return this.metadata.paging.pages || 0;
-  },
-
-  /**
-   * @returns {boolean}
-   */
-  get isLoading() {
-    return this.metadata.loading;
-  },
-
-  /**
-   * @returns {boolean}
-   */
-  get isLoaded() {
-    return this.metadata.loaded;
-  },
-
-  /**
-   * @returns {Array}
-   */
-  get items() {
-    return this.data.items;
-  },
-
-  /**
-   * @returns {Promise}
-   */
-  load() {
-    if (this.isLoaded === true
-      && this.metadata.lastParameterBagState === this.parameterBag.stateId) {
-      return Promise.resolve();
-    }
-
-    this.metadata.loading = true;
-    return this.repository.find(this.parameterBag).then((response) => {
-      this.data.items = response.data;
-      this.metadata.paging = response.paging;
-    }).finally(() => {
-      this.metadata.loading = false;
-      this.metadata.loaded = true;
-
-      this.metadata.lastParameterBagState = this.parameterBag.stateId;
-    });
-  },
+  return newCollection;
 };
 
 export default Collection;
