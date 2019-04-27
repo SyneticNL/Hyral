@@ -33,10 +33,6 @@ const resource = {
       author: {
         isMany: false,
         type: 'author',
-        data: {
-          id: 21,
-          type: 'author',
-        },
       }
     }
   }
@@ -73,16 +69,6 @@ const resource = {
       publications: {
         isMany: true,
         type: 'publication',
-        data: [
-          {
-            id: 41,
-            type: 'publication',
-          },
-          {
-            id: 42,
-            type: 'publication',
-          }
-        ],
       }
     }
   }

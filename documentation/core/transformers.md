@@ -7,12 +7,12 @@ The transformers are attached to a Connector.
 
 A transformer consists of 4 parts:
 
-* A URL serializer
+* An URL serializer
 * A param serializer
 * A request serializer
 * A response normalizer
 
-## A URL serializer
+## An URL serializer
 The URL serializer converts the ParameterBag and/or Entity into a URL that the backend will understand.
 
 For example: A URL serializer for a JsonApi backend will result in the following URL for a product fetch() request:
