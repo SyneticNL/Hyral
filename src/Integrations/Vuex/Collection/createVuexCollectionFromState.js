@@ -16,5 +16,4 @@ export default function createVuexCollectionFromState(state, repository, store) 
       });
     });
   };
-
 }
