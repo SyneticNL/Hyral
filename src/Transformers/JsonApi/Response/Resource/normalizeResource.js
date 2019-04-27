@@ -17,8 +17,9 @@ export default function normalizeResource(data) {
     resource.relationships[field] = {
       isMany: Array.isArray(relation.data),
       type: relationshipGetType(relation),
-      data: relation.data,
     };
+
+    resource.data[field] = relation.data;
   });
 
   return resource;
