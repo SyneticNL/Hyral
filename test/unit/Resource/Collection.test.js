@@ -1,7 +1,7 @@
-import Collection from '../../../../src/Resource/Collection';
-import { setState } from '../../../../src/State/State';
+import Collection from '../../../src/Resource/Collection';
+import { setState } from '../../../src/State/State';
 
-describe('The collection', () => {
+describe('Collection tests', () => {
   const mockResponse = {
     paging: {
       pages: 5,
@@ -60,7 +60,7 @@ describe('The collection', () => {
       });
     }));
   test('that the collection state can be retrieved using the state getter and is well formed.', () => {
-    expect(collection.state.name).toEqual('product');
+    expect(collection.name).toEqual('product');
     expect(collection.state).toHaveProperty('data');
     expect(collection.state.data).toHaveProperty('items');
     expect(collection.state).toHaveProperty('metadata');
@@ -72,7 +72,6 @@ describe('The collection', () => {
   });
 
   const state = {
-    name: 'test',
     data: {
       items: [
         {
@@ -93,7 +92,7 @@ describe('The collection', () => {
     },
   };
   test('that the collection state can be set from data', () => {
-    const newCollection = Collection(state.name, productRepository);
+    const newCollection = Collection('test', productRepository);
     setState(newCollection.stateStack, state);
 
     expect(newCollection.name).toEqual('test');
@@ -104,7 +103,7 @@ describe('The collection', () => {
     expect(newCollection.length).toEqual(state.metadata.paging.count);
   });
   test('that a new collection can be made based on state and repository', () => {
-    const newCollection = Collection.fromState(state, productRepository);
+    const newCollection = Collection.fromState('test', state, productRepository);
     expect(newCollection.repository).toBe(productRepository);
     expect(newCollection.items).toEqual(state.data.items);
     expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
