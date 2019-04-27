@@ -2,6 +2,11 @@
 /* eslint no-shadow: "off" */
 import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
 
+/**
+ * @param {HyralRepository} repository
+ * @param {Object} store
+ * @returns {object}
+ */
 const createStoreModule = (repository, store) => ({
   namespaced: true,
 
@@ -13,9 +18,9 @@ const createStoreModule = (repository, store) => ({
   getters: {
     resource: state => id => state.resources[id] || {},
     collection: state => (name) => {
-      const collectionState = state.collections[name] || { name };
+      const collectionState = state.collections[name] || { };
 
-      return createVuexCollectionFromState(collectionState, repository, store);
+      return createVuexCollectionFromState(name, collectionState, repository, store);
     },
   },
 
