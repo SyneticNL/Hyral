@@ -47,13 +47,13 @@ describe('The resource repository', () => {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
     };
     const repository = RepositoryManager.createRepository(connectorFind, 'testtype4', identifier);
-    repository.find(new ParameterBag());
+    repository.find(ParameterBag());
     expect(connectorFind.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a find containing the data array', () => {
     const repository = RepositoryManager.createRepository(connector, 'testtype7', identifier);
-    return repository.find(new ParameterBag()).then((data) => {
+    return repository.find(ParameterBag()).then((data) => {
       expect(data).toBe(axiosResponseData.data);
     });
   });
@@ -63,13 +63,13 @@ describe('The resource repository', () => {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
     };
     const repository = RepositoryManager.createRepository(connectorFindOne, 'testtype5', identifier);
-    repository.findOne(new ParameterBag());
+    repository.findOne(ParameterBag());
     expect(connectorFindOne.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
     const repository = RepositoryManager.createRepository(connector, 'testtype8', identifier);
-    return repository.findOne(new ParameterBag()).then((data) => {
+    return repository.findOne(ParameterBag()).then((data) => {
       expect(data).toEqual(axiosResponseData.data.data[0]);
     });
   });
