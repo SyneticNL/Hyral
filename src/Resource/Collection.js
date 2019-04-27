@@ -38,7 +38,6 @@ function collectionLoad(state) {
  */
 function Collection(name, repository) {
   const state = [{
-    name,
     data: {
       items: [],
     },
@@ -56,7 +55,7 @@ function Collection(name, repository) {
 
   const collection = {
     get name() {
-      return currentState(state).name;
+      return name;
     },
 
     get repository() {
@@ -126,8 +125,8 @@ function Collection(name, repository) {
   return collection;
 }
 
-Collection.fromState = (state, repository) => {
-  const newCollection = Collection(state.name, repository);
+Collection.fromState = (name, state, repository) => {
+  const newCollection = Collection(name, repository);
 
   setState(newCollection.stateStack, state);
 
