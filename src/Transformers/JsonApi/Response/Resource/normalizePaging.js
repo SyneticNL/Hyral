@@ -1,4 +1,4 @@
-import qs from 'qs';
+import parse from 'qs/lib/parse';
 import url from 'url';
 
 /**
@@ -14,7 +14,7 @@ export default function normalizePaging(response) {
     };
   }
 
-  const query = qs.parse(
+  const query = parse(
     url.parse(response.links.last).query,
   );
 

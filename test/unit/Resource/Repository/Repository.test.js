@@ -1,4 +1,4 @@
-import RepositoryManager from '../../../../src/Resource/Repository/RepositoryManager';
+import RepositoryManager from '../../../../src/Repository/RepositoryManager';
 import ParameterBag from '../../../../src/Resource/ParameterBag';
 
 describe('The resource repository', () => {

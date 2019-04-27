@@ -1,4 +1,4 @@
-import Resource from '../../../Resource/Resource/Resource';
+import Resource from '../../../../Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
 /**

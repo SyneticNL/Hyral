@@ -1,4 +1,4 @@
-import Resource from '../../../../Resource/Resource/Resource';
+import Resource from '../../../../../Resource/Resource';
 
 /**
  * @param {{id: String, type: String}} item

@@ -1,23 +1,13 @@
-import createHttpConnector from './Connector/CreateHttpConnector';
-import RepositoryManager from './Resource/Repository/RepositoryManager';
-import jsonApiParamsSerializer from './Transformers/JsonApi/paramsSerializer';
-import jsonApiResponseNormalizer from './Transformers/JsonApi/responseNormalizer';
-import jsonApiRequestSerializer from './Transformers/JsonApi/requestSerializer';
-import jsonApiUrlSerializer from './Transformers/JsonApi/urlSerializer';
+import HttpConnector from './Connector/HttpConnector';
+import RepositoryManager from './Repository/RepositoryManager';
+import jsonApiTransformers from './Transformers/JsonApi/JsonApi';
 import ParameterBag from './Resource/ParameterBag';
-import Collection from './Resource/Resource/Collection';
-
-const jsonApiTransformers = {
-  paramsSerializer: jsonApiParamsSerializer,
-  responseNormalizer: jsonApiResponseNormalizer,
-  requestSerializer: jsonApiRequestSerializer,
-  urlSerializer: jsonApiUrlSerializer,
-};
+import Collection from './Resource/Collection';
 
 export {
   jsonApiTransformers,
   ParameterBag,
   Collection,
-  createHttpConnector,
+  HttpConnector,
   RepositoryManager,
 };

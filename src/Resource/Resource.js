@@ -12,7 +12,7 @@
  * @property {boolean} metadata.loaded
  */
 
-import { currentState, setState } from '../../State/State';
+import { currentState, setState } from '../State/State';
 
 /**
  * @param {string|number|null} id
@@ -101,6 +101,11 @@ function Resource(id = null, type = null, data = null, relationships = null) {
   };
 }
 
+/**
+ * @param {object} state
+ *
+ * @returns {HyralResource}
+ */
 Resource.fromState = (state) => {
   const resource = Resource();
 
@@ -108,6 +113,5 @@ Resource.fromState = (state) => {
 
   return resource;
 };
-
 
 export default Resource;

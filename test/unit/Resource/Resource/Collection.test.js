@@ -1,4 +1,4 @@
-import Collection from '../../../../src/Resource/Resource/Collection';
+import Collection from '../../../../src/Resource/Collection';
 import { setState } from '../../../../src/State/State';
 
 describe('The collection', () => {

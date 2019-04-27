@@ -1,5 +1,5 @@
-import ParameterBag from '../ParameterBag';
-import { currentState, setState } from '../../State/State';
+import ParameterBag from './ParameterBag';
+import { currentState, setState } from '../State/State';
 
 /**
  * @param state
