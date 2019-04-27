@@ -19,7 +19,7 @@ describe('Collection tests', () => {
     find: repositoryFindMock,
   };
 
-  const collection = new Collection('product', productRepository);
+  const collection = Collection('product', productRepository);
 
   test('that the collection is initialized correctly', () => {
     expect(collection.name).toEqual('product');

@@ -2,34 +2,37 @@ import ParameterBag from './ParameterBag';
 import { currentState, setState } from '../State/State';
 
 /**
- * @param state
+ * @param collection
+ *
  * @returns {Promise}
  */
-function collectionLoad(state) {
-  if (this.isLoaded === true
-    && currentState(state).metadata.lastParameterBagState === this.parameterBag.stateId) {
-    return Promise.resolve();
-  }
+function collectionLoad(collection) {
+  return () => {
+    if (collection.isLoaded === true
+      && collection.state.metadata.lastParameterBagState === collection.parameterBag.stateId) {
+      return Promise.resolve();
+    }
 
-  currentState(state).metadata.loading = true;
-  return this.repository.find(this.parameterBag).then((response) => {
-    setState(state, {
-      data: {
-        items: response.data,
-      },
-      metadata: {
-        paging: response.paging,
-      },
+    setState(collection.stateStack, { metadata: { loading: true } });
+    return collection.repository.find(collection.parameterBag).then((response) => {
+      setState(collection.stateStack, {
+        data: {
+          items: response.data,
+        },
+        metadata: {
+          paging: response.paging,
+        },
+      });
+    }).finally(() => {
+      setState(collection.stateStack, {
+        metadata: {
+          loading: false,
+          loaded: true,
+          lastParameterBagState: collection.parameterBag.stateId,
+        },
+      });
     });
-  }).finally(() => {
-    setState(state, {
-      metadata: {
-        loading: false,
-        loaded: true,
-        lastParameterBagState: this.parameterBag.stateId,
-      },
-    });
-  });
+  };
 }
 
 /**
@@ -120,7 +123,7 @@ function Collection(name, repository) {
     },
   };
 
-  collection.load = collectionLoad.bind(collection, state);
+  collection.load = collectionLoad(collection);
 
   return collection;
 }
