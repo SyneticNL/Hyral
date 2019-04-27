@@ -1,33 +1,32 @@
 /* eslint no-param-reassign: "off" */
 /* eslint no-shadow: "off" */
-import Collection from '../../../Resource/Resource/Collection';
+import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
 
-const createStoreModule = (repository) => {
-  return {
-    namespaced: true,
+const createStoreModule = (repository, store) => ({
+  namespaced: true,
 
-    state: {
-      items: {},
-      collections: {},
+  state: {
+    resources: {},
+    collections: {},
+  },
+
+  getters: {
+    resource: state => id => state.resources[id] || {},
+    collection: state => (name) => {
+      const collectionState = state.collections[name] || { name };
+
+      return createVuexCollectionFromState(collectionState, repository, store);
     },
+  },
 
-    getters: {
-      item: state => id => state.items[id] || {},
-      collection: state => (name) => {
-        const collectionData = state.collections[name] || { name };
-        return Collection.fromState(collectionData, repository);
-      },
+  mutations: {
+    SET_COLLECTION(state, payload) {
+      state.collections[payload.name] = payload.state;
     },
-
-    mutations: {
-      SET_COLLECTION(state, payload) {
-        state.collections[payload.name] = payload.state;
-      },
-      SET_ITEM(state, item) {
-        state.items[item[repository.identifier]] = item;
-      },
+    SET_RESOURCE(state, resource) {
+      state.resources[resource[repository.identifier]] = resource;
     },
-  };
-};
+  },
+});
 
 export default createStoreModule;
