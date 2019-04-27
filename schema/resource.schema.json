@@ -7,23 +7,6 @@
     "id": {
       "type": ["null", "number", "string"]
     },
-    "relationship": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/id"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "many-relationship": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/relationship"
-      }
-    },
     "relationships": {
       "type": "object",
       "properties": {
@@ -32,16 +15,6 @@
         },
         "isMany": {
           "type": "boolean"
-        },
-        "data": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/relationship"
-            },
-            {
-              "$ref": "#/definitions/many-relationship"
-            }
-          ]
         }
       }
     },

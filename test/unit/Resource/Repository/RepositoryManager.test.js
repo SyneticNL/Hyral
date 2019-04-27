@@ -1,5 +1,5 @@
 import RepositoryManager
-  from '../../../../src/Resource/Repository/RepositoryManager';
+  from '../../../../src/Repository/RepositoryManager';
 
 describe('The resource factory', () => {
   const connectorMock = {};
@@ -16,7 +16,6 @@ describe('The resource factory', () => {
   });
 
   it('should have the properties for the connector, resourceType and identifier', () => {
-    expect(resource1).toHaveProperty('connector');
     expect(resource1).toHaveProperty('resourceType');
     expect(resource1).toHaveProperty('identifier');
   });

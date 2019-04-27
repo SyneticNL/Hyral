@@ -36,7 +36,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "build": "npm run lint && cross-env BABEL_ENV=production babel src --out-dir lib",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "fix": "eslint --fix src/**/*.js"
   },
   "repository": {
     "type": "git",

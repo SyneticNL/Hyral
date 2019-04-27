@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-import cloneDeep from 'lodash/fp/cloneDeep';
 /**
  * @typedef HyralFilter
  * @type {Object}
@@ -21,128 +19,148 @@ import cloneDeep from 'lodash/fp/cloneDeep';
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
 
-function ParameterBag() {
-  if (!new.target) {
-    throw Error('ParameterBag() must be called with new');
-  }
+import { currentState, setState } from '../State/State';
 
-  Object.defineProperty(this, '_state', {
-    enumerable: false,
-    configurable: false,
-    writable: true,
-    value: {
-      parameters: {
-        filters: [],
-        sorting: [],
-        paging: {},
-        params: {},
-      },
-      metadata: {
-        stateId: 0,
-      },
+function ParameterBag() {
+  const state = [{
+    parameters: {
+      filters: [],
+      sorting: [],
+      paging: {},
+      params: {},
     },
-  });
+    metadata: {
+      stateId: 0,
+    },
+  }];
+
+  return {
+    /**
+     * @returns {HyralFilter[]}
+     */
+    get filters() {
+      return currentState(state).parameters.filters;
+    },
+
+    /**
+     * @param {HyralFilter} filter
+     */
+    addFilter(filter) {
+      const { filters } = currentState(state).parameters;
+      filters.push(filter);
+      setState(state, {
+        parameters: {
+          filters,
+        },
+      });
+    },
+
+    /**
+     * @param {HyralFilter[]} filters
+     */
+    setFilters(filters) {
+      setState(state, {
+        parameters: {
+          filters,
+        },
+      });
+    },
+
+    /**
+     * @returns {HyralPaging}
+     */
+    get paging() {
+      return currentState(state).parameters.paging;
+    },
+
+    /**
+     * @param {HyralPaging} paging
+     */
+    setPaging(paging) {
+      setState(state, {
+        parameters: {
+          paging,
+        },
+      });
+    },
+
+    /**
+     * @returns {HyralSorting[]}
+     */
+    get sorting() {
+      return currentState(state).parameters.sorting;
+    },
+
+    /**
+     * @param {HyralSorting[]} sorting
+     */
+    setSorting(sorting) {
+      setState(state, {
+        parameters: {
+          sorting,
+        },
+      });
+    },
+
+    /**
+     * @returns {Object}
+     */
+    get params() {
+      return currentState(state).parameters.params;
+    },
+
+    /**
+     * @param {string} key
+     * @param value
+     */
+    addParam(key, value) {
+      setState(state, {
+        parameters: {
+          params: {
+            [key]: value,
+          },
+        },
+      });
+    },
+
+    /**
+     * @param {Object} params
+     */
+    setParams(params) {
+      setState(state, {
+        parameters: {
+          params,
+        },
+      });
+    },
+
+    get stateId() {
+      return state.length - 1;
+    },
+
+    /**
+     * @returns {[{}]}
+     */
+    get stateStack() {
+      return state;
+    },
+
+    /**
+     * @returns {object}
+     */
+    get state() {
+      return currentState(state);
+    },
+
+  };
 }
 
-ParameterBag.prototype = {
-  /**
-   * @returns {HyralFilter[]}
-   */
-  get filters() {
-    return this._state.parameters.filters;
-  },
+ParameterBag.fromState = (state) => {
+  const parameterBag = ParameterBag();
 
-  /**
-   * @param {HyralFilter} filter
-   */
-  addFilter(filter) {
-    this._state.parameters.filters.push(filter);
-    this.updateStateId();
-  },
+  setState(parameterBag.stateStack, state);
 
-  /**
-   * @param {HyralFilter[]} filters
-   */
-  setFilters(filters) {
-    this._state.parameters.filters = filters;
-    this.updateStateId();
-  },
-
-  /**
-   * @returns {HyralPaging}
-   */
-  get paging() {
-    return this._state.parameters.paging;
-  },
-
-  /**
-   * @param {HyralPaging} paging
-   */
-  setPaging(paging) {
-    this._state.parameters.paging = paging;
-    this.updateStateId();
-  },
-
-  /**
-   * @returns {HyralSorting[]}
-   */
-  get sorting() {
-    return this._state.parameters.sorting;
-  },
-
-  /**
-   * @param {HyralSorting[]} sorting
-   */
-  setSorting(sorting) {
-    this._state.parameters.sorting = sorting;
-    this.updateStateId();
-  },
-
-  /**
-   * @returns {Object}
-   */
-  get params() {
-    return this._state.parameters.params;
-  },
-
-  /**
-   * @param {string} key
-   * @param value
-   */
-  addParam(key, value) {
-    this._state.parameters.params[key] = value;
-    this.updateStateId();
-  },
-
-  /**
-   * @param {Object} params
-   */
-  setParams(params) {
-    this._state.parameters.params = params;
-    this.updateStateId();
-  },
-
-  get stateId() {
-    return this._state.metadata.stateId;
-  },
-
-  updateStateId() {
-    this._state.metadata.stateId += 1;
-  },
-
-  /**
-   * @returns {object}
-   */
-  get state() {
-    return cloneDeep(this._state);
-  },
-
-  /**
-   * @param newState {object}
-   */
-  set newState(newState) {
-    this._state = cloneDeep(newState);
-  },
+  return parameterBag;
 };
 
 export default ParameterBag;
