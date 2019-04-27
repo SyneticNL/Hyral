@@ -24,16 +24,16 @@ npm install hyral
 
 ## More
 
+* [Documentation](documentation/README.md)
 * [Roadmap](documentation/roadmap.md)
-* [Core concepts](documentation/core/readme.md)
 
 ## Guides
 
 There are several guides available that should give you a head-start:
 
-* [Understanding Hyral](documentation/guides/understanding-hyral.md)
-* [Getting started](documentation/guides/getting-started.md)
-* [Configuring for multiple backend](documentation/guides/multiple-backends.md)
-* [Creating your own transformer](documentation/guides/creating-transformers.md)
+* [Understanding Hyral](documentation/Guides/understanding-hyral.md)
+* [Getting started](documentation/Guides/getting-started.md)
+* [Configuring for multiple backend](documentation/Guides/multiple-backends.md)
+* [Creating your own transformer](documentation/Guides/creating-transformers.md)
 
 The guides assume you have read and understood the core concepts behind Hyral.

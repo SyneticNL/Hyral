@@ -1,5 +1,5 @@
-import ParameterBag from '../../../src/Resource/ParameterBag';
-import { setState } from '../../../src/State/State';
+import ParameterBag from '../../../../src/Core/Resource/ParameterBag';
+import { setState } from '../../../../src/Core/State/State';
 
 describe('ParameterBag', () => {
   test('that it is initialized with default empty values', () => {

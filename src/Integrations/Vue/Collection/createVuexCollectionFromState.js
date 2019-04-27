@@ -1,4 +1,4 @@
-import Collection from '../../../Resource/Collection';
+import Collection from '../../../Core/Resource/Collection';
 
 export default function createVuexCollectionFromState(name, state, repository, store) {
   const collection = Collection.fromState(name, state, repository);

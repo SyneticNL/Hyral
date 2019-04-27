@@ -1,5 +1,5 @@
-import RepositoryManager from '../../../../src/Repository/RepositoryManager';
-import ParameterBag from '../../../../src/Resource/ParameterBag';
+import RepositoryManager from '../../../../src/Core/Repository/RepositoryManager';
+import ParameterBag from '../../../../src/Core/Resource/ParameterBag';
 
 describe('The resource repository', () => {
   const axiosResponseData = {

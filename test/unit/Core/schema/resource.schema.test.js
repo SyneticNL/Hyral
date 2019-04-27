@@ -1,5 +1,5 @@
 import { matchers } from 'jest-json-schema';
-import resourceJsonSchema from '../../../schema/resource.schema';
+import resourceJsonSchema from '../../../../schema/resource.schema';
 
 expect.extend(matchers);
 

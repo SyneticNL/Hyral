@@ -1,4 +1,4 @@
-import HttpConnector from '../../../src/Connector/HttpConnector';
+import HttpConnector from '../../../../src/Core/Connector/HttpConnector';
 
 describe('The http connector should have all properties necessary', () => {
   const urlSerializer = {

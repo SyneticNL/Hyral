@@ -1,5 +1,5 @@
 import RepositoryManager
-  from '../../../../src/Repository/RepositoryManager';
+  from '../../../../src/Core/Repository/RepositoryManager';
 
 describe('The resource factory', () => {
   const connectorMock = {};
