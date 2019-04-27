@@ -1,6 +1,7 @@
 /* eslint no-param-reassign: "off" */
 /* eslint no-shadow: "off" */
 import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
+import Resource from '../../../Resource/Resource';
 
 /**
  * @param {HyralRepository} repository
@@ -16,7 +17,9 @@ const createStoreModule = (repository, store) => ({
   },
 
   getters: {
-    resource: state => id => state.resources[id] || {},
+    resource: state => id => Resource.fromState(
+      state.resources[id] || { id, type: repository.resourceType },
+    ),
     collection: state => (name) => {
       const collectionState = state.collections[name] || { };
 
@@ -25,13 +28,20 @@ const createStoreModule = (repository, store) => ({
   },
 
   mutations: {
-    SET_COLLECTION(state, payload) {
-      state.collections[payload.name] = payload.state;
+    SET_COLLECTION(state, collection) {
+      state.collections[collection.name] = collection.state;
     },
     SET_RESOURCE(state, resource) {
-      state.resources[resource[repository.identifier]] = resource;
+      state.resources[resource[repository.identifier]] = resource.state;
     },
   },
+
+  actions: {
+    LOAD_RESOURCE({ commit }, id) {
+      repository.findById(id);
+    },
+  },
+
 });
 
 export default createStoreModule;
