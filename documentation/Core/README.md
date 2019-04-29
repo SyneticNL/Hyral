@@ -7,5 +7,6 @@ Hyral is based on the following concepts:
 * [Resource](resource.md)
 * [Resource Repository](resource-repository.md)
 * [Transformers](transformers.md)
-* [ParameterBag](parameterBag.md)
+*3 [ParameterBag](parameterBag.md)
 * [Collection](collection.md)
+£
