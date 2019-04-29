@@ -1,13 +1,13 @@
 import ParameterBag from '../../../../src/Resource/ParameterBag';
-import paramsSerializer from '../../../../src/Transformers/JsonApi/paramsSerializer';
-import serializePaging from '../../../../src/Transformers/JsonApi/Params/serializePaging';
-import serializeFilters from '../../../../src/Transformers/JsonApi/Params/serializeFilters';
-import serializeParams from '../../../../src/Transformers/JsonApi/Params/serializeParams';
-import serializeSorting from '../../../../src/Transformers/JsonApi/Params/serializeSorting';
+import paramsSerializer from '../../../../src/Transformers/JsonApi/Request/paramsSerializer';
+import serializePaging from '../../../../src/Transformers/JsonApi/Request/Params/serializePaging';
+import serializeFilters from '../../../../src/Transformers/JsonApi/Request/Params/serializeFilters';
+import serializeParams from '../../../../src/Transformers/JsonApi/Request/Params/serializeParams';
+import serializeSorting from '../../../../src/Transformers/JsonApi/Request/Params/serializeSorting';
 
 describe('paramSerializer', () => {
   test('that serializeParams gives a valid JsonApi response', () => {
-    const parameterBag = new ParameterBag();
+    const parameterBag = ParameterBag();
     const params = {
       simple: 'value',
       nested: {
@@ -22,7 +22,7 @@ describe('paramSerializer', () => {
   });
 
   test('that serializeSorting gives a valid JsonApi response', () => {
-    const parameterBag = new ParameterBag();
+    const parameterBag = ParameterBag();
     parameterBag.setSorting([
       {
         field: 'field1',
@@ -44,7 +44,7 @@ describe('paramSerializer', () => {
   });
 
   test('that serializePaging gives a valid JsonApi response', () => {
-    const parameterBag = new ParameterBag();
+    const parameterBag = ParameterBag();
     const paging = {
       offset: 20,
       limit: 20,
@@ -59,7 +59,7 @@ describe('paramSerializer', () => {
   });
 
   test('that serializeFilters gives a valid JsonApi response', () => {
-    const parameterBag = new ParameterBag();
+    const parameterBag = ParameterBag();
     const filters = [
       {
         field: 'f1',
@@ -83,7 +83,7 @@ describe('paramSerializer', () => {
   });
 
   test('that paramsSerializer gives a valid, JsonApi compatible, params object', () => {
-    const parameterBag = new ParameterBag();
+    const parameterBag = ParameterBag();
     parameterBag.setSorting([
       {
         field: 'field1',

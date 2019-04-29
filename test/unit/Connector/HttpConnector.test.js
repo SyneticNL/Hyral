@@ -1,4 +1,4 @@
-import createHttpConnector from '../../../src/Connector/CreateHttpConnector';
+import HttpConnector from '../../../src/Connector/HttpConnector';
 
 describe('The http connector should have all properties necessary', () => {
   const urlSerializer = {
@@ -15,7 +15,7 @@ describe('The http connector should have all properties necessary', () => {
     },
   };
 
-  const connector = createHttpConnector(
+  const connector = HttpConnector(
     axiosMock,
     urlSerializer,
     paramsSerializer,
@@ -29,10 +29,6 @@ describe('The http connector should have all properties necessary', () => {
 
   it('has a fetchOne method', () => {
     expect(connector).toHaveProperty('fetchOne');
-  });
-
-  it('has an axios instance', () => {
-    expect(connector).toHaveProperty('axios');
   });
 
   it('has a create method', () => {
@@ -71,7 +67,7 @@ describe('The fetch method', () => {
     get: jest.fn(() => Promise.resolve(response)),
   };
 
-  const connector = createHttpConnector(
+  const connector = HttpConnector(
     axiosMock,
     urlSerializer,
     paramsSerializer,
@@ -128,7 +124,7 @@ describe('The fetchOne method', () => {
     get: jest.fn(() => Promise.resolve(response)),
   };
 
-  const connector = createHttpConnector(
+  const connector = HttpConnector(
     axiosMock,
     urlSerializer,
     paramsSerializer,
@@ -158,5 +154,78 @@ describe('The fetchOne method', () => {
     return connector.fetchOne(repository, id, parameterBag).then((data) => {
       expect(data).toBe(response);
     });
+  });
+});
+
+describe('The create http connector should create a objects', () => {
+  const axiosMock1 = {
+    defaults: {
+      paramsSerializer: null,
+      transformRequest: [],
+      transformResponse: [],
+    },
+  };
+  const axiosMock2 = {
+    defaults: {
+      paramsSerializer: null,
+      transformRequest: [],
+      transformResponse: [],
+    },
+  };
+  const urlSerializer1 = jest.fn();
+  const urlSerializer2 = jest.fn();
+  const paramsSerializer = jest.fn();
+  const requestSerializer = jest.fn();
+  const responseNormalizer = jest.fn();
+
+  const connector1 = HttpConnector(
+    axiosMock1,
+    urlSerializer1,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  );
+
+  const connector2 = HttpConnector(
+    axiosMock2,
+    urlSerializer2,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  );
+  test('connector1 and connector2 should be unique', () => {
+    expect(connector1).not.toBe(connector2);
+  });
+});
+
+describe('The axios instance is properly configured', () => {
+  const axiosMock = {
+    defaults: {
+      paramsSerializer: null,
+      transformRequest: [],
+      transformResponse: [],
+    },
+  };
+  const urlSerializer = jest.fn();
+  const paramsSerializer = jest.fn();
+  const requestSerializer = jest.fn();
+  const responseNormalizer = jest.fn();
+
+  HttpConnector(
+    axiosMock,
+    urlSerializer,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  );
+
+  test('axios has the paramSerializer', () => {
+    expect(axiosMock.defaults.paramsSerializer).toBe(paramsSerializer);
+  });
+  test('the last item in request transformers is the transformer supplied', () => {
+    expect(axiosMock.defaults.transformRequest.slice(-1)[0]).toBe(requestSerializer);
+  });
+  test('the last item in response transformers is the normalizer supplied', () => {
+    expect(axiosMock.defaults.transformResponse.slice(-1)[0]).toBe(responseNormalizer);
   });
 });
