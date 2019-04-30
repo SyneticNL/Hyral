@@ -1,6 +1,7 @@
 
 /**
  * @typedef HyralResource
+ *
  * @type {Object}
  * @property {string|number} id
  * @property {string} type
@@ -13,6 +14,18 @@
  */
 
 import { currentState, setState } from '../State/State';
+import repositoryManager from '../Repository/RepositoryManager';
+
+/**
+ * @param repository
+ * @param state
+ * @param id
+ */
+function lazyLoad(repository, state, id) {
+  return repository.findById(id).then(resource => setState(state, {
+    data: resource.data,
+  }));
+}
 
 /**
  * @param {string|number|null} id
@@ -54,6 +67,14 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @returns {object}
      */
     get data() {
+      if (!metadata.loaded) {
+        metadata.loading = true;
+        lazyLoad(repositoryManager.getRepository(type), state, id).then(() => {
+          metadata.loaded = true;
+          metadata.loading = false;
+        });
+      }
+
       return currentState(state).data;
     },
 
