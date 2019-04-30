@@ -3,9 +3,9 @@
 
 Hyral is based on the following concepts:
 
-* [Connector](docs/core/connector.md)
-* [Resource](docs/core/resource.md)
-* [Resource Repository](docs/core/resource-repository.md)
-* [Transformers](docs/transformers.md)
-* [ParameterBag](docs/core/parameterBag.md)
-* [Collection](docs/core/collection.md)
+* [Connector](connector.md)
+* [Resource](resource.md)
+* [Resource Repository](resource-repository.md)
+* [Transformers](transformers.md)
+* [ParameterBag](parameterBag.md)
+* [Collection](collection.md)

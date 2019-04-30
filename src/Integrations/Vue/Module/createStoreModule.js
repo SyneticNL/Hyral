@@ -22,7 +22,6 @@ const createStoreModule = (repository, store) => ({
     ),
     collection: state => (name) => {
       const collectionState = state.collections[name] || { };
-
       return createVuexCollectionFromState(name, collectionState, repository, store);
     },
   },
