@@ -2,7 +2,7 @@
 export default {
   computed: {
     collection() {
-      const collection = this.$store.getters[`hyral-${this.resourceType}/collection`](this.collectionName);
+      const collection = this.$store.getters[`hyral_${this.resourceType}/collection`](this.collectionName);
 
       if (!this.parameterBag) {
         return collection;

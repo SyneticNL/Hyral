@@ -7,7 +7,7 @@ import url from 'url';
  * @returns {{count: number, pages: number}}
  */
 export default function normalizePaging(response) {
-  if (!response.links.last) {
+  if (!response.links || !response.links.last) {
     return {
       count: 0,
       pages: 0,

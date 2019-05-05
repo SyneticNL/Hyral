@@ -66,7 +66,7 @@ function Collection(name, repository) {
     },
 
     get parameterBag() {
-      return ParameterBag.fromState(state.parameterBag || {});
+      return ParameterBag.fromState(currentState(state).parameterBag || {});
     },
 
     set parameterBag(parameterBag) {
