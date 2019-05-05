@@ -20,18 +20,18 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[0]).toHaveProperty('relationships');
 
     expect(result.data[0].relationships).toHaveProperty('consultant');
-    expect(result.data[0].relationships.consultant.type).toBe('people');
-    expect(result.data[0].relationships.consultant.isMany).toBeFalsy();
+    expect(result.data[0].relationships.consultant.resource).toBe('people');
+    expect(result.data[0].relationships.consultant.cardinality).toEqual('one-to-many');
     expect(result.data[0].data.consultant).toHaveProperty('id');
     expect(result.data[0].data.consultant).toHaveProperty('type');
 
     expect(result.data[0].relationships).toHaveProperty('thumbnail');
-    expect(result.data[0].relationships.thumbnail.type).toBe('images');
-    expect(result.data[0].relationships.thumbnail.isMany).toBeFalsy();
+    expect(result.data[0].relationships.thumbnail.resource).toBe('images');
+    expect(result.data[0].relationships.thumbnail.cardinality).toEqual('one-to-many');
 
     expect(result.data[1].relationships).toHaveProperty('images');
-    expect(result.data[1].relationships.images.isMany).toBeTruthy();
-    expect(result.data[1].relationships.images.type).toBe('images');
+    expect(result.data[1].relationships.images.resource).toBe('images');
+    expect(result.data[1].relationships.images.cardinality).toEqual('many-to-many');
     expect(result.data[1].data.images).toHaveLength(2);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');

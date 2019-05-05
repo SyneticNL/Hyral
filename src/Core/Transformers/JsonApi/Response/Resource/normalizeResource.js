@@ -1,6 +1,10 @@
 import Resource from '../../../../Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
+function guessRelationCardinality(relation) {
+  return Array.isArray(relation.data) ? 'many-to-many' : 'one-to-many';
+}
+
 /**
  * @param {JsonApiResource} data
  *
@@ -15,8 +19,8 @@ export default function normalizeResource(data) {
 
   Object.entries(data.relationships).forEach(([field, relation]) => {
     resource.relationships[field] = {
-      isMany: Array.isArray(relation.data),
-      type: relationshipGetType(relation),
+      cardinality: guessRelationCardinality(relation),
+      resource: relationshipGetType(relation),
     };
 
     resource.data[field] = relation.data;

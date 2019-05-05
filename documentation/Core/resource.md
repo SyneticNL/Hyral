@@ -31,8 +31,8 @@ const resource = {
   metadata: {
     relationships: {
       author: {
-        isMany: false,
-        type: 'author',
+        cardinality: 'one-to-many',
+        resource: 'author',
       }
     }
   }
@@ -67,18 +67,29 @@ const resource = {
   metadata: {
     relationships: {
       publications: {
-        isMany: true,
-        type: 'publication',
+        cardinality: 'many-to-one',
+        resource: 'publication',
       }
     }
   }
 };
 ```
 
-## Factory
+### Defining relationships
 
-Resources are always created via the resourceFactory function. If you wish to create a new resource from your 
-application use the resourceFactory method to ensure a correct structure.
+The JSON API normalizer tries to guess the available relationships adn cardinality of these 
+relationships. You can/should correct these guesses if they are incorrect when persisting a resource.
+
+The following assumptions are made:
+- All relations in the resource relationships property are added as relations, even if they are
+  empty. 
+- A relation is assumed to have a cardinality of one-to-many if the data value is an object.
+- A relation is assumed to have a cardinality of many-to-many if the data value is as array.
+
+## Creating a resource
+
+Resources are always created via the Resource function. If you wish to create a new resource from your 
+application use the Resource function to ensure a correct structure.
 
 ## JSON Schema
 A JSON schema is available for a resource [here](/schema/resource.schema.json).
