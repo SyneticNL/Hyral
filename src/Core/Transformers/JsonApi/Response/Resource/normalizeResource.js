@@ -8,7 +8,7 @@ function guessRelationCardinality(relation) {
 /**
  * @param {JsonApiResource} data
  *
- * @returns {Resource}
+ * @returns {HyralResource}
  */
 export default function normalizeResource(data) {
   const resource = Resource(data.id, data.type, data.attributes);
