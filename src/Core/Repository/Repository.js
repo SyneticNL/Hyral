@@ -40,33 +40,6 @@ export default function Repository(connector, resourceType, identifier) {
     findById(id) {
       return connector.fetchOne(this, id, {});
     },
-
-    /**
-     * @param {Object} entity
-     *
-     * @returns {Promise<Resource>}
-     */
-    create(entity) {
-      return connector.create(this, entity);
-    },
-
-    /**
-     * @param {Object} entity
-     *
-     * @returns {Promise<Resource>}
-     */
-    update(entity) {
-      return connector.create(this, entity);
-    },
-
-    /**
-     * @param {Object} entity
-     *
-     * @returns {Promise<Object>}
-     */
-    delete(entity) {
-      return connector.create(this, entity);
-    },
   };
 
   Object.defineProperties(repository, {

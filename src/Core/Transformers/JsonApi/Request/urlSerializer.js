@@ -22,32 +22,32 @@ const urlSerializer = {
   },
 
   /**
-   * @param {HyralRepository} repository
+   * @param {string} resourceType
    *
    * @returns {string}
    */
-  create(repository) {
-    return `/${repository.resourceType}`;
+  create(resourceType) {
+    return `/${resourceType}`;
   },
 
   /**
-   * @param {HyralRepository} repository
+   * @param {string} resourceType
    * @param {number|string} id
    *
    * @returns {string}
    */
-  update(repository, id) {
-    return `/${repository.resourceType}/${id}`;
+  update(resourceType, id) {
+    return `/${resourceType}/${id}`;
   },
 
   /**
-   * @param {HyralRepository} repository
+   * @param {string} resourceType
    * @param {number|string} id
    *
    * @returns {string}
    */
-  delete(repository, id) {
-    return `/${repository.resourceType}/${id}`;
+  delete(resourceType, id) {
+    return `/${resourceType}/${id}`;
   },
 };
 

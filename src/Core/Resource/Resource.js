@@ -8,6 +8,7 @@
  * @property {object} relationships
  * @property {object} metadata
  * @property {object} state
+ * @property {array} stateStack
  * @property {boolean} metadata.loading
  * @property {boolean} metadata.loaded
  */

@@ -1,7 +1,6 @@
 /**
  * @typedef HyralConnector
  * @type {Object}
- * @property {AxiosInstance} axios - AxiosInstance
  * @property {function} fetch
  * @property {function} fetchOne
  * @property {function} create
@@ -64,35 +63,29 @@ function HttpConnector(
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
      */
-    create(repository, parameterBag) {
-      axios.post({
-        repository,
-        data: parameterBag,
+    create(task) {
+      axios.post(urlSerializer.create(task.payload.type), {
+        data: task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
      */
-    update(repository, parameterBag) {
-      axios.patch({
-        repository,
-        data: parameterBag,
+    update(task) {
+      axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+        data: task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
      */
-    delete(repository, parameterBag) {
-      axios.delete({
-        repository,
-        params: parameterBag,
+    delete(task) {
+      axios.delete(urlSerializer.delete(task.payload.type, task.payload.id), {
+        params: task,
       });
     },
   };

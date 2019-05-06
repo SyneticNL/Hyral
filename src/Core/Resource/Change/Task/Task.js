@@ -1,0 +1,48 @@
+/**
+ * @typedef HyralTask
+ * @type {Object}
+ * @property {object} payload - The payload for the task (the changed resource or the relation)
+ * @property {object|null} context - The context. This is the resource on a relation task.
+ * @property {array} related - All tasks on this entity.
+ * @property {array} dependencies - Tasks that need to be executed and resolved before this task.
+ * @property {boolean} resolved - If the task has been resolved.
+ * @property {function} execute
+ */
+
+/**
+ * @param {string} type (create/update/delete/relation)
+ * @param {object} payload
+ * @param {HyralResource|null} context
+ *
+ * @returns {HyralTask}
+ */
+export default function Task(type, payload, context = null) {
+  let resolved = false;
+
+  const task = {
+    get payload() {
+      return payload;
+    },
+    get context() {
+      return context;
+    },
+    get resolved() {
+      return resolved;
+    },
+    related: [],
+    dependencies: [],
+  };
+
+  return Object.assign(task, {
+    /**
+     * @param {HyralConnector} connector
+     *
+     * @returns {Promise}
+     */
+    execute(connector) {
+      return connector[type](task).then(() => {
+        resolved = true;
+      });
+    },
+  });
+}
