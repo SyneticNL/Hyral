@@ -25,8 +25,6 @@ import { currentState, setState } from '../State/State';
  */
 function Resource(id = null, type = null, data = null, relationships = null) {
   const state = [{
-    id,
-    type,
     data: data || {},
     relationships: relationships || {},
   }];
@@ -41,14 +39,14 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @returns {string|number}
      */
     get id() {
-      return currentState(state).id;
+      return id;
     },
 
     /**
      * @returns {string}
      */
     get type() {
-      return currentState(state).type;
+      return type;
     },
 
     /**
@@ -62,7 +60,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newData
      */
     set data(newData) {
-      setState(state, { data: newData });
+      setState(state, { newData });
     },
 
     /**
@@ -103,12 +101,15 @@ function Resource(id = null, type = null, data = null, relationships = null) {
 }
 
 /**
+ *
+ * @param {string|number|null} id
+ * @param {string} type
  * @param {object} state
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (state) => {
-  const resource = Resource();
+Resource.fromState = (id, type, state) => {
+  const resource = Resource(id, type);
 
   setState(resource.stateStack, state);
 
