@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 /**
  * @typedef HyralConnector
  * @type {Object}
@@ -37,8 +38,12 @@ function HttpConnector(
 ) {
   /* eslint-disable no-param-reassign */
   axios.defaults.paramsSerializer = paramsSerializer;
-  axios.defaults.transformRequest.push(requestSerializer);
-  axios.defaults.transformResponse.push(responseNormalizer);
+  const transformRequest = cloneDeep(axios.defaults.transformRequest);
+  transformRequest.push(requestSerializer);
+  axios.defaults.transformRequest = transformRequest;
+  const transformResponse = cloneDeep(axios.defaults.transformResponse);
+  transformResponse.push(responseNormalizer);
+  axios.defaults.transformResponse = transformResponse;
   /* eslint-enable no-param-reassign */
 
   return {
