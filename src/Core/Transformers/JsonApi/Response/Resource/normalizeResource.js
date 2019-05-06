@@ -2,7 +2,7 @@ import Resource from '../../../../Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
 function guessRelationCardinality(relation) {
-  return Array.isArray(relation.data) ? 'many-to-many' : 'one-to-many';
+  return Array.isArray(relation.data) ? 'many-to-many' : 'many-to-one';
 }
 
 /**

@@ -6,6 +6,7 @@
  * @property {array} related - All tasks on this entity.
  * @property {array} dependencies - Tasks that need to be executed and resolved before this task.
  * @property {boolean} resolved - If the task has been resolved.
+ * @property {boolean} claimed - If the task has been claimed.
  * @property {function} execute
  */
 
@@ -29,6 +30,7 @@ export default function Task(type, payload, context = null) {
     get resolved() {
       return resolved;
     },
+    claimed: false,
     related: [],
     dependencies: [],
   };

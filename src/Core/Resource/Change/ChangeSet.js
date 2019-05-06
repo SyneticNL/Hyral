@@ -9,9 +9,12 @@ import Task from './Task/Task';
 import {
   resourceHasChanged,
   resourceIsNew,
+} from './Inspection';
+
+import {
   getChangedResourceRelations,
   getRelatedResources,
-} from './Detection';
+} from './Relation/Relation';
 
 export default function ChangeSet(connector) {
   const tasks = [];
@@ -42,10 +45,10 @@ export default function ChangeSet(connector) {
     },
 
     /**
-   * Will queue a list of tasks for data/relation changes to the entity and its related entities.
-   *
-   * @param {HyralResource} resource
-   */
+     * Queue a list of tasks for data/relation changes to the entity and its related entities.
+     *
+     * @param {HyralResource} resource
+     */
     persistCascadeResource(resource) {
       this.persistResource(resource);
 
@@ -55,23 +58,23 @@ export default function ChangeSet(connector) {
     },
 
     /**
-   * Will queue an action to remove the entity.
-   *
-   * @param {HyralResource} resource
-   */
+     * Will queue an action to remove the entity.
+     *
+     * @param {HyralResource} resource
+     */
     deleteResource(resource) {
       tasks.push(Task('delete', resource));
     },
 
     /**
-   * Executes all actions.
-   *
-   * @return {Promise}
-   */
+     * Executes all actions.
+     *
+     * @return {Promise}
+     */
     execute() {
       return Promise.all(
         tasks.sort().map((task) => {
-          if (task.resolved) {
+          if (task.resolved || task.claimed) {
             return Promise.resolve();
           }
 
@@ -81,8 +84,8 @@ export default function ChangeSet(connector) {
     },
 
     /**
-   * Returns a object describing the current status of the flush action.
-   */
+     * Returns a object describing the current status of the flush action.
+     */
     status() {
       return {
         total: tasks.length,
