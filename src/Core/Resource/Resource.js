@@ -60,7 +60,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newData
      */
     set data(newData) {
-      setState(state, { newData });
+      setState(state, { data: newData });
     },
 
     /**
