@@ -1,7 +1,7 @@
 import Resource from '../../../../../src/Core/Resource/Resource';
 import {
   getChangedResourceRelations,
-  getRelatedResources
+  getRelatedResources,
 } from '../../../../../src/Core/Resource/Change/Relation/Relation';
 import { resourceHasChanged } from '../../../../../src/Core/Resource/Change/Inspection';
 
@@ -65,8 +65,11 @@ describe('Relation tests', () => {
     expect(resourceHasChanged(resource)).toBeFalsy();
     expect(getChangedResourceRelations(resource)).toHaveLength(0);
 
-    resource.data.author = Resource(4, 'author', { name: 'Another great author' });
-    resource.data.publications.push(Resource(5, 'publication', { year: 1901 }));
+    resource.data = {
+      title: 'A great book',
+      author: Resource(4, 'author', { name: 'Another great author' }),
+      publications: [Resource(5, 'publication', { year: 1901 })],
+    };
 
     const changedRelations = getChangedResourceRelations(resource);
 
@@ -74,5 +77,4 @@ describe('Relation tests', () => {
     expect(changedRelations).toHaveLength(2);
     expect(changedRelations).toEqual(['author', 'publications']);
   });
-
 });

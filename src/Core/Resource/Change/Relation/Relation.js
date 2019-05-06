@@ -29,11 +29,7 @@ export function getRelatedResources(resource) {
  * @returns {string[]}
  */
 export function getChangedResourceRelations(resource) {
-  const originalData = resource.stateStack[0];
-
   return Object.keys(resource.relationships).filter(
-    (relation) => {
-      return !isEqual(originalData[relation], resource.data[relation]);
-    },
+    relation => !isEqual(resource.stateStack[0].data[relation], resource.data[relation]),
   );
 }
