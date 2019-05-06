@@ -18,6 +18,8 @@ const createStoreModule = (repository, store) => ({
 
   getters: {
     resource: state => id => Resource.fromState(
+      id,
+      repository.resourceType,
       state.resources[id] || { id, type: repository.resourceType },
     ),
     collection: state => (name) => {
