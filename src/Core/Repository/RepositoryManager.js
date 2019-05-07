@@ -1,7 +1,20 @@
 import Repository from './Repository';
 
+/**
+ * @typedef HyralRepositoryManager
+ *
+ * @type {Object}
+ * @property {function} createRepository
+ * @property {function} addRepository
+ * @property {function} getRepository
+ * @property {function} getRepositories
+ */
+
 const repositories = {};
 
+/**
+ * @type {HyralRepositoryManager}
+ */
 const RepositoryManager = {};
 
 Object.assign(RepositoryManager, {

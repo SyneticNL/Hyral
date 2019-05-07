@@ -44,6 +44,8 @@ function HttpConnector(
     /**
      * @param {HyralRepository} repository
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetch(repository, parameterBag) {
       return axios.get(urlSerializer.fetch(repository), {
@@ -55,6 +57,8 @@ function HttpConnector(
      * @param {HyralRepository} repository
      * @param {number|string} id
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetchOne(repository, id, parameterBag) {
       return axios.get(urlSerializer.fetchOne(repository, id), {
@@ -64,27 +68,33 @@ function HttpConnector(
 
     /**
      * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
     create(task) {
-      axios.post(urlSerializer.create(task.payload.type), {
+      return axios.post(urlSerializer.create(task.payload.type), {
         data: task,
       });
     },
 
     /**
      * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
     update(task) {
-      axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+      return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
         data: task,
       });
     },
 
     /**
      * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
     delete(task) {
-      axios.delete(urlSerializer.delete(task.payload.type, task.payload.id), {
+      return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id), {
         params: task,
       });
     },

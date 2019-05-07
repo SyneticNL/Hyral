@@ -1,5 +1,6 @@
 /**
  * @typedef HyralTask
+ *
  * @type {Object}
  * @property {object} payload - The payload for the task (the changed resource or the relation)
  * @property {object|null} context - The context. This is the resource on a relation task.
@@ -17,7 +18,7 @@
  *
  * @returns {HyralTask}
  */
-export default function Task(type, payload, context = null) {
+export default function Task(type, repository, payload, context = null) {
   let resolved = false;
 
   const task = {
@@ -37,12 +38,10 @@ export default function Task(type, payload, context = null) {
 
   return Object.assign(task, {
     /**
-     * @param {HyralConnector} connector
-     *
      * @returns {Promise}
      */
-    execute(connector) {
-      return connector[type](task).then(() => {
+    execute() {
+      return repository[type](task).then(() => {
         resolved = true;
       });
     },

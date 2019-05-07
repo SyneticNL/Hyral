@@ -1,9 +1,3 @@
-/**
- * @typedef HyralActions
- * @type {Object}
- * @property {array} tasks - Tasklist
- * @property {function} addTask - Add a task
- */
 
 import Task from './Task/Task';
 import {
@@ -16,7 +10,15 @@ import {
   getRelatedResources,
 } from './Relation/Relation';
 
-export default function ChangeSet(connector) {
+/**
+ *
+ * @param {HyralRepositoryManager} repositoryManager
+ *
+ * @returns {object}
+ *
+ * @constructor
+ */
+export default function ChangeSet(repositoryManager) {
   const tasks = [];
 
   return {
@@ -30,10 +32,10 @@ export default function ChangeSet(connector) {
         return;
       }
 
-      const task = Task(resourceIsNew(resource) ? 'create' : 'update', resource);
+      const task = Task(resourceIsNew(resource) ? 'create' : 'update', repositoryManager.getRepository(resource.type), resource);
 
       getChangedResourceRelations(resource).forEach((relation) => {
-        const relationTask = Task('relation', relation, resource);
+        const relationTask = Task('relation', repositoryManager.getRepository(resource.type), relation, resource);
         relationTask.dependencies.push(task);
 
         task.related.push(relationTask);
@@ -63,9 +65,8 @@ export default function ChangeSet(connector) {
      * @param {HyralResource} resource
      */
     deleteResource(resource) {
-      tasks.push(Task('delete', resource));
+      tasks.push(Task('delete', repositoryManager.getRepository(resource.type), resource));
     },
-
     /**
      * Executes all actions.
      *
@@ -78,7 +79,7 @@ export default function ChangeSet(connector) {
             return Promise.resolve();
           }
 
-          return task.execute(connector);
+          return task.execute();
         }),
       );
     },

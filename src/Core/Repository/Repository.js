@@ -22,7 +22,6 @@ export default function Repository(connector, resourceType, identifier) {
     find(parameterBag) {
       return connector.fetch(this, parameterBag).then(response => response.data);
     },
-
     /**
      * @param {ParameterBag} parameterBag
      *
@@ -31,7 +30,6 @@ export default function Repository(connector, resourceType, identifier) {
     findOne(parameterBag) {
       return connector.fetch(this, parameterBag).then(response => response.data.data[0] || null);
     },
-
     /**
      * @param {String|Number} id
      *
@@ -39,6 +37,30 @@ export default function Repository(connector, resourceType, identifier) {
      */
     findById(id) {
       return connector.fetchOne(this, id, {});
+    },
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    create(task) {
+      return connector.create(task);
+    },
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    update(task) {
+      return connector.update(task);
+    },
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    delete(task) {
+      return connector.delete(task);
     },
   };
 
