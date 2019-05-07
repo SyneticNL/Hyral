@@ -22,14 +22,14 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[0].relationships).toHaveProperty('consultant');
     expect(result.data[0].relationships.consultant.resource).toBe('people');
     expect(result.data[0].relationships.consultant.many).toBeFalsy();
-    expect(result.data[0].relationships.consultant.cardinality).toEqual('one-to-many');
+    expect(result.data[0].relationships.consultant.cardinality).toEqual('many-to-one');
     expect(result.data[0].data.consultant).toHaveProperty('id');
     expect(result.data[0].data.consultant).toHaveProperty('type');
 
     expect(result.data[0].relationships).toHaveProperty('thumbnail');
     expect(result.data[0].relationships.thumbnail.resource).toBe('images');
     expect(result.data[0].relationships.thumbnail.many).toBeFalsy();
-    expect(result.data[0].relationships.thumbnail.cardinality).toEqual('one-to-many');
+    expect(result.data[0].relationships.thumbnail.cardinality).toEqual('many-to-one');
 
     expect(result.data[1].relationships).toHaveProperty('images');
     expect(result.data[1].relationships.images.resource).toBe('images');

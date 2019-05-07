@@ -48,6 +48,7 @@ Object.assign(ResourceManager, {
    */
   getRepository(resourceType) {
     return repositories[resourceType] || null;
+
   },
   /**
    * @returns {{resourceType: HyralRepository}}
