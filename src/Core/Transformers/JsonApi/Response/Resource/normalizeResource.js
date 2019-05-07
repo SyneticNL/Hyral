@@ -20,6 +20,7 @@ export default function normalizeResource(data) {
   Object.entries(data.relationships).forEach(([field, relation]) => {
     resource.relationships[field] = {
       cardinality: guessRelationCardinality(relation),
+      many: Array.isArray(relation.data),
       resource: relationshipGetType(relation),
     };
 
