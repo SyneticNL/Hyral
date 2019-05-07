@@ -1,7 +1,7 @@
 import Repository from './Repository';
 
 /**
- * @typedef HyralRepositoryManager
+ * @typedef HyralResourceManager
  *
  * @type {Object}
  * @property {function} createRepository
@@ -13,11 +13,11 @@ import Repository from './Repository';
 const repositories = {};
 
 /**
- * @type {HyralRepositoryManager}
+ * @type {HyralResourceManager}
  */
-const RepositoryManager = {};
+const ResourceManager = {};
 
-Object.assign(RepositoryManager, {
+Object.assign(ResourceManager, {
   /**
    * @param {HyralConnector} connector
    * @param {String} resourceType
@@ -28,7 +28,7 @@ Object.assign(RepositoryManager, {
   createRepository(connector, resourceType, identifier = 'id') {
     const repository = Repository(connector, resourceType, identifier);
 
-    this.addRepository(repository);
+    ResourceManager.addRepository(repository);
 
     return repository;
   },
@@ -57,4 +57,4 @@ Object.assign(RepositoryManager, {
   },
 });
 
-export default RepositoryManager;
+export default ResourceManager;

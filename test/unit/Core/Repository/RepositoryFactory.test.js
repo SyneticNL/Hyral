@@ -1,4 +1,4 @@
-import Repository from '../../../../src/Core/Repository/Repository';
+import Repository from '../../../../src/Core/Resource/Repository';
 
 describe('The resource', () => {
   const connectorMock = {};

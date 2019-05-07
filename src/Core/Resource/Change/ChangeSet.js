@@ -1,20 +1,23 @@
-
 import Task from './Task/Task';
-import {
-  resourceHasChanged,
-  resourceIsNew,
-} from './Inspection';
+import { resourceHasChanged, resourceIsNew } from './Inspection';
+import { getChangedResourceRelations, getRelatedResources } from './Relation/Relation';
 
-import {
-  getChangedResourceRelations,
-  getRelatedResources,
-} from './Relation/Relation';
+/**
+ * @typedef HyralChangeSet
+ *
+ * @type {Object}
+ * @property {function} persistResource
+ * @property {function} persistCascadeResource
+ * @property {function} deleteResource
+ * @property {function} execute
+ * @property {function} status
+ */
 
 /**
  *
- * @param {HyralRepositoryManager} repositoryManager
+ * @param {HyralResourceManager} repositoryManager
  *
- * @returns {object}
+ * @returns {HyralChangeSet}
  *
  * @constructor
  */
