@@ -32,6 +32,7 @@ const resource = {
     relationships: {
       author: {
         cardinality: 'one-to-many',
+        many: false,
         resource: 'author',
       }
     }
@@ -68,6 +69,7 @@ const resource = {
     relationships: {
       publications: {
         cardinality: 'many-to-one',
+        many: true,
         resource: 'publication',
       }
     }

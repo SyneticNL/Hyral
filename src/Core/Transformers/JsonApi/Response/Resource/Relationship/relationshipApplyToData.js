@@ -11,7 +11,7 @@ export default function relationshipApplyToData(items, includedRelations) {
         return;
       }
 
-      if (relation.cardinality === 'one-to-one' || relation.cardinality === 'many-to-many') {
+      if (relation.many === false) {
         // eslint-disable-next-line no-param-reassign
         resource.data[field] = relationshipGetResource(resource.data[field], includedRelations);
         return;

@@ -13,6 +13,9 @@
         "resource": {
           "type": "string"
         },
+        "many": {
+          "type": "boolean"
+        },
         "cardinality": {
           "type": "string",
           "enum": ["one-to-one", "one-to-many", "many-to-one" ,"many-to-many"]
