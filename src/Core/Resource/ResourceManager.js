@@ -50,7 +50,6 @@ Object.assign(ResourceManager, {
    */
   getRepository(resourceType) {
     return repositories[resourceType] || null;
-
   },
   /**
    * @returns {HyralRepository[]}

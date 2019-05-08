@@ -45,14 +45,12 @@ export function getChangedResourceRelations(resource) {
     return [];
   }
 
-  return Object.keys(resource.relationships).filter((relation) => {
-    return !isEqual(
-      getRelatedResources(resource.stateStack[0], relation).map(
-        relatedResource => relatedResource.id,
-      ),
-      getRelatedResources(resource, relation).map(
-        relatedResource => relatedResource.id,
-      ),
-    );
-  });
+  return Object.keys(resource.relationships).filter(relation => !isEqual(
+    getRelatedResources(resource.stateStack[0], relation).map(
+      relatedResource => relatedResource.id,
+    ),
+    getRelatedResources(resource, relation).map(
+      relatedResource => relatedResource.id,
+    ),
+  ));
 }
