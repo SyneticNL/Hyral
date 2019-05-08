@@ -21,4 +21,25 @@ describe('Inspection tests', () => {
     resource.data = { title: 'An even greater product' };
     expect(resourceHasChanged(resource)).toBeTruthy();
   });
+
+  test('that a a change on a related resource is not detected as a change on the resource itself', () => {
+    const author = Resource(2, 'author', { name: 'A great author' });
+    const resource = Resource(1, 'book', {
+      title: 'A great book',
+      author,
+    }, {
+      author: {
+        resource: 'author',
+        cardinality: 'many-to-one',
+      },
+    });
+
+    expect(resourceHasChanged(resource)).toBeFalsy();
+
+    author.data = {
+      name: 'An even greated author',
+    };
+
+    expect(resourceHasChanged(resource)).toBeFalsy();
+  });
 });

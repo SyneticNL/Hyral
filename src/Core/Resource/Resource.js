@@ -13,7 +13,7 @@
  * @property {boolean} metadata.loaded
  */
 
-import { currentState, setState } from '../State/State';
+import { currentState, mutateState, setState } from '../State/State';
 
 /**
  * @param {string|number|null} id
@@ -60,7 +60,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newData
      */
     set data(newData) {
-      setState(state, { data: newData });
+      mutateState(state, { data: newData });
     },
 
     /**
@@ -74,7 +74,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newRelationships
      */
     set relationships(newRelationships) {
-      setState(state, { relationships: newRelationships });
+      mutateState(state, { relationships: newRelationships });
     },
 
     /**

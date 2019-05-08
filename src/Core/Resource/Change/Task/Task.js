@@ -1,3 +1,5 @@
+import concat from 'lodash/concat';
+
 /**
  * @typedef HyralTask
  *
@@ -13,6 +15,7 @@
 
 /**
  * @param {string} type (create/update/delete/relation)
+ * @param {HyralRepository} repository
  * @param {object} payload
  * @param {HyralResource|null} context
  *
@@ -21,7 +24,13 @@
 export default function Task(type, repository, payload, context = null) {
   let resolved = false;
 
+  let dependencies = [];
+  let related = [];
+
   const task = {
+    get type() {
+      return type;
+    },
     get payload() {
       return payload;
     },
@@ -31,9 +40,19 @@ export default function Task(type, repository, payload, context = null) {
     get resolved() {
       return resolved;
     },
+    get related() {
+      return related;
+    },
+    get dependencies() {
+      return dependencies;
+    },
+    addDependencies(newDependencies) {
+      dependencies = concat(dependencies, newDependencies);
+    },
+    addRelated(newRelated) {
+      related = concat(related, newRelated);
+    },
     claimed: false,
-    related: [],
-    dependencies: [],
   };
 
   return Object.assign(task, {

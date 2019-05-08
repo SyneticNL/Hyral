@@ -1,6 +1,10 @@
 import Task from './Task/Task';
 import { resourceHasChanged, resourceIsNew } from './Inspection';
-import { getChangedResourceRelations, getRelatedResources } from './Relation/Relation';
+import {
+  getChangedResourceRelations,
+  getAllRelatedResources,
+  getRelatedResources,
+} from './Relation/Relation';
 
 /**
  * @typedef HyralChangeSet
@@ -14,6 +18,49 @@ import { getChangedResourceRelations, getRelatedResources } from './Relation/Rel
  */
 
 /**
+ * @param {HyralTask[]} tasks
+ * @param {object} payload
+ *
+ * @returns {HyralTask|undefined}
+ */
+function findTaskByPayload(tasks, payload) {
+  return tasks.find(task => Object.is(task.payload, payload));
+}
+
+/**
+ * @param {HyralTask[]} tasks
+ *
+ * @returns HyralTask[]}
+ */
+function setRelationTaskDependencies(tasks) {
+  return tasks.map((task) => {
+    if (task.type !== 'relation') {
+      return task;
+    }
+
+    const newResources = task.payload.resources.filter(resource => resourceIsNew(resource));
+
+    const newResourceTasks = newResources
+      .map(resource => findTaskByPayload(tasks, resource))
+      .filter(relationCreateTask => typeof relationCreateTask !== 'undefined');
+
+    const newCreateTaskDependencies = newResourceTasks.filter(
+      relationCreateTask => typeof task.dependencies.find(
+        dependency => Object.is(relationCreateTask, dependency),
+      ) === 'undefined',
+    );
+
+    if (!newCreateTaskDependencies || newCreateTaskDependencies.length === 0) {
+      return task;
+    }
+
+    task.addDependencies(newCreateTaskDependencies);
+
+    return task;
+  });
+}
+
+/**
  *
  * @param {HyralResourceManager} repositoryManager
  *
@@ -22,9 +69,14 @@ import { getChangedResourceRelations, getRelatedResources } from './Relation/Rel
  * @constructor
  */
 export default function ChangeSet(repositoryManager) {
+  /** @type {HyralTask[]} */
   const tasks = [];
 
   return {
+    get tasks() {
+      return tasks;
+    },
+
     /**
      * Will queue a list of tasks for data/relation changes to the entity itself.
      *
@@ -36,17 +88,27 @@ export default function ChangeSet(repositoryManager) {
       }
 
       const task = Task(resourceIsNew(resource) ? 'create' : 'update', repositoryManager.getRepository(resource.type), resource);
+      tasks.push(task);
 
       getChangedResourceRelations(resource).forEach((relation) => {
-        const relationTask = Task('relation', repositoryManager.getRepository(resource.type), relation, resource);
-        relationTask.dependencies.push(task);
+        const relationTask = Task(
+          'relation',
+          repositoryManager.getRepository(resource.type),
+          {
+            relation,
+            resources: getRelatedResources(resource, relation),
+          },
+          resource,
+        );
 
-        task.related.push(relationTask);
+        if (resourceIsNew(resource)) {
+          relationTask.addDependencies([task]);
+        }
 
         tasks.push(relationTask);
-      });
 
-      tasks.push(task);
+        task.addRelated([relationTask]);
+      });
     },
 
     /**
@@ -56,10 +118,12 @@ export default function ChangeSet(repositoryManager) {
      */
     persistCascadeResource(resource) {
       this.persistResource(resource);
-
-      getRelatedResources(resource).map(
+      const related = getAllRelatedResources(resource);
+      related.map(
         relatedResource => this.persistCascadeResource(relatedResource),
       );
+
+      setRelationTaskDependencies(tasks);
     },
 
     /**

@@ -3,23 +3,35 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
 /**
+ * @param {HyralResource} resource
+ * @param {string} relation
+ *
+ * @returns {HyralResource[]}
+ */
+export function getRelatedResources(resource, relation) {
+  if (isEmpty(resource.data[relation])) {
+    return [];
+  }
+
+  return Array.isArray(resource.data[relation])
+    ? resource.data[relation]
+    : [resource.data[relation]];
+}
+
+/**
  *
  * @param resource
  * @returns {HyralResource[]}
  */
-export function getRelatedResources(resource) {
+export function getAllRelatedResources(resource) {
+  if (!resource.relationships) {
+    return [];
+  }
+
   return flatten(
-    Object.entries(resource.relationships).map((relation) => {
-      if (isEmpty(resource.data[relation[0]])) {
-        return [];
-      }
-
-      if (relation[1].cardinality === 'one-to-one' || relation[1].cardinality === 'many-to-one') {
-        return [resource.data[relation[0]]];
-      }
-
-      return resource.data[relation[0]];
-    }),
+    Object.keys(resource.relationships).map(
+      relation => getRelatedResources(resource, relation),
+    ),
   );
 }
 
@@ -29,7 +41,18 @@ export function getRelatedResources(resource) {
  * @returns {string[]}
  */
 export function getChangedResourceRelations(resource) {
-  return Object.keys(resource.relationships).filter(
-    relation => !isEqual(resource.stateStack[0].data[relation], resource.data[relation]),
-  );
+  if (!resource.relationships) {
+    return [];
+  }
+
+  return Object.keys(resource.relationships).filter((relation) => {
+    return !isEqual(
+      getRelatedResources(resource.stateStack[0], relation).map(
+        relatedResource => relatedResource.id,
+      ),
+      getRelatedResources(resource, relation).map(
+        relatedResource => relatedResource.id,
+      ),
+    );
+  });
 }

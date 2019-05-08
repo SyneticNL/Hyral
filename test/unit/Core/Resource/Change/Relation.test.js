@@ -1,7 +1,7 @@
 import Resource from '../../../../../src/Core/Resource/Resource';
 import {
   getChangedResourceRelations,
-  getRelatedResources,
+  getAllRelatedResources,
 } from '../../../../../src/Core/Resource/Change/Relation/Relation';
 import { resourceHasChanged } from '../../../../../src/Core/Resource/Change/Inspection';
 
@@ -31,7 +31,7 @@ describe('Relation tests', () => {
       },
     });
 
-    const relatedResources = getRelatedResources(resource);
+    const relatedResources = getAllRelatedResources(resource);
     expect(relatedResources).toHaveLength(3);
     expect(relatedResources[0]).toBe(author);
     expect(relatedResources[1]).toBe(publications[0]);
@@ -76,5 +76,25 @@ describe('Relation tests', () => {
     expect(resourceHasChanged(resource)).toBeTruthy();
     expect(changedRelations).toHaveLength(2);
     expect(changedRelations).toEqual(['author', 'publications']);
+  });
+
+  test('that changes on a property of a relation are not registered as relation change', () => {
+    const author = Resource(2, 'author', { name: 'A great author' });
+    const resource = Resource(1, 'book', {
+      title: 'A great book',
+      author,
+    }, {
+      author: {
+        resource: 'author',
+        cardinality: 'many-to-one',
+      },
+    });
+
+    author.data = {
+      name: 'An even greated author',
+    };
+
+    const changedRelations = getChangedResourceRelations(resource);
+    expect(changedRelations).toHaveLength(0);
   });
 });
