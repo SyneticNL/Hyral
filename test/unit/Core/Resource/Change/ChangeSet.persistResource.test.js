@@ -64,4 +64,12 @@ describe('The persisting of a single resource relationships', () => {
     expect(ChangeSet.tasks[0].related).toHaveLength(1);
     expect(ChangeSet.tasks[0].related[0]).toBe(ChangeSet.tasks[1]);
   });
+
+  test('that no duplicate tasks are added when calling persistResource twice', () => {
+    expect(ChangeSet.tasks).toHaveLength(2);
+
+    ChangeSet.persistResource(existingResource);
+
+    expect(ChangeSet.tasks).toHaveLength(2);
+  });
 });

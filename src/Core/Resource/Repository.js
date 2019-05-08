@@ -59,6 +59,14 @@ export default function Repository(connector, resourceType, identifier) {
      *
      * @returns {Promise}
      */
+    relation(task) {
+      return connector.relation(task);
+    },
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
     delete(task) {
       return connector.delete(task);
     },

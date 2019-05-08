@@ -87,6 +87,10 @@ export default function ChangeSet(repositoryManager) {
         return;
       }
 
+      if (findTaskByPayload(tasks, resource)) {
+        return;
+      }
+
       const task = Task(resourceIsNew(resource) ? 'create' : 'update', repositoryManager.getRepository(resource.type), resource);
       tasks.push(task);
 
@@ -141,13 +145,15 @@ export default function ChangeSet(repositoryManager) {
      */
     execute() {
       return Promise.all(
-        tasks.sort().map((task) => {
-          if (task.resolved || task.claimed) {
-            return Promise.resolve();
-          }
+        tasks
+          .sort((a, b) => b.related.length - a.related.length)
+          .map((task) => {
+            if (task.resolved || task.claimed) {
+              return Promise.resolve();
+            }
 
-          return task.execute();
-        }),
+            return task.execute();
+          }),
       );
     },
 

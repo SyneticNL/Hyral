@@ -93,6 +93,17 @@ function HttpConnector(
      *
      * @returns {Promise}
      */
+    relation(task) {
+      return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+        data: task,
+      });
+    },
+
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
     delete(task) {
       return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id), {
         params: task,

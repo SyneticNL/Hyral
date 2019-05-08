@@ -24,8 +24,19 @@ import concat from 'lodash/concat';
 export default function Task(type, repository, payload, context = null) {
   let resolved = false;
 
+  let claimed = false;
+
+  /**
+   * @type {HyralTask[]}
+   */
   let dependencies = [];
+
+  /**
+   * @type {HyralTask[]}
+   */
   let related = [];
+
+  let executionPromise = null;
 
   const task = {
     get type() {
@@ -37,6 +48,9 @@ export default function Task(type, repository, payload, context = null) {
     get context() {
       return context;
     },
+    get claimed() {
+      return claimed;
+    },
     get resolved() {
       return resolved;
     },
@@ -46,13 +60,15 @@ export default function Task(type, repository, payload, context = null) {
     get dependencies() {
       return dependencies;
     },
+    claim() {
+      claimed = true;
+    },
     addDependencies(newDependencies) {
       dependencies = concat(dependencies, newDependencies);
     },
     addRelated(newRelated) {
       related = concat(related, newRelated);
     },
-    claimed: false,
   };
 
   return Object.assign(task, {
@@ -60,9 +76,30 @@ export default function Task(type, repository, payload, context = null) {
      * @returns {Promise}
      */
     execute() {
-      return repository[type](task).then(() => {
-        resolved = true;
+      if (executionPromise) {
+        return executionPromise;
+      }
+
+      task.claim();
+
+      executionPromise = new Promise(async (resolve, reject) => {
+        if (dependencies.length > 0) {
+          try {
+            await Promise.all(
+              dependencies.map(dependency => dependency.execute()),
+            );
+          } catch (error) {
+            reject(error);
+          }
+        }
+
+        repository[type](task).then((response) => {
+          resolved = true;
+          resolve(response);
+        }).catch(reject);
       });
+
+      return executionPromise;
     },
   });
 }

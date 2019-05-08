@@ -2,7 +2,14 @@
   "presets": ["@babel/preset-env"],
   "env": {
     "test": {
-      "presets": ["@babel/preset-env"]
+      "presets": ["@babel/preset-env"],
+      "plugins": [
+        ["@babel/plugin-transform-runtime",
+          {
+            "regenerator": true
+          }
+        ]
+      ]
     },
     "production": {
       "presets": ["@babel/preset-env", "minify"],
