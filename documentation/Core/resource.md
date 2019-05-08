@@ -4,11 +4,9 @@ A resource is a simple JavaScript object. The resource is structured according t
 * The type of resource
 * The id of the resource
 * The data of the resource
-* The metadata of the resource containing:
-  * The available relationships for the resouce
+* The relationships of the resource
 
 ## Relations
-
 Hyral exposes the available relations on a resource and makes the related resources available via the data attribute.
 
 A typical resource with a relation is structured as follows:
@@ -28,13 +26,11 @@ const resource = {
       }
     }
   },
-  metadata: {
-    relationships: {
-      author: {
-        cardinality: 'one-to-many',
-        many: false,
-        resource: 'author',
-      }
+  relationships: {
+    author: {
+      cardinality: 'one-to-many',
+      many: false,
+      resource: 'author',
     }
   }
 };
@@ -65,13 +61,11 @@ const resource = {
       },
     ]
   },
-  metadata: {
-    relationships: {
-      publications: {
-        cardinality: 'many-to-one',
-        many: true,
-        resource: 'publication',
-      }
+  relationships: {
+    publications: {
+      cardinality: 'many-to-one',
+      many: true,
+      resource: 'publication',
     }
   }
 };

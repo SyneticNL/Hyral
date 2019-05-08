@@ -6,10 +6,11 @@ backends.
 ## Features
 * Framework agnostic
 * API backend agnostic
-* Seamless integration for multiple backends
+* Can integrate seamlessly with multiple, different types of backends
 * Single resource and collection of resource support
 * Uses the Promise API
 * Hypermedia oriented
+* Uses state management and immutability
 * Full test-coverage
 
 Comes bundled with:
@@ -31,10 +32,7 @@ npm install hyral
 
 There are several guides available that should give you a head-start:
 
-
 * [Understanding Hyral](documentation/Guides/understanding-hyral.md)
 * [Getting started](documentation/Guides/getting-started.md)
 * [Configuring for multiple backend](documentation/Guides/multiple-backends.md)
 * [Creating your own transformer](documentation/Guides/creating-transformers.md)
-
-The guides assume you have read and understood the core concepts behind Hyral.
