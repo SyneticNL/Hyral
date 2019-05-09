@@ -1,0 +1,9 @@
+{
+  "data": {
+    "type": "book",
+    "id": "1",
+    "attributes": {
+      "title": "A great book"
+    }
+  }
+}

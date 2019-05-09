@@ -20,4 +20,7 @@ describe('The jsonApi url serializer', () => {
   it('should properly create the url for an entity delete', () => {
     expect(urlSerializer.delete(repository.resourceType, 1)).toEqual('/product/1');
   });
+  it('should properly create the url for an entity relation', () => {
+    expect(urlSerializer.relation(repository.resourceType, 1, { resource: 'store' })).toEqual('/product/1/relationships/store');
+  });
 });

@@ -21,3 +21,12 @@ export function resourceHasChanged(resource) {
     && !isEqual(previousState(resource.stateStack), resource.state)
   );
 }
+
+/**
+ * @param task
+ *
+ * @returns {boolean}
+ */
+export function isTask(task) {
+  return task.type && typeof task.payload !== 'undefined';
+}

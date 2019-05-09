@@ -5,6 +5,7 @@
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -15,6 +16,7 @@
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -73,7 +75,7 @@ function HttpConnector(
      */
     create(task) {
       return axios.post(urlSerializer.create(task.payload.type), {
-        data: task,
+        task,
       });
     },
 
@@ -84,7 +86,7 @@ function HttpConnector(
      */
     update(task) {
       return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
-        data: task,
+        task,
       });
     },
 
@@ -94,8 +96,8 @@ function HttpConnector(
      * @returns {Promise}
      */
     relation(task) {
-      return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
-        data: task,
+      return axios.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
+        task,
       });
     },
 
@@ -105,9 +107,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     delete(task) {
-      return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id), {
-        params: task,
-      });
+      return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id));
     },
   };
 }

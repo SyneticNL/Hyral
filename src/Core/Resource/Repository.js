@@ -9,6 +9,7 @@
  * @property {function} findById
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 

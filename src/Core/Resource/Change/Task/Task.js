@@ -4,6 +4,7 @@ import concat from 'lodash/concat';
  * @typedef HyralTask
  *
  * @type {Object}
+ * @property {string} type - The type of task (create/update/delete/relation)
  * @property {object} payload - The payload for the task (the changed resource or the relation)
  * @property {object|null} context - The context. This is the resource on a relation task.
  * @property {array} related - All tasks on this entity.

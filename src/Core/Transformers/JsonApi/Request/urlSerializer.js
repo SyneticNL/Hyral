@@ -49,6 +49,17 @@ const urlSerializer = {
   delete(resourceType, id) {
     return `/${resourceType}/${id}`;
   },
+
+  /**
+   * @param {string} resourceType
+   * @param {number|string} id
+   * @param {object} relation
+   *
+   * @returns {string}
+   */
+  relation(resourceType, id, relation) {
+    return `/${resourceType}/${id}/relationships/${relation.resource}`;
+  },
 };
 
 export default urlSerializer;
