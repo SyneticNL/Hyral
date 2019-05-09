@@ -8,6 +8,13 @@ export function currentState(state) {
 }
 
 /**
+ * @returns {object|null}
+ */
+export function previousState(state) {
+  return state.length > 1 ? state[state.length - 2] : null;
+}
+
+/**
  * @param {[{}]} state
  * @param {Object} newState
  */
@@ -29,4 +36,12 @@ export function mutateState(state, newState) {
  */
 export function setState(state, newState) {
   state.push(newState);
+}
+
+/**
+ * @param {[{}]} state
+ */
+export function resetState(state) {
+  // eslint-disable-next-line no-param-reassign
+  state = [];
 }

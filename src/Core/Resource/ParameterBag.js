@@ -19,7 +19,12 @@
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
 
-import { currentState, setState, mutateState } from '../State/State';
+import {
+  currentState,
+  setState,
+  mutateState,
+  resetState,
+} from '../State/State';
 
 function ParameterBag() {
   const state = [{
@@ -141,6 +146,7 @@ function ParameterBag() {
 ParameterBag.fromState = (state) => {
   const parameterBag = ParameterBag();
 
+  resetState(parameterBag.stateStack);
   setState(parameterBag.stateStack, state);
 
   return parameterBag;

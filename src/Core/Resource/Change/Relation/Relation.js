@@ -1,6 +1,8 @@
 import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
+import { previousState } from '../../../State/State';
+import { resourceIsNew } from '../Inspection';
 
 /**
  * @param {HyralResource} resource
@@ -45,8 +47,16 @@ export function getChangedResourceRelations(resource) {
     return [];
   }
 
+  if (!resourceIsNew(resource) && previousState(resource.stateStack) === null) {
+    return [];
+  }
+
+  if (resourceIsNew(resource) && previousState(resource.stateStack) === null) {
+    return Object.keys(resource.relationships);
+  }
+
   return Object.keys(resource.relationships).filter(relation => !isEqual(
-    getRelatedResources(resource.stateStack[0], relation).map(
+    getRelatedResources(previousState(resource.stateStack), relation).map(
       relatedResource => relatedResource.id,
     ),
     getRelatedResources(resource, relation).map(

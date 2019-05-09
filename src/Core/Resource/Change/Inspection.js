@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import { previousState } from '../../State/State';
 
 /**
  * @param {HyralResource} resource
@@ -15,5 +16,8 @@ export function resourceIsNew(resource) {
  * @returns {boolean}
  */
 export function resourceHasChanged(resource) {
-  return !isEqual(resource.stateStack[0], resource.state);
+  return resourceIsNew(resource) || (
+    previousState(resource.stateStack) !== null
+    && !isEqual(previousState(resource.stateStack), resource.state)
+  );
 }

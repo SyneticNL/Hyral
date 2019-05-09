@@ -1,5 +1,10 @@
 import ParameterBag from './ParameterBag';
-import { currentState, mutateState, setState } from '../State/State';
+import {
+  currentState,
+  mutateState,
+  resetState,
+  setState,
+} from '../State/State';
 
 /**
  * @param collection
@@ -132,6 +137,7 @@ function Collection(name, repository) {
 Collection.fromState = (name, state, repository) => {
   const newCollection = Collection(name, repository);
 
+  resetState(newCollection.stateStack);
   setState(newCollection.stateStack, state);
 
   return newCollection;

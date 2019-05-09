@@ -13,7 +13,11 @@
  * @property {boolean} metadata.loaded
  */
 
-import { currentState, mutateState, setState } from '../State/State';
+import {
+  currentState,
+  mutateState,
+  resetState, setState,
+} from '../State/State';
 
 /**
  * @param {string|number|null} id
@@ -111,6 +115,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
 Resource.fromState = (id, type, state) => {
   const resource = Resource(id, type);
 
+  resetState(resource.stateStack);
   setState(resource.stateStack, state);
 
   return resource;
