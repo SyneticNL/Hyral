@@ -1,11 +1,11 @@
 /**
  * @typedef HyralConnector
  * @type {Object}
- * @property {AxiosInstance} axios - AxiosInstance
  * @property {function} fetch
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -16,6 +16,7 @@
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -45,6 +46,8 @@ function HttpConnector(
     /**
      * @param {HyralRepository} repository
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetch(repository, parameterBag) {
       return axios.get(urlSerializer.fetch(repository), {
@@ -56,6 +59,8 @@ function HttpConnector(
      * @param {HyralRepository} repository
      * @param {number|string} id
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetchOne(repository, id, parameterBag) {
       return axios.get(urlSerializer.fetchOne(repository, id), {
@@ -64,36 +69,45 @@ function HttpConnector(
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    create(repository, parameterBag) {
-      axios.post({
-        repository,
-        data: parameterBag,
+    create(task) {
+      return axios.post(urlSerializer.create(task.payload.type), {
+        task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    update(repository, parameterBag) {
-      axios.patch({
-        repository,
-        data: parameterBag,
+    update(task) {
+      return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+        task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    delete(repository, parameterBag) {
-      axios.delete({
-        repository,
-        params: parameterBag,
+    relation(task) {
+      return axios.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
+        task,
       });
+    },
+
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    delete(task) {
+      return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id));
     },
   };
 }

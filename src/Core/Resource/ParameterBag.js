@@ -19,19 +19,19 @@
  * @property {number} [limit]=20 - The amount of resources to fetch.
  */
 
-import { currentState, setState } from '../State/State';
+import {
+  currentState,
+  setState,
+  mutateState,
+  resetState,
+} from '../State/State';
 
 function ParameterBag() {
   const state = [{
-    parameters: {
-      filters: [],
-      sorting: [],
-      paging: {},
-      params: {},
-    },
-    metadata: {
-      stateId: 0,
-    },
+    filters: [],
+    sorting: [],
+    paging: {},
+    params: {},
   }];
 
   return {
@@ -39,19 +39,17 @@ function ParameterBag() {
      * @returns {HyralFilter[]}
      */
     get filters() {
-      return currentState(state).parameters.filters;
+      return currentState(state).filters;
     },
 
     /**
      * @param {HyralFilter} filter
      */
     addFilter(filter) {
-      const { filters } = currentState(state).parameters;
+      const { filters } = currentState(state);
       filters.push(filter);
-      setState(state, {
-        parameters: {
-          filters,
-        },
+      mutateState(state, {
+        filters,
       });
     },
 
@@ -59,10 +57,8 @@ function ParameterBag() {
      * @param {HyralFilter[]} filters
      */
     setFilters(filters) {
-      setState(state, {
-        parameters: {
-          filters,
-        },
+      mutateState(state, {
+        filters,
       });
     },
 
@@ -70,17 +66,15 @@ function ParameterBag() {
      * @returns {HyralPaging}
      */
     get paging() {
-      return currentState(state).parameters.paging;
+      return currentState(state).paging;
     },
 
     /**
      * @param {HyralPaging} paging
      */
     setPaging(paging) {
-      setState(state, {
-        parameters: {
-          paging,
-        },
+      mutateState(state, {
+        paging,
       });
     },
 
@@ -88,17 +82,15 @@ function ParameterBag() {
      * @returns {HyralSorting[]}
      */
     get sorting() {
-      return currentState(state).parameters.sorting;
+      return currentState(state).sorting;
     },
 
     /**
      * @param {HyralSorting[]} sorting
      */
     setSorting(sorting) {
-      setState(state, {
-        parameters: {
-          sorting,
-        },
+      mutateState(state, {
+        sorting,
       });
     },
 
@@ -106,7 +98,7 @@ function ParameterBag() {
      * @returns {Object}
      */
     get params() {
-      return currentState(state).parameters.params;
+      return currentState(state).params;
     },
 
     /**
@@ -114,12 +106,10 @@ function ParameterBag() {
      * @param value
      */
     addParam(key, value) {
-      setState(state, {
-        parameters: {
-          params: {
-            [key]: value,
-          },
-        },
+      mutateState(state, {
+        params: Object.assign({}, currentState(state).params, {
+          [key]: value,
+        }),
       });
     },
 
@@ -127,10 +117,8 @@ function ParameterBag() {
      * @param {Object} params
      */
     setParams(params) {
-      setState(state, {
-        parameters: {
-          params,
-        },
+      mutateState(state, {
+        params,
       });
     },
 
@@ -158,6 +146,7 @@ function ParameterBag() {
 ParameterBag.fromState = (state) => {
   const parameterBag = ParameterBag();
 
+  resetState(parameterBag.stateStack);
   setState(parameterBag.stateStack, state);
 
   return parameterBag;

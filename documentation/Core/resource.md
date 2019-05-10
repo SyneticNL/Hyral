@@ -4,11 +4,9 @@ A resource is a simple JavaScript object. The resource is structured according t
 * The type of resource
 * The id of the resource
 * The data of the resource
-* The metadata of the resource containing:
-  * The available relationships for the resouce
+* The relationships of the resource
 
 ## Relations
-
 Hyral exposes the available relations on a resource and makes the related resources available via the data attribute.
 
 A typical resource with a relation is structured as follows:
@@ -28,13 +26,11 @@ const resource = {
       }
     }
   },
-  metadata: {
-    relationships: {
-      author: {
-        cardinality: 'one-to-many',
-        many: false,
-        resource: 'author',
-      }
+  relationships: {
+    author: {
+      cardinality: 'one-to-many',
+      many: false,
+      resource: 'author',
     }
   }
 };
@@ -65,13 +61,11 @@ const resource = {
       },
     ]
   },
-  metadata: {
-    relationships: {
-      publications: {
-        cardinality: 'many-to-one',
-        many: true,
-        resource: 'publication',
-      }
+  relationships: {
+    publications: {
+      cardinality: 'many-to-one',
+      many: true,
+      resource: 'publication',
     }
   }
 };
@@ -79,7 +73,7 @@ const resource = {
 
 ### Defining relationships
 
-The JSON API normalizer tries to guess the available relationships adn cardinality of these 
+The JSON API normalizer tries to guess the available relationships and cardinality of these 
 relationships. You can/should correct these guesses if they are incorrect when persisting a resource.
 
 The following assumptions are made:
@@ -87,6 +81,15 @@ The following assumptions are made:
   empty. 
 - A relation is assumed to have a cardinality of one-to-many if the data value is an object.
 - A relation is assumed to have a cardinality of many-to-many if the data value is as array.
+
+#### Relationships cardinalities
+
+The following types of cardinalities are supported:
+
+- one-to-one
+- one-to-many
+- many-to-one
+- many-to-many
 
 ## Creating a resource
 

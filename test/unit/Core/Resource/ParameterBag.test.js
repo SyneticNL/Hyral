@@ -115,45 +115,40 @@ describe('ParameterBag', () => {
   });
   test('that the parameterBag state can be retrieved using the state getter and is well formed.', () => {
     const parameterBag = ParameterBag();
-    expect(parameterBag.state).toHaveProperty('parameters');
-    expect(parameterBag.state.parameters).toHaveProperty('filters');
-    expect(parameterBag.state.parameters).toHaveProperty('sorting');
-    expect(parameterBag.state.parameters).toHaveProperty('paging');
-    expect(parameterBag.state.parameters).toHaveProperty('params');
-    expect(parameterBag.state).toHaveProperty('metadata');
-    expect(parameterBag.state.metadata).toHaveProperty('stateId');
+    expect(parameterBag.state).toHaveProperty('filters');
+    expect(parameterBag.state).toHaveProperty('sorting');
+    expect(parameterBag.state).toHaveProperty('paging');
+    expect(parameterBag.state).toHaveProperty('params');
   });
   test('that the parameterBag state can be set from data', () => {
     const newState = {
-      parameters: {
-        filters: [
-          {
-            field: 'f1',
-            value: 'v1',
-          },
-        ],
-        sorting: [
-          {
-            field: 'f1',
-            direction: 'asc',
-          },
-        ],
-        paging: {
-          offset: 0,
+      filters: [
+        {
+          field: 'f1',
+          value: 'v1',
         },
-        params: {
-          key1: 'value1',
-          key2: 'value2',
+      ],
+      sorting: [
+        {
+          field: 'f1',
+          direction: 'asc',
         },
+      ],
+      paging: {
+        offset: 0,
+      },
+      params: {
+        key1: 'value1',
+        key2: 'value2',
       },
     };
     const parameterBag = ParameterBag();
     setState(parameterBag.stateStack, newState);
 
-    expect(parameterBag.filters).toEqual(newState.parameters.filters);
-    expect(parameterBag.sorting).toEqual(newState.parameters.sorting);
-    expect(parameterBag.paging).toEqual(newState.parameters.paging);
-    expect(parameterBag.params).toEqual(newState.parameters.params);
+    expect(parameterBag.filters).toEqual(newState.filters);
+    expect(parameterBag.sorting).toEqual(newState.sorting);
+    expect(parameterBag.paging).toEqual(newState.paging);
+    expect(parameterBag.params).toEqual(newState.params);
     expect(parameterBag.stateId).toEqual(1);
   });
 });

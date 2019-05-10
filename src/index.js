@@ -1,5 +1,5 @@
 import HttpConnector from './Core/Connector/HttpConnector';
-import RepositoryManager from './Core/Repository/RepositoryManager';
+import ResourceManager from './Core/Resource/ResourceManager';
 import jsonApiTransformers from './Core/Transformers/JsonApi/JsonApi';
 import ParameterBag from './Core/Resource/ParameterBag';
 import Collection from './Core/Resource/Collection';
@@ -19,5 +19,5 @@ export default {
   ParameterBag,
   Collection,
   HttpConnector,
-  RepositoryManager,
+  ResourceManager,
 };
