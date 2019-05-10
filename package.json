@@ -1,6 +1,6 @@
 {
   "name": "hyral",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Hypermedia oriented Resource Api Layer",
   "main": "lib",
   "directories": {
@@ -11,7 +11,7 @@
     "lint": "eslint packages/**/src",
     "fix": ".eslint --fix packages/**/src",
     "prebuild": "npm run lint",
-    "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start --no-comments",
+    "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start --no-comments'",
     "prerelease": "npm run build",
     "release": "lerna publish"
   },
@@ -20,9 +20,16 @@
     "url": "git+https://github.com/SyneticNL/Hyral.git"
   },
   "keywords": [
-    "Api",
-    "Rest",
-    "JsonApi"
+    "hypermedia",
+    "vue",
+    "vuex",
+    "client",
+    "api",
+    "rest",
+    "jsonapi",
+    "serialize",
+    "deserialize",
+    "json-api"
   ],
   "author": "Synetic",
   "license": "MIT",
@@ -30,9 +37,6 @@
     "url": "https://github.com/SyneticNL/Hyral/issues"
   },
   "homepage": "https://github.com/SyneticNL/Hyral#readme",
-  "peerDependencies": {
-    "lodash": "^4.17.11"
-  },
   "devDependencies": {
     "lerna": "^3.13.4",
     "@babel/cli": "^7.4.4",
@@ -51,8 +55,6 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.5.1",
-    "jest": "^24.7.1",
-    "jest-json-schema": "^2.0.2",
-    "jest-mock-axios": "^3.0.0"
+    "jest": "^24.7.1"
   }
 }

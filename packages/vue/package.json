@@ -1,8 +1,8 @@
 {
-  "name": "@hyral/vuejs",
-  "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "michiel <michiel@synetic.nl>",
+  "name": "@hyral/vue",
+  "version": "0.1.0",
+  "description": "Vue.js integration for Hyral",
+  "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/vue#readme",
   "license": "MIT",
   "main": "lib/index.js",

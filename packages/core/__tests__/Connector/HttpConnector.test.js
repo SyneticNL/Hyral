@@ -1,6 +1,6 @@
-import mockAxios from 'jest-mock-axios/dist/lib/index';
-import HttpConnector from '../../src/Connector/HttpConnector';
 import cloneDeep from 'lodash/cloneDeep';
+import mockAxios from 'jest-mock-axios';
+import HttpConnector from '../../src/Connector/HttpConnector';
 
 describe('The http connector should have all properties necessary', () => {
   const urlSerializer = {

@@ -11,7 +11,5 @@ export default function requestSerializer(data) {
     serializeRelationTask,
   ];
 
-  return serializers.reduce((result, serializer) => {
-    return serializer(result);
-  }, data);
+  return serializers.reduce((result, serializer) => serializer(result), data);
 }
