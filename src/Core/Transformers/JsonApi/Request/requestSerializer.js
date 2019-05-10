@@ -2,14 +2,12 @@
  * @param {Object} data
  * @param {Object} headers
  */
-import serializeCreateTask from './Serializers/serializeCreateTask';
-import serializeUpdateTask from './Serializers/serializeUpdateTask';
 import serializeRelationTask from './Serializers/serializeRelationTask';
+import serializeCreateUpdateTask from './Serializers/serializeCreateUpdateTask';
 
 export default function requestSerializer(data) {
   const serializers = [
-    serializeCreateTask,
-    serializeUpdateTask,
+    serializeCreateUpdateTask,
     serializeRelationTask,
   ];
 
