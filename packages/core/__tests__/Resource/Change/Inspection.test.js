@@ -1,8 +1,10 @@
 import {
   resourceHasChanged,
   resourceIsNew,
+  isTask,
 } from '../../../src/Resource/Change/Inspection';
 import Resource from '../../../src/Resource/Resource';
+import Task from '../../../src/Resource/Change/Task/Task';
 
 describe('Inspection tests', () => {
   test('that a new resource is detected correctly', () => {
@@ -37,9 +39,19 @@ describe('Inspection tests', () => {
     expect(resourceHasChanged(resource)).toBeFalsy();
 
     author.data = {
-      name: 'An even greated author',
+      name: 'An even greater author',
     };
 
     expect(resourceHasChanged(resource)).toBeFalsy();
+  });
+
+  test('that a task is detected correctly', () => {
+    const task = Task('create', {}, {});
+
+    expect(isTask(task)).toBeTruthy();
+    expect({}).toBeFalsy();
+    expect(undefined).toBeFalsy();
+    expect('').toBeFalsy();
+    expect(0).toBeFalsy();
   });
 });

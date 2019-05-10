@@ -28,5 +28,5 @@ export function resourceHasChanged(resource) {
  * @returns {boolean}
  */
 export function isTask(task) {
-  return task.type && typeof task.payload !== 'undefined';
+  return task && task.type && typeof task.payload !== 'undefined';
 }
