@@ -1,14 +1,14 @@
 {
   "name": "@hyral/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Hyral core",
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/core#readme",
   "license": "MIT",
   "main": "lib/index.js",
   "dependencies": {
-    "lodash": "^4.17.11",
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "jest-json-schema": "^2.0.2",
