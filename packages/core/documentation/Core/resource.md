@@ -97,4 +97,4 @@ Resources are always created via the Resource function. If you wish to create a 
 application use the Resource function to ensure a correct structure.
 
 ## JSON Schema
-A JSON schema is available for a resource [here](/schema/resource.schema.json).
+A JSON schema is available for a resource [here](/packages/core/schema/resource.schema.json).

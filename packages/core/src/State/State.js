@@ -44,4 +44,6 @@ export function setState(state, newState) {
 export function resetState(state) {
   // eslint-disable-next-line no-param-reassign
   state = [];
+
+  return state;
 }

@@ -1,17 +1,18 @@
 {
-  "name": "@hyral/core",
+  "name": "@hyral/json-api",
   "version": "0.0.0",
-  "description": "Hyral core",
-  "author": "SyneticNL",
-  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/core#readme",
+  "description": "> TODO: description",
+  "author": "michiel <michiel@synetic.nl>",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "peerDependencies": {
-    "axios": "^0.18.0"
-  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
+  },
+  "peerDependencies": {
+    "qs": "^6.7.0",
+    "url": "^0.11.0"
   },
   "files": [
     "lib"
@@ -25,10 +26,5 @@
   },
   "bugs": {
     "url": "https://github.com/SyneticNL/Hyral/issues"
-  },
-  "keywords": [
-    "Api",
-    "Rest",
-    "JsonApi"
-  ]
+  }
 }
