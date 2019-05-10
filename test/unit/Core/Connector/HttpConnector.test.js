@@ -196,4 +196,8 @@ describe('The axios instance configuration', () => {
     expect(mockAxios.defaults.transformResponse).not.toContain(responseNormalizer);
     expect(mockAxios.defaults.transformRequest).not.toContain(requestSerializer);
   });
+
+  test('that the axios instance contains the globally set configuration', () => {
+    expect(mockAxios.defaults.baseURL).toEqual('/test');
+  });
 });

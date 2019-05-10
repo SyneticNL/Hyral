@@ -113,6 +113,12 @@ function HttpConnector(
     delete(task) {
       return axiosInstance.delete(urlSerializer.delete(task.payload.type, task.payload.id));
     },
+    /**
+     * @returns {AxiosInstance}
+     */
+    get axios() {
+      return axiosInstance;
+    },
   };
 }
 
