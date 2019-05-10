@@ -1,7 +1,7 @@
 /* eslint no-param-reassign: "off" */
 /* eslint no-shadow: "off" */
+import Resource from '@hyral/core/lib/Resource/Resource';
 import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
-import Resource from '../../../core/src/Resource/Resource';
 
 /**
  * @param {HyralRepository} repository

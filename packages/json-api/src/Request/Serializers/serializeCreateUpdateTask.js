@@ -1,4 +1,4 @@
-import { isTask } from '../../../../core/src/Resource/Change/Inspection';
+import { isTask } from '@hyral/core/lib/Resource/Change/Inspection';
 import serializeAttributes from './Helpers/serializeAttributes';
 import serializeResourceRelationships from './Helpers/serializeResourceRelationships';
 

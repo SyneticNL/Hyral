@@ -1,4 +1,4 @@
-import Resource from '../../../../../core/src/Resource/Resource';
+import Resource from '@hyral/core/lib/Resource/Resource';
 
 /**
  * @param {{id: String, type: String}} item
