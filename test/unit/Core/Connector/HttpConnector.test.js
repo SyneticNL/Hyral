@@ -1,22 +1,18 @@
+import mockAxios from 'jest-mock-axios';
 import HttpConnector from '../../../../src/Core/Connector/HttpConnector';
+import cloneDeep from 'lodash/cloneDeep';
 
 describe('The http connector should have all properties necessary', () => {
   const urlSerializer = {
     fetch: jest.fn(),
   };
+
   const paramsSerializer = jest.fn();
   const requestSerializer = jest.fn();
   const responseNormalizer = jest.fn();
-  const axiosMock = {
-    defaults: {
-      paramsSerializer: null,
-      transformRequest: [],
-      transformResponse: [],
-    },
-  };
 
   const connector = HttpConnector(
-    axiosMock,
+    mockAxios,
     urlSerializer,
     paramsSerializer,
     requestSerializer,
@@ -66,6 +62,7 @@ describe('The fetch method', () => {
     },
     get: jest.fn(() => Promise.resolve(response)),
   };
+  axiosMock.create = jest.fn(() => axiosMock);
 
   const connector = HttpConnector(
     axiosMock,
@@ -78,20 +75,14 @@ describe('The fetch method', () => {
   const repository = {};
   const parameterBag = {};
 
-  connector.fetch(repository, parameterBag);
-  it('should use the urlSerializer once', () => {
-    expect(urlSerializer.fetch.mock.calls.length).toBe(1);
+  it('should use the urlSerializer correctly', () => {
+    connector.fetch(repository, parameterBag);
+
+    expect(urlSerializer.fetch).toHaveBeenCalledTimes(1);
+    expect(urlSerializer.fetch).toHaveBeenCalledWith(repository);
+    expect(axiosMock.get).toHaveBeenCalledWith(url, { params: parameterBag });
   });
-  it('the urlSerializer should be called with the repository', () => {
-    expect(urlSerializer.fetch.mock.calls[0][0]).toBe(repository);
-  });
-  it('should use the reponse of the urlSerializer as input for axios get', () => {
-    expect(axiosMock.get.mock.calls[0][0]).toBe(url);
-  });
-  it('should call axios get with the parameter bag as input for the params object', () => {
-    expect(axiosMock.get.mock.calls[0][1].params).toBe(parameterBag);
-  });
-  /* eslint-disable arrow-body-style */
+
   it('should return the data of the response using a promise', () => {
     return connector.fetch(repository, parameterBag).then((data) => {
       expect(data).toBe(response);
@@ -123,6 +114,7 @@ describe('The fetchOne method', () => {
     },
     get: jest.fn(() => Promise.resolve(response)),
   };
+  axiosMock.create = jest.fn(() => axiosMock);
 
   const connector = HttpConnector(
     axiosMock,
@@ -134,21 +126,14 @@ describe('The fetchOne method', () => {
 
   const repository = {};
   const parameterBag = {};
-  connector.fetchOne(repository, id, parameterBag);
+  it('should use the urlSerializer and have the expected result', () => {
+    connector.fetchOne(repository, id, parameterBag);
 
-  it('should use the urlSerializer once', () => {
-    expect(urlSerializer.fetchOne.mock.calls.length).toBe(1);
+    expect(urlSerializer.fetchOne).toHaveBeenCalledTimes(1);
+    expect(urlSerializer.fetchOne).toHaveBeenCalledWith(repository, id);
+    expect(axiosMock.get).toHaveBeenCalledWith('url/1', { params: parameterBag });
   });
-  it('the urlSerializer should be called with the repository and the id', () => {
-    expect(urlSerializer.fetchOne.mock.calls[0][0]).toBe(repository);
-    expect(urlSerializer.fetchOne.mock.calls[0][1]).toBe(id);
-  });
-  it('should use the reponse of the urlSerializer as input for axios get', () => {
-    expect(axiosMock.get.mock.calls[0][0]).toBe('url/1');
-  });
-  it('should call axios get with the parameter bag as input for the params object', () => {
-    expect(axiosMock.get.mock.calls[0][1].params).toBe(parameterBag);
-  });
+
   /* eslint-disable arrow-body-style */
   it('should return the data of the response using a promise', () => {
     return connector.fetchOne(repository, id, parameterBag).then((data) => {
@@ -158,20 +143,6 @@ describe('The fetchOne method', () => {
 });
 
 describe('The create http connector should create a objects', () => {
-  const axiosMock1 = {
-    defaults: {
-      paramsSerializer: null,
-      transformRequest: [],
-      transformResponse: [],
-    },
-  };
-  const axiosMock2 = {
-    defaults: {
-      paramsSerializer: null,
-      transformRequest: [],
-      transformResponse: [],
-    },
-  };
   const urlSerializer1 = jest.fn();
   const urlSerializer2 = jest.fn();
   const paramsSerializer = jest.fn();
@@ -179,7 +150,7 @@ describe('The create http connector should create a objects', () => {
   const responseNormalizer = jest.fn();
 
   const connector1 = HttpConnector(
-    axiosMock1,
+    mockAxios,
     urlSerializer1,
     paramsSerializer,
     requestSerializer,
@@ -187,7 +158,7 @@ describe('The create http connector should create a objects', () => {
   );
 
   const connector2 = HttpConnector(
-    axiosMock2,
+    mockAxios,
     urlSerializer2,
     paramsSerializer,
     requestSerializer,
@@ -198,34 +169,35 @@ describe('The create http connector should create a objects', () => {
   });
 });
 
-describe('The axios instance is properly configured', () => {
-  const axiosMock = {
-    defaults: {
-      paramsSerializer: null,
-      transformRequest: [],
-      transformResponse: [],
-    },
-  };
+describe('The axios instance configuration', () => {
   const urlSerializer = jest.fn();
   const paramsSerializer = jest.fn();
   const requestSerializer = jest.fn();
   const responseNormalizer = jest.fn();
 
-  HttpConnector(
-    axiosMock,
+  mockAxios.defaults = {
+    baseURL: '/test',
+    paramsSerializer: null,
+    transformResponse: [],
+    transformRequest: [],
+  };
+  mockAxios.create = jest.fn(() => cloneDeep(mockAxios));
+
+  const connector = HttpConnector(
+    mockAxios,
     urlSerializer,
     paramsSerializer,
     requestSerializer,
     responseNormalizer,
   );
 
-  test('axios has the paramSerializer', () => {
-    expect(axiosMock.defaults.paramsSerializer).toBe(paramsSerializer);
+  test('that the axios instance configuration is not set globally', () => {
+    expect(mockAxios.defaults.paramsSerializer).not.toBe(paramsSerializer);
+    expect(mockAxios.defaults.transformResponse).not.toContain(responseNormalizer);
+    expect(mockAxios.defaults.transformRequest).not.toContain(requestSerializer);
   });
-  test('the last item in request transformers is the transformer supplied', () => {
-    expect(axiosMock.defaults.transformRequest.slice(-1)[0]).toBe(requestSerializer);
-  });
-  test('the last item in response transformers is the normalizer supplied', () => {
-    expect(axiosMock.defaults.transformResponse.slice(-1)[0]).toBe(responseNormalizer);
+
+  test('that the axios instance contains the globally set configuration', () => {
+    expect(connector.axios.defaults.baseURL).toEqual('/test');
   });
 });

@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 /**
  * @typedef HyralConnector
  * @type {Object}
@@ -7,6 +9,7 @@
  * @property {function} update
  * @property {function} relation
  * @property {function} delete
+ * @property {AxiosInstance} axios
  */
 
 /**
@@ -36,11 +39,13 @@ function HttpConnector(
   requestSerializer,
   responseNormalizer,
 ) {
-  /* eslint-disable no-param-reassign */
-  axios.defaults.paramsSerializer = paramsSerializer;
-  axios.defaults.transformRequest.push(requestSerializer);
-  axios.defaults.transformResponse.push(responseNormalizer);
-  /* eslint-enable no-param-reassign */
+  const axiosInstance = axios.create(
+    Object.assign(cloneDeep(axios.defaults), {
+      paramsSerializer,
+      transformRequest: [requestSerializer],
+      transformResponse: [responseNormalizer],
+    }),
+  );
 
   return {
     /**
@@ -50,7 +55,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     fetch(repository, parameterBag) {
-      return axios.get(urlSerializer.fetch(repository), {
+      return axiosInstance.get(urlSerializer.fetch(repository), {
         params: parameterBag,
       });
     },
@@ -63,7 +68,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     fetchOne(repository, id, parameterBag) {
-      return axios.get(urlSerializer.fetchOne(repository, id), {
+      return axiosInstance.get(urlSerializer.fetchOne(repository, id), {
         params: parameterBag,
       });
     },
@@ -74,7 +79,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     create(task) {
-      return axios.post(urlSerializer.create(task.payload.type), {
+      return axiosInstance.post(urlSerializer.create(task.payload.type), {
         task,
       });
     },
@@ -85,7 +90,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     update(task) {
-      return axios.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+      return axiosInstance.patch(urlSerializer.update(task.payload.type, task.payload.id), {
         task,
       });
     },
@@ -96,7 +101,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     relation(task) {
-      return axios.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
+      return axiosInstance.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
         task,
       });
     },
@@ -107,7 +112,13 @@ function HttpConnector(
      * @returns {Promise}
      */
     delete(task) {
-      return axios.delete(urlSerializer.delete(task.payload.type, task.payload.id));
+      return axiosInstance.delete(urlSerializer.delete(task.payload.type, task.payload.id));
+    },
+    /**
+     * @returns {AxiosInstance}
+     */
+    get axios() {
+      return axiosInstance;
     },
   };
 }
