@@ -1,15 +1,44 @@
 {
   "name": "hyral",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Hypermedia oriented Resource Api Layer",
-  "main": "lib/index.js",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "lodash": "^4.17.11",
-    "qs": "^6.7.0",
-    "url": "^0.11.0"
+  "main": "lib",
+  "directories": {
+    "test": "test"
   },
+  "scripts": {
+    "test": "jest --watchAll",
+    "lint": "eslint packages/**/src",
+    "fix": ".eslint --fix packages/**/src",
+    "prebuild": "npm run lint",
+    "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start --no-comments'",
+    "prerelease": "npm run build",
+    "release": "lerna publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/Hyral.git"
+  },
+  "keywords": [
+    "hypermedia",
+    "vue",
+    "vuex",
+    "client",
+    "api",
+    "rest",
+    "jsonapi",
+    "serialize",
+    "deserialize",
+    "json-api"
+  ],
+  "author": "Synetic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SyneticNL/Hyral/issues"
+  },
+  "homepage": "https://github.com/SyneticNL/Hyral#readme",
   "devDependencies": {
+    "lerna": "^3.13.4",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
@@ -26,36 +55,6 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.5.1",
-    "jest": "^24.7.1",
-    "jest-json-schema": "^2.0.2",
-    "jest-mock-axios": "^3.0.0"
-  },
-  "files": [
-    "lib/**/*",
-    "src/**/*"
-  ],
-  "directories": {
-    "lib": "./lib"
-  },
-  "scripts": {
-    "test": "jest --watchAll",
-    "build": "npm run lint && cross-env BABEL_ENV=production babel src --out-dir lib",
-    "lint": "eslint src",
-    "fix": "eslint --fix src/**/*.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SyneticNL/Hyral.git"
-  },
-  "keywords": [
-    "Api",
-    "Rest",
-    "JsonApi"
-  ],
-  "author": "SyneticNL",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SyneticNL/Hyral/issues"
-  },
-  "homepage": "https://github.com/SyneticNL/Hyral#readme"
+    "jest": "^24.7.1"
+  }
 }

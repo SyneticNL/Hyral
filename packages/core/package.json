@@ -1,0 +1,39 @@
+{
+  "name": "@hyral/core",
+  "version": "0.1.0",
+  "description": "Hyral core",
+  "author": "SyneticNL",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/core#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "jest-json-schema": "^2.0.2",
+    "jest-mock-axios": "^3.0.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/Hyral.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/SyneticNL/Hyral/issues"
+  },
+  "keywords": [
+    "Api",
+    "Rest",
+    "JsonApi"
+  ]
+}

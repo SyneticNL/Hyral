@@ -13,9 +13,10 @@ backends.
 * Uses state management and immutability
 * Full test-coverage
 
-Comes bundled with:
-* JsonApi backend integration with automatic relationship handling
-* Vue(x) integration
+
+## Hyral has separate packages for:
+* [JsonApi backend integration with automatic relationship handling](packages/json-api/README.md)
+* [Vue(x) integration](packages/vue/README.md)
 
 ## Install
 
@@ -25,14 +26,14 @@ npm install hyral
 
 ## More
 
-* [Documentation](documentation/README.md)
-* [Roadmap](documentation/roadmap.md)
+* [Documentation](packages/core/documentation/README.md)
+* [Roadmap](packages/core/documentation/roadmap.md)
 
 ## Guides
 
 There are several guides available that should give you a head-start:
 
-* [Understanding Hyral](documentation/Guides/understanding-hyral.md)
-* [Getting started](documentation/Guides/getting-started.md)
-* [Configuring for multiple backend](documentation/Guides/multiple-backends.md)
-* [Creating your own transformer](documentation/Guides/creating-transformers.md)
+* [Understanding Hyral](packages/core/documentation/Guides/understanding-hyral.md)
+* [Getting started](packages/core/documentation/Guides/getting-started.md)
+* [Configuring for multiple backend](packages/core/documentation/Guides/multiple-backends.md)
+* [Creating your own transformer](packages/core/documentation/Guides/creating-transformers.md)
