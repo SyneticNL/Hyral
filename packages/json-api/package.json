@@ -5,6 +5,7 @@
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
   "license": "MIT",
+  "module": "src/index.js",
   "main": "lib/index.js",
   "dependencies": {
     "@hyral/core": "^0.2.2-alpha.0",

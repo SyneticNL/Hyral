@@ -5,6 +5,7 @@
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/vue#readme",
   "license": "MIT",
+  "module": "src/index.js",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",
