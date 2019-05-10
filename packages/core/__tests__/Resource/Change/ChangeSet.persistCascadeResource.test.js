@@ -1,9 +1,9 @@
-import ResourceManager from '../../../src/Resource/ResourceManager';
+import resourceManager from '../../../src/Resource/resourceManager';
 import Resource from '../../../src/Resource/Resource';
 
 describe('The cascaded persist of a resource', () => {
   test('that a task is created for each changed resource', () => {
-    const ChangeSet = ResourceManager.createChangeSet();
+    const ChangeSet = resourceManager.createChangeSet();
 
     const productResource = Resource(1, 'product', { price: 2300 });
 

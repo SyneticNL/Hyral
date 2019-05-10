@@ -1,9 +1,9 @@
-import ResourceManager from '../../../src/Resource/ResourceManager';
+import resourceManager from '../../../src/Resource/resourceManager';
 import Resource from '../../../src/Resource/Resource';
 
-describe('The ResourceManager ChangeSet', () => {
+describe('The resourceManager ChangeSet', () => {
   test('that a task is created when deleting a resource', () => {
-    const ChangeSet = ResourceManager.createChangeSet();
+    const ChangeSet = resourceManager.createChangeSet();
 
     const existingResource = Resource(1, 'book', { title: 'A great book' });
 

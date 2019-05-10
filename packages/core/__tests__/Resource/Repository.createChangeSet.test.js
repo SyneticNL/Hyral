@@ -1,8 +1,8 @@
-import ResourceManager from '../../src/Resource/ResourceManager';
+import resourceManager from '../../src/Resource/resourceManager';
 
-describe('The ResourceManager ChangeSet', () => {
-  test('That a ChangeSet can be created via the ResourceManager', () => {
-    const ChangeSet = ResourceManager.createChangeSet();
+describe('The resourceManager ChangeSet', () => {
+  test('That a ChangeSet can be created via the resourceManager', () => {
+    const ChangeSet = resourceManager.createChangeSet();
 
     expect(ChangeSet).toHaveProperty('persistResource');
     expect(ChangeSet).toHaveProperty('persistCascadeResource');

@@ -1,4 +1,4 @@
-import ResourceManager from '../../src/Resource/ResourceManager';
+import resourceManager from '../../src/Resource/resourceManager';
 import ParameterBag from '../../src/Resource/ParameterBag';
 
 describe('The resource repository', () => {
@@ -26,18 +26,18 @@ describe('The resource repository', () => {
   };
 
   it('should have the correct identifier and resource type after the creation', () => {
-    const repository = ResourceManager.createRepository({}, 'testtype', identifier);
+    const repository = resourceManager.createRepository({}, 'testtype', identifier);
     expect(repository.identifier).toBe(identifier);
     expect(repository.resourceType).toBe('testtype');
   });
 
   it('should default the id to "id" when the id is omitted in the factory', () => {
-    const repository = ResourceManager.createRepository({}, 'testtype2');
+    const repository = resourceManager.createRepository({}, 'testtype2');
     expect(repository.identifier).toEqual('id');
   });
 
   it('should have the immutable properties resourceType and identifier after creation', () => {
-    const repository = ResourceManager.createRepository({}, 'testtype3', identifier);
+    const repository = resourceManager.createRepository({}, 'testtype3', identifier);
     expect(() => { repository.resourceType = 'new'; }).toThrow(TypeError);
     expect(() => { repository.identifier = 'otherid'; }).toThrow(TypeError);
   });
@@ -46,13 +46,13 @@ describe('The resource repository', () => {
     const connectorFind = {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
     };
-    const repository = ResourceManager.createRepository(connectorFind, 'testtype4', identifier);
+    const repository = resourceManager.createRepository(connectorFind, 'testtype4', identifier);
     repository.find(ParameterBag());
     expect(connectorFind.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a find containing the data array', () => {
-    const repository = ResourceManager.createRepository(connector, 'testtype7', identifier);
+    const repository = resourceManager.createRepository(connector, 'testtype7', identifier);
     return repository.find(ParameterBag()).then((data) => {
       expect(data).toBe(axiosResponseData.data);
     });
@@ -62,13 +62,13 @@ describe('The resource repository', () => {
     const connectorFindOne = {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
     };
-    const repository = ResourceManager.createRepository(connectorFindOne, 'testtype5', identifier);
+    const repository = resourceManager.createRepository(connectorFindOne, 'testtype5', identifier);
     repository.findOne(ParameterBag());
     expect(connectorFindOne.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
-    const repository = ResourceManager.createRepository(connector, 'testtype8', identifier);
+    const repository = resourceManager.createRepository(connector, 'testtype8', identifier);
     return repository.findOne(ParameterBag()).then((data) => {
       expect(data).toEqual(axiosResponseData.data.data[0]);
     });
@@ -78,13 +78,13 @@ describe('The resource repository', () => {
     const connectorFindById = {
       fetchOne: jest.fn(() => Promise.resolve(axiosResponseData.data)),
     };
-    const repository = ResourceManager.createRepository(connectorFindById, 'testtype6', identifier);
+    const repository = resourceManager.createRepository(connectorFindById, 'testtype6', identifier);
     repository.findById(1);
     expect(connectorFindById.fetchOne.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a findById containing the data', () => {
-    const repository = ResourceManager.createRepository(connector, 'testtype9', identifier);
+    const repository = resourceManager.createRepository(connector, 'testtype9', identifier);
     return repository.findById(1).then((data) => {
       expect(data).toBe(axiosResponseData.data);
     });

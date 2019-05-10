@@ -1,5 +1,5 @@
 import head from 'lodash/head';
-import { isTask } from '../../../../core/src/Resource/Change/Inspection';
+import { isTask } from '@hyral/core/lib/Resource/Change/Inspection';
 import serializeRelationship from './Helpers/serializeRelationship';
 
 /**

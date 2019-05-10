@@ -1,4 +1,4 @@
-import Collection from '../../../core/src/Resource/Collection';
+import Collection from '@hyral/core/lib/Resource/Collection';
 
 export default function createVuexCollectionFromState(name, state, repository, store) {
   const collection = Collection.fromState(name, state, repository);

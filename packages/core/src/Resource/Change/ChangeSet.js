@@ -15,7 +15,7 @@ import ChangeSetExecuter from './ChangeSetExecuter';
 
 /**
  *
- * @param {HyralResourceManager} resourceManager
+ * @param {HyralresourceManager} resourceManager
  *
  * @returns {HyralChangeSet}
  *

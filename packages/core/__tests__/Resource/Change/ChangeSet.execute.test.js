@@ -1,17 +1,17 @@
-import ResourceManager from '../../../src/Resource/ResourceManager';
+import resourceManager from '../../../src/Resource/resourceManager';
 import Resource from '../../../src/Resource/Resource';
 
-describe('The ResourceManager execute method', () => {
+describe('The resourceManager execute method', () => {
   test('that all tasks are executed when calling the execute method', () => {
     const connector = {
       update: jest.fn(() => Promise.resolve()),
       relation: jest.fn(() => Promise.resolve()),
     };
 
-    ResourceManager.createRepository(connector, 'book');
-    ResourceManager.createRepository(connector, 'author');
+    resourceManager.createRepository(connector, 'book');
+    resourceManager.createRepository(connector, 'author');
 
-    const ChangeSet = ResourceManager.createChangeSet();
+    const ChangeSet = resourceManager.createChangeSet();
     const existingResource = Resource(1, 'book', {
       title: 'A great book',
       author: Resource(1, 'author', { name: 'A great author' }),
