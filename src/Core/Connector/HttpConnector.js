@@ -9,6 +9,7 @@ import cloneDeep from 'lodash/cloneDeep';
  * @property {function} update
  * @property {function} relation
  * @property {function} delete
+ * @property {AxiosInstance} axios
  */
 
 /**

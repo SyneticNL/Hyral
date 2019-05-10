@@ -183,7 +183,7 @@ describe('The axios instance configuration', () => {
   };
   mockAxios.create = jest.fn(() => cloneDeep(mockAxios));
 
-  HttpConnector(
+  const connector = HttpConnector(
     mockAxios,
     urlSerializer,
     paramsSerializer,
@@ -198,6 +198,6 @@ describe('The axios instance configuration', () => {
   });
 
   test('that the axios instance contains the globally set configuration', () => {
-    expect(mockAxios.defaults.baseURL).toEqual('/test');
+    expect(connector.axios.defaults.baseURL).toEqual('/test');
   });
 });
