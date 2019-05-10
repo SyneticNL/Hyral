@@ -1,5 +1,5 @@
 import { matchers } from 'jest-json-schema';
-import responseNormalizer from '../../../../../src/Core/Transformers/JsonApi/Response/responseNormalizer';
+import responseNormalizer from '../../../../../packages/json-api/src/JsonApi/Response/responseNormalizer';
 import jsonResponseFixture from '../../../../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../../../schema/resource.schema';
 

@@ -1,5 +1,5 @@
-import Collection from '../../../../src/Core/Resource/Collection';
-import { setState } from '../../../../src/Core/State/State';
+import Collection from '../../../../packages/core/src/Resource/Collection';
+import { setState } from '../../../../packages/core/src/State/State';
 
 describe('Collection tests', () => {
   const mockResponse = {

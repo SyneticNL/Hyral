@@ -1,9 +1,9 @@
 import serializeRelationTask
-  from '../../../../../../src/Core/Transformers/JsonApi/Request/Serializers/serializeRelationTask';
-import Resource from '../../../../../../src/Core/Resource/Resource';
-import Task from '../../../../../../src/Core/Resource/Change/Task/Task';
+  from '../../../../../../packages/json-api/src/JsonApi/Request/Serializers/serializeRelationTask';
+import Resource from '../../../../../../packages/core/src/Resource/Resource';
+import Task from '../../../../../../packages/core/src/Resource/Change/Task/Task';
 import requestSerializer
-  from '../../../../../../src/Core/Transformers/JsonApi/Request/requestSerializer';
+  from '../../../../../../packages/json-api/src/JsonApi/Request/requestSerializer';
 import relationChangeRequestPayload
   from '../../../../../fixtures/JsonApi/Mutations/relationChangeRequestPayload';
 import relationChangeManyRequestPayload

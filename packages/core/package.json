@@ -1,0 +1,40 @@
+{
+  "name": "hyral",
+  "version": "0.0.1",
+  "description": "Hypermedia oriented Resource Api Layer",
+  "main": "lib/index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "qs": "^6.7.0",
+    "url": "^0.11.0"
+  },
+  "files": [
+    "lib/**/*",
+    "packages/core/src/**/*"
+  ],
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --watchAll",
+    "build": "npm run lint && ../../node_modules/.bin/cross-env BABEL_ENV=production babel packages/core/src --out-dir lib",
+    "lint": "../../node_modules/.bin/eslint packages/core/src",
+    "fix": "../../node_modules/.bin/eslint --fix packages/core/src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/Hyral.git"
+  },
+  "keywords": [
+    "Api",
+    "Rest",
+    "JsonApi"
+  ],
+  "author": "SyneticNL",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SyneticNL/Hyral/issues"
+  },
+  "homepage": "https://github.com/SyneticNL/Hyral#readme"
+}

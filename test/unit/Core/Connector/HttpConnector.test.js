@@ -1,5 +1,5 @@
 import mockAxios from 'jest-mock-axios';
-import HttpConnector from '../../../../src/Core/Connector/HttpConnector';
+import HttpConnector from '../../../../packages/core/src/Connector/HttpConnector';
 import cloneDeep from 'lodash/cloneDeep';
 
 describe('The http connector should have all properties necessary', () => {

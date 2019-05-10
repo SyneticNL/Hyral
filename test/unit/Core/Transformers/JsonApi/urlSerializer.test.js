@@ -1,4 +1,4 @@
-import urlSerializer from '../../../../../src/Core/Transformers/JsonApi/Request/urlSerializer';
+import urlSerializer from '../../../../../packages/json-api/src/JsonApi/Request/urlSerializer';
 
 describe('The jsonApi url serializer', () => {
   const repository = {

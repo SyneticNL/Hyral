@@ -1,4 +1,4 @@
-import ResourceManager from '../../../../src/Core/Resource/ResourceManager';
+import ResourceManager from '../../../../packages/core/src/Resource/ResourceManager';
 
 describe('The ResourceManager ChangeSet', () => {
   test('That a ChangeSet can be created via the ResourceManager', () => {

@@ -1,9 +1,9 @@
-import ParameterBag from '../../../../../src/Core/Resource/ParameterBag';
-import paramsSerializer from '../../../../../src/Core/Transformers/JsonApi/Request/paramsSerializer';
-import serializePaging from '../../../../../src/Core/Transformers/JsonApi/Request/Params/serializePaging';
-import serializeFilters from '../../../../../src/Core/Transformers/JsonApi/Request/Params/serializeFilters';
-import serializeParams from '../../../../../src/Core/Transformers/JsonApi/Request/Params/serializeParams';
-import serializeSorting from '../../../../../src/Core/Transformers/JsonApi/Request/Params/serializeSorting';
+import ParameterBag from '../../../../../packages/core/src/Resource/ParameterBag';
+import paramsSerializer from '../../../../../packages/json-api/src/JsonApi/Request/paramsSerializer';
+import serializePaging from '../../../../../packages/json-api/src/JsonApi/Request/Params/serializePaging';
+import serializeFilters from '../../../../../packages/json-api/src/JsonApi/Request/Params/serializeFilters';
+import serializeParams from '../../../../../packages/json-api/src/JsonApi/Request/Params/serializeParams';
+import serializeSorting from '../../../../../packages/json-api/src/JsonApi/Request/Params/serializeSorting';
 
 describe('paramSerializer', () => {
   test('that serializeParams gives a valid JsonApi response', () => {

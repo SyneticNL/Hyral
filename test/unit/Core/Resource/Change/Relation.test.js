@@ -1,9 +1,9 @@
-import Resource from '../../../../../src/Core/Resource/Resource';
+import Resource from '../../../../../packages/core/src/Resource/Resource';
 import {
   getChangedResourceRelations,
   getAllRelatedResources,
-} from '../../../../../src/Core/Resource/Change/Relation/Relation';
-import { resourceHasChanged } from '../../../../../src/Core/Resource/Change/Inspection';
+} from '../../../../../packages/core/src/Resource/Change/Relation/Relation';
+import { resourceHasChanged } from '../../../../../packages/core/src/Resource/Change/Inspection';
 
 describe('Relation tests', () => {
   test('that relations are correctly returned', () => {

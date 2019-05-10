@@ -1,5 +1,5 @@
-import Task from '../../../../../../src/Core/Resource/Change/Task/Task';
-import Resource from '../../../../../../src/Core/Resource/Resource';
+import Task from '../../../../../../packages/core/src/Resource/Change/Task/Task';
+import Resource from '../../../../../../packages/core/src/Resource/Resource';
 
 describe('The Task', () => {
   test('That a task can be created and executed', () => {

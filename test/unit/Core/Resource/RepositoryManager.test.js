@@ -1,5 +1,5 @@
 import ResourceManager
-  from '../../../../src/Core/Resource/ResourceManager';
+  from '../../../../packages/core/src/Resource/ResourceManager';
 
 describe('The resource factory', () => {
   const connectorMock = {};

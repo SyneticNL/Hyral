@@ -1,8 +1,8 @@
 import {
   resourceHasChanged,
   resourceIsNew,
-} from '../../../../../src/Core/Resource/Change/Inspection';
-import Resource from '../../../../../src/Core/Resource/Resource';
+} from '../../../../../packages/core/src/Resource/Change/Inspection';
+import Resource from '../../../../../packages/core/src/Resource/Resource';
 
 describe('Inspection tests', () => {
   test('that a new resource is detected correctly', () => {

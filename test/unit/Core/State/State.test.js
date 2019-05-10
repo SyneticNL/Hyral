@@ -2,7 +2,7 @@ import {
   currentState,
   mutateState,
   setState,
-} from '../../../../src/Core/State/State';
+} from '../../../../packages/core/src/State/State';
 
 describe('The State', () => {
   test('that the current state can be retrieved', () => {

@@ -1,4 +1,4 @@
-import Resource from '../../../../src/Core/Resource/Resource';
+import Resource from '../../../../packages/core/src/Resource/Resource';
 
 describe('The Resource state', () => {
   test('that a resource state can be updated', () => {

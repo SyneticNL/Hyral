@@ -1,5 +1,5 @@
-import ResourceManager from '../../../../../src/Core/Resource/ResourceManager';
-import Resource from '../../../../../src/Core/Resource/Resource';
+import ResourceManager from '../../../../../packages/core/src/Resource/ResourceManager';
+import Resource from '../../../../../packages/core/src/Resource/Resource';
 
 describe('The ResourceManager execute method', () => {
   test('that all tasks are executed when calling the execute method', () => {

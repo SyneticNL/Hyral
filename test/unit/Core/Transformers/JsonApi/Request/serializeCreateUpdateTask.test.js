@@ -1,11 +1,11 @@
-import serializeCreateUpdateTask from '../../../../../../src/Core/Transformers/JsonApi/Request/Serializers/serializeCreateUpdateTask';
+import serializeCreateUpdateTask from '../../../../../../packages/json-api/src/JsonApi/Request/Serializers/serializeCreateUpdateTask';
 import updateRequestPayload from '../../../../../fixtures/JsonApi/Mutations/updateRequestPayload';
 import updateRequestWithRelationshipsPayload
   from '../../../../../fixtures/JsonApi/Mutations/updateRequestWithRelationshipsPayload';
-import Resource from '../../../../../../src/Core/Resource/Resource';
-import Task from '../../../../../../src/Core/Resource/Change/Task/Task';
+import Resource from '../../../../../../packages/core/src/Resource/Resource';
+import Task from '../../../../../../packages/core/src/Resource/Change/Task/Task';
 import requestSerializer
-  from '../../../../../../src/Core/Transformers/JsonApi/Request/requestSerializer';
+  from '../../../../../../packages/json-api/src/JsonApi/Request/requestSerializer';
 import createJsonPayload
   from '../../../../../fixtures/JsonApi/Mutations/createRequestPayload';
 

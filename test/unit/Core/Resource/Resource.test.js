@@ -1,4 +1,4 @@
-import Resource from '../../../../src/Core/Resource/Resource';
+import Resource from '../../../../packages/core/src/Resource/Resource';
 
 describe('The Resource', () => {
   test('that a resource can be created with relationships', () => {
