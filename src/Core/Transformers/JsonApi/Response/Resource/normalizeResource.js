@@ -1,10 +1,14 @@
 import Resource from '../../../../Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
+function guessRelationCardinality(relation) {
+  return Array.isArray(relation.data) ? 'many-to-many' : 'many-to-one';
+}
+
 /**
  * @param {JsonApiResource} data
  *
- * @returns {Resource}
+ * @returns {HyralResource}
  */
 export default function normalizeResource(data) {
   const resource = Resource(data.id, data.type, data.attributes);
@@ -15,8 +19,9 @@ export default function normalizeResource(data) {
 
   Object.entries(data.relationships).forEach(([field, relation]) => {
     resource.relationships[field] = {
-      isMany: Array.isArray(relation.data),
-      type: relationshipGetType(relation),
+      cardinality: guessRelationCardinality(relation),
+      many: Array.isArray(relation.data),
+      resource: relationshipGetType(relation),
     };
 
     resource.data[field] = relation.data;

@@ -1,13 +1,15 @@
 import cloneDeep from 'lodash/cloneDeep';
+
 /**
  * @typedef HyralConnector
  * @type {Object}
- * @property {AxiosInstance} axios - AxiosInstance
  * @property {function} fetch
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
+ * @property {AxiosInstance} axios
  */
 
 /**
@@ -17,6 +19,7 @@ import cloneDeep from 'lodash/cloneDeep';
  * @property {function} fetchOne
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -36,23 +39,23 @@ function HttpConnector(
   requestSerializer,
   responseNormalizer,
 ) {
-  /* eslint-disable no-param-reassign */
-  axios.defaults.paramsSerializer = paramsSerializer;
-  const transformRequest = cloneDeep(axios.defaults.transformRequest);
-  transformRequest.push(requestSerializer);
-  axios.defaults.transformRequest = transformRequest;
-  const transformResponse = cloneDeep(axios.defaults.transformResponse);
-  transformResponse.push(responseNormalizer);
-  axios.defaults.transformResponse = transformResponse;
-  /* eslint-enable no-param-reassign */
+  const axiosInstance = axios.create(
+    Object.assign(cloneDeep(axios.defaults), {
+      paramsSerializer,
+      transformRequest: [requestSerializer],
+      transformResponse: [responseNormalizer],
+    }),
+  );
 
   return {
     /**
      * @param {HyralRepository} repository
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetch(repository, parameterBag) {
-      return axios.get(urlSerializer.fetch(repository), {
+      return axiosInstance.get(urlSerializer.fetch(repository), {
         params: parameterBag,
       });
     },
@@ -61,44 +64,61 @@ function HttpConnector(
      * @param {HyralRepository} repository
      * @param {number|string} id
      * @param {ParameterBag} parameterBag
+     *
+     * @returns {Promise}
      */
     fetchOne(repository, id, parameterBag) {
-      return axios.get(urlSerializer.fetchOne(repository, id), {
+      return axiosInstance.get(urlSerializer.fetchOne(repository, id), {
         params: parameterBag,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    create(repository, parameterBag) {
-      axios.post({
-        repository,
-        data: parameterBag,
+    create(task) {
+      return axiosInstance.post(urlSerializer.create(task.payload.type), {
+        task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    update(repository, parameterBag) {
-      axios.patch({
-        repository,
-        data: parameterBag,
+    update(task) {
+      return axiosInstance.patch(urlSerializer.update(task.payload.type, task.payload.id), {
+        task,
       });
     },
 
     /**
-     * @param {HyralRepository} repository
-     * @param {ParameterBag} parameterBag
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
      */
-    delete(repository, parameterBag) {
-      axios.delete({
-        repository,
-        params: parameterBag,
+    relation(task) {
+      return axiosInstance.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
+        task,
       });
+    },
+
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    delete(task) {
+      return axiosInstance.delete(urlSerializer.delete(task.payload.type, task.payload.id));
+    },
+    /**
+     * @returns {AxiosInstance}
+     */
+    get axios() {
+      return axiosInstance;
     },
   };
 }

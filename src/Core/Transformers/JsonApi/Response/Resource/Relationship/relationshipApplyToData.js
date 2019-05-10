@@ -11,7 +11,7 @@ export default function relationshipApplyToData(items, includedRelations) {
         return;
       }
 
-      if (!relation.isMany) {
+      if (relation.many === false) {
         // eslint-disable-next-line no-param-reassign
         resource.data[field] = relationshipGetResource(resource.data[field], includedRelations);
         return;

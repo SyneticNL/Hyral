@@ -1,31 +1,42 @@
 
 /**
+ * @typedef HyralResourceRelationship
+ * @type {Object}
+ * @property {string} resource
+ * @property {string} cardinality
+ * @property {boolean} many
+ */
+
+/**
  * @typedef HyralResource
  * @type {Object}
  * @property {string|number} id
  * @property {string} type
  * @property {object} data
- * @property {object} relationships
+ * @property {Object.<string, HyralResourceRelationship>|null} relationships
  * @property {object} metadata
  * @property {object} state
+ * @property {array} stateStack
  * @property {boolean} metadata.loading
  * @property {boolean} metadata.loaded
  */
 
-import { currentState, setState } from '../State/State';
+import {
+  currentState,
+  mutateState,
+  resetState, setState,
+} from '../State/State';
 
 /**
  * @param {string|number|null} id
  * @param {string|null} type
  * @param {object|null} data
- * @param {object|null} relationships
+ * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */
 function Resource(id = null, type = null, data = null, relationships = null) {
   const state = [{
-    id,
-    type,
     data: data || {},
     relationships: relationships || {},
   }];
@@ -40,14 +51,14 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @returns {string|number}
      */
     get id() {
-      return currentState(state).id;
+      return id;
     },
 
     /**
      * @returns {string}
      */
     get type() {
-      return currentState(state).type;
+      return type;
     },
 
     /**
@@ -61,7 +72,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newData
      */
     set data(newData) {
-      setState(state, { data: newData });
+      mutateState(state, { data: newData });
     },
 
     /**
@@ -75,7 +86,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @param {object} newRelationships
      */
     set relationships(newRelationships) {
-      setState(state, { relationships: newRelationships });
+      mutateState(state, { relationships: newRelationships });
     },
 
     /**
@@ -102,13 +113,17 @@ function Resource(id = null, type = null, data = null, relationships = null) {
 }
 
 /**
+ *
+ * @param {string|number|null} id
+ * @param {string} type
  * @param {object} state
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (state) => {
-  const resource = Resource();
+Resource.fromState = (id, type, state) => {
+  const resource = Resource(id, type);
 
+  resetState(resource.stateStack);
   setState(resource.stateStack, state);
 
   return resource;

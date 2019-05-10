@@ -4,11 +4,9 @@ A resource is a simple JavaScript object. The resource is structured according t
 * The type of resource
 * The id of the resource
 * The data of the resource
-* The metadata of the resource containing:
-  * The available relationships for the resouce
+* The relationships of the resource
 
 ## Relations
-
 Hyral exposes the available relations on a resource and makes the related resources available via the data attribute.
 
 A typical resource with a relation is structured as follows:
@@ -28,12 +26,11 @@ const resource = {
       }
     }
   },
-  metadata: {
-    relationships: {
-      author: {
-        isMany: false,
-        type: 'author',
-      }
+  relationships: {
+    author: {
+      cardinality: 'one-to-many',
+      many: false,
+      resource: 'author',
     }
   }
 };
@@ -64,21 +61,40 @@ const resource = {
       },
     ]
   },
-  metadata: {
-    relationships: {
-      publications: {
-        isMany: true,
-        type: 'publication',
-      }
+  relationships: {
+    publications: {
+      cardinality: 'many-to-one',
+      many: true,
+      resource: 'publication',
     }
   }
 };
 ```
 
-## Factory
+### Defining relationships
 
-Resources are always created via the resourceFactory function. If you wish to create a new resource from your 
-application use the resourceFactory method to ensure a correct structure.
+The JSON API normalizer tries to guess the available relationships and cardinality of these 
+relationships. You can/should correct these guesses if they are incorrect when persisting a resource.
+
+The following assumptions are made:
+- All relations in the resource relationships property are added as relations, even if they are
+  empty. 
+- A relation is assumed to have a cardinality of one-to-many if the data value is an object.
+- A relation is assumed to have a cardinality of many-to-many if the data value is as array.
+
+#### Relationships cardinalities
+
+The following types of cardinalities are supported:
+
+- one-to-one
+- one-to-many
+- many-to-one
+- many-to-many
+
+## Creating a resource
+
+Resources are always created via the Resource function. If you wish to create a new resource from your 
+application use the Resource function to ensure a correct structure.
 
 ## JSON Schema
 A JSON schema is available for a resource [here](/schema/resource.schema.json).

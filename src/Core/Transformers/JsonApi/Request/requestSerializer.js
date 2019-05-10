@@ -2,7 +2,16 @@
  * @param {Object} data
  * @param {Object} headers
  */
-/* eslint-disable-next-line no-unused-vars */
-export default function requestSerializer(data, headers) {
-  return data;
+import serializeRelationTask from './Serializers/serializeRelationTask';
+import serializeCreateUpdateTask from './Serializers/serializeCreateUpdateTask';
+
+export default function requestSerializer(data) {
+  const serializers = [
+    serializeCreateUpdateTask,
+    serializeRelationTask,
+  ];
+
+  return serializers.reduce((result, serializer) => {
+    return serializer(result);
+  }, data);
 }

@@ -1,5 +1,10 @@
 import ParameterBag from './ParameterBag';
-import { currentState, setState } from '../State/State';
+import {
+  currentState,
+  mutateState,
+  resetState,
+  setState,
+} from '../State/State';
 
 /**
  * @param collection
@@ -13,23 +18,24 @@ function collectionLoad(collection) {
       return Promise.resolve();
     }
 
-    setState(collection.stateStack, { metadata: { loading: true } });
+    mutateState(collection.stateStack, {
+      metadata: Object.assign({}, collection.state.metadata, { loading: true }),
+    });
+
     return collection.repository.find(collection.parameterBag).then((response) => {
-      setState(collection.stateStack, {
+      mutateState(collection.stateStack, {
         data: {
           items: response.data,
         },
-        metadata: {
-          paging: response.paging,
-        },
+        metadata: Object.assign({}, collection.state.metadata, { paging: response.paging }),
       });
     }).finally(() => {
-      setState(collection.stateStack, {
-        metadata: {
+      mutateState(collection.stateStack, {
+        metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
           loaded: true,
           lastParameterBagState: collection.parameterBag.stateId,
-        },
+        }),
       });
     });
   };
@@ -70,7 +76,7 @@ function Collection(name, repository) {
     },
 
     set parameterBag(parameterBag) {
-      setState(state, { parameterBag: parameterBag.state });
+      mutateState(state, { parameterBag: parameterBag.state });
     },
 
     /**
@@ -131,6 +137,7 @@ function Collection(name, repository) {
 Collection.fromState = (name, state, repository) => {
   const newCollection = Collection(name, repository);
 
+  resetState(newCollection.stateStack);
   setState(newCollection.stateStack, state);
 
   return newCollection;

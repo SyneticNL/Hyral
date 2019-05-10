@@ -10,11 +10,15 @@
     "relationships": {
       "type": "object",
       "properties": {
-        "type": {
+        "resource": {
           "type": "string"
         },
-        "isMany": {
+        "many": {
           "type": "boolean"
+        },
+        "cardinality": {
+          "type": "string",
+          "enum": ["one-to-one", "one-to-many", "many-to-one" ,"many-to-many"]
         }
       }
     },

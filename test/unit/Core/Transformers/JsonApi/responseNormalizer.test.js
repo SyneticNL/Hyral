@@ -1,6 +1,6 @@
 import { matchers } from 'jest-json-schema';
 import responseNormalizer from '../../../../../src/Core/Transformers/JsonApi/Response/responseNormalizer';
-import jsonResponseFixture from '../../../../fixtures/fetchJsonResponse';
+import jsonResponseFixture from '../../../../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../../../schema/resource.schema';
 
 expect.extend(matchers);
@@ -20,18 +20,21 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[0]).toHaveProperty('relationships');
 
     expect(result.data[0].relationships).toHaveProperty('consultant');
-    expect(result.data[0].relationships.consultant.type).toBe('people');
-    expect(result.data[0].relationships.consultant.isMany).toBeFalsy();
+    expect(result.data[0].relationships.consultant.resource).toBe('people');
+    expect(result.data[0].relationships.consultant.many).toBeFalsy();
+    expect(result.data[0].relationships.consultant.cardinality).toEqual('many-to-one');
     expect(result.data[0].data.consultant).toHaveProperty('id');
     expect(result.data[0].data.consultant).toHaveProperty('type');
 
     expect(result.data[0].relationships).toHaveProperty('thumbnail');
-    expect(result.data[0].relationships.thumbnail.type).toBe('images');
-    expect(result.data[0].relationships.thumbnail.isMany).toBeFalsy();
+    expect(result.data[0].relationships.thumbnail.resource).toBe('images');
+    expect(result.data[0].relationships.thumbnail.many).toBeFalsy();
+    expect(result.data[0].relationships.thumbnail.cardinality).toEqual('many-to-one');
 
     expect(result.data[1].relationships).toHaveProperty('images');
-    expect(result.data[1].relationships.images.isMany).toBeTruthy();
-    expect(result.data[1].relationships.images.type).toBe('images');
+    expect(result.data[1].relationships.images.resource).toBe('images');
+    expect(result.data[0].relationships.images.many).toBeTruthy();
+    expect(result.data[1].relationships.images.cardinality).toEqual('many-to-many');
     expect(result.data[1].data.images).toHaveLength(2);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');

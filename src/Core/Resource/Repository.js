@@ -9,6 +9,7 @@
  * @property {function} findById
  * @property {function} create
  * @property {function} update
+ * @property {function} relation
  * @property {function} delete
  */
 
@@ -22,7 +23,6 @@ export default function Repository(connector, resourceType, identifier) {
     find(parameterBag) {
       return connector.fetch(this, parameterBag).then(response => response.data);
     },
-
     /**
      * @param {ParameterBag} parameterBag
      *
@@ -31,7 +31,6 @@ export default function Repository(connector, resourceType, identifier) {
     findOne(parameterBag) {
       return connector.fetch(this, parameterBag).then(response => response.data.data[0] || null);
     },
-
     /**
      * @param {String|Number} id
      *
@@ -40,32 +39,37 @@ export default function Repository(connector, resourceType, identifier) {
     findById(id) {
       return connector.fetchOne(this, id, {});
     },
-
     /**
-     * @param {Object} entity
+     * @param {HyralTask} task
      *
-     * @returns {Promise<Resource>}
+     * @returns {Promise}
      */
-    create(entity) {
-      return connector.create(this, entity);
+    create(task) {
+      return connector.create(task);
     },
-
     /**
-     * @param {Object} entity
+     * @param {HyralTask} task
      *
-     * @returns {Promise<Resource>}
+     * @returns {Promise}
      */
-    update(entity) {
-      return connector.create(this, entity);
+    update(task) {
+      return connector.update(task);
     },
-
     /**
-     * @param {Object} entity
+     * @param {HyralTask} task
      *
-     * @returns {Promise<Object>}
+     * @returns {Promise}
      */
-    delete(entity) {
-      return connector.create(this, entity);
+    relation(task) {
+      return connector.relation(task);
+    },
+    /**
+     * @param {HyralTask} task
+     *
+     * @returns {Promise}
+     */
+    delete(task) {
+      return connector.delete(task);
     },
   };
 
