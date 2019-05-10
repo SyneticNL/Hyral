@@ -1,6 +1,6 @@
 import { matchers } from 'jest-json-schema';
 import responseNormalizer from '../../../../../src/Core/Transformers/JsonApi/Response/responseNormalizer';
-import jsonResponseFixture from '../../../../fixtures/fetchJsonResponse';
+import jsonResponseFixture from '../../../../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../../../schema/resource.schema';
 
 expect.extend(matchers);

@@ -1,11 +1,19 @@
 
 /**
+ * @typedef HyralResourceRelationship
+ * @type {Object}
+ * @property {string} resource
+ * @property {string} cardinality
+ * @property {boolean} many
+ */
+
+/**
  * @typedef HyralResource
  * @type {Object}
  * @property {string|number} id
  * @property {string} type
  * @property {object} data
- * @property {object} relationships
+ * @property {Object.<string, HyralResourceRelationship>|null} relationships
  * @property {object} metadata
  * @property {object} state
  * @property {array} stateStack
@@ -23,7 +31,7 @@ import {
  * @param {string|number|null} id
  * @param {string|null} type
  * @param {object|null} data
- * @param {object|null} relationships
+ * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */

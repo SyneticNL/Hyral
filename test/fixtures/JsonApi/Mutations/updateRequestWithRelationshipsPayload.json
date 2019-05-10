@@ -1,0 +1,20 @@
+{
+  "data": {
+    "type": "book",
+    "id": "1",
+    "attributes": {
+      "title": "A great book"
+    },
+    "relationships": {
+      "author": {
+        "data": { "type": "author", "id": "2" }
+      },
+      "publications": {
+        "data": [
+          { "type": "publication", "id": "3" },
+          { "type": "publication", "id": "4" }
+        ]
+      }
+    }
+  }
+}
