@@ -35,5 +35,8 @@
     "Api",
     "Rest",
     "JsonApi"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
