@@ -46,6 +46,7 @@ function HttpConnector(
 
   const axiosInstance = axios.create(
     Object.assign(axiosConfig, {
+      responseType: 'json',
       paramsSerializer,
       transformResponse: axiosConfig.transformResponse
         ? axiosConfig.transformResponse.concat([responseNormalizer])
