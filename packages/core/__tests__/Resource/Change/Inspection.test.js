@@ -49,9 +49,9 @@ describe('Inspection tests', () => {
     const task = Task('create', {}, {});
 
     expect(isTask(task)).toBeTruthy();
-    expect({}).toBeFalsy();
-    expect(undefined).toBeFalsy();
-    expect('').toBeFalsy();
-    expect(0).toBeFalsy();
+    expect(isTask({})).toBeFalsy();
+    expect(isTask(undefined)).toBeFalsy();
+    expect(isTask('')).toBeFalsy();
+    expect(isTask(0)).toBeFalsy();
   });
 });
