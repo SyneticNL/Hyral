@@ -112,4 +112,12 @@ describe('paramSerializer', () => {
       'filter%5Bf1%5D=v1&page%5Boffset%5D=20&page%5Blimit%5D=20&sort=field1%2C-field2&simple=value',
     );
   });
+
+  test('that paramsSerializer gives an empty string when not having passed a ParameterBag', () => {
+    expect(paramsSerializer('')).toEqual('');
+    expect(paramsSerializer({})).toEqual('');
+    expect(paramsSerializer(undefined)).toEqual('');
+    expect(paramsSerializer(null)).toEqual('');
+    expect(paramsSerializer(0)).toEqual('');
+  });
 });

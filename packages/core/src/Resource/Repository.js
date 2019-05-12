@@ -37,7 +37,7 @@ export default function Repository(connector, resourceType, identifier) {
      * @returns {Promise<Resource>}
      */
     findById(id) {
-      return connector.fetchOne(this, id, {});
+      return connector.fetchOne(this, id, {}).then(response => response.data.data || null);
     },
     /**
      * @param {HyralTask} task

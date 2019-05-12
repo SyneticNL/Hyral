@@ -22,10 +22,12 @@ const axiosInstance = axios.create({
 
 const connector = createHttpConnector(
   axiosInstance,
-  jsonApiTransformers.urlSerializer,
-  jsonApiTransformers.paramsSerializer,
-  jsonApiTransformers.requestSerializer,
-  jsonApiTransformers.responseNormalizer,
+  {
+    urlSerializer,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  },
 );
 
 try {

@@ -83,21 +83,23 @@ export default function Task(type, repository, payload, context = null) {
 
       task.claim();
 
-      executionPromise = new Promise(async (resolve, reject) => {
+      executionPromise = new Promise((resolve, reject) => {
+        const taskExecutor = () => {
+          repository[type](task).then((response) => {
+            resolved = true;
+            resolve(response);
+          }).catch(reject);
+        };
+
         if (dependencies.length > 0) {
-          try {
-            await Promise.all(
-              dependencies.map(dependency => dependency.execute()),
-            );
-          } catch (error) {
-            reject(error);
-          }
+          Promise.all(
+            dependencies.map(dependency => dependency.execute()),
+          ).then(taskExecutor).catch(reject);
+
+          return;
         }
 
-        repository[type](task).then((response) => {
-          resolved = true;
-          resolve(response);
-        }).catch(reject);
+        taskExecutor();
       });
 
       return executionPromise;

@@ -12,11 +12,12 @@ describe('The http connector should have all properties necessary', () => {
   const responseNormalizer = jest.fn();
 
   const connector = HttpConnector(
-    mockAxios,
-    urlSerializer,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    mockAxios, {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
 
   it('has a fetch method', () => {
@@ -66,10 +67,12 @@ describe('The fetch method', () => {
 
   const connector = HttpConnector(
     axiosMock,
-    urlSerializer,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
 
   const repository = {};
@@ -118,10 +121,12 @@ describe('The fetchOne method', () => {
 
   const connector = HttpConnector(
     axiosMock,
-    urlSerializer,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
 
   const repository = {};
@@ -151,18 +156,22 @@ describe('The create http connector should create a objects', () => {
 
   const connector1 = HttpConnector(
     mockAxios,
-    urlSerializer1,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    {
+      urlSerializer: urlSerializer1,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
 
   const connector2 = HttpConnector(
     mockAxios,
-    urlSerializer2,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    {
+      urlSerializer: urlSerializer2,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
   test('connector1 and connector2 should be unique', () => {
     expect(connector1).not.toBe(connector2);
@@ -185,10 +194,12 @@ describe('The axios instance configuration', () => {
 
   const connector = HttpConnector(
     mockAxios,
-    urlSerializer,
-    paramsSerializer,
-    requestSerializer,
-    responseNormalizer,
+    {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
   );
 
   test('that the axios instance configuration is not set globally', () => {

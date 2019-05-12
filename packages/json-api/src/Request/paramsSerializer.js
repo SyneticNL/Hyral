@@ -8,6 +8,10 @@ import serializePaging from './Params/serializePaging';
  * @param {ParameterBag} parameterBag
  */
 export default function paramsSerializer(parameterBag) {
+  if (!parameterBag || !parameterBag.filters) {
+    return '';
+  }
+
   return stringify({
     ...serializeFilters(parameterBag),
     ...serializePaging(parameterBag),

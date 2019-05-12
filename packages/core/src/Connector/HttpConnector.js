@@ -25,25 +25,31 @@ import cloneDeep from 'lodash/cloneDeep';
 
 /**
  * @param {AxiosInstance} axios
- * @param {UrlSerializer} urlSerializer
- * @param {function} paramsSerializer
- * @param {function} requestSerializer
- * @param {function} responseNormalizer
+ * @param {Object} transformers
+ * @oaran {function} transformers.urlSerializer
+ * @param {function} transformers.paramsSerializer
+ * @param {function} transformers.requestSerializer
+ * @param {function} transformers.responseNormalizer
  *
  * @returns {HyralConnector}
  */
 function HttpConnector(
   axios,
-  urlSerializer,
-  paramsSerializer,
-  requestSerializer,
-  responseNormalizer,
+  {
+    urlSerializer,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  },
 ) {
+  const axiosConfig = cloneDeep(axios.defaults);
+
   const axiosInstance = axios.create(
-    Object.assign(cloneDeep(axios.defaults), {
+    Object.assign(axiosConfig, {
       paramsSerializer,
-      transformRequest: [requestSerializer],
-      transformResponse: [responseNormalizer],
+      transformResponse: axiosConfig.transformResponse
+        ? axiosConfig.transformResponse.concat([responseNormalizer])
+        : [responseNormalizer],
     }),
   );
 
@@ -79,9 +85,7 @@ function HttpConnector(
      * @returns {Promise}
      */
     create(task) {
-      return axiosInstance.post(urlSerializer.create(task.payload.type), {
-        task,
-      });
+      return axiosInstance.post(urlSerializer.create(task.payload.type), requestSerializer(task));
     },
 
     /**
@@ -90,9 +94,10 @@ function HttpConnector(
      * @returns {Promise}
      */
     update(task) {
-      return axiosInstance.patch(urlSerializer.update(task.payload.type, task.payload.id), {
-        task,
-      });
+      return axiosInstance.patch(
+        urlSerializer.update(task.payload.type, task.payload.id),
+        requestSerializer(task),
+      );
     },
 
     /**
@@ -101,9 +106,10 @@ function HttpConnector(
      * @returns {Promise}
      */
     relation(task) {
-      return axiosInstance.patch(urlSerializer.relation(task.payload.type, task.payload.id), {
-        task,
-      });
+      return axiosInstance.patch(
+        urlSerializer.relation(task.payload.type, task.payload.id),
+        requestSerializer(task),
+      );
     },
 
     /**

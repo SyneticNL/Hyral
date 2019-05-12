@@ -22,7 +22,7 @@ describe('The resource repository', () => {
   const identifier = 'tid';
   const connector = {
     fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
-    fetchOne: jest.fn(() => Promise.resolve(axiosResponseData.data)),
+    fetchOne: jest.fn(() => Promise.resolve({ data: { data: axiosResponseData.data.data[0] } })),
   };
 
   it('should have the correct identifier and resource type after the creation', () => {
@@ -86,7 +86,7 @@ describe('The resource repository', () => {
   it('should return the promise of the connector after a findById containing the data', () => {
     const repository = resourceManager.createRepository(connector, 'testtype9', identifier);
     return repository.findById(1).then((data) => {
-      expect(data).toBe(axiosResponseData.data);
+      expect(data).toBe(axiosResponseData.data.data[0]);
     });
   });
 });

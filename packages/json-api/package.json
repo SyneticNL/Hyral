@@ -11,7 +11,8 @@
     "@hyral/core": "^0.2.3-alpha.0",
     "lodash": "^4.17.11",
     "qs": "^6.7.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "pluralize": "^7.0.0"
   },
   "directories": {
     "lib": "lib",

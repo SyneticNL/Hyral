@@ -41,6 +41,10 @@ export default function responseNormalizer(response) {
     return response;
   }
 
+  if (!response.data) {
+    return response;
+  }
+
   const singleMode = !Array.isArray(response.data);
 
   const includedResources = response.included ? normalizeResources(response.included) : {};
