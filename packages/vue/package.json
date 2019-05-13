@@ -1,6 +1,6 @@
 {
   "name": "@hyral/vue",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Vue.js integration for Hyral",
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/vue#readme",
@@ -15,7 +15,7 @@
     "lib"
   ],
   "dependencies": {
-    "@hyral/core": "^0.3.0"
+    "@hyral/core": "^0.4.0"
   },
   "repository": {
     "type": "git",
