@@ -1,21 +1,21 @@
 import findCreateTasksForResources from '../findCreateTasksForResources';
-import filterNewDependencyTasks from '../filterNewDependencyTasks';
+import filterExistingDependencies from '../filterExistingDependencies';
 
 export default function relatedTaskDependencies(tasks, task) {
   if (task.type !== 'relation') {
     return task;
   }
 
-  const newCreateTaskDependencies = filterNewDependencyTasks(
+  const filteredDependencies = filterExistingDependencies(
     task,
     findCreateTasksForResources(tasks, task.payload.resources),
   );
 
-  if (!newCreateTaskDependencies || newCreateTaskDependencies.length === 0) {
+  if (!filteredDependencies || filteredDependencies.length === 0) {
     return task;
   }
 
-  task.addDependencies(newCreateTaskDependencies);
+  task.addDependencies(filteredDependencies);
 
   return task;
 }

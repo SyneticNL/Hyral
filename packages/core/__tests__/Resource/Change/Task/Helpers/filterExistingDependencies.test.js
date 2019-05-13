@@ -1,10 +1,10 @@
 import Task from '../../../../../src/Resource/Change/Task/Task';
 import Resource from '../../../../../src/Resource/Resource';
-import filterNewDependencyTasks
-  from '../../../../../src/Resource/Change/Task/Helpers/filterNewDependencyTasks';
+import filterExistingDependencies
+  from '../../../../../src/Resource/Change/Task/Helpers/filterExistingDependencies';
 
-describe('The filterNewDependencyTasks', () => {
-  test('That filterNewDependencyTasks returns only not previously added dependencies', () => {
+describe('The filterExistingDependencies', () => {
+  test('That filterExistingDependencies returns only not previously added dependencies', () => {
     const author = Resource.create(null, 'author', { title: 'A great author' });
     const text = Resource.create(null, 'text', { title: 'About' });
     const resource = Resource.create(null, 'product', { title: 'A great product' });
@@ -15,7 +15,7 @@ describe('The filterNewDependencyTasks', () => {
 
     resourceTask.addDependencies([authorTask]);
 
-    const foundTasks = filterNewDependencyTasks(resourceTask, [authorTask, textTask]);
+    const foundTasks = filterExistingDependencies(resourceTask, [authorTask, textTask]);
 
     expect(foundTasks).toHaveLength(1);
     expect(foundTasks).toContain(textTask);
