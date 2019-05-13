@@ -146,8 +146,10 @@ function ParameterBag() {
 ParameterBag.fromState = (state) => {
   const parameterBag = ParameterBag();
 
+  const newState = Object.assign({}, parameterBag.state, state);
+
   resetState(parameterBag.stateStack);
-  setState(parameterBag.stateStack, state);
+  setState(parameterBag.stateStack, newState);
 
   return parameterBag;
 };

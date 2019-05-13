@@ -6,7 +6,7 @@ import {
   getChangedResourceRelations,
   getRelatedResources,
 } from '../Relation/Relation';
-import setRelationTaskDependencies from './Helpers/setRelationTaskDependencies';
+import setTaskDependencies from './Helpers/setTaskDependencies';
 
 export default function TaskGenerator(tasks, resourceManager) {
   return {
@@ -55,11 +55,11 @@ export default function TaskGenerator(tasks, resourceManager) {
     persistCascadeResource(resource) {
       this.persistResource(resource);
       const related = getAllRelatedResources(resource);
-      related.map(
+      related.forEach(
         relatedResource => this.persistCascadeResource(relatedResource),
       );
 
-      setRelationTaskDependencies(tasks);
+      setTaskDependencies(tasks);
     },
     /**
      * Will queue an action to remove the entity.

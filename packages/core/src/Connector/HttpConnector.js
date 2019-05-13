@@ -42,16 +42,13 @@ function HttpConnector(
     responseNormalizer,
   },
 ) {
-  const axiosConfig = cloneDeep(axios.defaults);
+  const axiosInstance = axios.create ? axios.create() : axios;
 
-  const axiosInstance = axios.create(
-    Object.assign(axiosConfig, {
-      paramsSerializer,
-      transformResponse: axiosConfig.transformResponse
-        ? axiosConfig.transformResponse.concat([responseNormalizer])
-        : [responseNormalizer],
-    }),
-  );
+  axiosInstance.defaults.responseType = 'json';
+  axiosInstance.defaults.paramsSerializer = paramsSerializer;
+  axiosInstance.defaults.transformResponse = axiosInstance.defaults.transformResponse
+    ? axiosInstance.defaults.transformResponse.concat([responseNormalizer])
+    : [responseNormalizer];
 
   return {
     /**
