@@ -123,8 +123,10 @@ function Resource(id = null, type = null, data = null, relationships = null) {
 Resource.fromState = (id, type, state) => {
   const resource = Resource(id, type);
 
+  const newState = Object.assign({}, resource.state, state);
+
   resetState(resource.stateStack);
-  setState(resource.stateStack, state);
+  setState(resource.stateStack, newState);
 
   return resource;
 };
