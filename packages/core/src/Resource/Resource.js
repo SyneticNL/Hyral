@@ -42,7 +42,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     relationships: relationships || {},
   }];
 
-  const metadata = {
+  let metadata = {
     loaded: data !== null,
     loading: false,
   };
@@ -91,7 +91,13 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     },
 
     /**
-     * @returns {object}
+     * @param {{loaded: boolean, loading: boolean}} value
+     */
+    setMetadata(value) {
+      metadata = value;
+    },
+    /**
+     * @returns {{loaded: boolean, loading: boolean}}
      */
     get metadata() {
       return metadata;
