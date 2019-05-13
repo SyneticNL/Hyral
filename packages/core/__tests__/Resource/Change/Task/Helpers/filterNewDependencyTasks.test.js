@@ -3,8 +3,8 @@ import Resource from '../../../../../src/Resource/Resource';
 import filterNewDependencyTasks
   from '../../../../../src/Resource/Change/Task/Helpers/filterNewDependencyTasks';
 
-describe('The findCreateTasksForResources', () => {
-  test('That findCreateTasksForResources returns the create tasks', () => {
+describe('The filterNewDependencyTasks', () => {
+  test('That filterNewDependencyTasks returns only not previously added dependencies', () => {
     const author = Resource(null, 'author', { title: 'A great author' });
     const text = Resource(null, 'text', { title: 'About' });
     const resource = Resource(null, 'product', { title: 'A great product' });
