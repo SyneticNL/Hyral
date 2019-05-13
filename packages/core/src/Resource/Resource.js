@@ -26,6 +26,7 @@ import {
   mutateState,
   resetState, setState,
 } from '../State/State';
+import lazyLoadingDecorator from './Decorator/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
@@ -112,6 +113,10 @@ function Resource(id = null, type = null, data = null, relationships = null) {
   };
 }
 
+Resource.decorators = [
+  lazyLoadingDecorator,
+];
+
 /**
  * @param {string|number|null} id
  * @param {string|null} type
@@ -120,12 +125,17 @@ function Resource(id = null, type = null, data = null, relationships = null) {
  *
  * @returns {HyralResource}
  */
-Resource.create = (id = null, type = null, data = null, relationships = null) => Resource(
-  id,
-  type,
-  data,
-  relationships,
-);
+Resource.create = (id = null, type = null, data = null, relationships = null) => {
+  return Resource.decorators.reduce(
+    (resource, decorator) => decorator(resource),
+    Resource(
+      id,
+      type,
+      data,
+      relationships,
+    ),
+  );
+};
 
 /**
  *
