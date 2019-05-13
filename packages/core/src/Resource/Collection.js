@@ -137,8 +137,10 @@ function Collection(name, repository) {
 Collection.fromState = (name, state, repository) => {
   const newCollection = Collection(name, repository);
 
+  const newState = Object.assign({}, newCollection.state, state);
+
   resetState(newCollection.stateStack);
-  setState(newCollection.stateStack, state);
+  setState(newCollection.stateStack, newState);
 
   return newCollection;
 };

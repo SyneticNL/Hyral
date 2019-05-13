@@ -102,10 +102,19 @@ describe('Collection tests', () => {
     expect(newCollection.pages).toEqual(state.metadata.paging.pages);
     expect(newCollection.length).toEqual(state.metadata.paging.count);
   });
+
   test('that a new collection can be made based on state and repository', () => {
     const newCollection = Collection.fromState('test', state, productRepository);
     expect(newCollection.repository).toBe(productRepository);
     expect(newCollection.items).toEqual(state.data.items);
     expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
+  });
+
+  test('that a new collection can be made based on an invalid state', () => {
+    const newCollection = Collection.fromState('test', {}, {});
+
+    expect(() => newCollection.items).not.toThrow(TypeError);
+
+    expect(newCollection.isLoaded).toBeFalsy();
   });
 });

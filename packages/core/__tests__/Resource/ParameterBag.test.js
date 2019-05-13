@@ -1,5 +1,6 @@
 import ParameterBag from '../../src/Resource/ParameterBag';
 import { setState } from '../../src/State/State';
+import Resource from '../../src/Resource/Resource';
 
 describe('ParameterBag', () => {
   test('that it is initialized with default empty values', () => {
@@ -150,5 +151,45 @@ describe('ParameterBag', () => {
     expect(parameterBag.paging).toEqual(newState.paging);
     expect(parameterBag.params).toEqual(newState.params);
     expect(parameterBag.stateId).toEqual(1);
+  });
+
+  test('that a new ParameterBag can be made based on state', () => {
+    const state = {
+      filters: [
+        {
+          field: 'f1',
+          value: 'v1',
+        },
+      ],
+      sorting: [
+        {
+          field: 'f1',
+          direction: 'asc',
+        },
+      ],
+      paging: {
+        offset: 0,
+      },
+      params: {
+        key1: 'value1',
+        key2: 'value2',
+      },
+    };
+    const parameterBag = ParameterBag.fromState(state);
+
+    expect(parameterBag.filters).toEqual(state.filters);
+    expect(parameterBag.sorting).toEqual(state.sorting);
+    expect(parameterBag.paging).toEqual(state.paging);
+    expect(parameterBag.params).toEqual(state.params);
+    expect(parameterBag.stateId).toEqual(1);
+  });
+
+  test('that a new ParameterBag can be made based on an invalid state', () => {
+    const parameterBag = ParameterBag.fromState({});
+
+    expect(() => parameterBag.filters).not.toThrow(TypeError);
+    expect(() => parameterBag.sorting).not.toThrow(TypeError);
+    expect(() => parameterBag.paging).not.toThrow(TypeError);
+    expect(() => parameterBag.params).not.toThrow(TypeError);
   });
 });
