@@ -37,6 +37,7 @@ import {
  */
 function Resource(id = null, type = null, data = null, relationships = null) {
   const state = [{
+    id,
     data: data || {},
     relationships: relationships || {},
   }];
@@ -51,7 +52,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @returns {string|number}
      */
     get id() {
-      return id;
+      return currentState(state).id;
     },
 
     /**

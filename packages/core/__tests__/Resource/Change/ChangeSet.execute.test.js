@@ -4,16 +4,6 @@ import ChangeSet from '../../../src/Resource/Change/ChangeSet';
 
 describe('The ChangeSet execute method', () => {
   test('that all tasks are executed when calling the execute method', () => {
-    const connector = {
-      update: jest.fn(() => Promise.resolve()),
-      relation: jest.fn(() => Promise.resolve()),
-    };
-
-    repositoryManager.createRepository(connector, 'book');
-    repositoryManager.createRepository(connector, 'author');
-
-    const set = ChangeSet.create();
-
     const existingResource = Resource.create(1, 'book', {
       title: 'A great book',
       author: Resource.create(1, 'author', { name: 'A great author' }),
@@ -24,6 +14,20 @@ describe('The ChangeSet execute method', () => {
         many: false,
       },
     });
+
+    const connector = {
+      update: jest.fn(() => Promise.resolve({
+        data: {
+          data: existingResource,
+        },
+      })),
+      relation: jest.fn(() => Promise.resolve()),
+    };
+
+    repositoryManager.createRepository(connector, 'book');
+    repositoryManager.createRepository(connector, 'author');
+
+    const set = ChangeSet.create();
 
     existingResource.data = {
       title: 'A great book',

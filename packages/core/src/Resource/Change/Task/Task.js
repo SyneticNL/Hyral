@@ -1,4 +1,5 @@
 import concat from 'lodash/concat';
+import { resetState, setState } from '../../../State/State';
 
 /**
  * @typedef HyralTask
@@ -81,25 +82,36 @@ export default function Task(type, repository, payload, context = null) {
         return executionPromise;
       }
 
-      task.claim();
-
       executionPromise = new Promise((resolve, reject) => {
         const taskExecutor = () => {
-          repository[type](task).then((response) => {
+          if (resolved || claimed) {
+            return Promise.resolve();
+          }
+
+          task.claim();
+
+          return repository[type](task).then((response) => {
             resolved = true;
+
+            if (type !== 'create' && type !== 'update') {
+              resolve(response);
+              return;
+            }
+
+            resetState(payload.stateStack);
+            setState(payload.stateStack, response.data.data.state);
+
             resolve(response);
           }).catch(reject);
         };
 
         if (dependencies.length > 0) {
-          Promise.all(
+          return Promise.all(
             dependencies.map(dependency => dependency.execute()),
           ).then(taskExecutor).catch(reject);
-
-          return;
         }
 
-        taskExecutor();
+        return taskExecutor();
       });
 
       return executionPromise;

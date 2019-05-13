@@ -10,13 +10,7 @@ export default function ChangeSetExecutor(tasks) {
       return Promise.all(
         tasks
           .sort((a, b) => b.related.length - a.related.length)
-          .map((task) => {
-            if (task.resolved || task.claimed) {
-              return Promise.resolve();
-            }
-
-            return task.execute();
-          }),
+          .map(task => task.execute()),
       );
     },
     /**
