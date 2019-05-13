@@ -6,9 +6,8 @@ export default function findCreateTasksForResources(tasks, resources) {
     return [];
   }
 
-  const newResources = resources.filter(resource => resourceIsNew(resource));
-
-  return newResources
+  return resources
+    .filter(resource => resourceIsNew(resource))
     .map(resource => findTaskByPayload(tasks, resource))
     .filter(relationCreateTask => typeof relationCreateTask !== 'undefined');
 }
