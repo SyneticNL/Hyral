@@ -11,7 +11,7 @@ function guessRelationCardinality(relation) {
  * @returns {HyralResource}
  */
 export default function normalizeResource(data) {
-  const resource = Resource(data.id, data.type, data.attributes);
+  const resource = Resource.create(data.id, data.type, data.attributes);
 
   if (!data.relationships) {
     return resource;

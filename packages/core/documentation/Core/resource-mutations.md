@@ -7,7 +7,7 @@ This page describes the process of resource mutations and the way you send these
 If you want to create a new resource use the `Resource` factory function and pass `null` as the ID.
 
 ```javascript
-const newResource = Resource(null, 'book', { title: 'A great book' });
+const newResource = Resource.create(null, 'book', { title: 'A great book' });
 ```
 
 ## Changing an existing resource
@@ -16,7 +16,7 @@ If you want to make changes to a resource you can overwrite the data object.
 
 ```javascript
 // Assume the availability of a resource with the id 1.
-const resource = Resource(1, 'book', { title: 'A great book', pages: 300 });
+const resource = Resource.create(1, 'book', { title: 'A great book', pages: 300 });
 
 // Update the title.
 resource.data = { title: 'An even greater book', pages: 300 };
@@ -78,11 +78,11 @@ could be used.
 ```javascript
 
 // Create an existing resource and mutate it's data.
-const resource = Resource(1, 'book', { title: 'A great book' });
+const resource = Resource.create(1, 'book', { title: 'A great book' });
 resource.data = { title: 'An even greater book' };
 
 // Create a new resource.
-const newResource = Resource(null, 'book', { title: 'A great book' });
+const newResource = Resource.create(null, 'book', { title: 'A great book' });
 
 // Create an ChangeSet object.
 const changes = ChangeSet();

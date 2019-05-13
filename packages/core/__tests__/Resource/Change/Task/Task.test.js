@@ -7,7 +7,7 @@ describe('The Task', () => {
       create: jest.fn(() => Promise.resolve()),
     };
 
-    const resource = Resource(null, 'product', { title: 'A great product' });
+    const resource = Resource.create(null, 'product', { title: 'A great product' });
 
     const task = Task('create', repositoryMock, resource);
 

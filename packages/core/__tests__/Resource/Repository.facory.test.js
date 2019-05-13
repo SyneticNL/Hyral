@@ -1,6 +1,6 @@
 import Repository from '../../src/Resource/Repository';
 
-describe('The resourceManager', () => {
+describe('The repositoryManager', () => {
   const connectorMock = {};
   const resourceType1 = 'test_product';
   const resourceType2 = 'test_page';

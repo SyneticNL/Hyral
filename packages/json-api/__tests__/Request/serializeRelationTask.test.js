@@ -14,12 +14,12 @@ import relationRemoveRequestPayload
 describe('The jsonApi request serializeRelationTask serializer', () => {
   test('that serializeRelationTask results in a correct JsonApi request payload', () => {
     const repository = {};
-    const author = Resource(2, 'author', { name: 'A great author' });
+    const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [
-      Resource(3, 'publication', {}),
-      Resource(4, 'publication', {}),
+      Resource.create(3, 'publication', {}),
+      Resource.create(4, 'publication', {}),
     ];
-    const book = Resource(1, 'book', {
+    const book = Resource.create(1, 'book', {
       title: 'A great book',
       author,
       publications,

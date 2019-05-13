@@ -7,12 +7,12 @@ import { resourceHasChanged } from '../../../src/Resource/Change/Inspection';
 
 describe('Relation tests', () => {
   test('that relations are correctly returned', () => {
-    const author = Resource(2, 'author', { name: 'A great author' });
+    const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [
-      Resource(3, 'publication', { year: 1900 }),
-      Resource(4, 'publication', { year: 1901 }),
+      Resource.create(3, 'publication', { year: 1900 }),
+      Resource.create(4, 'publication', { year: 1901 }),
     ];
-    const resource = Resource(1, 'book', {
+    const resource = Resource.create(1, 'book', {
       title: 'A great book',
       author,
       publications,
@@ -39,11 +39,11 @@ describe('Relation tests', () => {
   });
 
   test('that changes in relations are correctly detected', () => {
-    const author = Resource(2, 'author', { name: 'A great author' });
+    const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [
-      Resource(3, 'publication', { year: 1900 }),
+      Resource.create(3, 'publication', { year: 1900 }),
     ];
-    const resource = Resource(1, 'book', {
+    const resource = Resource.create(1, 'book', {
       title: 'A great book',
       author,
       publications,
@@ -67,8 +67,8 @@ describe('Relation tests', () => {
 
     resource.data = {
       title: 'A great book',
-      author: Resource(4, 'author', { name: 'Another great author' }),
-      publications: [Resource(5, 'publication', { year: 1901 })],
+      author: Resource.create(4, 'author', { name: 'Another great author' }),
+      publications: [Resource.create(5, 'publication', { year: 1901 })],
     };
 
     const changedRelations = getChangedResourceRelations(resource);
@@ -79,8 +79,8 @@ describe('Relation tests', () => {
   });
 
   test('that changes on a property of a relation are not registered as relation change', () => {
-    const author = Resource(2, 'author', { name: 'A great author' });
-    const resource = Resource(1, 'book', {
+    const author = Resource.create(2, 'author', { name: 'A great author' });
+    const resource = Resource.create(1, 'book', {
       title: 'A great book',
       author,
     }, {

@@ -8,7 +8,7 @@ import {
 } from '../Relation/Relation';
 import setTaskDependencies from './Helpers/setTaskDependencies';
 
-export default function TaskGenerator(tasks, resourceManager) {
+export default function TaskGenerator(tasks, repositoryManager) {
   return {
     /**
      * Will queue a list of tasks for data/relation changes to the entity itself.
@@ -24,13 +24,13 @@ export default function TaskGenerator(tasks, resourceManager) {
         return;
       }
 
-      const task = Task(resourceIsNew(resource) ? 'create' : 'update', resourceManager.getRepository(resource.type), resource);
+      const task = Task(resourceIsNew(resource) ? 'create' : 'update', repositoryManager.getRepository(resource.type), resource);
       tasks.push(task);
 
       getChangedResourceRelations(resource).forEach((relation) => {
         const relationTask = Task(
           'relation',
-          resourceManager.getRepository(resource.type),
+          repositoryManager.getRepository(resource.type),
           {
             relation,
             resources: getRelatedResources(resource, relation),
@@ -67,7 +67,7 @@ export default function TaskGenerator(tasks, resourceManager) {
      * @param {HyralResource} resource
      */
     deleteResource(resource) {
-      tasks.push(Task('delete', resourceManager.getRepository(resource.type), resource));
+      tasks.push(Task('delete', repositoryManager.getRepository(resource.type), resource));
     },
   };
 }

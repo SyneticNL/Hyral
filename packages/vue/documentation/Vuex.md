@@ -13,7 +13,7 @@ Example of the creation of a plugin:
 
 ```
 import axios from 'axios';
-import { createHttpConnector, jsonApiTransformers, resourceManager } from 'hyral';
+import { createHttpConnector, jsonApiTransformers, repositoryManager } from 'hyral';
 import createVuexPlugin from '../hyral/createVuexPlugin';
 
 const axiosInstance = axios.create({
@@ -31,11 +31,11 @@ const connector = createHttpConnector(
 );
 
 try {
-  resourceManager.createRepository(connector, 'faq');
-  resourceManager.createRepository(connector, 'product');
-  resourceManager.createRepository(connector, 'article');
+  repositoryManager.createRepository(connector, 'faq');
+  repositoryManager.createRepository(connector, 'product');
+  repositoryManager.createRepository(connector, 'article');
 } catch (e) {
   console.error(e);
 }
-const hyralPlugin = createVuexPlugin(resourceManager);
+const hyralPlugin = createVuexPlugin(repositoryManager);
 ```

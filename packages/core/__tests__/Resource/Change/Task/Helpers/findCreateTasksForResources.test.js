@@ -5,8 +5,8 @@ import findCreateTasksForResources
 
 describe('The findCreateTasksForResources', () => {
   test('That findCreateTasksForResources returns the create tasks', () => {
-    const resource = Resource(null, 'product', { title: 'A great product' });
-    const resource2 = Resource(1, 'product', { title: 'A great product' });
+    const resource = Resource.create(null, 'product', { title: 'A great product' });
+    const resource2 = Resource.create(1, 'product', { title: 'A great product' });
 
     const resourceTask = Task('create', {}, resource);
     const resource2Task = Task('update', {}, resource2);

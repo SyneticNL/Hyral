@@ -1,13 +1,13 @@
-import resourceManager from '../../src/Resource/resourceManager';
+import ChangeSet from '../../src/Resource/Change/ChangeSet';
 
-describe('The resourceManager ChangeSet', () => {
-  test('That a ChangeSet can be created via the resourceManager', () => {
-    const ChangeSet = resourceManager.createChangeSet();
+describe('The repositoryManager ChangeSet', () => {
+  test('That a ChangeSet can be created via the repositoryManager', () => {
+    const set = ChangeSet.create();
 
-    expect(ChangeSet).toHaveProperty('persistResource');
-    expect(ChangeSet).toHaveProperty('persistCascadeResource');
-    expect(ChangeSet).toHaveProperty('deleteResource');
-    expect(ChangeSet).toHaveProperty('execute');
-    expect(ChangeSet).toHaveProperty('status');
+    expect(set).toHaveProperty('persistResource');
+    expect(set).toHaveProperty('persistCascadeResource');
+    expect(set).toHaveProperty('deleteResource');
+    expect(set).toHaveProperty('execute');
+    expect(set).toHaveProperty('status');
   });
 });
