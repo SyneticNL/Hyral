@@ -2,8 +2,8 @@ import Resource from '../../src/Resource/Resource';
 
 describe('The Resource', () => {
   test('that a resource can be created with relationships', () => {
-    const author = Resource(2, 'author', { name: 'A great author' });
-    const book = Resource(1, 'book', {
+    const author = Resource.create(2, 'author', { name: 'A great author' });
+    const book = Resource.create(1, 'book', {
       title: 'A great book',
       author,
     }, {

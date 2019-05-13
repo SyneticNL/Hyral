@@ -12,16 +12,17 @@
 
 import TaskGenerator from './Task/TaskGenerator';
 import ChangeSetExecuter from './ChangeSetExecuter';
+import repositoryManager from '../repositoryManager';
 
 /**
  *
- * @param {HyralresourceManager} resourceManager
+ * @param {HyralRepositoryManager} manager
  *
  * @returns {HyralChangeSet}
  *
  * @constructor
  */
-export default function ChangeSet(resourceManager) {
+function ChangeSet(manager) {
   /** @type {HyralTask[]} */
   const tasks = [];
 
@@ -31,7 +32,14 @@ export default function ChangeSet(resourceManager) {
         return tasks;
       },
     },
-    TaskGenerator(tasks, resourceManager),
+    TaskGenerator(tasks, manager),
     ChangeSetExecuter(tasks),
   );
 }
+
+/**
+ * @returns {HyralChangeSet}
+ */
+ChangeSet.create = () => ChangeSet(repositoryManager);
+
+export default ChangeSet;

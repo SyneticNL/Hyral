@@ -113,6 +113,21 @@ function Resource(id = null, type = null, data = null, relationships = null) {
 }
 
 /**
+ * @param {string|number|null} id
+ * @param {string|null} type
+ * @param {object|null} data
+ * @param {Object.<string, HyralResourceRelationship>|null} relationships
+ *
+ * @returns {HyralResource}
+ */
+Resource.create = (id = null, type = null, data = null, relationships = null) => Resource(
+  id,
+  type,
+  data,
+  relationships,
+);
+
+/**
  *
  * @param {string|number|null} id
  * @param {string} type
@@ -121,7 +136,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
  * @returns {HyralResource}
  */
 Resource.fromState = (id, type, state) => {
-  const resource = Resource(id, type);
+  const resource = Resource.create(id, type);
 
   resetState(resource.stateStack);
   setState(resource.stateStack, state);

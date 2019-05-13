@@ -1,17 +1,17 @@
-import resourceManager from '../../../src/Resource/resourceManager';
 import Resource from '../../../src/Resource/Resource';
+import ChangeSet from '../../../src/Resource/Change/ChangeSet';
 
-describe('The resourceManager ChangeSet', () => {
+describe('The ChangeSet delete method', () => {
   test('that a task is created when deleting a resource', () => {
-    const ChangeSet = resourceManager.createChangeSet();
+    const set = ChangeSet.create();
 
-    const existingResource = Resource(1, 'book', { title: 'A great book' });
+    const existingResource = Resource.create(1, 'book', { title: 'A great book' });
 
-    ChangeSet.deleteResource(existingResource);
+    set.deleteResource(existingResource);
 
-    expect(ChangeSet.tasks).toHaveLength(1);
+    expect(set.tasks).toHaveLength(1);
 
-    expect(ChangeSet.tasks[0].type).toEqual('delete');
-    expect(ChangeSet.tasks[0].payload).toBe(existingResource);
+    expect(set.tasks[0].type).toEqual('delete');
+    expect(set.tasks[0].payload).toBe(existingResource);
   });
 });

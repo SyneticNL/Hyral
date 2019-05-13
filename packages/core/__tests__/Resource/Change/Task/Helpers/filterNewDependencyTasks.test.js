@@ -5,9 +5,9 @@ import filterNewDependencyTasks
 
 describe('The filterNewDependencyTasks', () => {
   test('That filterNewDependencyTasks returns only not previously added dependencies', () => {
-    const author = Resource(null, 'author', { title: 'A great author' });
-    const text = Resource(null, 'text', { title: 'About' });
-    const resource = Resource(null, 'product', { title: 'A great product' });
+    const author = Resource.create(null, 'author', { title: 'A great author' });
+    const text = Resource.create(null, 'text', { title: 'About' });
+    const resource = Resource.create(null, 'product', { title: 'A great product' });
 
     const authorTask = Task('create', {}, author);
     const textTask = Task('create', {}, text);

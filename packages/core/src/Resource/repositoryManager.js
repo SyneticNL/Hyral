@@ -1,8 +1,7 @@
 import Repository from './Repository';
-import ChangeSet from './Change/ChangeSet';
 
 /**
- * @typedef HyralresourceManager
+ * @typedef HyralRepositoryManager
  *
  * @type {Object}
  * @property {function} createRepository
@@ -15,11 +14,11 @@ import ChangeSet from './Change/ChangeSet';
 const repositories = {};
 
 /**
- * @type {HyralresourceManager}
+ * @type {HyralRepositoryManager}
  */
-const resourceManager = {};
+const repositoryManager = {};
 
-Object.assign(resourceManager, {
+Object.assign(repositoryManager, {
   /**
    * @param {HyralConnector} connector
    * @param {String} resourceType
@@ -30,7 +29,7 @@ Object.assign(resourceManager, {
   createRepository(connector, resourceType, identifier = 'id') {
     const repository = Repository(connector, resourceType, identifier);
 
-    resourceManager.addRepository(repository);
+    repositoryManager.addRepository(repository);
 
     return repository;
   },
@@ -57,12 +56,6 @@ Object.assign(resourceManager, {
   getRepositories() {
     return repositories;
   },
-  /**
-   * @returns {HyralChangeSet}
-   */
-  createChangeSet() {
-    return ChangeSet(resourceManager);
-  },
 });
 
-export default resourceManager;
+export default repositoryManager;

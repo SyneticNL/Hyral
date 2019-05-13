@@ -1,5 +1,5 @@
-import resourceManager
-  from '../../src/Resource/resourceManager';
+import repositoryManager
+  from '../../src/Resource/repositoryManager';
 
 describe('The resource factory', () => {
   const connectorMock = {};
@@ -7,9 +7,9 @@ describe('The resource factory', () => {
   const resourceType2 = 'test_page';
   const resourceType3 = 'test_article';
   const identifier = 'id';
-  const resource1 = resourceManager.createRepository(connectorMock, resourceType1, identifier);
-  const resource2 = resourceManager.createRepository(connectorMock, resourceType2, identifier);
-  const resource3 = resourceManager.createRepository(connectorMock, resourceType3);
+  const resource1 = repositoryManager.createRepository(connectorMock, resourceType1, identifier);
+  const resource2 = repositoryManager.createRepository(connectorMock, resourceType2, identifier);
+  const resource3 = repositoryManager.createRepository(connectorMock, resourceType3);
 
   it('should create two unique instances when called twice.', () => {
     expect(resource1.resourceType).not.toBe(resource2.resourceType);
@@ -25,10 +25,10 @@ describe('The resource factory', () => {
   });
 
   test('that we can retrieve the repositories after they have been registered', () => {
-    expect(resourceManager.getRepository(resourceType1)).toBe(resource1);
-    expect(resourceManager.getRepository(resourceType2)).toBe(resource2);
+    expect(repositoryManager.getRepository(resourceType1)).toBe(resource1);
+    expect(repositoryManager.getRepository(resourceType2)).toBe(resource2);
 
-    const repositories = resourceManager.getRepositories();
+    const repositories = repositoryManager.getRepositories();
     expect(repositories[resourceType1]).toBe(resource1);
     expect(repositories[resourceType2]).toBe(resource2);
   });

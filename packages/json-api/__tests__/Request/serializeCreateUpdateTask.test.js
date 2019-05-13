@@ -12,7 +12,7 @@ import createJsonPayload
 describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
   test('that serializeCreateUpdateTask results in a correct JsonApi request payload for a new resource', () => {
     const repository = {};
-    const book = Resource(null, 'book', { title: 'A great book' });
+    const book = Resource.create(null, 'book', { title: 'A great book' });
     const task = Task('create', repository, book);
 
     expect(serializeCreateUpdateTask(task)).toEqual(createJsonPayload);
@@ -22,7 +22,7 @@ describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
 
   test('that serializeCreateUpdateTask results in a correct JsonApi request payload', () => {
     const repository = {};
-    const book = Resource(1, 'book', { title: 'A great book' });
+    const book = Resource.create(1, 'book', { title: 'A great book' });
     const task = Task('update', repository, book);
 
     expect(serializeCreateUpdateTask(task)).toEqual(updateRequestPayload);
@@ -32,13 +32,13 @@ describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
 
   test('that processCreateTask results in a correct JsonApi request payload for a resource with a changed relation', () => {
     const repository = {};
-    const author = Resource(2, 'author', { name: 'A great author' });
+    const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [
-      Resource(3, 'publication', {}),
-      Resource(4, 'publication', {}),
+      Resource.create(3, 'publication', {}),
+      Resource.create(4, 'publication', {}),
     ];
 
-    const book = Resource(1, 'book', {
+    const book = Resource.create(1, 'book', {
       title: 'A great book',
       author,
       publications,
