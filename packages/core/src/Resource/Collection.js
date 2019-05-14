@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import ParameterBag from './ParameterBag';
 import {
   currentState,
@@ -53,7 +54,7 @@ function Collection(name, repository) {
     data: {
       items: [],
     },
-    parameterBag: null,
+    parameterBag: {},
     metadata: {
       loading: false,
       loaded: false,
@@ -75,7 +76,7 @@ function Collection(name, repository) {
     },
 
     get parameterBag() {
-      return ParameterBag.fromState(currentState(state).parameterBag || {});
+      return ParameterBag.fromState(cloneDeep(currentState(state).parameterBag));
     },
 
     set parameterBag(parameterBag) {
