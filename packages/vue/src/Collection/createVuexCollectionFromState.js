@@ -1,4 +1,5 @@
 import Collection from '@hyral/core/lib/Resource/Collection';
+import { mutateState } from '@hyral/core/src/State/State';
 
 export default function createVuexCollectionFromState(name, state, repository, store) {
   const collection = Collection.fromState(name, state, repository);
@@ -15,6 +16,22 @@ export default function createVuexCollectionFromState(name, state, repository, s
     });
     return collection;
   });
+
+  const parameterBagDescriptor = Object.getOwnPropertyDescriptor(collection, 'parameterBag');
+  Object.defineProperty(
+    collection,
+    'parameterBag',
+    Object.assign(parameterBagDescriptor, {
+      set(parameterBag) {
+        parameterBagDescriptor.set(parameterBag);
+
+        store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {
+          name: collection.name,
+          state: Object.assign({}, collection.state, { parameterBag: parameterBag.state }),
+        });
+      },
+    }),
+  );
 
   return collection;
 }
