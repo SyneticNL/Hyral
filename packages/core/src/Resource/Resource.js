@@ -24,7 +24,6 @@
 import {
   currentState,
   mutateState,
-  resetState, setState,
 } from '../State/State';
 
 /**
@@ -36,7 +35,7 @@ import {
  * @returns {HyralResource}
  */
 function Resource(id = null, type = null, data = null, relationships = null) {
-  const state = [{
+  let state = [{
     id,
     data: data || {},
     relationships: relationships || {},
@@ -110,6 +109,10 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     get state() {
       return currentState(state);
     },
+
+    resetState() {
+      state = [];
+    },
   };
 }
 
@@ -136,15 +139,11 @@ Resource.create = (id = null, type = null, data = null, relationships = null) =>
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (id, type, state) => {
-  const resource = Resource.create(id, type);
-
-  const newState = Object.assign({}, resource.state, state);
-
-  resetState(resource.stateStack);
-  setState(resource.stateStack, newState);
-
-  return resource;
-};
+Resource.fromState = (id, type, state) => Resource.create(
+  id,
+  type,
+  state.data || {},
+  state.relationships || {},
+);
 
 export default Resource;

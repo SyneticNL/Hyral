@@ -36,7 +36,7 @@ const createStoreModule = (repository, store) => ({
       state.collections[collection.name] = collection.state;
     },
     SET_RESOURCE(state, resource) {
-      state.resources[resource[repository.identifier]] = resource.state;
+      state.resources[resource.id] = resource.state;
     },
   },
 
