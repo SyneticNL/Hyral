@@ -8,7 +8,7 @@ describe('The Collection mixin', () => {
       collectionName: 'products',
       $store: {
         getters: {
-          'hyral_product/collection': jest.fn(() => Collection('products')),
+          'hyral_product/collection': jest.fn(() => Collection.create('products')),
         },
       },
     }, collectionMixin);

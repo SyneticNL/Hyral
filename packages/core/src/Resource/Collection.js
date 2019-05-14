@@ -6,6 +6,8 @@ import {
   resetState,
   setState,
 } from '../State/State';
+import collectionParameterBagDecorator
+  from './Decorator/Collection/parameterBagDecorator';
 
 /**
  * @param collection
@@ -138,8 +140,19 @@ function Collection(name, repository) {
   return collection;
 }
 
+Collection.decorators = [
+  collectionParameterBagDecorator,
+];
+
+Collection.create = (name, repository) => {
+  return Collection.decorators.reduce(
+    (collection, decorator) => decorator(collection),
+    Collection(name, repository),
+  );
+};
+
 Collection.fromState = (name, state, repository) => {
-  const newCollection = Collection(name, repository);
+  const newCollection = Collection.create(name, repository);
 
   const newState = Object.assign({}, newCollection.state, state);
 

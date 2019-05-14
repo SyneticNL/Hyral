@@ -46,7 +46,7 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(mockRepository, {});
 
-    const products = Collection('products', mockRepository);
+    const products = Collection.create('products', mockRepository);
 
     const getter = module.getters.collection({
       collections: {
@@ -70,7 +70,7 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(mockRepository, {});
 
-    const products = Collection('products', mockRepository);
+    const products = Collection.create('products', mockRepository);
 
     const state = {
       collections: {},
@@ -109,7 +109,7 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(mockRepository, {});
 
-    const products = Collection('products', mockRepository);
+    const products = Collection.create('products', mockRepository);
     products.load = jest.fn();
 
     module.state = {
