@@ -1,4 +1,7 @@
 import { matchers } from 'jest-json-schema';
+import Resource from '@hyral/core/lib/Resource/Resource';
+import relationshipsDecorator
+  from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
@@ -38,6 +41,44 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[1].data.images).toHaveLength(2);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');
+  });
+
+  test('that the responseNormalizer does not overwrite the resource relationships decorator', () => {
+    const productsRelationships = {
+      consultant: {
+        cardinality: 'many-to-one',
+        many: false,
+        resource: 'people',
+      },
+      menu_link: {
+        cardinality: 'one-to-one',
+        many: false,
+        resource: 'menulinks',
+      },
+      thumbnail: {
+        cardinality: 'many-to-one',
+        many: false,
+        resource: 'images',
+      },
+      images: {
+        cardinality: 'one-to-many',
+        many: true,
+        resource: 'images',
+      },
+      price: {
+        cardinality: 'one-to-many',
+        many: true,
+        resource: 'prices',
+      },
+    };
+    Resource.decorators.push(relationshipsDecorator.create({
+      products: productsRelationships,
+    }));
+
+    const result = responseNormalizer(jsonResponseFixture);
+
+    expect(result.data[0]).toHaveProperty('relationships');
+    expect(result.data[0].relationships).toEqual(productsRelationships);
   });
 
   test('that the responseNormalizer returns the expected resource with properties as in the fixture data', () => {
