@@ -1,10 +1,10 @@
-import repositoryManager from '../repositoryManager';
-import { resetState, setState } from '../../State/State';
+import repositoryManager from '../../repositoryManager';
+import { setState } from '../../../State/State';
 
 export default function lazyLoadingDecorator(resource) {
   const dataProperty = Object.getOwnPropertyDescriptor(resource, 'data');
 
-  Object.defineProperty(resource, 'data', {
+  Object.defineProperty(resource, 'data', Object.assign({}, dataProperty, {
     configurable: true,
     get() {
       if (resource.metadata.loaded || resource.id === null) {
@@ -26,7 +26,7 @@ export default function lazyLoadingDecorator(resource) {
 
       return dataProperty.get();
     },
-  });
+  }));
 
   return resource;
 }

@@ -25,7 +25,7 @@ import {
   currentState,
   mutateState,
 } from '../State/State';
-import lazyLoadingDecorator from './Decorator/lazyLoadingDecorator';
+import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
