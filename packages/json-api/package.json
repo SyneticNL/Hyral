@@ -1,6 +1,6 @@
 {
   "name": "@hyral/json-api",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "JsonApi integration for Hyral",
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
@@ -8,7 +8,7 @@
   "module": "src/index.js",
   "main": "lib/index.js",
   "dependencies": {
-    "@hyral/core": "^0.3.0",
+    "@hyral/core": "^0.4.0",
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
     "qs": "^6.7.0",
