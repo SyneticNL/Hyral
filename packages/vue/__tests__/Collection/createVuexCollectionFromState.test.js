@@ -9,9 +9,11 @@ describe('The createVuexCollectionFromState', () => {
     const state = {};
     const repository = {
       resourceType: 'product',
-      find: jest.fn(() => Promise.resolve([
-        product,
-      ])),
+      find: jest.fn(() => Promise.resolve({
+        data: [
+          product,
+        ],
+      })),
     };
 
     const store = {
@@ -24,7 +26,10 @@ describe('The createVuexCollectionFromState', () => {
 
     return collection.load().then(() => {
       expect(store.commit).toHaveBeenCalledTimes(2);
-      expect(store.commit).toHaveBeenCalledWith('hyral_product/SET_COLLECTION', collection);
+      expect(store.commit).toHaveBeenCalledWith('hyral_product/SET_COLLECTION', {
+        name: collection.name,
+        state: collection.state,
+      });
       expect(store.commit).toHaveBeenCalledWith('hyral_product/SET_RESOURCE', product);
     });
   });

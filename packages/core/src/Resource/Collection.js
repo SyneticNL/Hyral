@@ -27,14 +27,17 @@ function collectionLoad(collection) {
         data: {
           items: response.data,
         },
-        metadata: Object.assign({}, collection.state.metadata, { paging: response.paging }),
-      });
-    }).finally(() => {
-      mutateState(collection.stateStack, {
         metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
           loaded: true,
           lastParameterBagState: collection.parameterBag.stateId,
+          paging: response.paging ? response.paging : collection.state.metadata.paging,
+        }),
+      });
+    }).catch(() => {
+      mutateState(collection.stateStack, {
+        metadata: Object.assign({}, collection.state.metadata, {
+          loading: false,
         }),
       });
     });
