@@ -109,10 +109,6 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     get state() {
       return currentState(state);
     },
-
-    resetState() {
-      state = [];
-    },
   };
 }
 
