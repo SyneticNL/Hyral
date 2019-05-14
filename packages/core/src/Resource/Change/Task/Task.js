@@ -4,7 +4,7 @@ import { resetState, setState } from '../../../State/State';
 /**
  * @typedef HyralTask
  *
- * @type {Object}
+ * @type {object}
  * @property {string} type - The type of task (create/update/delete/relation)
  * @property {object} payload - The payload for the task (the changed resource or the relation)
  * @property {object|null} context - The context. This is the resource on a relation task.
@@ -12,8 +12,40 @@ import { resetState, setState } from '../../../State/State';
  * @property {array} dependencies - Tasks that need to be executed and resolved before this task.
  * @property {boolean} resolved - If the task has been resolved.
  * @property {boolean} claimed - If the task has been claimed.
- * @property {function} execute
+ * @property {function} claim - Claim a task (will not be processed via other means anymore)
+ * @property {function} resolve - Mark a task as resolved
+ * @property {function} addDependencies - Add dependencies this task has to wait for
+ * @property {function} addRelated - Add tasks that are related to this task
  */
+
+/**
+ * @param {HyralTask} task
+ * @param {HyralRepository} repository
+ * @param {function} resolveTask
+ * @param {function} rejectTask
+ */
+function taskExecutor(task, repository, resolveTask, rejectTask) {
+  if (task.resolved || task.claimed) {
+    resolveTask();
+    return;
+  }
+
+  task.claim();
+
+  repository[task.type](task).then((response) => {
+    task.resolve();
+
+    if (task.type !== 'create' && task.type !== 'update') {
+      resolveTask();
+      return;
+    }
+
+    resetState(task.payload.stateStack);
+    setState(task.payload.stateStack, response.data.data.state);
+    resolveTask();
+  }).catch(rejectTask);
+}
+
 
 /**
  * @param {string} type (create/update/delete/relation)
@@ -40,6 +72,9 @@ export default function Task(type, repository, payload, context = null) {
 
   let executionPromise = null;
 
+  /**
+   * @type {HyralTask}
+   */
   const task = {
     get type() {
       return type;
@@ -50,20 +85,23 @@ export default function Task(type, repository, payload, context = null) {
     get context() {
       return context;
     },
-    get claimed() {
-      return claimed;
-    },
-    get resolved() {
-      return resolved;
-    },
     get related() {
       return related;
     },
     get dependencies() {
       return dependencies;
     },
+    get resolved() {
+      return resolved;
+    },
+    get claimed() {
+      return claimed;
+    },
     claim() {
       claimed = true;
+    },
+    resolve() {
+      resolved = true;
     },
     addDependencies(newDependencies) {
       dependencies = concat(dependencies, newDependencies);
@@ -82,36 +120,16 @@ export default function Task(type, repository, payload, context = null) {
         return executionPromise;
       }
 
-      executionPromise = new Promise((resolve, reject) => {
-        const taskExecutor = () => {
-          if (resolved || claimed) {
-            return Promise.resolve();
-          }
-
-          task.claim();
-
-          return repository[type](task).then((response) => {
-            resolved = true;
-
-            if (type !== 'create' && type !== 'update') {
-              resolve(response);
-              return;
-            }
-
-            resetState(payload.stateStack);
-            setState(payload.stateStack, response.data.data.state);
-
-            resolve(response);
-          }).catch(reject);
-        };
-
+      executionPromise = new Promise((resolveTask, rejectTask) => {
         if (dependencies.length > 0) {
-          return Promise.all(
+          Promise.all(
             dependencies.map(dependency => dependency.execute()),
-          ).then(taskExecutor).catch(reject);
+          ).then(() => taskExecutor(task, repository, resolveTask, rejectTask)).catch(rejectTask);
+
+          return;
         }
 
-        return taskExecutor();
+        taskExecutor(task, repository, resolveTask, rejectTask);
       });
 
       return executionPromise;
