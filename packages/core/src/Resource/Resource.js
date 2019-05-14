@@ -24,7 +24,6 @@
 import {
   currentState,
   mutateState,
-  resetState, setState,
 } from '../State/State';
 import lazyLoadingDecorator from './Decorator/lazyLoadingDecorator';
 
@@ -37,7 +36,8 @@ import lazyLoadingDecorator from './Decorator/lazyLoadingDecorator';
  * @returns {HyralResource}
  */
 function Resource(id = null, type = null, data = null, relationships = null) {
-  const state = [{
+  let state = [{
+    id,
     data: data || {},
     relationships: relationships || {},
   }];
@@ -52,7 +52,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
      * @returns {string|number}
      */
     get id() {
-      return id;
+      return currentState(state).id;
     },
 
     /**
@@ -151,15 +151,11 @@ Resource.create = (id = null, type = null, data = null, relationships = null) =>
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (id, type, state) => {
-  const resource = Resource.create(id, type);
-
-  const newState = Object.assign({}, resource.state, state);
-
-  resetState(resource.stateStack);
-  setState(resource.stateStack, newState);
-
-  return resource;
-};
+Resource.fromState = (id, type, state) => Resource.create(
+  id,
+  type,
+  state.data || {},
+  state.relationships || {},
+);
 
 export default Resource;

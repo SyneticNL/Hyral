@@ -3,11 +3,15 @@ import Resource from '../../../../src/Resource/Resource';
 
 describe('The Task', () => {
   test('That a task can be created and executed', () => {
-    const repositoryMock = {
-      create: jest.fn(() => Promise.resolve()),
-    };
-
     const resource = Resource.create(null, 'product', { title: 'A great product' });
+
+    const repositoryMock = {
+      create: jest.fn(() => Promise.resolve({
+        data: {
+          data: resource,
+        },
+      })),
+    };
 
     const task = Task('create', repositoryMock, resource);
 

@@ -16,5 +16,21 @@ export default function createVuexCollectionFromState(name, state, repository, s
     return collection;
   });
 
+  const parameterBagDescriptor = Object.getOwnPropertyDescriptor(collection, 'parameterBag');
+  Object.defineProperty(
+    collection,
+    'parameterBag',
+    Object.assign({}, parameterBagDescriptor, {
+      set(parameterBag) {
+        parameterBagDescriptor.set(parameterBag);
+
+        store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {
+          name: collection.name,
+          state: Object.assign({}, collection.state, { parameterBag: parameterBag.state }),
+        });
+      },
+    }),
+  );
+
   return collection;
 }

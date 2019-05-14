@@ -1,6 +1,5 @@
 import ParameterBag from '../../src/Resource/ParameterBag';
 import { setState } from '../../src/State/State';
-import Resource from '../../src/Resource/Resource';
 
 describe('ParameterBag', () => {
   test('that it is initialized with default empty values', () => {
