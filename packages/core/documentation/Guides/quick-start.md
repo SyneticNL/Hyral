@@ -23,16 +23,18 @@ export const productRepository = repositoryManager.createRepository(connector, '
 ```
 
 **More information**
-* Defining relational model
-* Using different backends
-* Transformers
-* JSON API integration
+* [Defining relational model](../Core/relationships.md)
+* [Using different backends](multiple-backends.md)
+* [Transformers](../Core/transformers.md)
+* [JSON API integration](../../../json-api/README.md)
 
 ## Fetching resources
 
 More information:
-* Resource definition
-* Using a ParameterBag
+* [Resource definition](../Core/resource.md)
+* [Repository](../Core/repository.md)
+* [Collection](../Core/collection.md)
+* [Using a ParameterBag](../Core/parameterBag.md)
 
 ### Fetching mutliple resources
 
@@ -58,8 +60,9 @@ Using a Collection for additional features regarding loading state and paging.
 
 ```javascript
 import Collection from '@hyral/core/lib/Resource/Collection';
+import { bookRepository } from './hyral.js';
 
-const products = Collection.create('products');
+const products = Collection.create('products', bookRepository);
 products.setFilters([
   {
     field: 'type',
@@ -184,10 +187,6 @@ changeSet.execute().then(() => {
   console.log('resources created!');
 });
 ```
-
-### More information
-* Creating/updating/deleting resources
-* Defining relational model
 
 ## Deleting a resource
 

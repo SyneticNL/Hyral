@@ -7,7 +7,7 @@ API('s).
 * Framework agnostic
 * Backend agnostic
 * ORM-like interface and features
-* Hypermedia oriented
+* [Hypermedia oriented](packages/core/documentation/Guides/hypermedia.md)
 * Support for multiple backends with 1 interface
 * Full test-coverage
 * Modern codebase with immutability, state management and promises
@@ -37,6 +37,6 @@ npm install @hyral/vue
 
 More in-depth documentation can be found:
 
-[Core Hyral](packages/core/documentation/README.md)
-[JSON API](packages/json-api/documentation/README.md)
-[Vue(x)](packages/vue/documentation/README.md)
+* [Core Hyral](packages/core/README.md)
+* [JSON API](packages/json-api/README.md)
+* [Vue(x)](packages/vue/README.md)

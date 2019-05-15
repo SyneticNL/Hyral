@@ -37,7 +37,7 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[1].relationships).toHaveProperty('images');
     expect(result.data[1].relationships.images.resource).toBe('images');
     expect(result.data[0].relationships.images.many).toBeTruthy();
-    expect(result.data[1].relationships.images.cardinality).toEqual('many-to-many');
+    expect(result.data[1].relationships.images.cardinality).toEqual('one-to-many');
     expect(result.data[1].data.images).toHaveLength(2);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');
