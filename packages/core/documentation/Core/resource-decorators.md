@@ -35,5 +35,12 @@ You can register the decorator by:
 ```javascript
 import Resource from '@hyral/core/lib/Resource/Resource';
 
-Resource.decorators.push()
+function resourceDecorator(resource) {
+  // Do something with resource.
+
+  return resource;
+}
+
+// Register the decorator.
+Resource.decorators.push(resourceDecorator);
 ```
