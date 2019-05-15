@@ -19,7 +19,7 @@ export default function ChangeSetExecutor(tasks) {
     status() {
       return {
         total: tasks.length,
-        resolved: tasks.filter(task => task.metadata.resolved).length,
+        resolved: tasks.filter(task => task.resolved).length,
       };
     },
   };

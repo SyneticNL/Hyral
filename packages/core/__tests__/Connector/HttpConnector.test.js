@@ -147,6 +147,74 @@ describe('The fetchOne method', () => {
   });
 });
 
+describe('The create/update/delete/relation methods', () => {
+  const urlSerializer = {
+    create: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
+    relation: jest.fn(),
+  };
+
+  const paramsSerializer = jest.fn();
+  const requestSerializer = jest.fn();
+  const responseNormalizer = jest.fn();
+
+  const axiosMock = {
+    post: jest.fn(),
+    patch: jest.fn(),
+    delete: jest.fn(),
+    defaults: {},
+  };
+
+  const connector = HttpConnector(
+    axiosMock,
+    {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
+  );
+
+  const task = {
+    payload: {
+      type: 'book',
+      id: 1,
+    },
+  };
+
+  connector.create(task);
+  expect(urlSerializer.create).toHaveBeenCalledWith('book');
+  expect(requestSerializer).toHaveBeenCalledWith(task);
+  expect(axiosMock.post).toHaveBeenCalled();
+
+  requestSerializer.mockClear();
+  axiosMock.post.mockClear();
+
+  connector.update(task);
+  expect(urlSerializer.update).toHaveBeenCalledWith('book', 1);
+  expect(requestSerializer).toHaveBeenCalledWith(task);
+  expect(axiosMock.patch).toHaveBeenCalled();
+
+  requestSerializer.mockClear();
+  axiosMock.patch.mockClear();
+
+  connector.relation(task);
+  expect(urlSerializer.relation).toHaveBeenCalledWith('book', 1);
+  expect(requestSerializer).toHaveBeenCalledWith(task);
+  expect(axiosMock.patch).toHaveBeenCalled();
+
+  requestSerializer.mockClear();
+  axiosMock.patch.mockClear();
+
+  connector.delete(task);
+  expect(urlSerializer.delete).toHaveBeenCalledWith('book', 1);
+  expect(axiosMock.delete).toHaveBeenCalled();
+
+  requestSerializer.mockClear();
+  axiosMock.delete.mockClear();
+});
+
 describe('The create http connector should create a objects', () => {
   const urlSerializer1 = jest.fn();
   const urlSerializer2 = jest.fn();

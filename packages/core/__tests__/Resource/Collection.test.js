@@ -117,4 +117,21 @@ describe('Collection tests', () => {
 
     expect(newCollection.isLoaded).toBeFalsy();
   });
+
+  test('that a failed request resets the loading state', () => {
+    const repositoryRejectFindMock = jest.fn(() => Promise.reject());
+
+    const productRejectRepository = {
+      find: repositoryRejectFindMock,
+    };
+
+    const rejectCollection = Collection.create('product', productRejectRepository);
+
+    return rejectCollection.load().catch(() => {
+      expect(productRejectRepository.find).toHaveBeenCalled();
+
+      expect(collection.isLoading).toBeFalsy();
+      expect(collection.isLoaded).toBeFalsy();
+    });
+  });
 });

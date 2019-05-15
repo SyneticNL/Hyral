@@ -28,6 +28,21 @@ describe('The Resource', () => {
     expect(book.data.author).toBe(author);
     expect(book.relationships).toHaveProperty('author');
     expect(book.relationships.author.resource).toEqual('author');
+  });
+
+  test('that the relationships for a resource can be updated', () => {
+    const book = Resource.create(1, 'book', {
+      title: 'A great book',
+    });
+
+    book.relationships = {
+      author: {
+        resource: 'author',
+        cardinality: 'many-to-one',
+      },
+    };
+
+    expect(book.relationships).toHaveProperty('author');
     expect(book.relationships.author.resource).toEqual('author');
   });
 
