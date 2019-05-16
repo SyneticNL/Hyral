@@ -11,6 +11,7 @@
     "lint": "eslint packages/**/src",
     "fix": ".eslint --fix packages/**/src",
     "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start'",
+    "postinstall": "lerna bootstrap",
     "prerelease": "npm run build",
     "release": "lerna publish"
   },
