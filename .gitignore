@@ -4,4 +4,3 @@ playgrounds
 lerna-debug.log
 npm-debug.log
 packages/*/lib
-package-lock.json
