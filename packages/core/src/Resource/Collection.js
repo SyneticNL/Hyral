@@ -34,7 +34,9 @@ function collectionLoad(collection) {
           loading: false,
           loaded: true,
           lastParameterBagState: collection.parameterBag.stateId,
-          paging: response.paging ? response.paging : collection.state.metadata.paging,
+          paging: response.paging
+            ? response.paging
+            : { pages: 0, count: response.data.length },
         }),
       });
     }).catch(() => {

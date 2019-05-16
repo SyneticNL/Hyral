@@ -19,6 +19,34 @@ describe('The Resource mixin', () => {
     expect(resource.id).toEqual(1);
   });
 
+  test('that the mixin handles errors on serverPrefetch', () => {
+    const mixin = Object.assign({
+      $store: {
+        getters: {
+          'hyral_product/resource': jest.fn(() => Resource.create(1, 'product', {})),
+        },
+      },
+    }, resourceMixin);
+
+    return mixin.serverPrefetch.call(mixin).catch(() => {
+      expect(mixin.$store.getters['hyral_product/resource']).not.toHaveBeenCalled();
+    });
+  });
+
+  test('that the mixin handles errors on mounted', () => {
+    const mixin = Object.assign({
+      $store: {
+        getters: {
+          'hyral_product/resource': jest.fn(() => Resource.create(1, 'product', {})),
+        },
+      },
+    }, resourceMixin);
+
+    mixin.mounted.call(mixin);
+
+    expect(mixin.$store.getters['hyral_product/resource']).not.toHaveBeenCalled();
+  });
+
   test('that a resource will be loaded on initialization of the component', () => {
     const mixin = Object.assign({
       resourceType: 'product',

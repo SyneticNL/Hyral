@@ -1,0 +1,44 @@
+{
+  "jsonapi": {
+    "version": "1.0"
+  },
+  "data":
+  {
+    "type": "products",
+    "id": "1def908c-4e4c-4ee1-87fa-ad84f813010b",
+    "attributes": {
+      "title": "The title 2",
+      "introduction": "the introduction 2",
+      "description": "The description 2"
+    },
+    "relationships": {
+      "consultant": {
+        "data": {
+          "type": "people",
+          "id": "53ac3feb-46c0-5dbb-8b20-069c398d01c4"
+        }
+      },
+      "menu_link": {
+        "data": null
+      },
+      "thumbnail": {
+        "data": {
+          "type": "images",
+          "id": "cbf08c79-62ae-5a7e-971a-bd693350285d"
+        }
+      },
+      "images": {
+        "data": [
+          {
+            "type": "images",
+            "id": "0eb618b7-4af1-507d-9769-57ff9e897b52"
+          },
+          {
+            "type": "images",
+            "id": "0CF27581-7348-4616-AD07-2450F9D04798"
+          }
+        ]
+      }
+    }
+  }
+}

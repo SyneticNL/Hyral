@@ -1,6 +1,7 @@
 import Resource from '@hyral/core/lib/Resource/Resource';
 import createVuexCollectionFromState
   from '../../src/Collection/createVuexCollectionFromState';
+import ParameterBag from '@hyral/core/src/Resource/ParameterBag';
 
 describe('The createVuexCollectionFromState', () => {
   test('that a collection load will call a commit on the store if created via createVuexCollectionFromState', () => {
@@ -32,5 +33,24 @@ describe('The createVuexCollectionFromState', () => {
       });
       expect(store.commit).toHaveBeenCalledWith('hyral_product/SET_RESOURCE', product);
     });
+  });
+
+  test('that a collection parameterBag set will updated the parameterBag and trigger a commit', () => {
+    const name = 'test';
+    const state = {};
+
+    const store = {
+      commit: jest.fn(),
+    };
+
+    const collection = createVuexCollectionFromState(name, state, {}, store);
+
+    const parameterBag = ParameterBag();
+    parameterBag.setParams({ test: 'value' });
+
+    collection.parameterBag = parameterBag;
+
+    expect(store.commit).toHaveBeenCalled();
+    expect(collection.parameterBag.params).toEqual(parameterBag.params);
   });
 });

@@ -12,6 +12,9 @@ export default function lazyLoadingDecorator(resource) {
       }
 
       const repository = repositoryManager.getRepository(resource.type);
+      if (!repository) {
+        return dataProperty.get();
+      }
 
       resource.setMetadata({ loaded: false, loading: true });
 
