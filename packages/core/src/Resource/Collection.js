@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import ParameterBag from './ParameterBag';
 import {
   currentState,
@@ -5,6 +6,8 @@ import {
   resetState,
   setState,
 } from '../State/State';
+import collectionParameterBagDecorator
+  from './Decorator/Collection/parameterBagDecorator';
 
 /**
  * @param collection
@@ -27,14 +30,19 @@ function collectionLoad(collection) {
         data: {
           items: response.data,
         },
-        metadata: Object.assign({}, collection.state.metadata, { paging: response.paging }),
-      });
-    }).finally(() => {
-      mutateState(collection.stateStack, {
         metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
           loaded: true,
           lastParameterBagState: collection.parameterBag.stateId,
+          paging: response.paging
+            ? response.paging
+            : { pages: 0, count: response.data.length },
+        }),
+      });
+    }).catch(() => {
+      mutateState(collection.stateStack, {
+        metadata: Object.assign({}, collection.state.metadata, {
+          loading: false,
         }),
       });
     });
@@ -50,7 +58,7 @@ function Collection(name, repository) {
     data: {
       items: [],
     },
-    parameterBag: null,
+    parameterBag: {},
     metadata: {
       loading: false,
       loaded: false,
@@ -72,7 +80,7 @@ function Collection(name, repository) {
     },
 
     get parameterBag() {
-      return ParameterBag.fromState(currentState(state).parameterBag || {});
+      return ParameterBag.fromState(cloneDeep(currentState(state).parameterBag));
     },
 
     set parameterBag(parameterBag) {
@@ -134,8 +142,19 @@ function Collection(name, repository) {
   return collection;
 }
 
+Collection.decorators = [
+  collectionParameterBagDecorator,
+];
+
+Collection.create = (name, repository) => {
+  return Collection.decorators.reduce(
+    (collection, decorator) => decorator(collection),
+    Collection(name, repository),
+  );
+};
+
 Collection.fromState = (name, state, repository) => {
-  const newCollection = Collection(name, repository);
+  const newCollection = Collection.create(name, repository);
 
   const newState = Object.assign({}, newCollection.state, state);
 

@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "jest-json-schema": "^2.0.2",
-    "jest-mock-axios": "^3.0.0"
+    "jest-mock-axios": "^3.0.0",
+    "wait-for-expect": "^1.1.1"
   },
   "directories": {
     "lib": "lib",

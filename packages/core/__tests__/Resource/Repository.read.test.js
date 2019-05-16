@@ -52,7 +52,7 @@ describe('The resource repository', () => {
   });
 
   it('should return the promise of the connector after a find containing the data array', () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype7', identifier);
+    const repository = repositoryManager.createRepository(connector, 'testtype5', identifier);
     return repository.find(ParameterBag()).then((data) => {
       expect(data).toBe(axiosResponseData.data);
     });
@@ -62,13 +62,13 @@ describe('The resource repository', () => {
     const connectorFindOne = {
       fetch: jest.fn(() => Promise.resolve(axiosResponseData)),
     };
-    const repository = repositoryManager.createRepository(connectorFindOne, 'testtype5', identifier);
+    const repository = repositoryManager.createRepository(connectorFindOne, 'testtype6', identifier);
     repository.findOne(ParameterBag());
     expect(connectorFindOne.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a findOne containing the first element of the data array', () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype8', identifier);
+    const repository = repositoryManager.createRepository(connector, 'testtype7', identifier);
     return repository.findOne(ParameterBag()).then((data) => {
       expect(data).toEqual(axiosResponseData.data.data[0]);
     });
@@ -78,13 +78,33 @@ describe('The resource repository', () => {
     const connectorFindById = {
       fetchOne: jest.fn(() => Promise.resolve(axiosResponseData.data)),
     };
-    const repository = repositoryManager.createRepository(connectorFindById, 'testtype6', identifier);
+    const repository = repositoryManager.createRepository(connectorFindById, 'testtype8', identifier);
     repository.findById(1);
     expect(connectorFindById.fetchOne.mock.calls).toHaveLength(1);
   });
 
+  it('should resolve to null for findOne when the connector does not give a response.', () => {
+    const connectorNullTest = {
+      fetch: jest.fn(() => Promise.resolve(null)),
+    };
+    const repository = repositoryManager.createRepository(connectorNullTest, 'testtype9', identifier);
+    return repository.findOne(ParameterBag()).then((response) => {
+      expect(response).toBeNull();
+    });
+  });
+
+  it('should resolve to null for findById when the connector does not give a response.', () => {
+    const connectorNullTest = {
+      fetchOne: jest.fn(() => Promise.resolve(null)),
+    };
+    const repository = repositoryManager.createRepository(connectorNullTest, 'testtype10', identifier);
+    return repository.findById(1).then((response) => {
+      expect(response).toBeNull();
+    });
+  });
+
   it('should return the promise of the connector after a findById containing the data', () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype9', identifier);
+    const repository = repositoryManager.createRepository(connector, 'testtype11', identifier);
     return repository.findById(1).then((data) => {
       expect(data).toBe(axiosResponseData.data.data[0]);
     });

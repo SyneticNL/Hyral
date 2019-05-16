@@ -1,6 +1,7 @@
 # Creating, updating and deleting resources
 
-This page describes the process of resource mutations and the way you send these mutations to the backend. 
+This page describes the process of resource mutations and the way you send these mutations to the backend using a
+ChangeSet. 
 
 ## Creating a new resource
 
@@ -21,14 +22,14 @@ const resource = Resource.create(1, 'book', { title: 'A great book', pages: 300 
 // Update the title.
 resource.data = { title: 'An even greater book', pages: 300 };
 
-// A more convenient way.
+// A more convenient way when only changing a specific resource.
 resource.data = Object.assign({}, resource.data, { title: 'An even greater book' });
 ```
 
-Note 1: any property not included in the new data object will be removed!
+* Note 1: any property not included in the new data object will be removed!
 
-Note 2: never directly change a property of the data object itself. Mutations via this method will not enable Hyral to 
-        detect changes on the resource and it will therefore not be detected as changed.
+* Note 2: never directly change a property of the data object itself. Mutations via this method will not enable Hyral to 
+  detect changes on the resource and it will therefore not be detected as changed.
 
 ## Deleting a resource
 

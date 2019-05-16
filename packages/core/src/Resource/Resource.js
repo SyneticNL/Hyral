@@ -24,25 +24,25 @@
 import {
   currentState,
   mutateState,
-  resetState, setState,
 } from '../State/State';
+import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
- * @param {string|null} type
+ * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */
-function Resource(id = null, type = null, data = null, relationships = null) {
+function Resource(id = null, type, data = null, relationships = null) {
   const state = [{
     id,
     data: data || {},
     relationships: relationships || {},
   }];
 
-  const metadata = {
+  let metadata = {
     loaded: data !== null,
     loading: false,
   };
@@ -91,7 +91,13 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     },
 
     /**
-     * @returns {object}
+     * @param {{loaded: boolean, loading: boolean}} value
+     */
+    setMetadata(value) {
+      metadata = value;
+    },
+    /**
+     * @returns {{loaded: boolean, loading: boolean}}
      */
     get metadata() {
       return metadata;
@@ -113,19 +119,26 @@ function Resource(id = null, type = null, data = null, relationships = null) {
   };
 }
 
+Resource.decorators = [
+  lazyLoadingDecorator,
+];
+
 /**
  * @param {string|number|null} id
- * @param {string|null} type
+ * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */
-Resource.create = (id = null, type = null, data = null, relationships = null) => Resource(
-  id,
-  type,
-  data,
-  relationships,
+Resource.create = (id = null, type, data = null, relationships = null) => (
+  Resource.decorators.reduce((resource, decorator) => decorator(resource),
+    Resource(
+      id,
+      type,
+      data,
+      relationships,
+    ))
 );
 
 /**
@@ -136,15 +149,11 @@ Resource.create = (id = null, type = null, data = null, relationships = null) =>
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (id, type, state) => {
-  const resource = Resource.create(id, type);
-
-  const newState = Object.assign({}, resource.state, state);
-
-  resetState(resource.stateStack);
-  setState(resource.stateStack, newState);
-
-  return resource;
-};
+Resource.fromState = (id, type, state) => Resource.create(
+  id,
+  type,
+  state.data || {},
+  state.relationships || {},
+);
 
 export default Resource;

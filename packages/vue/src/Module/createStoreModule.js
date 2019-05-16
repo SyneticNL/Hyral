@@ -26,8 +26,8 @@ const createStoreModule = (repository, store) => ({
       if (!state.collections[name]) {
         state.collections[name] = {};
       }
-      const collectionState = state.collections[name];
-      return createVuexCollectionFromState(name, collectionState, repository, store);
+
+      return createVuexCollectionFromState(name, state.collections[name], repository, store);
     },
   },
 
@@ -36,7 +36,7 @@ const createStoreModule = (repository, store) => ({
       state.collections[collection.name] = collection.state;
     },
     SET_RESOURCE(state, resource) {
-      state.resources[resource[repository.identifier]] = resource.state;
+      state.resources[resource.id] = resource.state;
     },
   },
 
@@ -50,7 +50,6 @@ const createStoreModule = (repository, store) => ({
       return getters.collection(name).load();
     },
   },
-
 });
 
 export default createStoreModule;

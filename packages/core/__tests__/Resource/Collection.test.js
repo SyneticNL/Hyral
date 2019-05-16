@@ -19,7 +19,7 @@ describe('Collection tests', () => {
     find: repositoryFindMock,
   };
 
-  const collection = Collection('product', productRepository);
+  const collection = Collection.create('product', productRepository);
 
   test('that the collection is initialized correctly', () => {
     expect(collection.name).toEqual('product');
@@ -49,7 +49,7 @@ describe('Collection tests', () => {
       expect(collection.isLoading).toBeFalsy();
       expect(collection.isLoaded).toBeTruthy();
 
-      collection.load().then(() => {
+      return collection.load().then(() => {
         expect(productRepository.find.mock.calls).toHaveLength(1);
 
         expect(collection.length).toEqual(100);
@@ -92,7 +92,7 @@ describe('Collection tests', () => {
     },
   };
   test('that the collection state can be set from data', () => {
-    const newCollection = Collection('test', productRepository);
+    const newCollection = Collection.create('test', productRepository);
     setState(newCollection.stateStack, state);
 
     expect(newCollection.name).toEqual('test');
@@ -116,5 +116,46 @@ describe('Collection tests', () => {
     expect(() => newCollection.items).not.toThrow(TypeError);
 
     expect(newCollection.isLoaded).toBeFalsy();
+  });
+
+  test('that a failed request resets the loading state', () => {
+    const repositoryRejectFindMock = jest.fn(() => Promise.reject());
+
+    const productRejectRepository = {
+      find: repositoryRejectFindMock,
+    };
+
+    const rejectCollection = Collection.create('product', productRejectRepository);
+
+    return rejectCollection.load().catch(() => {
+      expect(productRejectRepository.find).toHaveBeenCalled();
+
+      expect(collection.isLoading).toBeFalsy();
+      expect(collection.isLoaded).toBeFalsy();
+    });
+  });
+
+  test('that a response without paging information does not cause the Collection to fault', () => {
+    const noPagingmockResponse = {
+      data: [
+        { id: '1', type: 'products', data: { title: 'Product 1' } },
+        { id: '2', type: 'products', data: { title: 'Product 2' } },
+      ],
+    };
+
+    const repositoryFindNoPagingMock = jest.fn(() => Promise.resolve(noPagingmockResponse));
+
+    const productRepositoryNoPaging = {
+      find: repositoryFindNoPagingMock,
+    };
+
+    const collectionNoPaging = Collection.create('product', productRepositoryNoPaging);
+
+    return collectionNoPaging.load().then(() => {
+      expect(collectionNoPaging.length).toEqual(2);
+      expect(collectionNoPaging.pages).toEqual(0);
+      expect(collectionNoPaging.isLoading).toBeFalsy();
+      expect(collectionNoPaging.isLoaded).toBeTruthy();
+    });
   });
 });

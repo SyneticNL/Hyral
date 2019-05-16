@@ -7,6 +7,13 @@
   "license": "MIT",
   "module": "src/index.js",
   "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
     "jest-json-schema": "^2.0.2"
   },
@@ -17,13 +24,6 @@
     "qs": "^6.7.0",
     "url": "^0.11.0"
   },
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SyneticNL/Hyral.git"

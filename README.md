@@ -1,39 +1,47 @@
 # Hyral
+[![npm version](https://badge.fury.io/js/%40hyral%2Fcore.svg)](https://badge.fury.io/js/%40hyral%2Fcore)
+[![Known Vulnerabilities](https://snyk.io/test/github/SyneticNL/Hyral/badge.svg)](https://snyk.io/test/github/SyneticNL/Hyral)
+[![devDependencies Status](https://david-dm.org/syneticNL/Hyral/dev-status.svg)](https://david-dm.org/syneticNL/Hyral?type=dev)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6f13bb6cf6c9e88410d3/maintainability)](https://codeclimate.com/github/SyneticNL/Hyral/maintainability)
+[![Technical Debt](https://flat.badgen.net/codeclimate/tech-debt/SyneticNL/Hyral)](https://codeclimate.com/github/SyneticNL/Hyral/trends)
 
-Hyral (Hypermedia Resource oriented Api Layer) is an advanced but easy to use abstraction layer over one or more API
-backends.
+Hyral (Hypermedia Resource oriented Api Layer) is an advanced, ORM-like, easy to use abstraction layer over your
+API('s).
 
 ## Features
 * Framework agnostic
-* API backend agnostic
-* Can integrate seamlessly with multiple, different types of backends
-* Single resource and collection of resource support
-* Uses the Promise API
-* Hypermedia oriented
-* Uses state management and immutability
+* Backend agnostic
+* ORM-like interface and features
+* [Hypermedia oriented](packages/core/documentation/Guides/hypermedia.md)
+* Support for multiple backends with 1 interface
 * Full test-coverage
+* Modern codebase with immutability, state management and promises
 
-
-## Hyral has separate packages for:
-* [JsonApi backend integration with automatic relationship handling](packages/json-api/README.md)
+## Additional features
+* [JsonApi integration](packages/json-api/README.md)
 * [Vue(x) integration](packages/vue/README.md)
 
-## Install
+## Getting started
+
+### Install
 
 ```bash
-npm install hyral
+npm install @hyral/core
+
+// JSON-API support
+npm install @hyral/json-api
+
+// Vue(x) integration
+npm install @hyral/vue
 ```
 
-## More
+### Quick start
+[Quick start guide](packages/core/documentation/Guides/quick-start.md)
 
-* [Documentation](packages/core/documentation/README.md)
-* [Roadmap](packages/core/documentation/roadmap.md)
+## Documentation
 
-## Guides
+More in-depth documentation can be found:
 
-There are several guides available that should give you a head-start:
-
-* [Understanding Hyral](packages/core/documentation/Guides/understanding-hyral.md)
-* [Getting started](packages/core/documentation/Guides/getting-started.md)
-* [Configuring for multiple backend](packages/core/documentation/Guides/multiple-backends.md)
-* [Creating your own transformer](packages/core/documentation/Guides/creating-transformers.md)
+* [Core Hyral](packages/core/README.md)
+* [JSON API](packages/json-api/README.md)
+* [Vue(x)](packages/vue/README.md)

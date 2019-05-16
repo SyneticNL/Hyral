@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
     "lint": "eslint packages/**/src",
     "fix": ".eslint --fix packages/**/src",
     "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start'",
@@ -38,7 +40,6 @@
   },
   "homepage": "https://github.com/SyneticNL/Hyral#readme",
   "devDependencies": {
-    "lerna": "^3.13.4",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
@@ -55,6 +56,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.5.1",
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "lerna": "^3.13.4"
   }
 }

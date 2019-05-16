@@ -21,5 +21,8 @@ describe('The findCreateTasksForResources', () => {
     expect(foundTasks).toHaveLength(1);
     expect(foundTasks).toContain(resourceTask);
     expect(foundTasks).not.toContain(resource2Task);
+
+    expect(findCreateTasksForResources(tasks, [])).toEqual([]);
+    expect(findCreateTasksForResources(tasks, null)).toEqual([]);
   });
 });
