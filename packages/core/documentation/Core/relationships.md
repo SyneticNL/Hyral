@@ -34,9 +34,9 @@ Hyral ships with the relationshipsDecorator to make it easy to define the relati
 #### Usage
 ```javascript
 import Resource from '@hyral/core/lib/Resource/Resource';
-import relationshipsDecorator from '@hyral/core/lib/Resource/Decorator/Resource/relationshipsDecorator';
+import createRelationshipsDecorator from '@hyral/core/lib/Resource/Decorator/Resource/relationshipsDecorator';
 
-Resource.decorators.push(relationshipsDecorator.create({
+Resource.decorators.push(createRelationshipsDecorator({
   product: {
     price: {
       cardinality: 'one-to-one',
@@ -62,7 +62,7 @@ Resource.decorators.push(relationshipsDecorator.create({
 Include for each resource type a key with the relationship definitions.
 
 As long as you don't pass a relationship definition when creating a Resource the definition passed to the
-relationshipsDecorator.create factory.
+createRelationshipsDecorator factory.
 
 ### Manual definition
 ```javascript

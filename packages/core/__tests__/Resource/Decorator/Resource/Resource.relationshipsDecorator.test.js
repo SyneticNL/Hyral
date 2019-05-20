@@ -1,10 +1,9 @@
 import Resource from '../../../../src/Resource/Resource';
-import relationshipsDecorator
-  from '../../../../src/Resource/Decorator/Resource/relationshipsDecorator';
+import createRelationshipsDecorator from '../../../../src/Resource/Decorator/Resource/relationshipsDecorator';
 
 describe('The relationships decorator for a resource', () => {
   test('that the relationships are correctly set from the decorator configuration', () => {
-    Resource.decorators.push(relationshipsDecorator.create({
+    Resource.decorators.push(createRelationshipsDecorator({
       product: {
         price: {
           cardinality: 'one-to-one',
@@ -39,7 +38,7 @@ describe('The relationships decorator for a resource', () => {
   });
 
   test('that the relationships are not overridden from the decorator if defined manually', () => {
-    Resource.decorators.push(relationshipsDecorator.create({
+    Resource.decorators.push(createRelationshipsDecorator({
       product: {
         price: {
           cardinality: 'one-to-one',
