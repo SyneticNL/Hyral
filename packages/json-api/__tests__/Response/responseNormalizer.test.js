@@ -1,7 +1,6 @@
 import { matchers } from 'jest-json-schema';
 import Resource from '@hyral/core/lib/Resource/Resource';
-import relationshipsDecorator
-  from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
+import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
@@ -71,7 +70,7 @@ describe('Validations for the responseNormalizer', () => {
         resource: 'prices',
       },
     };
-    Resource.decorators.push(relationshipsDecorator.create({
+    Resource.decorators.push(createRelationshipsDecorator({
       products: productsRelationships,
     }));
 
