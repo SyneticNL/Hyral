@@ -19,7 +19,7 @@ describe('Collection tests', () => {
     find: repositoryFindMock,
   };
 
-  const collection = Collection('product', productRepository);
+  const collection = Collection.create('product', productRepository);
 
   test('that the collection is initialized correctly', () => {
     expect(collection.name).toEqual('product');
@@ -92,7 +92,7 @@ describe('Collection tests', () => {
     },
   };
   test('that the collection state can be set from data', () => {
-    const newCollection = Collection('test', productRepository);
+    const newCollection = Collection.create('test', productRepository);
     setState(newCollection.stateStack, state);
 
     expect(newCollection.name).toEqual('test');

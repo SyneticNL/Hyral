@@ -2,7 +2,7 @@
 export default {
   computed: {
     resource() {
-      return this.$store.getters[`hyral-${this.resourceType}/resource`](this.id);
+      return this.$store.getters[`hyral_${this.resourceType}/resource`](this.id);
     },
   },
   serverPrefetch() {
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     loadResource() {
-      return this.$store.dispatch(`hyral-${this.resourceType}/LOAD_RESOURCE`, this.id);
+      return this.$store.dispatch(`hyral_${this.resourceType}/LOAD_RESOURCE`, this.id);
     },
   },
 };
