@@ -22,6 +22,10 @@ export default function lazyLoadingDecorator(resource) {
         .then((loadedResource) => {
           setState(resource.stateStack, loadedResource.state);
           resource.setMetadata({ loaded: true, loading: false });
+        })
+        .catch(() => {
+          resource.setMetadata({ loaded: false, loading: false });
+          throw new Error(`Failed lazy loading ${resource.type} for ${resource.id}`);
         });
 
       return dataProperty.get();
