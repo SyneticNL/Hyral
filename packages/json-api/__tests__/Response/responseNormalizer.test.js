@@ -13,7 +13,7 @@ expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
   const connector = {
-    fetchOne: jest.fn(() => Promise.resolve(Resource.create(1, 'products', { title: 'test' }))),
+    fetchOne: jest.fn(() => Promise.resolve({ data: { data: Resource.create(1, 'products', { title: 'test' }) } })),
   };
 
   repositoryManager.createRepository(connector, 'products');
