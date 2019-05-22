@@ -1,8 +1,7 @@
 import { matchers } from 'jest-json-schema';
 import cloneDeep from 'lodash/cloneDeep';
 import Resource from '@hyral/core/lib/Resource/Resource';
-import relationshipsDecorator
-  from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
+import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import jsonSingleResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponse';
@@ -107,7 +106,7 @@ describe('Validations for the responseNormalizer', () => {
         resource: 'prices',
       },
     };
-    Resource.decorators.push(relationshipsDecorator.create({
+    Resource.decorators.push(createRelationshipsDecorator({
       products: productsRelationships,
     }));
 

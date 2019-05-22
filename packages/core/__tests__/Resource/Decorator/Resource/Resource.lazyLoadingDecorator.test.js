@@ -29,6 +29,25 @@ describe('The lazy loading of a resource', () => {
     });
   });
 
+  test('that the load method throws an Error when no repository is found', async () => {
+    const resource2 = Resource.create(1, 'product2');
+
+    await expect(() => resource2.load()).toThrow(Error);
+  });
+
+  test('that the load method throws an Error the repository fails to load the resource', async () => {
+    const repositoryFindRejectionMock = jest.fn(() => Promise.reject());
+    const productRejectionRepository = {
+      resourceType: 'product2',
+      findById: repositoryFindRejectionMock,
+    };
+    repositoryManager.addRepository(productRejectionRepository);
+
+    const resource2 = Resource.create(1, 'product2');
+
+    await expect(resource2.load()).rejects.toThrow(Error);
+  });
+
   test('that the data can still be changed after lazy loading', () => {
     const resource2 = Resource.create(1, 'product');
 
