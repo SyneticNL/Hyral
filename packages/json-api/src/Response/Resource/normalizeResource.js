@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import Resource from '@hyral/core/lib/Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
@@ -8,24 +9,53 @@ function guessRelationCardinality(relation) {
 /**
  * @param {JsonApiResource} data
  *
+ * @returns {object.<string, HyralResource>}
+ */
+function getResourcesFromData(data) {
+  return Object.entries(data.relationships)
+    .reduce(
+      (carry, [field, relation]) => Object.assign(carry, { [field]: relation.data }), {},
+    );
+}
+
+/**
+ * @param {JsonApiResource} data
+ *
+ * @returns {object.<string, HyralResourceRelationship>}
+ */
+function getRelationDefinitionFromData(data) {
+  return Object.entries(data.relationships)
+    .reduce((resourceRelationships, [field, relation]) => Object.assign(
+      resourceRelationships,
+      {
+        [field]: {
+          cardinality: guessRelationCardinality(relation),
+          many: Array.isArray(relation.data),
+          resource: relationshipGetType(relation),
+        },
+      },
+    ), {});
+}
+
+/**
+ * @param {JsonApiResource} data
+ *
  * @returns {HyralResource}
  */
 export default function normalizeResource(data) {
-  const resource = Resource.create(data.id, data.type, data.attributes);
-
   if (!data.relationships) {
-    return resource;
+    return Resource.create(data.id, data.type, data.attributes);
   }
 
-  Object.entries(data.relationships).forEach(([field, relation]) => {
-    resource.relationships[field] = {
-      cardinality: guessRelationCardinality(relation),
-      many: Array.isArray(relation.data),
-      resource: relationshipGetType(relation),
-    };
+  const resource = Resource.create(
+    data.id,
+    data.type,
+    Object.assign(data.attributes, getResourcesFromData(data)),
+  );
 
-    resource.data[field] = relation.data;
-  });
+  if (isEmpty(resource.relationships)) {
+    resource.relationships = getRelationDefinitionFromData(data);
+  }
 
   return resource;
 }
