@@ -25,6 +25,7 @@ import {
   currentState,
   mutateState,
 } from '../State/State';
+import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
@@ -41,7 +42,7 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     relationships: relationships || {},
   }];
 
-  const metadata = {
+  let metadata = {
     loaded: data !== null,
     loading: false,
   };
@@ -90,7 +91,13 @@ function Resource(id = null, type = null, data = null, relationships = null) {
     },
 
     /**
-     * @returns {object}
+     * @param {{loaded: boolean, loading: boolean}} value
+     */
+    setMetadata(value) {
+      metadata = value;
+    },
+    /**
+     * @returns {{loaded: boolean, loading: boolean}}
      */
     get metadata() {
       return metadata;
@@ -112,6 +119,10 @@ function Resource(id = null, type = null, data = null, relationships = null) {
   };
 }
 
+Resource.decorators = [
+  lazyLoadingDecorator,
+];
+
 /**
  * @param {string|number|null} id
  * @param {string|null} type
@@ -120,12 +131,17 @@ function Resource(id = null, type = null, data = null, relationships = null) {
  *
  * @returns {HyralResource}
  */
-Resource.create = (id = null, type = null, data = null, relationships = null) => Resource(
-  id,
-  type,
-  data,
-  relationships,
-);
+Resource.create = (id = null, type = null, data = null, relationships = null) => {
+  return Resource.decorators.reduce(
+    (resource, decorator) => decorator(resource),
+    Resource(
+      id,
+      type,
+      data,
+      relationships,
+    ),
+  );
+};
 
 /**
  *
