@@ -3,7 +3,7 @@ import Resource from '@hyral/core/lib/Resource/Resource';
 import relationshipGetType from './Relationship/relationshipGetType';
 
 function guessRelationCardinality(relation) {
-  return Array.isArray(relation.data) ? 'many-to-many' : 'many-to-one';
+  return Array.isArray(relation.data) ? 'one-to-many' : 'many-to-one';
 }
 
 /**

@@ -1,7 +1,6 @@
 import { matchers } from 'jest-json-schema';
 import Resource from '@hyral/core/lib/Resource/Resource';
-import relationshipsDecorator
-  from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
+import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
@@ -37,7 +36,7 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[1].relationships).toHaveProperty('images');
     expect(result.data[1].relationships.images.resource).toBe('images');
     expect(result.data[0].relationships.images.many).toBeTruthy();
-    expect(result.data[1].relationships.images.cardinality).toEqual('many-to-many');
+    expect(result.data[1].relationships.images.cardinality).toEqual('one-to-many');
     expect(result.data[1].data.images).toHaveLength(2);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');
@@ -71,7 +70,7 @@ describe('Validations for the responseNormalizer', () => {
         resource: 'prices',
       },
     };
-    Resource.decorators.push(relationshipsDecorator.create({
+    Resource.decorators.push(createRelationshipsDecorator({
       products: productsRelationships,
     }));
 

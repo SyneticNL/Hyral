@@ -1,39 +1,42 @@
 # Transformers
 
-The transformers are an important part of Hyral as they translate the Hyral structure and logic for each type of
-backend API.
+A transformer converts the message `format` from the backend to the Hyral and the other way around.
 
-The transformers are attached to a Connector.
+This enables the user to work with a single format (Hyral) in the code and have all backend specific logic in the 
+transformers. The user does not have to know how a specific backend works, only how Hyral works.
+
+## Connector & transformer
+
+A transformer is attached to a Connector and each connector instance can have it's own transformer. This way each
+connector can support a different message format and the created repositories can be connected to different backends.
+
+## Transformer definition
 
 A transformer consists of 4 parts:
+* An urlSerializer
+* A paramsSerializer
+* A requestSerializer
+* A responseNormalizer
 
-* An URL serializer
-* A param serializer
-* A request serializer
-* A response normalizer
-
-## An URL serializer
-The URL serializer converts the ParameterBag and/or Entity into a URL that the backend will understand.
+### urlSerializer
+The urlSerializer converts the ParameterBag and/or Entity into a URL that the backend will understand.
 
 For example: A URL serializer for a JsonApi backend will result in the following URL for a product fetch() request:
 
 '/api/root/products' 
 
-## A param serializer
-The fetch() method may provide a [parameterBag](parameterBag.md) for filtering, sorting or paging. The param serializer
+### paramsSerializer
+The `fetch` and `fetchOne` repository methods may provide a [parameterBag](parameterBag.md). The paramsSerializer
 converts the [ParameterBag](parameterBag.md) into a query string that can be used by the Connector and is understood
-by the backend API.
+by the backend.
 
-## A request serializer
-TODO.
+### requestSerializer
+A request serializer converts [Tasks](changeSet.md) into a format the backend can process.
 
-## A response normalizer
+### responseNormalizer
 The response normalizer converts the backend API response into the Hyral format.
 
-The response normaliser results in an array of resources or a single resource in the data property and when returning
-multiple resources information on paging in the paging property.
+The response normalizer results in converted resource(s) and when returning multiple resources information on paging.
 
-## Notes
-You will only need to make a transformer if you want to use a backend API type that is not supported by Hyral or 
-any other additional package. Currently Hyral only supports JsonApi backends.
-
+## Creating your own transformer
+Please read the [creating a transformer](../Guides/creating-transformers.md) guide.
