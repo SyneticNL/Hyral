@@ -12,17 +12,7 @@ import resourceJsonSchema from '../../../core/schema/resource.schema';
 expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
-  beforeEach(() => {
-    const connector = {
-      fetchOne: jest.fn(() => Promise.resolve({ data: { data: Resource.create(1, 'products', {title: 'test' }) } })),
-    };
-
-    try {
-      repositoryManager.createRepository(connector, 'products');
-      repositoryManager.createRepository(connector, 'images');
-      repositoryManager.createRepository(connector, 'people');
-    } catch (e) { }
-  });
+  Resource.decorators = [];
 
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture);
