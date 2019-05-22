@@ -1,8 +1,13 @@
 import Resource from '../../src/Resource/Resource';
+import repositoryManager from '../../src/Resource/repositoryManager';
 
 describe('The Resource', () => {
   test('that the metadata is correctly initialized', () => {
     const resource1 = Resource.create(1, 'product');
+
+    repositoryManager.createRepository({
+      fetchOne: jest.fn(() => Promise.resolve(Resource.create(1, 'product', { title: 'test' }))),
+    }, 'product');
 
     expect(resource1.metadata.loaded).toBeFalsy();
     expect(resource1.metadata.loading).toBeFalsy();

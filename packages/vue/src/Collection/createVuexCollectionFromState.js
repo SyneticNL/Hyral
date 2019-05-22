@@ -1,21 +1,24 @@
 import Collection from '@hyral/core/lib/Resource/Collection';
 
-export default function createVuexCollectionFromState(name, state, repository, store) {
-  const collection = Collection.fromState(name, state, repository);
-
+function addLoadProxy(collection, state, repository, store) {
   const { load } = collection;
-  collection.load = () => load().then(() => {
-    store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {
-      name: collection.name,
-      state: collection.state,
-    });
 
-    collection.items.forEach((resource) => {
-      store.commit(`hyral_${repository.resourceType}/SET_RESOURCE`, resource);
-    });
-    return collection;
+  Object.defineProperty(collection, 'load', {
+    value: () => load().then(() => {
+      store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {
+        name: collection.name,
+        state: collection.state,
+      });
+
+      collection.items.forEach((resource) => {
+        store.commit(`hyral_${repository.resourceType}/SET_RESOURCE`, resource);
+      });
+      return collection;
+    }),
   });
+}
 
+function addParameterBagProxy(collection, state, repository, store) {
   const parameterBagDescriptor = Object.getOwnPropertyDescriptor(collection, 'parameterBag');
   Object.defineProperty(
     collection,
@@ -31,6 +34,13 @@ export default function createVuexCollectionFromState(name, state, repository, s
       },
     }),
   );
+}
+
+export default function createVuexCollectionFromState(name, state, repository, store) {
+  const collection = Collection.fromState(name, state, repository);
+
+  addLoadProxy(collection, state, repository, store);
+  addParameterBagProxy(collection, state, repository, store);
 
   return collection;
 }
