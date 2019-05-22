@@ -7,10 +7,19 @@ import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import jsonSingleResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponse';
 import fetchJsonSingleResponseNoIncluded from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponseNoIncluded';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
+import repositoryManager from '@hyral/core/src/Resource/repositoryManager';
 
 expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
+  const connector = {
+    fetchOne: jest.fn(() => Promise.resolve(Resource.create(1, 'products', { title: 'test' }))),
+  };
+
+  repositoryManager.createRepository(connector, 'products');
+  repositoryManager.createRepository(connector, 'images');
+  repositoryManager.createRepository(connector, 'people');
+
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
