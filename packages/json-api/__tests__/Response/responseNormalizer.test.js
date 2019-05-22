@@ -1,7 +1,6 @@
 import { matchers } from 'jest-json-schema';
 import cloneDeep from 'lodash/cloneDeep';
 import Resource from '@hyral/core/lib/Resource/Resource';
-import repositoryManager from '@hyral/core/src/Resource/repositoryManager';
 import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
