@@ -1,24 +1,28 @@
 import { matchers } from 'jest-json-schema';
 import cloneDeep from 'lodash/cloneDeep';
 import Resource from '@hyral/core/lib/Resource/Resource';
+import repositoryManager from '@hyral/core/src/Resource/repositoryManager';
 import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Resource/relationshipsDecorator';
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import jsonSingleResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponse';
 import fetchJsonSingleResponseNoIncluded from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponseNoIncluded';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
-import repositoryManager from '@hyral/core/src/Resource/repositoryManager';
 
 expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
-  const connector = {
-    fetchOne: jest.fn(() => Promise.resolve({ data: { data: Resource.create(1, 'products', { title: 'test' }) } })),
-  };
+  beforeEach(() => {
+    const connector = {
+      fetchOne: jest.fn(() => Promise.resolve({ data: { data: Resource.create(1, 'products', {title: 'test' }) } })),
+    };
 
-  repositoryManager.createRepository(connector, 'products');
-  repositoryManager.createRepository(connector, 'images');
-  repositoryManager.createRepository(connector, 'people');
+    try {
+      repositoryManager.createRepository(connector, 'products');
+      repositoryManager.createRepository(connector, 'images');
+      repositoryManager.createRepository(connector, 'people');
+    } catch (e) { }
+  });
 
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture);
