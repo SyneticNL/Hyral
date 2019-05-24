@@ -30,7 +30,9 @@ export default function Repository(connector, resourceType, identifier) {
      */
     findOne(parameterBag) {
       return connector.fetch(this, parameterBag).then(
-        response => (response && response.data && response.data.data ? response.data.data[0] : null),
+        response => (response && response.data && response.data.data
+          ? response.data.data[0]
+          : null),
       );
     },
     /**
