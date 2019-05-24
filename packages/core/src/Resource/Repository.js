@@ -29,7 +29,9 @@ export default function Repository(connector, resourceType, identifier) {
      * @returns {Promise<Resource>}
      */
     findOne(parameterBag) {
-      return connector.fetch(this, parameterBag).then(response => response.data.data[0] || null);
+      return connector.fetch(this, parameterBag).then(
+        response => (response && response.data && response.data.data ? response.data.data[0] : null),
+      );
     },
     /**
      * @param {String|Number} id
@@ -37,7 +39,9 @@ export default function Repository(connector, resourceType, identifier) {
      * @returns {Promise<Resource>}
      */
     findById(id) {
-      return connector.fetchOne(this, id, {}).then(response => response.data.data || null);
+      return connector.fetchOne(this, id, {}).then(
+        response => (response && response.data && response.data.data ? response.data.data : null),
+      );
     },
     /**
      * @param {HyralTask} task

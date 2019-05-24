@@ -29,14 +29,14 @@ import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
- * @param {string|null} type
+ * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */
-function Resource(id = null, type = null, data = null, relationships = null) {
-  let state = [{
+function Resource(id = null, type, data = null, relationships = null) {
+  const state = [{
     id,
     data: data || {},
     relationships: relationships || {},
@@ -125,23 +125,21 @@ Resource.decorators = [
 
 /**
  * @param {string|number|null} id
- * @param {string|null} type
+ * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
  *
  * @returns {HyralResource}
  */
-Resource.create = (id = null, type = null, data = null, relationships = null) => {
-  return Resource.decorators.reduce(
-    (resource, decorator) => decorator(resource),
+Resource.create = (id = null, type, data = null, relationships = null) => (
+  Resource.decorators.reduce((resource, decorator) => decorator(resource),
     Resource(
       id,
       type,
       data,
       relationships,
-    ),
-  );
-};
+    ))
+);
 
 /**
  *

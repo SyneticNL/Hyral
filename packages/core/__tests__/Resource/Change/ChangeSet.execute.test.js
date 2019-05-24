@@ -36,9 +36,12 @@ describe('The ChangeSet execute method', () => {
     set.persistResource(existingResource);
 
     expect(set.tasks).toHaveLength(2);
+    expect(set.status().total).toEqual(2);
+    expect(set.status().resolved).toEqual(0);
 
     return set.execute().then(() => {
       expect(set.tasks.filter(task => task.resolved)).toHaveLength(set.tasks.length);
+      expect(set.status().resolved).toEqual(2);
     });
   });
 });

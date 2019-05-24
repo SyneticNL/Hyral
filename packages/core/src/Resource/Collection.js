@@ -34,7 +34,9 @@ function collectionLoad(collection) {
           loading: false,
           loaded: true,
           lastParameterBagState: collection.parameterBag.stateId,
-          paging: response.paging ? response.paging : collection.state.metadata.paging,
+          paging: response.paging
+            ? response.paging
+            : { pages: 0, count: response.data.length },
         }),
       });
     }).catch(() => {
@@ -144,12 +146,12 @@ Collection.decorators = [
   collectionParameterBagDecorator,
 ];
 
-Collection.create = (name, repository) => {
-  return Collection.decorators.reduce(
+Collection.create = (name, repository) => (
+  Collection.decorators.reduce(
     (collection, decorator) => decorator(collection),
     Collection(name, repository),
-  );
-};
+  )
+);
 
 Collection.fromState = (name, state, repository) => {
   const newCollection = Collection.create(name, repository);

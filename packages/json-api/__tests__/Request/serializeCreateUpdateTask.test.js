@@ -10,6 +10,14 @@ import createJsonPayload
   from '../fixtures/JsonApi/Mutations/createRequestPayload';
 
 describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
+  test('that serializeCreateUpdateTask skips execution if not passed a valid task', () => {
+    const task = {};
+    expect(serializeCreateUpdateTask(task)).toBe(task);
+
+    const relationTask = Task('relation', {}, {});
+    expect(serializeCreateUpdateTask(relationTask)).toBe(relationTask);
+  });
+
   test('that serializeCreateUpdateTask results in a correct JsonApi request payload for a new resource', () => {
     const repository = {};
     const book = Resource.create(null, 'book', { title: 'A great book' });

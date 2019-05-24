@@ -36,6 +36,8 @@ describe('Relation tests', () => {
     expect(relatedResources[0]).toBe(author);
     expect(relatedResources[1]).toBe(publications[0]);
     expect(relatedResources[2]).toBe(publications[1]);
+
+    expect(getAllRelatedResources({})).toEqual([]);
   });
 
   test('that changes in relations are correctly detected', () => {
@@ -64,6 +66,7 @@ describe('Relation tests', () => {
 
     expect(resourceHasChanged(resource)).toBeFalsy();
     expect(getChangedResourceRelations(resource)).toHaveLength(0);
+    expect(getChangedResourceRelations({})).toEqual([]);
 
     resource.data = {
       title: 'A great book',

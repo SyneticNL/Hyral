@@ -14,6 +14,9 @@
   "files": [
     "lib"
   ],
+  "devDependencies": {
+    "jest-json-schema": "^2.0.2"
+  },
   "dependencies": {
     "@hyral/core": "^0.4.0",
     "lodash": "^4.17.11",

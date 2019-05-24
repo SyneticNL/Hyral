@@ -32,4 +32,11 @@ describe('The resource factory', () => {
     expect(repositories[resourceType1]).toBe(resource1);
     expect(repositories[resourceType2]).toBe(resource2);
   });
+
+  test('that we cannot add two repositories for one type', () => {
+    repositoryManager.createRepository({}, 'testtype3', identifier);
+
+    expect(() => { repositoryManager.createRepository({}, 'testtype3', identifier); }).toThrow(Error);
+  });
+
 });

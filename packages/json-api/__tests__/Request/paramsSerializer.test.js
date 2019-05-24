@@ -16,9 +16,9 @@ describe('paramSerializer', () => {
     };
 
     parameterBag.setParams(params);
+    expect(serializeParams(parameterBag)).toEqual(params);
 
-    const result = serializeParams(parameterBag);
-    expect(result).toEqual(params);
+    expect(serializeParams({})).toEqual({});
   });
 
   test('that serializeSorting gives a valid JsonApi response', () => {
@@ -41,6 +41,9 @@ describe('paramSerializer', () => {
     expect(result).toEqual({
       sort: 'field1,field2,-field3',
     });
+
+    parameterBag.setSorting([]);
+    expect(serializeSorting(parameterBag)).toBeNull();
   });
 
   test('that serializePaging gives a valid JsonApi response', () => {
