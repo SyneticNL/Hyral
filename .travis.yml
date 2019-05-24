@@ -8,7 +8,7 @@ sudo: false
 cache: npm
 matrix:
   fast_finish: true
-script: npm test
+script: npm run test:coverage
 after_install: lerna bootstrap
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
