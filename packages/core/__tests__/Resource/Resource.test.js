@@ -3,11 +3,11 @@ import repositoryManager from '../../src/Resource/repositoryManager';
 
 describe('The Resource', () => {
   test('that the metadata is correctly initialized', () => {
-    const resource1 = Resource.create(1, 'product');
-
     repositoryManager.createRepository({
-      fetchOne: jest.fn(() => Promise.resolve(Resource.create(1, 'product', { title: 'test' }))),
+      fetchOne: jest.fn(() => Promise.resolve({ data: { data: Resource.create(1, 'product', { title: 'test' }) } })),
     }, 'product');
+
+    const resource1 = Resource.create(1, 'product');
 
     expect(resource1.metadata.loaded).toBeFalsy();
     expect(resource1.metadata.loading).toBeFalsy();
@@ -78,6 +78,10 @@ describe('The Resource', () => {
   });
 
   test('that a new Resource can be made based on an invalid state', () => {
+    repositoryManager.createRepository({
+      fetchOne: jest.fn(() => Promise.resolve(Resource.create(1, 'book', { title: 'test' }))),
+    }, 'book');
+
     const resource = Resource.fromState(1, 'book', {});
 
     expect(() => resource.data).not.toThrow(TypeError);

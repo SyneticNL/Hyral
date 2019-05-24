@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - node
+sudo: false
+cache: npm
+matrix:
+  fast_finish: true
+script: npm test
+after_install: lerna bootstrap
+after_success:
+  - travis_retry npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
+addons:
+  code_climate:
+    repo_token: 955c865dd9a017cb598c32abc41566090a54dc70cc7ba903b6140fb17fa3d2fb
