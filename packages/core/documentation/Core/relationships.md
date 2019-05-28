@@ -82,7 +82,7 @@ const resource = {
   },
   relationships: {
     author: {
-      cardinality: 'one-to-many',
+      cardinality: 'many-to-one',
       many: false,
       resource: 'author',
     }
@@ -129,7 +129,7 @@ const resource = {
 
 The following types of carnality's are supported:
 
-- `one-to-one`: One instance of the current Entity refers to One instance of the refered Entity.
-- `one-to-many`: One instance of the current Entity has Many instances (references) to the refered Entity.
-- `many-to-one`: Many instances of the current Entity refer to One instance of the refered Entity.
-- `many-to-many`: Many instances of the current Entity have Many instances (references) to the refered Entity.
+- `one-to-one`: One instance of the current Resource refers to One instance of the refered Resource.
+- `one-to-many`: One instance of the current Resource has Many instances (references) to the refered Resource.
+- `many-to-one`: Many instances of the current Resource refer to One instance of the refered Resource.
+- `many-to-many`: Many instances of the current Resource have Many instances (references) to the refered Resource.
