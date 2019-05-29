@@ -1,5 +1,4 @@
 # Vue
-
 Hyral provides various mixin sto automatically integrate loading a resource or collection on 
 creation of a component.
 
@@ -24,7 +23,16 @@ const Component = Vue.extend({
 });
 ```
 
-## Collection
+### Global registration
+You can also register the mixin globally:
+
+```javascript
+Vue.mixin(HyralResourceMixin);
+```
+
+Use the mixin as described in the above example.
+
+## Collection mixin
 When the properties, data entries or computed properties `collectionName` and `resourceType` are 
 defined a collection is created and the items loaded via the Hyral Vuex store modules.
 
@@ -33,7 +41,7 @@ You can also provide a data entry or computed property `parameterBag` to filter 
 ### Example
 ```javascript
 const Component = Vue.extend({
-  mixins: [HyralResourceMixin],
+  mixins: [HyralCollectionMixin],
   data() {
     return {
       collectionName: 'books',
@@ -52,3 +60,12 @@ const Component = Vue.extend({
   },
 });
 ```
+
+### Global registration
+You can also register the mixin globally:
+
+```javascript
+Vue.mixin(HyralCollectionMixin);
+```
+
+Use the mixin as described in the above example.
