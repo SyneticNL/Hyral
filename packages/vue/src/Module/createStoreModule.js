@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: "off" */
 /* eslint no-shadow: "off" */
+import Vue from 'vue';
 import Resource from '@hyral/core/lib/Resource/Resource';
 import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
 
@@ -17,14 +18,16 @@ const createStoreModule = (repository, store) => ({
   },
 
   getters: {
-    resource: state => id => Resource.fromState(
-      id,
-      repository.resourceType,
-      state.resources[id] || { id, type: repository.resourceType },
-    ),
+    resource: state => id => {
+      if (!state.resources[id]) {
+        Vue.set(state.resources, id, { id, type: repository.resourceType });
+      }
+
+      return Resource.fromState(id, repository.resourceType, state.resources[id]);
+    },
     collection: state => (name) => {
       if (!state.collections[name]) {
-        state.collections[name] = {};
+        Vue.set(state.collections, name, {});
       }
 
       return createVuexCollectionFromState(name, state.collections[name], repository, store);
@@ -33,10 +36,10 @@ const createStoreModule = (repository, store) => ({
 
   mutations: {
     SET_COLLECTION(state, collection) {
-      state.collections[collection.name] = collection.state;
+      Vue.set(state.collections, collection.name, collection.state);
     },
     SET_RESOURCE(state, resource) {
-      state.resources[resource.id] = resource.state;
+      Vue.set(state.resources, resource.id, resource.state);
     },
   },
 
