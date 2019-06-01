@@ -1,8 +1,12 @@
 import waitForExpect from 'wait-for-expect';
 import Resource from '../../../../src/Resource/Resource';
 import repositoryManager from '../../../../src/Resource/repositoryManager';
+import lazyLoadingDecorator
+  from '../../../../src/Resource/Decorator/Resource/lazyLoadingDecorator';
 
 describe('The lazy loading of a resource', () => {
+  Resource.decorators.push(lazyLoadingDecorator);
+
   const repositoryFindMock = jest.fn(() => Promise.resolve(Resource.create(1, 'product', { test: 'property' })));
   const productRepository = {
     resourceType: 'product',

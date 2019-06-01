@@ -11,8 +11,6 @@ import resourceJsonSchema from '../../../core/schema/resource.schema';
 expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
-  Resource.decorators = [];
-
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
