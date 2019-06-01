@@ -209,6 +209,3 @@ changeSet.execute().then(() => {
   console.log('resources created!');
 });
 ```
-
-### More information
-* Creating/updating/deleting resources
