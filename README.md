@@ -10,8 +10,8 @@
 | | |
 |---|---|
 | Core | [![Hyral core](https://badgen.net/bundlephobia/minzip/@hyral/core)](https://bundlephobia.com/result?p=@hyral/core) |
-| Core + JsonApi | [![Hyral core](https://badgen.net/bundlephobia/minzip/@hyral/json-api)](https://bundlephobia.com/result?p=@hyral/json-api) |
-| Vue | [![Hyral core](https://badgen.net/bundlephobia/minzip/@hyral/vue)](https://bundlephobia.com/result?p=@hyral/vue) |
+| Core + JsonApi | [![Hyral core + JsonApi](https://badgen.net/bundlephobia/minzip/@hyral/json-api)](https://bundlephobia.com/result?p=@hyral/json-api) |
+| Vue + VueJS | [![Hyral Vue + VueJS](https://badgen.net/bundlephobia/minzip/@hyral/vue)](https://bundlephobia.com/result?p=@hyral/vue) |
 
 Hyral (Hypermedia Resource oriented Api Layer) is an advanced, ORM-like, easy to use abstraction layer over your
 API('s).
