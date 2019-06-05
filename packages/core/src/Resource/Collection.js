@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 import ParameterBag from './ParameterBag';
 import {
   currentState,
@@ -17,7 +18,7 @@ import collectionParameterBagDecorator
 function collectionLoad(collection) {
   return () => {
     if (collection.isLoaded === true
-      && collection.state.metadata.lastParameterBagState === collection.parameterBag.stateId) {
+      && isEqual(collection.state.metadata.lastParameterBagState, collection.parameterBag.state)) {
       return Promise.resolve();
     }
 
@@ -33,7 +34,7 @@ function collectionLoad(collection) {
         metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
           loaded: true,
-          lastParameterBagState: collection.parameterBag.stateId,
+          lastParameterBagState: collection.parameterBag.state,
           paging: response.paging
             ? response.paging
             : { pages: 0, count: response.data.length },
