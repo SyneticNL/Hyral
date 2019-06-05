@@ -158,4 +158,44 @@ describe('Collection tests', () => {
       expect(collectionNoPaging.isLoaded).toBeTruthy();
     });
   });
+
+  test('that a collection will only load once if the parameterBag does not change', () => {
+    const repositoryFindOnceMock = jest.fn(() => Promise.resolve(mockResponse));
+
+    const productRepositoryOnceMock = {
+      find: repositoryFindOnceMock,
+    };
+
+    const collectionOnce = Collection.create('product', productRepositoryOnceMock);
+
+    return collectionOnce.load().then(() => {
+      expect(repositoryFindOnceMock).toHaveBeenCalledTimes(1);
+
+      collection.load().then(() => {
+        expect(repositoryFindOnceMock).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  test('that a collection will only load items again if the parameterBag had changed after loading', () => {
+    const repositoryFindOnceMock = jest.fn(() => Promise.resolve(mockResponse));
+
+    const productRepositoryOnceMock = {
+      find: repositoryFindOnceMock,
+    };
+
+    const collectionOnce = Collection.create('product', productRepositoryOnceMock);
+
+    return collectionOnce.load().then(() => {
+      expect(repositoryFindOnceMock).toHaveBeenCalledTimes(1);
+
+      const paramBag = collectionOnce.parameterBag;
+      paramBag.setParams({ test: 'param' });
+      collectionOnce.parameterBag = paramBag;
+
+      collectionOnce.load().then(() => {
+        expect(repositoryFindOnceMock).toHaveBeenCalledTimes(2);
+      });
+    });
+  });
 });
