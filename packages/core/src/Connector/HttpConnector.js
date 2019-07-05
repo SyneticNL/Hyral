@@ -147,7 +147,7 @@ HttpConnector.create = (
     responseNormalizer,
   },
 ) => (
-  HttpConnector.decorators.reduce((resource, decorator) => decorator(resource),
+  HttpConnector.decorators.reduce((instance, decorator) => decorator(instance),
     HttpConnector(
       axios,
       {
