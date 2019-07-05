@@ -5,10 +5,10 @@ describe('The repositoryManager', () => {
   const resourceType1 = 'test_product';
   const resourceType2 = 'test_page';
   const identifier = 'id';
-  const resource1 = Repository(
+  const resource1 = Repository.create(
     connectorMock, resourceType1, identifier,
   );
-  const resource2 = Repository(
+  const resource2 = Repository.create(
     connectorMock, resourceType2, identifier,
   );
 
