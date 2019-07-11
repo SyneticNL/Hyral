@@ -28,6 +28,7 @@ describe('The Resource mixin', () => {
       },
     }, resourceMixin);
 
+    expect.assertions(1);
     return mixin.serverPrefetch.call(mixin).catch(() => {
       expect(mixin.$store.getters['hyral_product/resource']).not.toHaveBeenCalled();
     });

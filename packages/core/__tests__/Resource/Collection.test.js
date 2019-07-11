@@ -128,12 +128,11 @@ describe('Collection tests', () => {
     const rejectCollection = Collection.create('product', productRejectRepository);
 
     expect.assertions(3);
-
     return rejectCollection.load().catch(() => {
       expect(productRejectRepository.find).toHaveBeenCalled();
 
-      expect(collection.isLoading).toBeFalsy();
-      expect(collection.isLoaded).toBeFalsy();
+      expect(rejectCollection.isLoading).toBeFalsy();
+      expect(rejectCollection.isLoaded).toBeFalsy();
     });
   });
 
