@@ -73,7 +73,7 @@ products.setSorting([{ field: 'title', direction: 'asc' }]);
 
 console.log(products.isLoading);
 
-products.load(() => {
+products.load().then(() => {
   console.log(products.items);
   console.log(products.pages);
   console.log(products.length);
