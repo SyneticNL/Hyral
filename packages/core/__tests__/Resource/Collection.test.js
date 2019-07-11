@@ -127,6 +127,8 @@ describe('Collection tests', () => {
 
     const rejectCollection = Collection.create('product', productRejectRepository);
 
+    expect.assertions(3);
+
     return rejectCollection.load().catch(() => {
       expect(productRejectRepository.find).toHaveBeenCalled();
 
