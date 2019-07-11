@@ -30,13 +30,13 @@ console.log(products.isLoading);
 // Maybe grey out a section of the page while isLoaded is false.
 console.log(products.isLoaded);
 
-products.load(() => {
+products.load().then(() => {
   console.log(products.items);
   console.log(products.pages);
   console.log(products.length);
 });
 
-products.load(() => {
+products.load().then(() => {
   // As nothing changes the results are not loaded again and the promise resolves immediately.
   // Useful for when using a list of items in different contexts.
 });
