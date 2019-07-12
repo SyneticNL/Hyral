@@ -152,8 +152,8 @@ Resource.create = (id = null, type, data = null, relationships = null) => (
 Resource.fromState = (id, type, state) => Resource.create(
   id,
   type,
-  state.data || {},
-  state.relationships || {},
+  state.data || null,
+  state.relationships || null,
 );
 
 export default Resource;

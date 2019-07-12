@@ -35,6 +35,10 @@ describe('The Resource', () => {
     const resource4 = Resource.create(null, 'product');
     expect(resource4.id).toBeNull();
     expect(resource4.type).toEqual('product');
+
+    const resource5 = Resource.fromState(1, 'product', { id: 1, type: 'product' });
+    expect(resource5.metadata.loaded).toBeFalsy();
+    expect(resource5.metadata.loading).toBeFalsy();
   });
 
   test('that a resource can be created with relationships', () => {
