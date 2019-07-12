@@ -19,17 +19,23 @@ describe('The createStoreModule', () => {
   });
 
   test('that it is possible to get a resource from the store', () => {
-    const module = createStoreModule({
-      resourceType: 'product',
-    }, {});
-
     const product = Resource.create(1, 'product', { title: 'A great product' });
 
-    const getter = module.getters.resource({
+    const state = {
       resources: {
         1: product.state,
       },
+    };
+
+    const module = createStoreModule({
+      resourceType: 'product',
+    }, {
+      commit: jest.fn(() => {
+        state.resources[2] = { id: '2', resourceType: 'product' };
+      }),
     });
+
+    const getter = module.getters.resource(state);
 
     const foundProduct = getter(1);
     const foundProduct2 = getter(2);
@@ -44,7 +50,9 @@ describe('The createStoreModule', () => {
       resourceType: 'product',
     };
 
-    const module = createStoreModule(mockRepository, {});
+    const module = createStoreModule(mockRepository, {
+      commit: jest.fn(),
+    });
 
     const products = Collection.create('products', mockRepository);
 
@@ -107,7 +115,9 @@ describe('The createStoreModule', () => {
       resourceType: 'product',
     };
 
-    const module = createStoreModule(mockRepository, {});
+    const module = createStoreModule(mockRepository, {
+      commit: jest.fn(),
+    });
 
     const products = Collection.create('products', mockRepository);
     products.load = jest.fn();
@@ -134,7 +144,9 @@ describe('The createStoreModule', () => {
       findById: jest.fn(() => Promise.resolve(product)),
     };
 
-    const module = createStoreModule(mockRepository, {});
+    const module = createStoreModule(mockRepository, {
+      commit: jest.fn(),
+    });
 
     const mockModule = { commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {

@@ -44,13 +44,15 @@ function getRelationDefinitionFromData(data) {
  */
 export default function normalizeResource(data) {
   if (!data.relationships) {
-    return Resource.create(data.id, data.type, data.attributes);
+    return Resource.create(data.id, data.type, data.attributes, null, data.meta);
   }
 
   const resource = Resource.create(
     data.id,
     data.type,
     Object.assign(data.attributes, getResourcesFromData(data)),
+    null,
+    data.meta || null,
   );
 
   if (isEmpty(resource.relationships)) {

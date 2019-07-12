@@ -94,3 +94,14 @@ export default function Repository(connector, resourceType, identifier) {
 
   return repository;
 }
+
+
+Repository.decorators = [
+];
+
+Repository.create = (connector, resourceType, identifier) => (
+  Repository.decorators.reduce(
+    (instance, decorator) => decorator(instance),
+    Repository(connector, resourceType, identifier),
+  )
+);

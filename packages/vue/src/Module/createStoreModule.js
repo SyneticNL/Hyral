@@ -18,16 +18,16 @@ const createStoreModule = (repository, store) => ({
   },
 
   getters: {
-    resource: state => id => {
+    resource: state => (id) => {
       if (!state.resources[id]) {
-        Vue.set(state.resources, id, { id, type: repository.resourceType });
+        store.commit(`hyral_${repository.resourceType}/SET_RESOURCE`, { id, type: repository.resourceType });
       }
 
       return Resource.fromState(id, repository.resourceType, state.resources[id]);
     },
     collection: state => (name) => {
       if (!state.collections[name]) {
-        Vue.set(state.collections, name, {});
+        store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {});
       }
 
       return createVuexCollectionFromState(name, state.collections[name], repository, store);
