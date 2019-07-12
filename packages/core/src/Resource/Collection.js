@@ -40,12 +40,14 @@ function collectionLoad(collection) {
             : { pages: 0, count: response.data.length },
         }),
       });
-    }).catch(() => {
+    }).catch((error) => {
       mutateState(collection.stateStack, {
         metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
         }),
       });
+
+      throw error;
     });
   };
 }

@@ -67,6 +67,7 @@ describe('The Task', () => {
 
     task.addDependencies([dependency]);
 
+    expect.assertions(1);
     return task.execute().catch(() => {
       expect(dependency.execute).toHaveBeenCalled();
     });
