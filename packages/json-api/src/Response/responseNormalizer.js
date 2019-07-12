@@ -28,7 +28,7 @@ import normalizePaging from './Resource/normalizePaging';
  * @property {String} type
  * @property {Object} attributes
  * @property {Object} relationships
- *
+ * @property {Object} meta
  */
 
 /**
