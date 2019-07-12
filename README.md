@@ -16,40 +16,28 @@
 Hyral (Hypermedia Resource oriented Api Layer) is an advanced, ORM-like, easy to use abstraction layer over your
 API('s).
 
-## Features
-* Framework agnostic
-* Backend agnostic
-* ORM-like interface and features
-* [Hypermedia oriented](packages/core/documentation/Guides/hypermedia.md)
-* Support for multiple backends with 1 interface
-* Full test-coverage
-* Modern codebase with immutability, state management and promises
+#
+This is a monorepo containing the following packages:
 
-## Additional features
-* [JsonApi integration](packages/json-api/README.md)
-* [Vue(x) integration](packages/vue/README.md)
+* [Core Hyral]
+* [JSON API]
+* [Vue(x)]
 
-## Getting started
+## Contributing
 
-### Install
+See [CONTRIBUTING]
 
-```bash
-npm install @hyral/core
+## Releases
 
-// JSON-API support
-npm install @hyral/json-api
+See [Github Releases]
 
-// Vue(x) integration
-npm install @hyral/vue
-```
+## License
 
-### Quick start
-[Quick start guide](packages/core/documentation/Guides/quick-start.md)
+All code released under [MIT]
 
-## Documentation
-
-More in-depth documentation can be found:
-
-* [Core Hyral](packages/core/README.md)
-* [JSON API](packages/json-api/README.md)
-* [Vue(x)](packages/vue/README.md)
+[Core Hyral]: https://github.com/SyneticNL/Hyral/tree/master/packages/core
+[JSON API]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
+[Vue(x)]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
+[github releases]: https://github.com/SyneticNL/Hyral/releases
+[CONTRIBUTING]: https://github.com/SyneticNL/Hyral/blob/master/CONTRIBUTING.md
+[mit]: https://github.com/SyneticNL/Hyral/blob/master/LICENSE

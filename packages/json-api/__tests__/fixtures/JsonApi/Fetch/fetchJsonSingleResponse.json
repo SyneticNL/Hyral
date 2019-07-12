@@ -31,7 +31,10 @@
         "data": [
           {
             "type": "images",
-            "id": "0eb618b7-4af1-507d-9769-57ff9e897b52"
+            "id": "0eb618b7-4af1-507d-9769-57ff9e897b52",
+            "meta": {
+              "meta-relationships-property": "test-relationships-value"
+            }
           },
           {
             "type": "images",
@@ -39,6 +42,9 @@
           }
         ]
       }
+    },
+    "meta": {
+      "meta-property": "test-value"
     }
   },
   "included": [
@@ -48,6 +54,9 @@
       "attributes": {
         "image.name": "list-imago-tracker.jpg",
         "focusPoint": "bottom"
+      },
+      "meta": {
+        "image-meta-property": "image-test-value"
       }
     },
     {

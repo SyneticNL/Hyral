@@ -15,6 +15,7 @@
  * @property {object} data
  * @property {Object.<string, HyralResourceRelationship>|null} relationships
  * @property {object} metadata
+ * @property {object} meta
  * @property {object} state
  * @property {array} stateStack
  * @property {boolean} metadata.loading
@@ -25,21 +26,22 @@ import {
   currentState,
   mutateState,
 } from '../State/State';
-import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
  * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
+ * @param {Object|null} meta
  *
  * @returns {HyralResource}
  */
-function Resource(id = null, type, data = null, relationships = null) {
+function Resource(id = null, type, data = null, relationships = null, meta = null) {
   const state = [{
     id,
     data: data || {},
     relationships: relationships || {},
+    meta: meta || {},
   }];
 
   let metadata = {
@@ -96,11 +98,23 @@ function Resource(id = null, type, data = null, relationships = null) {
     setMetadata(value) {
       metadata = value;
     },
+
     /**
+     * get Hyral metadata.
+     *
      * @returns {{loaded: boolean, loading: boolean}}
      */
     get metadata() {
       return metadata;
+    },
+
+    /**
+     * get Resource meta information.
+     *
+     * @returns {object|null}
+     */
+    get meta() {
+      return currentState(state).meta;
     },
 
     /**
@@ -119,25 +133,25 @@ function Resource(id = null, type, data = null, relationships = null) {
   };
 }
 
-Resource.decorators = [
-  lazyLoadingDecorator,
-];
+Resource.decorators = [];
 
 /**
  * @param {string|number|null} id
  * @param {string} type
  * @param {object|null} data
  * @param {Object.<string, HyralResourceRelationship>|null} relationships
+ * @param {object|null} meta
  *
  * @returns {HyralResource}
  */
-Resource.create = (id = null, type, data = null, relationships = null) => (
+Resource.create = (id = null, type, data = null, relationships = null, meta = null) => (
   Resource.decorators.reduce((resource, decorator) => decorator(resource),
     Resource(
       id,
       type,
       data,
       relationships,
+      meta,
     ))
 );
 
@@ -152,8 +166,9 @@ Resource.create = (id = null, type, data = null, relationships = null) => (
 Resource.fromState = (id, type, state) => Resource.create(
   id,
   type,
-  state.data || {},
-  state.relationships || {},
+  state.data || null,
+  state.relationships || null,
+  state.meta || null,
 );
 
 export default Resource;

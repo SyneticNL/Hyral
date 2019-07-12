@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
 });
 
-const connector = HttpConnector(axiosInstance, jsonApi);
+const connector = HttpConnector.create(axiosInstance, jsonApi);
 
 // Create a repository for each resource type you want to use.
 export const bookRepository = repositoryManager.createRepository(connector, 'book');
@@ -73,7 +73,7 @@ products.setSorting([{ field: 'title', direction: 'asc' }]);
 
 console.log(products.isLoading);
 
-products.load(() => {
+products.load().then(() => {
   console.log(products.items);
   console.log(products.pages);
   console.log(products.length);

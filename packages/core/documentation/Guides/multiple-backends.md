@@ -23,13 +23,13 @@ const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
 });
 
-const connector = HttpConnector(axiosInstance, jsonApi);
+const connector = HttpConnector.create(axiosInstance, jsonApi);
 
 const axiosInstance2 = axios.create({
   baseURL: 'https://another-api-url',
 });
 
-const connector2 = HttpConnector(axiosInstance2, jsonApi);
+const connector2 = HttpConnector.create(axiosInstance2, jsonApi);
 
 export const bookRepository = repositoryManager.createRepository(connector, 'book');
 export const authorRepository = repositoryManager.createRepository(connector2, 'author');

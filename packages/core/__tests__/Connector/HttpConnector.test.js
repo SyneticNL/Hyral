@@ -11,7 +11,7 @@ describe('The http connector should have all properties necessary', () => {
   const requestSerializer = jest.fn();
   const responseNormalizer = jest.fn();
 
-  const connector = HttpConnector(
+  const connector = HttpConnector.create(
     mockAxios, {
       urlSerializer,
       paramsSerializer,
@@ -65,7 +65,7 @@ describe('The fetch method', () => {
   };
   axiosMock.create = jest.fn(() => axiosMock);
 
-  const connector = HttpConnector(
+  const connector = HttpConnector.create(
     axiosMock,
     {
       urlSerializer,
@@ -119,7 +119,7 @@ describe('The fetchOne method', () => {
   };
   axiosMock.create = jest.fn(() => axiosMock);
 
-  const connector = HttpConnector(
+  const connector = HttpConnector.create(
     axiosMock,
     {
       urlSerializer,
@@ -166,7 +166,7 @@ describe('The create/update/delete/relation methods', () => {
     defaults: {},
   };
 
-  const connector = HttpConnector(
+  const connector = HttpConnector.create(
     axiosMock,
     {
       urlSerializer,
@@ -222,7 +222,7 @@ describe('The create http connector should create a objects', () => {
   const requestSerializer = jest.fn();
   const responseNormalizer = jest.fn();
 
-  const connector1 = HttpConnector(
+  const connector1 = HttpConnector.create(
     mockAxios,
     {
       urlSerializer: urlSerializer1,
@@ -232,7 +232,7 @@ describe('The create http connector should create a objects', () => {
     },
   );
 
-  const connector2 = HttpConnector(
+  const connector2 = HttpConnector.create(
     mockAxios,
     {
       urlSerializer: urlSerializer2,
@@ -260,7 +260,7 @@ describe('The axios instance configuration', () => {
   };
   mockAxios.create = jest.fn(() => cloneDeep(mockAxios));
 
-  const connector = HttpConnector(
+  const connector = HttpConnector.create(
     mockAxios,
     {
       urlSerializer,

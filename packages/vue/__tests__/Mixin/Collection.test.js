@@ -73,6 +73,7 @@ describe('The Collection mixin', () => {
       },
     }, collectionMixin);
 
+    expect.assertions(1);
     return mixin.serverPrefetch.call(mixin).catch(() => {
       expect(mixin.$store.getters['hyral_product/collection']).not.toHaveBeenCalled();
     });
