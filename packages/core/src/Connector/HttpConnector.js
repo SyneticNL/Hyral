@@ -25,7 +25,7 @@
 /**
  * @param {AxiosInstance} axios
  * @param {Object} transformers
- * @oaran {function} transformers.urlSerializer
+ * @param {function} transformers.urlSerializer
  * @param {function} transformers.paramsSerializer
  * @param {function} transformers.requestSerializer
  * @param {function} transformers.responseNormalizer
@@ -124,5 +124,39 @@ function HttpConnector(
     },
   };
 }
+
+
+HttpConnector.decorators = [];
+
+/**
+ * @param {AxiosInstance} axios
+ * @param {Object} transformers
+ * @param {function} transformers.urlSerializer
+ * @param {function} transformers.paramsSerializer
+ * @param {function} transformers.requestSerializer
+ * @param {function} transformers.responseNormalizer
+ *
+ * @returns {HyralConnector}
+ */
+HttpConnector.create = (
+  axios,
+  {
+    urlSerializer,
+    paramsSerializer,
+    requestSerializer,
+    responseNormalizer,
+  },
+) => (
+  HttpConnector.decorators.reduce((instance, decorator) => decorator(instance),
+    HttpConnector(
+      axios,
+      {
+        urlSerializer,
+        paramsSerializer,
+        requestSerializer,
+        responseNormalizer,
+      },
+    ))
+);
 
 export default HttpConnector;

@@ -27,7 +27,7 @@ Object.assign(repositoryManager, {
    * @returns HyralRepository
    */
   createRepository(connector, resourceType, identifier = 'id') {
-    const repository = Repository(connector, resourceType, identifier);
+    const repository = Repository.create(connector, resourceType, identifier);
 
     repositoryManager.addRepository(repository);
 
