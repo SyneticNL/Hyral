@@ -131,7 +131,7 @@ HttpConnector.decorators = [];
 /**
  * @param {AxiosInstance} axios
  * @param {Object} transformers
- * @oaran {function} transformers.urlSerializer
+ * @oaram {function} transformers.urlSerializer
  * @param {function} transformers.paramsSerializer
  * @param {function} transformers.requestSerializer
  * @param {function} transformers.responseNormalizer
