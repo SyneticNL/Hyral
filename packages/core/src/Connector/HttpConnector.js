@@ -25,7 +25,7 @@
 /**
  * @param {AxiosInstance} axios
  * @param {Object} transformers
- * @oaran {function} transformers.urlSerializer
+ * @param {function} transformers.urlSerializer
  * @param {function} transformers.paramsSerializer
  * @param {function} transformers.requestSerializer
  * @param {function} transformers.responseNormalizer
@@ -131,7 +131,7 @@ HttpConnector.decorators = [];
 /**
  * @param {AxiosInstance} axios
  * @param {Object} transformers
- * @oaram {function} transformers.urlSerializer
+ * @param {function} transformers.urlSerializer
  * @param {function} transformers.paramsSerializer
  * @param {function} transformers.requestSerializer
  * @param {function} transformers.responseNormalizer
