@@ -15,14 +15,14 @@ API('s).
 * Framework agnostic
 * Backend agnostic
 * ORM-like interface and features
-* [Hypermedia oriented](documentation/Guides/hypermedia.md)
+* [Hypermedia oriented]
 * Support for multiple backends with 1 interface
 * Full test-coverage
 * Modern codebase with immutability, state management and promises
 
 ## Additional features
-* [JsonApi integration](../../packages/json-api/README.md)
-* [Vue(x) integration](../../packages/vue/README.md)
+* [JsonApi integration]
+* [Vue(x) integration]
 
 ## Getting started
 
@@ -39,4 +39,9 @@ npm install @hyral/vue
 ```
 
 ### Quick start
-[Quick start guide](documentation/Guides/quick-start.md)
+[Quick start guide]
+
+[Hypermedia oriented]: documentation/Guides/hypermedia.md
+[JsonApi integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
+[Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
+[Quick start guide]: documentation/Guides/quick-start.md
