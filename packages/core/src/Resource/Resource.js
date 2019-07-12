@@ -169,9 +169,9 @@ Resource.create = (id = null, type, data = null, relationships = null, meta = nu
 Resource.fromState = (id, type, state) => Resource.create(
   id,
   type,
-  state.data || {},
-  state.relationships || {},
-  state.meta || {},
+  state.data || null,
+  state.relationships || null,
+  state.meta || null,
 );
 
 export default Resource;
