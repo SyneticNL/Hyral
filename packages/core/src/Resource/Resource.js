@@ -26,7 +26,6 @@ import {
   currentState,
   mutateState,
 } from '../State/State';
-import lazyLoadingDecorator from './Decorator/Resource/lazyLoadingDecorator';
 
 /**
  * @param {string|number|null} id
@@ -134,9 +133,7 @@ function Resource(id = null, type, data = null, relationships = null, meta = nul
   };
 }
 
-Resource.decorators = [
-  lazyLoadingDecorator,
-];
+Resource.decorators = [];
 
 /**
  * @param {string|number|null} id

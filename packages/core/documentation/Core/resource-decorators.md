@@ -16,7 +16,14 @@ approach easier to implement. You don't have to include all entities in the firs
 If you show the author on a book Hyral will lazy-load the author resource once the data is accessed. A UI framework
 with reactive property watching (Vue for example) will automatically refresh your template once the author is loaded.
 
-The decorator is enabled by default. To disable this feature remove it from the `Resource.decorators` array.
+Enable this decorator by adding it to the Resource decorators.
+
+```javascript
+import lazyLoadingDecorator from '@hyral/core/lib/Resource/Decorator/Resource/lazyLoadingDecorator';
+import Resource from '@hyral/core/lib/Resource/Resource';
+
+Resource.decorators.push(lazyLoadingDecorator);
+```
 
 ### Relationships decorator
 This decorator enables defining the relationships once and not or Resource.create().
