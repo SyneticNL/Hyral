@@ -39,6 +39,9 @@
           }
         ]
       }
+    },
+    "meta": {
+      "meta-property": "test-value"
     }
   },
   "included": [
