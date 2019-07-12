@@ -20,7 +20,7 @@ export default function relationshipGetResource(item, includedRelations) {
     {},
     resource.state,
     {
-      meta: Object.assign({}, resource.state.meta || {}, item.meta),
+      meta: Object.assign({}, resource.state.meta, item.meta),
     },
   ));
 }
