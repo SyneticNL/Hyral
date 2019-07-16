@@ -51,7 +51,7 @@ describe('The Collection mixin', () => {
     const mixin = Object.assign({
       resourceType: 'product',
       collectionName: 'products',
-      loadResource: collectionMixin.methods.loadResource,
+      loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
     }, collectionMixin);
 

@@ -29,10 +29,6 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule({
       resourceType: 'product',
-    }, {
-      commit: jest.fn(() => {
-        state.resources[2] = { id: '2', resourceType: 'product' };
-      }),
     });
 
     const getter = module.getters.resource(state);
@@ -43,6 +39,7 @@ describe('The createStoreModule', () => {
     expect(foundProduct.id).toEqual(product.id);
     expect(foundProduct.data.title).toEqual(product.data.title);
     expect(foundProduct2.id).toEqual(2);
+    expect(foundProduct2.data).toEqual({});
   });
 
   test('that it is possible to get a collection from the store', () => {
@@ -148,7 +145,7 @@ describe('The createStoreModule', () => {
       commit: jest.fn(),
     });
 
-    const mockModule = { commit: jest.fn() };
+    const mockModule = { state: { resources: {} }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
       expect(mockRepository.findById).toHaveBeenCalledWith('1');
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);

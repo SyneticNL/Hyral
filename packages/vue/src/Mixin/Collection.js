@@ -20,17 +20,17 @@ export default {
 
     // return the Promise from the action
     // so that the component waits before rendering
-    return this.loadResource();
+    return this.loadCollection();
   },
   mounted() {
     if (!this.collectionName || !this.resourceType) {
       return;
     }
 
-    this.loadResource();
+    this.loadCollection();
   },
   methods: {
-    loadResource() {
+    loadCollection() {
       return this.collection.load();
     },
   },

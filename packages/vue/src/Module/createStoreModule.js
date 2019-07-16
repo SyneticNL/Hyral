@@ -18,13 +18,11 @@ const createStoreModule = (repository, store) => ({
   },
 
   getters: {
-    resource: state => (id) => {
-      if (!state.resources[id]) {
-        store.commit(`hyral_${repository.resourceType}/SET_RESOURCE`, { id, type: repository.resourceType });
-      }
-
-      return Resource.fromState(id, repository.resourceType, state.resources[id]);
-    },
+    resource: state => id => Resource.fromState(
+      id,
+      repository.resourceType,
+      state.resources[id] || {},
+    ),
     collection: state => (name) => {
       if (!state.collections[name]) {
         store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {});
@@ -44,7 +42,11 @@ const createStoreModule = (repository, store) => ({
   },
 
   actions: {
-    LOAD_RESOURCE({ commit }, id) {
+    LOAD_RESOURCE({ state, commit }, id) {
+      if (!state.resources[id]) {
+        commit('SET_RESOURCE', { id, type: repository.resourceType });
+      }
+
       return repository.findById(id).then((resource) => {
         commit('SET_RESOURCE', resource);
       });

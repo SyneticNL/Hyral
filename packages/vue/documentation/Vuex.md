@@ -8,10 +8,10 @@ Each module will provide getters, mutations and actions for Resource and Collect
 Example functions for a book repository:
 
 ```javascript
-// Get a resource (loaded or not).
+// Get a resource. Call LOAD_RESOURCE first for Vue reactivity to work properly.
 $store.getters['hyral_book/resource'](id)
 
-// Get a collection (will provision if  it does not exist).
+// Get a collection (will provision if it does not exist).
 $store.getters['hyral_book/collection'](name)
 
 // Commit an updated Resource to the store.
@@ -20,7 +20,7 @@ $store.commit('hyral_book/SET_RESOURCE', resource)
 // Any change to the Collection will be automatically committed and you generally will not need this mutation.
 $store.commit('hyral_book/SET_COLLECTION', collection)
 
-// Will commit the resource to the store once loaded.
+// Will commit the resource to the store once loaded, will immediately commit an empty resource.
 $store.dispatch('hyral_book/LOAD_RESOURCE', id)
 
 // Will trigger the collection.load() method. You can also just call the load method directly.
