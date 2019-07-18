@@ -14,7 +14,7 @@ The project has extensive test coverage with Jest.
 Run the test-suite a single time with `npm run test`. To watch and automatically execute on file change 
 run `npm run test:watch`. 
 
-All Pull Requests should have 100% test-covered. Run `run run test:coverage` to see a report.
+All Pull Requests should have 100% test-covered. Run `npm run test:coverage` to see a report.
 
 ## Setup
 
