@@ -23,13 +23,12 @@ const createStoreModule = (repository, store) => ({
       repository.resourceType,
       state.resources[id] || {},
     ),
-    collection: state => (name) => {
-      if (!state.collections[name]) {
-        store.commit(`hyral_${repository.resourceType}/SET_COLLECTION`, {});
-      }
-
-      return createVuexCollectionFromState(name, state.collections[name], repository, store);
-    },
+    collection: state => name => createVuexCollectionFromState(
+      name,
+      state.collections[name] || {},
+      repository,
+      store,
+    ),
   },
 
   mutations: {

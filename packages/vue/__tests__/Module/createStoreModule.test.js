@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
 import createStoreModule from '../../src/Module/createStoreModule';
 import Resource from '../../../core/src/Resource/Resource';
 import Collection from '../../../core/src/Resource/Collection';
@@ -150,5 +152,25 @@ describe('The createStoreModule', () => {
       expect(mockRepository.findById).toHaveBeenCalledWith('1');
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
+  });
+
+
+  test('that the Vuex store is correctly initialized', () => {
+    const product = Resource.create('1', 'product', { title: 'A great product' });
+
+    const mockRepository = {
+      resourceType: 'product',
+      findById: jest.fn(() => Promise.resolve(product)),
+    };
+
+    Vue.use(Vuex);
+    const store = new Vuex.Store({});
+
+    store.registerModule('product', createStoreModule(mockRepository, store));
+
+    store.commit('product/SET_RESOURCE', product);
+
+    const storeProduct = store.getters['product/resource']('1');
+    expect(storeProduct.data.title).toEqual(product.data.title);
   });
 });
