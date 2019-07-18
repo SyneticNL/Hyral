@@ -107,7 +107,7 @@ describe('The createStoreModule', () => {
     module.mutations.SET_RESOURCE(state, product);
 
     expect(state.resources).toHaveProperty('1');
-    expect(state.resources['1']).toBe(product.state);
+    expect(state.resources['1']).toEqual(product.state);
   });
 
   test('that it is possible to load the results for a collection in the store', () => {

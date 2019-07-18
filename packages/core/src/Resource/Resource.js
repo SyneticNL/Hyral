@@ -21,7 +21,7 @@
  * @property {boolean} metadata.loading
  * @property {boolean} metadata.loaded
  */
-
+import mapValues from 'lodash/mapValues';
 import {
   currentState,
   mutateState,
@@ -128,7 +128,23 @@ function Resource(id = null, type, data = null, relationships = null, meta = nul
      * @returns {Object}
      */
     get state() {
-      return currentState(state);
+      const normalState = currentState(state);
+
+      const relationData = mapValues(normalState.relationships, (relation, relationKey) => {
+        if (!normalState.data[relationKey]) {
+          return null;
+        }
+
+        if (Array.isArray(normalState.data[relationKey])) {
+          return normalState.data[relationKey].map(value => value.state);
+        }
+
+        return normalState.data[relationKey].state;
+      });
+
+      return Object.assign({}, normalState, {
+        data: Object.assign({}, normalState.data, relationData),
+      });
     },
   };
 }
@@ -163,12 +179,36 @@ Resource.create = (id = null, type, data = null, relationships = null, meta = nu
  *
  * @returns {HyralResource}
  */
-Resource.fromState = (id, type, state) => Resource.create(
-  id,
-  type,
-  state.data || null,
-  state.relationships || null,
-  state.meta || null,
-);
+Resource.fromState = (id, type, state) => {
+  const relationData = mapValues(state.relationships, (relation, relationKey) => {
+    if (!state.data[relationKey]) {
+      return null;
+    }
+
+    if (Array.isArray(state.data[relationKey])) {
+      return state.data[relationKey].map(value => Resource.fromState(
+        state.data[relationKey].id,
+        relation.resource,
+        value || null,
+      ));
+    }
+
+    return Resource.fromState(
+      state.data[relationKey].id,
+      relation.resource,
+      state.data[relationKey] || null,
+    );
+  });
+
+  const resourceData = Object.assign({}, state.data, relationData);
+
+  return Resource.create(
+    id,
+    type,
+    Object.getOwnPropertyNames(resourceData).length ? resourceData : null,
+    state.relationships || null,
+    state.meta || null,
+  );
+};
 
 export default Resource;
