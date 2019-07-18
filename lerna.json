@@ -2,5 +2,14 @@
   "packages": [
     "packages/*"
   ],
+  "changelog": {
+    "labels": {
+      "enhancement": "New Feature",
+      "core": "Core",
+      "bug": "Bug Fix",
+      "documentation": "Documentation",
+      "breaking": "Breaking change",
+    }
+  },
   "version": "1.1.0"
 }

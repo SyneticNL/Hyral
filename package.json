@@ -57,6 +57,7 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.5.1",
     "jest": "^24.7.1",
-    "lerna": "^3.13.4"
+    "lerna": "^3.13.4",
+    "lerna-changelog": "^0.8.2"
   }
 }
