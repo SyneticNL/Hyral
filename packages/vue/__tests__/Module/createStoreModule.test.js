@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
 import createStoreModule from '../../src/Module/createStoreModule';
 import Resource from '../../../core/src/Resource/Resource';
 import Collection from '../../../core/src/Resource/Collection';
@@ -29,10 +31,6 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule({
       resourceType: 'product',
-    }, {
-      commit: jest.fn(() => {
-        state.resources[2] = { id: '2', resourceType: 'product' };
-      }),
     });
 
     const getter = module.getters.resource(state);
@@ -43,6 +41,7 @@ describe('The createStoreModule', () => {
     expect(foundProduct.id).toEqual(product.id);
     expect(foundProduct.data.title).toEqual(product.data.title);
     expect(foundProduct2.id).toEqual(2);
+    expect(foundProduct2.data).toEqual({});
   });
 
   test('that it is possible to get a collection from the store', () => {
@@ -148,10 +147,30 @@ describe('The createStoreModule', () => {
       commit: jest.fn(),
     });
 
-    const mockModule = { commit: jest.fn() };
+    const mockModule = { state: { resources: {} }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
       expect(mockRepository.findById).toHaveBeenCalledWith('1');
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
+  });
+
+
+  test('that the Vuex store is correctly initialized', () => {
+    const product = Resource.create('1', 'product', { title: 'A great product' });
+
+    const mockRepository = {
+      resourceType: 'product',
+      findById: jest.fn(() => Promise.resolve(product)),
+    };
+
+    Vue.use(Vuex);
+    const store = new Vuex.Store({});
+
+    store.registerModule('product', createStoreModule(mockRepository, store));
+
+    store.commit('product/SET_RESOURCE', product);
+
+    const storeProduct = store.getters['product/resource']('1');
+    expect(storeProduct.data.title).toEqual(product.data.title);
   });
 });

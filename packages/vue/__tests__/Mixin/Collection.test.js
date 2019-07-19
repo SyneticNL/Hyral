@@ -51,7 +51,11 @@ describe('The Collection mixin', () => {
     const mixin = Object.assign({
       resourceType: 'product',
       collectionName: 'products',
-      loadResource: collectionMixin.methods.loadResource,
+      $store: {
+        commit: jest.fn(),
+      },
+      initCollection: collectionMixin.methods.initCollection,
+      loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
     }, collectionMixin);
 

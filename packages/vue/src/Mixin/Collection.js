@@ -13,24 +13,35 @@ export default {
       return collection;
     },
   },
+  /**
+   * Execute server prefetch actions.
+   *
+   * Returns the Promise from the action so that the component waits before rendering.
+   *
+   * @returns {Promise}
+   */
   serverPrefetch() {
     if (!this.collectionName || !this.resourceType) {
       return Promise.reject();
     }
 
-    // return the Promise from the action
-    // so that the component waits before rendering
-    return this.loadResource();
+    this.initCollection();
+
+    return this.loadCollection();
   },
   mounted() {
     if (!this.collectionName || !this.resourceType) {
       return;
     }
 
-    this.loadResource();
+    this.initCollection();
+    this.loadCollection();
   },
   methods: {
-    loadResource() {
+    initCollection() {
+      this.$store.commit(`hyral_${this.resourceType}/SET_COLLECTION`, this.collection);
+    },
+    loadCollection() {
       return this.collection.load();
     },
   },
