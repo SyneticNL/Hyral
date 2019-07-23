@@ -2,7 +2,7 @@ import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import { previousState } from '../../../State/State';
-import { resourceIsNew } from '../Inspection';
+import { resourceHasChanged, resourceIsNew } from '../Inspection';
 
 /**
  * @param {HyralResource} resource
@@ -47,12 +47,12 @@ export function getChangedResourceRelations(resource) {
     return [];
   }
 
-  if (!resourceIsNew(resource) && previousState(resource.stateStack) === null) {
-    return [];
+  if (resourceIsNew(resource)) {
+    return Object.keys(resource.relationships);
   }
 
-  if (resourceIsNew(resource) && previousState(resource.stateStack) === null) {
-    return Object.keys(resource.relationships);
+  if (!resourceHasChanged(resource)) {
+    return [];
   }
 
   return Object.keys(resource.relationships).filter(relation => !isEqual(
@@ -75,7 +75,11 @@ export function getDeletedOneToOneRelatedResources(resource) {
     return [];
   }
 
-  if (resourceIsNew(resource) || previousState(resource.stateStack) === null) {
+  if (resourceIsNew(resource)) {
+    return [];
+  }
+
+  if (!resourceHasChanged(resource)) {
     return [];
   }
 
