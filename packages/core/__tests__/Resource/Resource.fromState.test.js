@@ -46,64 +46,25 @@ describe('Resource.fromState functionality', () => {
           },
           meta: {},
         },
-        publications: [
+        publication: [
           {
             id: 3,
-            type: 'publication',
             data: {
               name: 'Publication 1',
             },
             relationships: {},
-            metadata: {},
             meta: {},
-            stateStack: [
-              {
-                id: 3,
-                data: {
-                  name: 'Publication 1',
-                },
-                relationships: {},
-                meta: {},
-              },
-            ],
-            state: {
-              id: 3,
-              data: {
-                name: 'Publication 1',
-              },
-              relationships: {},
-              meta: {},
-            },
           },
           {
             id: 4,
-            type: 'publication',
             data: {
               name: 'Publication 2',
             },
             relationships: {},
-            metadata: {},
             meta: {},
-            stateStack: [
-              {
-                id: 4,
-                data: {
-                  name: 'Publication 2',
-                },
-                relationships: {},
-                meta: {},
-              },
-            ],
-            state: {
-              id: 4,
-              data: {
-                name: 'Publication 2',
-              },
-              relationships: {},
-              meta: {},
-            },
           },
         ],
+        coAuthor: null,
       },
       relationships: {
         author: {
@@ -129,5 +90,6 @@ describe('Resource.fromState functionality', () => {
     expect(() => resource.relationships).not.toThrow(TypeError);
     expect(resource.data.author).toHaveProperty('setMetadata');
     expect(resource.data.author.data.authorImage).toHaveProperty('setMetadata');
+    expect(resource.data.publication[0]).toHaveProperty('setMetadata');
   });
 });

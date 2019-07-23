@@ -66,7 +66,7 @@ describe('The Resource state', () => {
     const book = Resource.create(2, 'book', {
       title: 'John\'s biography',
       author,
-      publications: [
+      publication: [
         publication1,
         publication2,
       ],
@@ -93,6 +93,10 @@ describe('The Resource state', () => {
     expect(book.state.data.author.data.authorImage).not.toBe(authorImage);
     expect(book.state.data.author.data.authorImage).not.toHaveProperty('setMetadata');
     expect(book.state.data.author.data.authorImage).toStrictEqual(authorImage.state);
+
+    expect(book.state.data.publication[0]).not.toBe(publication1);
+    expect(book.state.data.publication[0]).not.toHaveProperty('setMetadata');
+    expect(book.state.data.publication[0]).toStrictEqual(publication1.state);
   });
 
 });
