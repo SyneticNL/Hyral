@@ -60,12 +60,12 @@ describe('The Resource mixin', () => {
     }, resourceMixin);
 
     mixin.serverPrefetch.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', {});
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', null);
 
     mixin.$store.dispatch.mockClear();
 
     mixin.mounted.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', {});
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', null);
   });
 
   test('that a resource with a parameter bag will be loaded on initialization of the component', () => {

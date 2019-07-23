@@ -41,12 +41,12 @@ const createStoreModule = (repository, store) => ({
   },
 
   actions: {
-    LOAD_RESOURCE({ state, commit }, id, parameterBag) {
+    LOAD_RESOURCE({ state, commit }, id, parameterBag = null) {
       if (!state.resources[id]) {
         commit('SET_RESOURCE', { id, type: repository.resourceType });
       }
 
-      return repository.findById(id, (typeof parameterBag === 'undefined') ? {} : parameterBag).then((resource) => {
+      return repository.findById(id, parameterBag).then((resource) => {
         commit('SET_RESOURCE', resource);
       });
     },

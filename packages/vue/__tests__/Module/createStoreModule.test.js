@@ -150,7 +150,7 @@ describe('The createStoreModule', () => {
 
     const mockModule = { state: { resources: {} }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
-      expect(mockRepository.findById).toHaveBeenCalledWith('1', {});
+      expect(mockRepository.findById).toHaveBeenCalledWith('1', null);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
   });
@@ -172,8 +172,7 @@ describe('The createStoreModule', () => {
 
     return module.actions.LOAD_RESOURCE(mockModule, '1', parameterBag).then(() => {
       expect(mockRepository.findById).toHaveBeenCalledWith('1', parameterBag);
-      expect(mockRepository.findById.mock.calls[0]).toHaveLength(2);
-      expect(mockRepository.findById.mock.calls[0][1]).toEqual(parameterBag);
+      expect(mockRepository.findById).toHaveBeenCalledTimes(1);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
 

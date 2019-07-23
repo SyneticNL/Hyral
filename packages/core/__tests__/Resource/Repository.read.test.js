@@ -119,8 +119,8 @@ describe('The resource repository', () => {
     parameterBag.addParam('include', 'relation1,relation2');
 
     repository.findById(12, parameterBag);
-    expect(connectorFindOne.fetchOne.mock.calls).toHaveLength(1);
-    expect(connectorFindOne.fetchOne.mock.calls[0]).toHaveLength(3);
-    expect(connectorFindOne.fetchOne.mock.calls[0][2]).toEqual(parameterBag);
+
+    expect(connectorFindOne.fetchOne).toHaveBeenCalledTimes(1);
+    expect(connectorFindOne.fetchOne).toHaveBeenCalledWith(repository, 12, parameterBag);
   });
 });

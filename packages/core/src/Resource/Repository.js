@@ -40,8 +40,8 @@ export default function Repository(connector, resourceType, identifier) {
      * @param {ParameterBag} parameterBag
      * @returns {Promise<Resource>}
      */
-    findById(id, parameterBag) {
-      return connector.fetchOne(this, id, (typeof parameterBag === 'undefined') ? {} : parameterBag).then(
+    findById(id, parameterBag = null) {
+      return connector.fetchOne(this, id, parameterBag).then(
         response => (response && response.data && response.data.data ? response.data.data : null),
       );
     },
