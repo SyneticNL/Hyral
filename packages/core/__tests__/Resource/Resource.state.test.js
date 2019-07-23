@@ -48,4 +48,55 @@ describe('The Resource state', () => {
     expect(book.data.author.data.name).toEqual('An even greater author');
   });
 
+  test('Test that serialization of a resource state works', () => {
+    const authorImage = Resource.create(5, 'authorImage', { src: 'image.jpg' });
+    const publication1 = Resource.create(3, 'publication', { name: 'Publication 1'});
+    const publication2 = Resource.create(4, 'publication', { name: 'Publication 2'});
+
+    const author = Resource.create(1, 'author', {
+      name: 'John',
+      authorImage,
+    }, {
+      authorImage: {
+        cardinality: 'many-to-one',
+        resource: 'authorImage',
+      },
+    });
+
+    const book = Resource.create(2, 'book', {
+      title: 'John\'s biography',
+      author,
+      publication: [
+        publication1,
+        publication2,
+      ],
+    }, {
+      author: {
+        cardinality: 'many-to-one',
+        resource: 'author',
+      },
+      publication: {
+        cardinality: 'one-to-many',
+        resource: 'publication',
+        many: true,
+      },
+      coAuthor: {
+        cardinality: 'many-to-one',
+        resource: 'author',
+      },
+    });
+
+    expect(book.state.data.author).not.toBe(author);
+    expect(book.state.data.author).not.toHaveProperty('setMetadata');
+    expect(book.state.data.author).toStrictEqual(author.state);
+
+    expect(book.state.data.author.data.authorImage).not.toBe(authorImage);
+    expect(book.state.data.author.data.authorImage).not.toHaveProperty('setMetadata');
+    expect(book.state.data.author.data.authorImage).toStrictEqual(authorImage.state);
+
+    expect(book.state.data.publication[0]).not.toBe(publication1);
+    expect(book.state.data.publication[0]).not.toHaveProperty('setMetadata');
+    expect(book.state.data.publication[0]).toStrictEqual(publication1.state);
+  });
+
 });
