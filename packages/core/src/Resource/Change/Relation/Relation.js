@@ -2,7 +2,7 @@ import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import { previousState } from '../../../State/State';
-import { resourceIsNew } from '../Inspection';
+import { resourceHasChanged, resourceIsNew } from '../Inspection';
 
 /**
  * @param {HyralResource} resource
@@ -47,12 +47,12 @@ export function getChangedResourceRelations(resource) {
     return [];
   }
 
-  if (!resourceIsNew(resource) && previousState(resource.stateStack) === null) {
-    return [];
+  if (resourceIsNew(resource)) {
+    return Object.keys(resource.relationships);
   }
 
-  if (resourceIsNew(resource) && previousState(resource.stateStack) === null) {
-    return Object.keys(resource.relationships);
+  if (!resourceHasChanged(resource)) {
+    return [];
   }
 
   return Object.keys(resource.relationships).filter(relation => !isEqual(
@@ -63,4 +63,31 @@ export function getChangedResourceRelations(resource) {
       relatedResource => relatedResource.id,
     ),
   ));
+}
+
+/**
+ * @param {HyralResource} resource
+ *
+ * @returns {HyralResource[]}
+ */
+export function getDeletedOneToOneRelatedResources(resource) {
+  if (!resource.relationships) {
+    return [];
+  }
+
+  if (resourceIsNew(resource)) {
+    return [];
+  }
+
+  if (!resourceHasChanged(resource)) {
+    return [];
+  }
+
+  return Object.keys(resource.relationships)
+    .filter(relation => resource.relationships[relation].cardinality === 'one-to-one')
+    .filter(relation => getRelatedResources(resource, relation).length === 0)
+    .filter(
+      relation => getRelatedResources(previousState(resource.stateStack), relation).length !== 0,
+    )
+    .map(relation => getRelatedResources(previousState(resource.stateStack), relation)[0]);
 }

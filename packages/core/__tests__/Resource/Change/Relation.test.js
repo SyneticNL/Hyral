@@ -1,7 +1,7 @@
 import Resource from '../../../src/Resource/Resource';
 import {
   getChangedResourceRelations,
-  getAllRelatedResources,
+  getAllRelatedResources, getDeletedOneToOneRelatedResources,
 } from '../../../src/Resource/Change/Relation/Relation';
 import { resourceHasChanged } from '../../../src/Resource/Change/Inspection';
 
@@ -94,10 +94,42 @@ describe('Relation tests', () => {
     });
 
     author.data = {
-      name: 'An even greated author',
+      name: 'An even greater author',
     };
 
     const changedRelations = getChangedResourceRelations(resource);
     expect(changedRelations).toHaveLength(0);
+  });
+
+  test('that a correct list of deleted one-to-one resources is returned', () => {
+    const author = Resource.create(2, 'author', { name: 'A great author' });
+    const thumb = Resource.create('2', 'image', { src: 'some/image2.png' });
+    const resource = Resource.create(1, 'book', {
+      title: 'A great book',
+      author,
+      thumb,
+    }, {
+      author: {
+        resource: 'author',
+        cardinality: 'many-to-one',
+      },
+      thumb: {
+        resource: 'image',
+        cardinality: 'one-to-one',
+      },
+      coverStory: {
+        resource: 'cover-story',
+        cardinality: 'one-to-one',
+      },
+    });
+
+    resource.data = {
+      title: 'A great book',
+    };
+
+    const deletedResources = getDeletedOneToOneRelatedResources(resource);
+
+    expect(deletedResources).toHaveLength(1);
+    expect(deletedResources[0]).toBe(thumb);
   });
 });

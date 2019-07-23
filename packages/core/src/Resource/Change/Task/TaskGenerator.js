@@ -4,6 +4,7 @@ import Task from './Task';
 import {
   getAllRelatedResources,
   getChangedResourceRelations,
+  getDeletedOneToOneRelatedResources,
   getRelatedResources,
 } from '../Relation/Relation';
 import setTaskDependencies from './Helpers/setTaskDependencies';
@@ -58,6 +59,8 @@ export default function TaskGenerator(tasks, repositoryManager) {
       related.forEach(
         relatedResource => this.persistCascadeResource(relatedResource),
       );
+
+      getDeletedOneToOneRelatedResources(resource).map(this.deleteResource);
 
       setTaskDependencies(tasks);
     },
