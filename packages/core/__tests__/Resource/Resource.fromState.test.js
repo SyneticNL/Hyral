@@ -90,6 +90,10 @@ describe('Resource.fromState functionality', () => {
     expect(() => resource.relationships).not.toThrow(TypeError);
     expect(resource.data.author).toHaveProperty('setMetadata');
     expect(resource.data.author.data.authorImage).toHaveProperty('setMetadata');
+    expect(resource.data.publication[0].data.name).toEqual('Publication 1');
     expect(resource.data.publication[0]).toHaveProperty('setMetadata');
+    expect(resource.data.publication[1].data.name).toEqual('Publication 2');
+    expect(resource.data.publication[1]).toHaveProperty('setMetadata')
+    expect(resource.data.coAuthor).toEqual(null);
   });
 });
