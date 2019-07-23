@@ -1,5 +1,6 @@
 import Resource from '../../../core/src/Resource/Resource';
 import resourceMixin from '../../src/Mixin/Resource';
+import ParameterBag from '@hyral/core/src/Resource/ParameterBag';
 
 describe('The Resource mixin', () => {
   test('that a resource is available as a computed property', () => {
@@ -59,11 +60,34 @@ describe('The Resource mixin', () => {
     }, resourceMixin);
 
     mixin.serverPrefetch.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1');
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', {});
 
     mixin.$store.dispatch.mockClear();
 
     mixin.mounted.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1');
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '1', {});
+  });
+
+  test('that a resource with a parameter bag will be loaded on initialization of the component', () => {
+    const parameterBag = ParameterBag();
+    parameterBag.addParam('include', 'relation1');
+
+    const mixin = Object.assign({
+      resourceType: 'product',
+      id: '2',
+      $store: {
+        dispatch: jest.fn(),
+      },
+      parameterBag,
+      loadResource: resourceMixin.methods.loadResource,
+    }, resourceMixin);
+
+    mixin.serverPrefetch.call(mixin);
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '2', parameterBag);
+
+    mixin.$store.dispatch.mockClear();
+
+    mixin.mounted.call(mixin);
+    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_product/LOAD_RESOURCE', '2', parameterBag);
   });
 });
