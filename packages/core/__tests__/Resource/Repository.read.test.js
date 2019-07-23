@@ -116,7 +116,7 @@ describe('The resource repository', () => {
     };
     const repository = repositoryManager.createRepository(connectorFindOne, 'testtype12', identifier);
     const parameterBag = ParameterBag();
-    parameterBag.setParams('include', 'relation1,relation2');
+    parameterBag.addParam('include', 'relation1,relation2');
 
     repository.findById(12, parameterBag);
     expect(connectorFindOne.fetchOne.mock.calls).toHaveLength(1);
