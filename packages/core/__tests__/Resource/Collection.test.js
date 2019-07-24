@@ -1,4 +1,5 @@
 import Collection from '../../src/Resource/Collection';
+import Resource from '../../src/Resource/Resource';
 import { setState } from '../../src/State/State';
 
 describe('Collection tests', () => {
@@ -8,8 +9,8 @@ describe('Collection tests', () => {
       count: 100,
     },
     data: [
-      { id: '1', type: 'products', data: { title: 'Product 1' } },
-      { id: '2', type: 'products', data: { title: 'Product 2' } },
+      Resource.create('1', 'products', { title: 'Product 1' }),
+      Resource.create('2', 'products', { title: 'Product 2' }),
     ],
   };
 
@@ -71,13 +72,11 @@ describe('Collection tests', () => {
     expect(collection.state.metadata).toHaveProperty('paging');
   });
 
+  const product1 = Resource.create('1', 'products', { title: 'Product 1' });
   const state = {
     data: {
       items: [
-        {
-          id: 1,
-          title: 'title',
-        },
+        { id: '1', type: 'products', state: product1.state },
       ],
     },
     metadata: {
@@ -96,7 +95,8 @@ describe('Collection tests', () => {
     setState(newCollection.stateStack, state);
 
     expect(newCollection.name).toEqual('test');
-    expect(newCollection.items).toEqual(state.data.items);
+    expect(newCollection.items[0].id).toEqual('1');
+    expect(newCollection.items[0].data.title).toEqual('Product 1');
     expect(newCollection.isLoaded).toBeTruthy();
     expect(newCollection.isLoading).toBeFalsy();
     expect(newCollection.pages).toEqual(state.metadata.paging.pages);
@@ -106,7 +106,9 @@ describe('Collection tests', () => {
   test('that a new collection can be made based on state and repository', () => {
     const newCollection = Collection.fromState('test', state, productRepository);
     expect(newCollection.repository).toBe(productRepository);
-    expect(newCollection.items).toEqual(state.data.items);
+    expect(newCollection.items).toHaveLength(1);
+    expect(newCollection.items[0].id).toEqual('1');
+    expect(newCollection.items[0].data.title).toEqual('Product 1');
     expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
   });
 
@@ -139,8 +141,8 @@ describe('Collection tests', () => {
   test('that a response without paging information does not cause the Collection to fault', () => {
     const noPagingmockResponse = {
       data: [
-        { id: '1', type: 'products', data: { title: 'Product 1' } },
-        { id: '2', type: 'products', data: { title: 'Product 2' } },
+        Resource.create('1', 'products', { title: 'Product 1' }).state,
+        Resource.create('2', 'products', { title: 'Product 2' }).state,
       ],
     };
 
