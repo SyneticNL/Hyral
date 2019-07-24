@@ -112,6 +112,18 @@ describe('Collection tests', () => {
     expect(newCollection.isLoaded).toEqual(state.metadata.loaded);
   });
 
+  test('that the collection stores only the resource state and not the instances', () => {
+    const newCollection = Collection.fromState('test', state, productRepository);
+
+    expect(newCollection.items).toHaveLength(1);
+    expect(newCollection.state).toHaveProperty('data');
+    expect(newCollection.state.data).toHaveProperty('items');
+    expect(newCollection.state.data.items).toHaveLength(1);
+    expect(newCollection.state.data.items[0]).toHaveProperty('id');
+    expect(newCollection.state.data.items[0]).toHaveProperty('type');
+    expect(newCollection.state.data.items[0]).toHaveProperty('state');
+  });
+
   test('that a new collection can be made based on an invalid state', () => {
     const newCollection = Collection.fromState('test', {}, {});
 
