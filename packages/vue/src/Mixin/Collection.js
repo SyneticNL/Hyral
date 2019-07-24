@@ -1,4 +1,3 @@
-
 export default {
   computed: {
     collection() {
@@ -25,8 +24,6 @@ export default {
       return Promise.reject();
     }
 
-    this.initCollection();
-
     return this.loadCollection();
   },
   mounted() {
@@ -34,13 +31,9 @@ export default {
       return;
     }
 
-    this.initCollection();
     this.loadCollection();
   },
   methods: {
-    initCollection() {
-      this.$store.commit(`hyral_${this.resourceType}/SET_COLLECTION`, this.collection);
-    },
     loadCollection() {
       return this.collection.load();
     },
