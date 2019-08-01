@@ -31,7 +31,8 @@ describe('The createVuexCollectionFromState', () => {
         name: collection.name,
         state: collection.state,
       });
-      expect(store.commit).toHaveBeenCalledWith('hyral_product/SET_RESOURCE', product);
+      // Compares state, instance comparison fails because it's not the same instance anymore.
+      expect(store.commit.mock.calls[1][1].state).toEqual(product.state);
     });
   });
 

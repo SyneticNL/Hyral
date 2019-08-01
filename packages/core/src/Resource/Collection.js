@@ -9,6 +9,7 @@ import {
 } from '../State/State';
 import collectionParameterBagDecorator
   from './Decorator/Collection/parameterBagDecorator';
+import Resource from './Resource';
 
 /**
  * @param collection
@@ -29,7 +30,11 @@ function collectionLoad(collection) {
     return collection.repository.find(collection.parameterBag).then((response) => {
       mutateState(collection.stateStack, {
         data: {
-          items: response.data,
+          items: response.data.map(resource => ({
+            id: resource.id,
+            type: resource.type,
+            state: resource.state,
+          })),
         },
         metadata: Object.assign({}, collection.state.metadata, {
           loading: false,
@@ -122,7 +127,11 @@ function Collection(name, repository) {
      * @returns {Array}
      */
     get items() {
-      return currentState(state).data.items;
+      return currentState(state).data.items.map(resource => Resource.fromState(
+        resource.id,
+        resource.type,
+        resource.state,
+      ));
     },
 
     /**
