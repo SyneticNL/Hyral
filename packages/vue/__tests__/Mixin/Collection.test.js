@@ -66,6 +66,9 @@ describe('The Collection mixin', () => {
 
     mixin.mounted.call(mixin);
     expect(mockCollection.load).toHaveBeenCalled();
+
+    mixin.created.call(mixin);
+    expect(mixin.$store.commit).toHaveBeenCalled();
   });
 
   test('that the mixin handles errors on serverPrefetch', () => {
