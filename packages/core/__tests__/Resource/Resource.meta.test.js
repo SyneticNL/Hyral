@@ -5,6 +5,10 @@ describe('The Resource meta', () => {
     const resource1 = Resource.create(1, 'product', { title: 'test' }, null, { test: 'meta' });
 
     expect(resource1.meta).toEqual({ test: 'meta' });
+
+    const resource2 = Resource.create(1, 'product', { title: 'test' });
+    expect(resource2.meta).toEqual({});
+
   });
 
   test('that the meta object is not writable', () => {

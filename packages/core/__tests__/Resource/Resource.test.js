@@ -4,10 +4,15 @@ describe('The Resource', () => {
   test('that the metadata is correctly initialized', () => {
     const resource1 = Resource.create(1, 'product');
 
+    expect(resource1.id).toEqual(1);
     expect(resource1.metadata.loaded).toBeFalsy();
     expect(resource1.metadata.loading).toBeFalsy();
     expect(resource1.data).toEqual({});
     expect(resource1.relationships).toEqual({});
+
+    expect(resource1.state.data).toEqual({});
+    expect(resource1.state.meta).toEqual({});
+    expect(resource1.state.relationships).toEqual({});
 
     const resource2 = Resource.create(1, 'product', { test: 'property' });
     expect(resource2.metadata.loaded).toBeTruthy();
@@ -26,6 +31,9 @@ describe('The Resource', () => {
     expect(resource3.metadata.loading).toBeFalsy();
     expect(resource3.data).toEqual({ test: 'property' });
     expect(resource3.relationships).toEqual(resource3relationships);
+    expect(resource3.state.data).toEqual({ author: null, test: 'property' });
+    expect(resource3.state.relationships).toEqual(resource3relationships);
+
 
     const resource4 = Resource.create(null, 'product');
     expect(resource4.id).toBeNull();
