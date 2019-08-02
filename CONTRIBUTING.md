@@ -16,6 +16,33 @@ run `npm run test:watch`.
 
 All Pull Requests should have 100% test-covered. Run `npm run test:coverage` to see a report.
 
+## Commit Messages
+
+Semantic commit messages are used:
+
+```
+feat(category): added feature x
+```
+
+| Category   | Usage
+| ---------: | -----
+| `empty`    | Changes to monorepo, no change to packages (alternatively, the filename - e.g `readme`)
+| core       | Changes to the `core` package
+| json-api   | Changes to the `json-api` package
+| vue        | Changes to the `vue` package
+
+| Type     | Usage
+| -------: | -----
+| ci       | Continuous Integration changes
+| chore    | Build scripts, no production code change
+| feat     | New feature/enhancement
+| fix      | Fix a bug for users - not build related issues
+| refactor | Refactoring production code, optimisations
+| style    | Formatting changes, no code change
+| test     | Adding, refactoring or fixing tests
+
+See [conventional-changelog/commitlint] for a complete list of types and other rules.
+
 ## Setup
 
 1. Fork this repo
@@ -60,3 +87,4 @@ All Pull Requests should have 100% test-covered. Run `npm run test:coverage` to 
 1. Open a pull request
 
 [AirBnb coding standards]: https://github.com/airbnb/javascript
+[conventional-changelog/commitlint]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional

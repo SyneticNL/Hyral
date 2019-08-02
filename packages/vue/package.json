@@ -18,10 +18,12 @@
     "@hyral/core": "^1.1.0"
   },
   "peerDependencies": {
-    "vue": "^2.0"
+    "vue": "^2.0",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "vue": "^2.0"
+    "vue": "^2.0",
+    "vuex": "^3.1.1"
   },
   "repository": {
     "type": "git",

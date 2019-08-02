@@ -51,7 +51,11 @@ describe('The Collection mixin', () => {
     const mixin = Object.assign({
       resourceType: 'product',
       collectionName: 'products',
-      loadResource: collectionMixin.methods.loadResource,
+      $store: {
+        commit: jest.fn(),
+      },
+      initCollection: collectionMixin.methods.initCollection,
+      loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
     }, collectionMixin);
 
@@ -62,6 +66,9 @@ describe('The Collection mixin', () => {
 
     mixin.mounted.call(mixin);
     expect(mockCollection.load).toHaveBeenCalled();
+
+    mixin.created.call(mixin);
+    expect(mixin.$store.commit).toHaveBeenCalled();
   });
 
   test('that the mixin handles errors on serverPrefetch', () => {
