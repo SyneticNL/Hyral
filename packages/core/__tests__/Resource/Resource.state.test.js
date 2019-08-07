@@ -88,15 +88,15 @@ describe('The Resource state', () => {
 
     expect(book.state.data.author).not.toBe(author);
     expect(book.state.data.author).not.toHaveProperty('setMetadata');
-    expect(book.state.data.author).toStrictEqual(author.state);
+    expect(book.state.data.author).toEqual({ state: author.state, type: author.type });
 
-    expect(book.state.data.author.data.authorImage).not.toBe(authorImage);
-    expect(book.state.data.author.data.authorImage).not.toHaveProperty('setMetadata');
-    expect(book.state.data.author.data.authorImage).toStrictEqual(authorImage.state);
+    expect(book.state.data.author.state.data.authorImage).not.toBe(authorImage);
+    expect(book.state.data.author.state.data.authorImage).not.toHaveProperty('setMetadata');
+    expect(book.state.data.author.state.data.authorImage).toEqual({ state: authorImage.state, type: authorImage.type });
 
     expect(book.state.data.publication[0]).not.toBe(publication1);
     expect(book.state.data.publication[0]).not.toHaveProperty('setMetadata');
-    expect(book.state.data.publication[0]).toStrictEqual(publication1.state);
+    expect(book.state.data.publication[0]).toEqual({ state: publication1.state, type: publication1.type });
   });
 
 });
