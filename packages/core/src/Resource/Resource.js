@@ -36,9 +36,9 @@ import {
  *
  * @returns {HyralResource}
  */
-function Resource(id = null, type, data = null, relationships = null, meta = null) {
+function Resource(id, type, data = null, relationships = null, meta = null) {
   const state = [{
-    id,
+    id: id || null,
     data: data || {},
     relationships: relationships || {},
     meta: meta || {},
