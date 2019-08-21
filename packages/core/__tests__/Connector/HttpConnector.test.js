@@ -54,7 +54,7 @@ describe('The fetch method', () => {
 
   const paramsSerializer = jest.fn();
   const requestSerializer = jest.fn();
-  const responseNormalizer = jest.fn();
+  const responseNormalizer = jest.fn(() => response.data);
   const axiosMock = {
     defaults: {
       paramsSerializer: null,
@@ -86,11 +86,9 @@ describe('The fetch method', () => {
     expect(axiosMock.get).toHaveBeenCalledWith(url, { params: parameterBag });
   });
 
-  it('should return the data of the response using a promise', () => {
-    return connector.fetch(repository, parameterBag).then((data) => {
-      expect(data).toBe(response);
-    });
-  });
+  it('should return the data of the response using a promise', () => connector.fetch(repository, parameterBag).then((data) => {
+    expect(data).toEqual(response);
+  }));
 });
 
 describe('The fetchOne method', () => {
@@ -108,7 +106,7 @@ describe('The fetchOne method', () => {
   };
   const paramsSerializer = jest.fn();
   const requestSerializer = jest.fn();
-  const responseNormalizer = jest.fn();
+  const responseNormalizer = jest.fn(() => response.data);
   const axiosMock = {
     defaults: {
       paramsSerializer: null,
@@ -142,7 +140,7 @@ describe('The fetchOne method', () => {
   /* eslint-disable arrow-body-style */
   it('should return the data of the response using a promise', () => {
     return connector.fetchOne(repository, id, parameterBag).then((data) => {
-      expect(data).toBe(response);
+      expect(data).toEqual(response);
     });
   });
 });
@@ -160,9 +158,9 @@ describe('The create/update/delete/relation methods', () => {
   const responseNormalizer = jest.fn();
 
   const axiosMock = {
-    post: jest.fn(),
-    patch: jest.fn(),
-    delete: jest.fn(),
+    post: jest.fn(() => Promise.resolve()),
+    patch: jest.fn(() => Promise.resolve()),
+    delete: jest.fn(() => Promise.resolve()),
     defaults: {},
   };
 
