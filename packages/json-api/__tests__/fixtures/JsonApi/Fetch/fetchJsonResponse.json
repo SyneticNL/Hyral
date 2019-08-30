@@ -69,6 +69,10 @@
             {
               "type": "images",
               "id": "0CF27581-7348-4616-AD07-2450F9D04798"
+            },
+            {
+              "type": "images-large",
+              "id": "EF7584C8-1A89-4AB0-A87A-135BDAFE86FE"
             }
           ]
         }
@@ -80,7 +84,15 @@
       "type": "images",
       "id": "0eb618b7-4af1-507d-9769-57ff9e897b52",
       "attributes": {
-        "image.name": "list-imago-tracker.jpg",
+        "image.name": "list.jpg",
+        "focusPoint": "bottom"
+      }
+    },
+    {
+      "type": "images-large",
+      "id": "EF7584C8-1A89-4AB0-A87A-135BDAFE86FE",
+      "attributes": {
+        "image.name": "list-large.jpg",
         "focusPoint": "bottom"
       }
     },
@@ -88,7 +100,7 @@
       "type": "images",
       "id": "cbf08c79-62ae-5a7e-971a-bd693350285d",
       "attributes": {
-        "image.name": "list-employee-experience-tracker.jpg",
+        "image.name": "list.jpg",
         "focusPoint": "center-left"
       }
     }
