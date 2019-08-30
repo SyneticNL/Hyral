@@ -15,7 +15,7 @@
     "lib"
   ],
   "dependencies": {
-    "@hyral/core": "^1.1.1"
+    "@hyral/core": "^1.1"
   },
   "peerDependencies": {
     "vue": "^2.0",
