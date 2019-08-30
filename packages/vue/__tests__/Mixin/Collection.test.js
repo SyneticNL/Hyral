@@ -134,7 +134,7 @@ describe('The Collection mixin', () => {
       loadCollection: jest.fn(),
     }, collectionMixin);
 
-    mixin.serverPrefetch();
+    mixin.serverPrefetch().catch(() => {});
     expect(mixin.initCollection).not.toHaveBeenCalled();
     expect(mixin.loadCollection).not.toHaveBeenCalled();
 

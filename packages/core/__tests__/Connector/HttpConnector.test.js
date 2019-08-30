@@ -181,7 +181,7 @@ describe('The create/update/delete/relation methods', () => {
     },
   };
 
-  connector.create(task);
+  connector.create(task).catch(() => {});
   expect(urlSerializer.create).toHaveBeenCalledWith('book');
   expect(requestSerializer).toHaveBeenCalledWith(task);
   expect(axiosMock.post).toHaveBeenCalled();
@@ -189,7 +189,7 @@ describe('The create/update/delete/relation methods', () => {
   requestSerializer.mockClear();
   axiosMock.post.mockClear();
 
-  connector.update(task);
+  connector.update(task).catch(() => {});
   expect(urlSerializer.update).toHaveBeenCalledWith('book', 1);
   expect(requestSerializer).toHaveBeenCalledWith(task);
   expect(axiosMock.patch).toHaveBeenCalled();
@@ -197,7 +197,7 @@ describe('The create/update/delete/relation methods', () => {
   requestSerializer.mockClear();
   axiosMock.patch.mockClear();
 
-  connector.relation(task);
+  connector.relation(task).catch(() => {});
   expect(urlSerializer.relation).toHaveBeenCalledWith('book', 1);
   expect(requestSerializer).toHaveBeenCalledWith(task);
   expect(axiosMock.patch).toHaveBeenCalled();
@@ -205,7 +205,7 @@ describe('The create/update/delete/relation methods', () => {
   requestSerializer.mockClear();
   axiosMock.patch.mockClear();
 
-  connector.delete(task);
+  connector.delete(task).catch(() => {});
   expect(urlSerializer.delete).toHaveBeenCalledWith('book', 1);
   expect(axiosMock.delete).toHaveBeenCalled();
 
