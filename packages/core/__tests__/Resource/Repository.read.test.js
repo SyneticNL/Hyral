@@ -109,4 +109,18 @@ describe('The resource repository', () => {
       expect(data).toBe(axiosResponseData.data.data[0]);
     });
   });
+
+  it('should allow a parameter bag in the connector for the findById method to do requests', () => {
+    const connectorFindOne = {
+      fetchOne: jest.fn(() => Promise.resolve(axiosResponseData)),
+    };
+    const repository = repositoryManager.createRepository(connectorFindOne, 'testtype12', identifier);
+    const parameterBag = ParameterBag();
+    parameterBag.addParam('include', 'relation1,relation2');
+
+    repository.findById(12, parameterBag);
+
+    expect(connectorFindOne.fetchOne).toHaveBeenCalledTimes(1);
+    expect(connectorFindOne.fetchOne).toHaveBeenCalledWith(repository, 12, parameterBag);
+  });
 });

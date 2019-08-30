@@ -45,9 +45,6 @@ function HttpConnector(
 
   axiosInstance.defaults.responseType = 'json';
   axiosInstance.defaults.paramsSerializer = paramsSerializer;
-  axiosInstance.defaults.transformResponse = axiosInstance.defaults.transformResponse
-    ? axiosInstance.defaults.transformResponse.concat([responseNormalizer])
-    : [responseNormalizer];
 
   return {
     /**
@@ -59,7 +56,9 @@ function HttpConnector(
     fetch(repository, parameterBag) {
       return axiosInstance.get(urlSerializer.fetch(repository), {
         params: parameterBag,
-      });
+      }).then(response => (
+        { ...response, data: responseNormalizer(response.data, response.headers, repository) }
+      ));
     },
 
     /**
@@ -72,7 +71,9 @@ function HttpConnector(
     fetchOne(repository, id, parameterBag) {
       return axiosInstance.get(urlSerializer.fetchOne(repository, id), {
         params: parameterBag,
-      });
+      }).then(response => (
+        { ...response, data: responseNormalizer(response.data, response.headers, repository) }
+      ));
     },
 
     /**
@@ -81,7 +82,10 @@ function HttpConnector(
      * @returns {Promise}
      */
     create(task) {
-      return axiosInstance.post(urlSerializer.create(task.payload.type), requestSerializer(task));
+      return axiosInstance.post(urlSerializer.create(task.payload.type), requestSerializer(task))
+        .then(response => (
+          { ...response, data: responseNormalizer(response.data, response.headers) }
+        ));
     },
 
     /**
@@ -93,7 +97,10 @@ function HttpConnector(
       return axiosInstance.patch(
         urlSerializer.update(task.payload.type, task.payload.id),
         requestSerializer(task),
-      );
+      )
+        .then(response => (
+          { ...response, data: responseNormalizer(response.data, response.headers) }
+        ));
     },
 
     /**
@@ -105,7 +112,10 @@ function HttpConnector(
       return axiosInstance.patch(
         urlSerializer.relation(task.payload.type, task.payload.id),
         requestSerializer(task),
-      );
+      )
+        .then(response => (
+          { ...response, data: responseNormalizer(response.data, response.headers) }
+        ));
     },
 
     /**
