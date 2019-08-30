@@ -40,6 +40,11 @@ export default {
   },
   methods: {
     initCollection() {
+      const collection = this.$store.getters[`hyral_${this.resourceType}/collection`](this.collectionName);
+      if (collection) {
+        return;
+      }
+
       this.$store.commit(`hyral_${this.resourceType}/SET_COLLECTION`, Collection.create(this.collectionName));
     },
     loadCollection() {

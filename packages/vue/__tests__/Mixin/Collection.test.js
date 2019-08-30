@@ -86,6 +86,31 @@ describe('The Collection mixin', () => {
     });
   });
 
+  test('that the initCollection correctly initializes the store', () => {
+    const state = {
+      collections: {},
+    };
+    const mixin = Object.assign({
+      resourceType: 'product',
+      collectionName: 'products',
+      $store: {
+        commit: jest.fn((s, collection) => { state.collections.products = collection }),
+        getters: {
+          'hyral_product/collection': jest.fn(() => state.collections.products || null),
+        },
+      },
+      initCollection: collectionMixin.methods.initCollection,
+    }, collectionMixin);
+
+    mixin.initCollection();
+
+    expect(mixin.$store.commit).toHaveBeenCalledTimes(1);
+
+    mixin.initCollection();
+
+    expect(mixin.$store.commit).toHaveBeenCalledTimes(1);
+  });
+
   test('that the mixin handles errors on mounted', () => {
     const mixin = Object.assign({
       $store: {

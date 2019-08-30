@@ -40,8 +40,7 @@ describe('The createStoreModule', () => {
 
     expect(foundProduct.id).toEqual(product.id);
     expect(foundProduct.data.title).toEqual(product.data.title);
-    expect(foundProduct2.id).toEqual(2);
-    expect(foundProduct2.data).toEqual({});
+    expect(foundProduct2).toBeNull();
   });
 
   test('that it is possible to get a collection from the store', () => {
@@ -62,12 +61,12 @@ describe('The createStoreModule', () => {
     });
 
     const foundProducts = getter('products');
-    const foundNewCollection = getter('newcollection');
+    const foundNonExistingCollection = getter('non-existingcollection');
 
     expect(foundProducts.name).toEqual(products.name);
     expect(foundProducts.repository).toBe(mockRepository);
 
-    expect(foundNewCollection.name).toEqual('newcollection');
+    expect(foundNonExistingCollection).toBeNull();
   });
 
   test('that it is possible to mutate a collection in the store', () => {
