@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     loadResource() {
-      return this.$store.dispatch(`hyral_${this.resourceType}/LOAD_RESOURCE`, this.id);
+      return this.$store.dispatch(`hyral_${this.resourceType}/LOAD_RESOURCE`, this.id, this.parameterBag || null);
     },
   },
 };

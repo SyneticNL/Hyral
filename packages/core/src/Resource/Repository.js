@@ -37,11 +37,11 @@ export default function Repository(connector, resourceType, identifier) {
     },
     /**
      * @param {String|Number} id
-     *
+     * @param {ParameterBag} parameterBag
      * @returns {Promise<Resource>}
      */
-    findById(id) {
-      return connector.fetchOne(this, id, {}).then(
+    findById(id, parameterBag = null) {
+      return connector.fetchOne(this, id, parameterBag).then(
         response => (response && response.data && response.data.data ? response.data.data : null),
       );
     },

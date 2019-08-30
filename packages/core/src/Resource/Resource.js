@@ -136,10 +136,10 @@ function Resource(id, type, data = null, relationships = null, meta = null) {
         }
 
         if (Array.isArray(normalState.data[relationKey])) {
-          return normalState.data[relationKey].map(value => value.state);
+          return normalState.data[relationKey].map(value => ({ state: value.state, type: value.type }));
         }
 
-        return normalState.data[relationKey].state;
+        return { state: normalState.data[relationKey].state, type: normalState.data[relationKey].type };
       });
 
       return Object.assign({}, normalState, {
@@ -180,6 +180,16 @@ Resource.create = (id = null, type, data = null, relationships = null, meta = nu
  * @returns {HyralResource}
  */
 Resource.fromState = (id, type, state) => {
+  if (!state || !state.relationships) {
+    return Resource.create(
+      id,
+      type,
+      state ? state.data : null,
+      null,
+      state ? state.meta : null,
+    );
+  }
+
   const relationData = mapValues(state.relationships, (relation, relationKey) => {
     if (!state.data[relationKey]) {
       return null;
@@ -187,16 +197,16 @@ Resource.fromState = (id, type, state) => {
 
     if (Array.isArray(state.data[relationKey])) {
       return state.data[relationKey].map(value => Resource.fromState(
-        state.data[relationKey].id,
-        relation.resource,
-        value || null,
+        value.state ? value.state.id : null,
+        value.type,
+        value.state || null,
       ));
     }
 
     return Resource.fromState(
-      state.data[relationKey].id,
-      relation.resource,
-      state.data[relationKey] || null,
+      state.data[relationKey].state ? state.data[relationKey].state.id : null,
+      state.data[relationKey].type,
+      state.data[relationKey].state || null,
     );
   });
 
