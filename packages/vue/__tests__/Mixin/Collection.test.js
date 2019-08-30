@@ -124,4 +124,23 @@ describe('The Collection mixin', () => {
 
     expect(mixin.$store.getters['hyral_product/collection']).not.toHaveBeenCalled();
   });
+
+  test('that the mixin doesn\'t initialize if the component does not define the collectionName or resourceType', () => {
+    const mixin = Object.assign({
+      initCollection: jest.fn(),
+      loadCollection: jest.fn(),
+    }, collectionMixin);
+
+    mixin.serverPrefetch();
+    expect(mixin.initCollection).not.toHaveBeenCalled();
+    expect(mixin.loadCollection).not.toHaveBeenCalled();
+
+    mixin.mounted();
+    expect(mixin.initCollection).not.toHaveBeenCalled();
+    expect(mixin.loadCollection).not.toHaveBeenCalled();
+
+    mixin.created();
+    expect(mixin.initCollection).not.toHaveBeenCalled();
+    expect(mixin.loadCollection).not.toHaveBeenCalled();
+  });
 });

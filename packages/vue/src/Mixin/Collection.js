@@ -15,6 +15,10 @@ export default {
     },
   },
   created() {
+    if (!this.collectionName || !this.resourceType) {
+      return;
+    }
+
     this.initCollection();
   },
   /**
