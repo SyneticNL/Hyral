@@ -1,3 +1,4 @@
+import Collection from '@hyral/core/lib/Resource/Collection';
 
 export default {
   computed: {
@@ -13,6 +14,9 @@ export default {
       return collection;
     },
   },
+  created() {
+    this.initCollection();
+  },
   /**
    * Execute server prefetch actions.
    *
@@ -25,8 +29,6 @@ export default {
       return Promise.reject();
     }
 
-    this.initCollection();
-
     return this.loadCollection();
   },
   mounted() {
@@ -34,12 +36,11 @@ export default {
       return;
     }
 
-    this.initCollection();
     this.loadCollection();
   },
   methods: {
     initCollection() {
-      this.$store.commit(`hyral_${this.resourceType}/SET_COLLECTION`, this.collection);
+      this.$store.commit(`hyral_${this.resourceType}/SET_COLLECTION`, Collection.create(this.collectionName));
     },
     loadCollection() {
       return this.collection.load();

@@ -107,7 +107,7 @@ describe('The createStoreModule', () => {
     module.mutations.SET_RESOURCE(state, product);
 
     expect(state.resources).toHaveProperty('1');
-    expect(state.resources['1']).toBe(product.state);
+    expect(state.resources['1']).toEqual(product.state);
   });
 
   test('that it is possible to load the results for a collection in the store', () => {
@@ -136,7 +136,7 @@ describe('The createStoreModule', () => {
     expect(products.load).toHaveBeenCalled();
   });
 
-  test('that it is possible to a resource in the store', () => {
+  test('that it is possible to get a non existing resource in the store', () => {
     const product = Resource.create('1', 'product', { title: 'A great product' });
 
     const mockRepository = {
@@ -173,11 +173,31 @@ describe('The createStoreModule', () => {
     return module.actions.LOAD_RESOURCE(mockModule, '1', parameterBag).then(() => {
       expect(mockRepository.findById).toHaveBeenCalledWith('1', parameterBag);
       expect(mockRepository.findById).toHaveBeenCalledTimes(1);
+      expect(mockModule.commit).toHaveBeenCalledTimes(2);
+      expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
+    });
+  });
+
+  test('that it is possible to an existing resource in the store', () => {
+    const product = Resource.create('1', 'product', { title: 'A great product' });
+
+    const mockRepository = {
+      resourceType: 'product',
+      findById: jest.fn(() => Promise.resolve(product)),
+    };
+
+    const module = createStoreModule(mockRepository, {
+      commit: jest.fn(),
+    });
+
+    const mockModule = { state: { resources: { 1: product.state } }, commit: jest.fn() };
+    return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
+      expect(mockRepository.findById).toHaveBeenCalledWith('1');
+      expect(mockModule.commit).toHaveBeenCalledTimes(1);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
 
   });
-
 
   test('that the Vuex store is correctly initialized', () => {
     const product = Resource.create('1', 'product', { title: 'A great product' });
