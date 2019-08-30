@@ -53,6 +53,9 @@ describe('The Collection mixin', () => {
       collectionName: 'products',
       $store: {
         commit: jest.fn(),
+        getters: {
+          'hyral_product/collection': jest.fn(() => null),
+        },
       },
       initCollection: collectionMixin.methods.initCollection,
       loadCollection: collectionMixin.methods.loadCollection,

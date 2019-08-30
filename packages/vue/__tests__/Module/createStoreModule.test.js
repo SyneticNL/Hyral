@@ -7,6 +7,7 @@ import ParameterBag from '@hyral/core/src/Resource/ParameterBag';
 
 describe('The createStoreModule', () => {
   test('that a store module is created with the required methods', () => {
+
     const module = createStoreModule({}, {});
 
     expect(module).toHaveProperty('namespaced');
@@ -191,7 +192,7 @@ describe('The createStoreModule', () => {
 
     const mockModule = { state: { resources: { 1: product.state } }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
-      expect(mockRepository.findById).toHaveBeenCalledWith('1');
+      expect(mockRepository.findById).toHaveBeenCalledWith('1', null);
       expect(mockModule.commit).toHaveBeenCalledTimes(1);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
