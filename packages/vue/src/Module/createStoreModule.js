@@ -18,17 +18,17 @@ const createStoreModule = (repository, store) => ({
   },
 
   getters: {
-    resource: state => id => Resource.fromState(
+    resource: state => id => state.resources[id] ? Resource.fromState(
       id,
       repository.resourceType,
-      state.resources[id] || {},
-    ),
-    collection: state => name => createVuexCollectionFromState(
+      state.resources[id],
+    ) : null,
+    collection: state => name => state.collections[name] ? createVuexCollectionFromState(
       name,
-      state.collections[name] || {},
+      state.collections[name],
       repository,
       store,
-    ),
+    ) : null,
   },
 
   mutations: {
