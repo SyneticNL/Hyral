@@ -277,4 +277,39 @@ describe('The axios instance configuration', () => {
   test('that the axios instance contains the globally set configuration', () => {
     expect(connector.axios.defaults.baseURL).toEqual('/test');
   });
+
+  test('that the axios instance response type configuration defaults to json response type', () => {
+    expect(connector.axios.defaults.responseType).toEqual('json');
+  });
+});
+
+describe('The axios instance response type by responseNormalizer', () => {
+  const urlSerializer = jest.fn();
+  const paramsSerializer = jest.fn();
+  const requestSerializer = jest.fn();
+  const responseNormalizer = jest.fn();
+
+  responseNormalizer.responseType = 'xml';
+
+  mockAxios.defaults = {
+    baseURL: '/test',
+    paramsSerializer: null,
+    transformResponse: [],
+    transformRequest: [],
+  };
+  mockAxios.create = jest.fn(() => cloneDeep(mockAxios));
+
+  const connector = HttpConnector.create(
+    mockAxios,
+    {
+      urlSerializer,
+      paramsSerializer,
+      requestSerializer,
+      responseNormalizer,
+    },
+  );
+
+  test('that the axios instance has the xml response type', () => {
+    expect(connector.axios.defaults.responseType).toEqual('xml');
+  });
 });
