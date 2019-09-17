@@ -43,7 +43,7 @@ function HttpConnector(
 ) {
   const axiosInstance = axios.create ? axios.create() : axios;
 
-  axiosInstance.defaults.responseType = 'json';
+  axiosInstance.defaults.responseType = responseNormalizer.responseType || 'json';
   axiosInstance.defaults.paramsSerializer = paramsSerializer;
 
   return {
