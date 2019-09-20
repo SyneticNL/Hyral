@@ -1,5 +1,4 @@
-# Documentation index
-
+# Documentation
 The documentation is split into various sections. To understand the general workings of Hyral read the [Quick Start] 
 guide. The [Hyral design concepts] guide will dive deeper into the architecture of Hyral.
 

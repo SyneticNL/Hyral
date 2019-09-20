@@ -24,9 +24,14 @@ API('s).
 * [JSON:API integration]
 * [Vue(x) integration]
 
-## Getting started
+## Documentation
+The [Core documentation] contains the index for all the Core documentation.
 
-### Install
+For documentation on other integrations please check the packages themselves.
+
+### Getting started
+
+#### Install
 
 ```bash
 npm install @hyral/core
@@ -38,9 +43,10 @@ npm install @hyral/json-api
 npm install @hyral/vue
 ```
 
-### Quick start
+#### Quick start
 [Quick start guide]
 
+[Core documentation]: documentation
 [Hypermedia oriented]: documentation/Guides/hypermedia.md
 [JSON:API integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
 [Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
