@@ -11,7 +11,7 @@ import relationChangeManyRequestPayload
 import relationRemoveRequestPayload
   from '../fixtures/JsonApi/Mutations/relationRemoveRequestPayload';
 
-describe('The jsonApi request serializeRelationTask serializer', () => {
+describe('The JSON:API request serializeRelationTask serializer', () => {
   test('that serializeRelationTask skips execution if not passed a valid task', () => {
     const task = {};
     expect(serializeRelationTask(task)).toBe(task);
@@ -20,7 +20,7 @@ describe('The jsonApi request serializeRelationTask serializer', () => {
     expect(serializeRelationTask(createTask)).toBe(createTask);
   });
 
-  test('that serializeRelationTask results in a correct JsonApi request payload', () => {
+  test('that serializeRelationTask results in a correct JSON:API request payload', () => {
     const repository = {};
     const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [

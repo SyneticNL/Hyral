@@ -1,8 +1,8 @@
 # Creating your own transformer
 You will only need to make a transformer if you want to use a backend API type that is not supported by Hyral or 
-any other additional package. Currently Hyral only supports JsonApi backends.
+any other additional package. Currently Hyral only ships with JSON:API backend support.
 
-If you only fetch resources from your api you will not need to create a `requestSerializer`.
+*Note: If you only fetch resources from your api you will not need to create a `requestSerializer`.*
 
 ## Implementing a paramsSerializer
 The paramsSerializer will receive a `ParameterBag` instance (can be null/undefined) and will need to return a format
@@ -22,7 +22,14 @@ Each method will need to return a format the Connector can use. In case of the H
 string (uri).
 
 ## Implementing a responseNormalizer
-The response normalizer converts the backend response format into the Hyral format. It should result in an object:
+The response normalizer converts the backend response format into the Hyral format.
+
+The response normalizer is a function that will receive the following arguments:
+```
+function(response.data, response.headers, repository)
+```
+
+It should result in an object:
 
 ```javascript
 {

@@ -36,7 +36,8 @@
   "keywords": [
     "Api",
     "Rest",
-    "JsonApi"
+    "JsonApi",
+    "JSON:API"
   ],
   "publishConfig": {
     "access": "public"

@@ -21,7 +21,7 @@ API('s).
 * Modern codebase with immutability, state management and promises
 
 ## Additional features
-* [JsonApi integration]
+* [JSON:API integration]
 * [Vue(x) integration]
 
 ## Getting started
@@ -42,6 +42,6 @@ npm install @hyral/vue
 [Quick start guide]
 
 [Hypermedia oriented]: documentation/Guides/hypermedia.md
-[JsonApi integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
+[JSON:API integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
 [Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
 [Quick start guide]: documentation/Guides/quick-start.md

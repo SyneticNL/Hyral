@@ -23,6 +23,11 @@ This is a monorepo containing the following packages:
 * [JSON API]
 * [Vue(x)]
 
+## Documentation
+See the [Core Hyral] documentation.
+
+The documentation contains a [Quick start guide] for a quick tour of the module.
+
 ## Contributing
 
 See [CONTRIBUTING]
@@ -36,6 +41,7 @@ See [Github Releases]
 All code released under [MIT]
 
 [Core Hyral]: https://github.com/SyneticNL/Hyral/tree/master/packages/core
+[Quick start guide]: https://github.com/SyneticNL/Hyral/tree/master/packages/core/documentation/Guides/quick-start.md
 [JSON API]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
 [Vue(x)]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
 [github releases]: https://github.com/SyneticNL/Hyral/releases

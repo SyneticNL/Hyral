@@ -1,7 +1,7 @@
 # Resource decorators
+Resource decorators add or change functionality on creation of a Resource via the `Resource.create` function.
 
 ## Bundled decorators
-
 Hyral core bundles 2 decorators:
 
 * Lazy loading decorator
@@ -30,10 +30,9 @@ This decorator enables defining the relationships once and not or Resource.creat
 
 This decorator is NOT enabled by default as you have to configure it.
 
-See [Relationships](relationships.md) for how to configure and use this decorator.
+See [Relationships] for how to configure and use this decorator.
 
 ## Creating a new decorator
-
 A decorator is a simple function that accepts a Resource and returns the same Resource. In your function you can add
 functionalities to the Resource.
 
@@ -51,3 +50,5 @@ function resourceDecorator(resource) {
 // Register the decorator.
 Resource.decorators.push(resourceDecorator);
 ```
+
+[Relationships]: relationships.md

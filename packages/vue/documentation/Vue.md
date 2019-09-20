@@ -1,8 +1,9 @@
 # Vue
-Hyral provides various mixin sto automatically integrate loading a resource or collection on 
-creation of a component.
+Hyral provides various mixins to integrate resource and collection creation and loading when a component is created.
 
-The mixins require that the Vuex stores are initialized.
+The implementation support Server Side Rendering.
+
+The mixins require that the Vuex store modules are initialized.
 
 ## Resource mixin
 When the properties, data entries or computed properties `id` and `resourceType` are defined a

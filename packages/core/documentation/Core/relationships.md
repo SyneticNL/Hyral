@@ -1,12 +1,8 @@
 # Relationships
-
 Resources can be related to other resources. Hyral exposes the available relations on a resource and makes the related
 resources available via the data attribute.
 
-A typical resource with a relation is structured as follows:
-
 ## Relationship format
-
 A relationships is defined with:
 * A `key` (author) under which it will be available in data.
 * The `cardinality` of the relationships
@@ -24,11 +20,9 @@ const relationships = {
 ```
 
 ## Defining relationships
-
 You can define relationships via the Resource.create factory for each resource manually or use the `relationshipDecorator` Resource decorator.
 
 ### Relationship decorator
-
 Hyral ships with the relationshipsDecorator to make it easy to define the relationships for all resources in 1 place.
 
 #### Usage
@@ -126,10 +120,9 @@ const resource = {
 ```
 
 #### Relationships carnality's
-
 The following types of carnality's are supported:
 
-- `one-to-one`: One instance of the current Resource refers to One instance of the refered Resource.
-- `one-to-many`: One instance of the current Resource has Many instances (references) to the refered Resource.
-- `many-to-one`: Many instances of the current Resource refer to One instance of the refered Resource.
-- `many-to-many`: Many instances of the current Resource have Many instances (references) to the refered Resource.
+- `one-to-one`: One instance of the current Resource refers to One instance of the referred Resource.
+- `one-to-many`: One instance of the current Resource has Many instances (references) to the referred Resource.
+- `many-to-one`: Many instances of the current Resource refer to One instance of the referred Resource.
+- `many-to-many`: Many instances of the current Resource have Many instances (references) to the referred Resource.

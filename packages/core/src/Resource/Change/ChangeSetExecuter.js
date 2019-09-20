@@ -15,6 +15,8 @@ export default function ChangeSetExecutor(tasks) {
     },
     /**
      * Returns a object describing the current status of the flush action.
+     *
+     * @return {{total: number, resolved: number}}
      */
     status() {
       return {
