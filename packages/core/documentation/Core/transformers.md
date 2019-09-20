@@ -1,6 +1,6 @@
 # Transformers
 
-A transformer converts the message *format* from the backend to the Hyral and the other way around.
+A transformer converts the message *format* from the backend to the Hyral-format and the other way around.
 
 This enables the user to work with a single format (Hyral) in the code and have all backend specific logic in the 
 transformers. The user then does not have to know how a specific backend works, only how Hyral works.

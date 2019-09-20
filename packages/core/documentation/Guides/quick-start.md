@@ -13,7 +13,9 @@ A step-by-step guide for the basic Hyral features by code examples:
 // create a configuration file (hyral.js for example) containing something like this.
 // =========================================================================
 import axios from 'axios';
-import HttpConnector from '@hyral/core/lib/Connector/HttpConnector';import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';import jsonApi from '@hyral/json-api';
+import HttpConnector from '@hyral/core/lib/Connector/HttpConnector';
+import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';
+import jsonApi from '@hyral/json-api';
 
 const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
