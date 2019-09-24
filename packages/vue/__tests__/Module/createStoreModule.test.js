@@ -3,9 +3,11 @@ import Vuex from 'vuex';
 import createStoreModule from '../../src/Module/createStoreModule';
 import Resource from '../../../core/src/Resource/Resource';
 import Collection from '../../../core/src/Resource/Collection';
+import ParameterBag from '@hyral/core/src/Resource/ParameterBag';
 
 describe('The createStoreModule', () => {
   test('that a store module is created with the required methods', () => {
+
     const module = createStoreModule({}, {});
 
     expect(module).toHaveProperty('namespaced');
@@ -40,8 +42,7 @@ describe('The createStoreModule', () => {
 
     expect(foundProduct.id).toEqual(product.id);
     expect(foundProduct.data.title).toEqual(product.data.title);
-    expect(foundProduct2.id).toEqual(2);
-    expect(foundProduct2.data).toEqual({});
+    expect(foundProduct2).toBeNull();
   });
 
   test('that it is possible to get a collection from the store', () => {
@@ -62,12 +63,12 @@ describe('The createStoreModule', () => {
     });
 
     const foundProducts = getter('products');
-    const foundNewCollection = getter('newcollection');
+    const foundNonExistingCollection = getter('non-existingcollection');
 
     expect(foundProducts.name).toEqual(products.name);
     expect(foundProducts.repository).toBe(mockRepository);
 
-    expect(foundNewCollection.name).toEqual('newcollection');
+    expect(foundNonExistingCollection).toBeNull();
   });
 
   test('that it is possible to mutate a collection in the store', () => {
@@ -149,7 +150,29 @@ describe('The createStoreModule', () => {
 
     const mockModule = { state: { resources: {} }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
-      expect(mockRepository.findById).toHaveBeenCalledWith('1');
+      expect(mockRepository.findById).toHaveBeenCalledWith('1', null);
+      expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
+    });
+  });
+
+  test('that it is possible to set a resource with a paramaterbag in the store', () => {
+    const product = Resource.create(2, 'product', { title: 'A great product' });
+    const parameterBag = ParameterBag();
+    parameterBag.addParam('include', 'relation1,relation2');
+
+    const mockRepository = {
+      resourceType: 'product',
+      findById: jest.fn(() => Promise.resolve(product)),
+    };
+
+    const module = createStoreModule(mockRepository, {
+      commit: jest.fn(),
+    });
+    const mockModule = { state: { resources: {} }, commit: jest.fn() };
+
+    return module.actions.LOAD_RESOURCE(mockModule, '1', parameterBag).then(() => {
+      expect(mockRepository.findById).toHaveBeenCalledWith('1', parameterBag);
+      expect(mockRepository.findById).toHaveBeenCalledTimes(1);
       expect(mockModule.commit).toHaveBeenCalledTimes(2);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
@@ -169,10 +192,11 @@ describe('The createStoreModule', () => {
 
     const mockModule = { state: { resources: { 1: product.state } }, commit: jest.fn() };
     return module.actions.LOAD_RESOURCE(mockModule, '1').then(() => {
-      expect(mockRepository.findById).toHaveBeenCalledWith('1');
+      expect(mockRepository.findById).toHaveBeenCalledWith('1', null);
       expect(mockModule.commit).toHaveBeenCalledTimes(1);
       expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
     });
+
   });
 
   test('that the Vuex store is correctly initialized', () => {

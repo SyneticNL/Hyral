@@ -36,7 +36,7 @@ import normalizePaging from './Resource/normalizePaging';
  *
  * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}|{data: Resource}}
  */
-export default function responseNormalizer(response) {
+function responseNormalizer(response) {
   if (response.errors) {
     return response;
   }
@@ -65,3 +65,7 @@ export default function responseNormalizer(response) {
     paging: normalizePaging(response),
   };
 }
+
+responseNormalizer.responseType = 'json';
+
+export default responseNormalizer;

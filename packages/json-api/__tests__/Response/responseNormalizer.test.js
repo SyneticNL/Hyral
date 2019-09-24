@@ -80,9 +80,12 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data[1].relationships.images.resource).toBe('images');
     expect(result.data[1].relationships.images.many).toBeTruthy();
     expect(result.data[1].relationships.images.cardinality).toEqual('one-to-many');
-    expect(result.data[1].data.images).toHaveLength(2);
+    expect(result.data[1].data.images).toHaveLength(3);
     expect(result.data[1].data.images[0]).toHaveProperty('id');
     expect(result.data[1].data.images[0]).toHaveProperty('type');
+    expect(result.data[1].data.images[0].type).toEqual('images');
+    expect(result.data[1].data.images[1].type).toEqual('images');
+    expect(result.data[1].data.images[2].type).toEqual('images-large');
   });
 
   test('that the responseNormalizer does not overwrite the resource relationships decorator', () => {
@@ -157,7 +160,7 @@ describe('Validations for the responseNormalizer', () => {
     const result = responseNormalizer(jsonResponseFixture);
 
     expect(result.data[1].data).toHaveProperty('images');
-    expect(result.data[1].data.images).toHaveLength(2);
+    expect(result.data[1].data.images).toHaveLength(3);
     expect(result.data[1].data.images[0]).toMatchSchema(resourceJsonSchema);
 
     expect(result.data[1].data.images[0].metadata.loaded).toBeTruthy();

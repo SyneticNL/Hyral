@@ -32,6 +32,28 @@ Vue.mixin(HyralResourceMixin);
 
 Use the mixin as described in the above example.
 
+
+### Catching errors
+You can catch errors for the mixin by overriding the loadResource as in this example:
+```javascript
+const Component = Vue.extend({
+  mixins: [HyralResourceMixin],
+  data() {
+    return {
+      id: 5,
+      resourceType: 'book',
+    }
+  },
+  methods: {
+      loadResource() {
+        HyralResourceMixin.methods.loadResource.call(this).catch(() => {
+          console.log('error');
+        });
+      },
+    },
+});
+```
+
 ## Collection mixin
 When the properties, data entries or computed properties `collectionName` and `resourceType` are 
 defined a collection is created and the items loaded via the Hyral Vuex store modules.
@@ -69,3 +91,24 @@ Vue.mixin(HyralCollectionMixin);
 ```
 
 Use the mixin as described in the above example.
+
+### Catching errors
+You can catch errors for the mixin by overriding the loadResource as in this example:
+```javascript
+const Component = Vue.extend({
+  mixins: [HyralCollectionMixin],
+  data() {
+    return {
+      collectionName: 'books',
+      resourceType: 'book',
+    }
+  },
+  methods: {
+    loadCollection() {
+      HyralCollectionMixin.methods.loadCollection.call(this).catch(() => {
+          console.log('error');
+      });
+    },
+  },
+});
+```
