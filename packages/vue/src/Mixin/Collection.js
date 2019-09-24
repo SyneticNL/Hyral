@@ -5,6 +5,10 @@ export default {
     collection() {
       const collection = this.$store.getters[`hyral_${this.resourceType}/collection`](this.collectionName);
 
+      if (!collection) {
+        return null;
+      }
+
       if (!this.parameterBag) {
         return collection;
       }
