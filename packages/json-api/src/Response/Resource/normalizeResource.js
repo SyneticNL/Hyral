@@ -9,7 +9,7 @@ function guessRelationCardinality(relation) {
 /**
  * @param {{id: String, type: String, meta: Object|null}} item
  *
- * @returns {Resource}
+ * @returns {HyralResource}
  */
 function transformResource(item) {
   return Resource.create(item.id, item.type, null, null, item.meta);
