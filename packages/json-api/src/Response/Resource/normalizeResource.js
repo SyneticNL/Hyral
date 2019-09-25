@@ -7,16 +7,33 @@ function guessRelationCardinality(relation) {
 }
 
 /**
+ * @param {{id: String, type: String, meta: Object|null}} item
+ *
+ * @returns {HyralResource}
+ */
+function transformResource(item) {
+  return Resource.create(item.id, item.type, null, null, item.meta);
+}
+
+/**
  * @param {JsonApiResource} data
  *
  * @returns {object.<string, HyralResource>}
  */
 function getResourcesFromData(data) {
   return Object.entries(data.relationships)
-    .reduce(
-      (carry, [field, relation]) => Object.assign(carry, { [field]: relation.data }), {},
-    );
+    .reduce((carry, [field, relation]) => {
+      if (!relation.data) {
+        return carry;
+      }
+      const resources = Array.isArray(relation.data)
+        ? relation.data.map(item => transformResource(item))
+        : transformResource(relation.data);
+
+      return Object.assign(carry, { [field]: resources });
+    }, {});
 }
+
 
 /**
  * @param {JsonApiResource} data

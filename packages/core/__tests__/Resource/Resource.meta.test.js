@@ -11,12 +11,11 @@ describe('The Resource meta', () => {
 
   });
 
-  test('that the meta object is not writable', () => {
+  test('that the meta object is writable', () => {
     const resource1 = Resource.create(1, 'product', { title: 'test' }, null, { test: 'meta' });
+    resource1.meta = { test: 'test' };
 
-    expect(() => {
-      resource1.meta = {};
-    }).toThrow(Error);
+    expect(resource1.meta).toEqual({ test: 'test' });
   });
 
   test('that the meta object remains available after creating from state', () => {

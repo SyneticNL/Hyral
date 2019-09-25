@@ -5,12 +5,21 @@ import createRelationshipsDecorator from '@hyral/core/src/Resource/Decorator/Res
 import responseNormalizer from '../../src/Response/responseNormalizer';
 import jsonResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonResponse';
 import jsonSingleResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponse';
+import jsonRelationResponseFixture from '../fixtures/JsonApi/Fetch/fetchJsonRelationResponse';
 import fetchJsonSingleResponseNoIncluded from '../fixtures/JsonApi/Fetch/fetchJsonSingleResponseNoIncluded';
 import resourceJsonSchema from '../../../core/schema/resource.schema';
 
 expect.extend(matchers);
 
 describe('Validations for the responseNormalizer', () => {
+  test('that the responseNormalizer returns a schema-valid array of resources with correct relations', () => {
+    const result = responseNormalizer(jsonRelationResponseFixture);
+
+    expect(result.data).toHaveLength(1);
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.data.test).toEqual('test detail page');
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.id).toEqual('45216ae0-fdd5-405b-84dd-c78ef5414444');
+    expect(result.data[0]).toMatchSchema(resourceJsonSchema);
+  });
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture);
 

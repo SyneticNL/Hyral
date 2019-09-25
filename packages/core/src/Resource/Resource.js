@@ -118,6 +118,13 @@ function Resource(id, type, data = null, relationships = null, meta = null) {
     },
 
     /**
+     * @param {object|null} value
+     */
+    set meta(value) {
+      mutateState(state, { meta: value });
+    },
+
+    /**
      * @returns {[{}]}
      */
     get stateStack() {
