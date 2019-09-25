@@ -29,17 +29,17 @@
           ],
           "links": {
             "self": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/relationships\/paragraphs?resourceVersion=id%3A40"
+              "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/relationships\/paragraphs?resourceVersion=id%3A40"
             },
             "related": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/paragraphs?resourceVersion=id%3A40"
+              "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/paragraphs?resourceVersion=id%3A40"
             }
           }
         }
       },
       "links": {
         "self": {
-          "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a?resourceVersion=id%3A40"
+          "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a?resourceVersion=id%3A40"
         }
       }
     }
@@ -64,17 +64,17 @@
           ],
           "links": {
             "self": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/relationships\/content"
+              "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/relationships\/content"
             },
             "related": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/content"
+              "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/content"
             }
           }
         }
       },
       "links": {
         "self": {
-          "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690"
+          "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690"
         }
       }
     },
@@ -92,17 +92,17 @@
           },
           "links": {
             "self": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/relationships\/content"
+              "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/relationships\/content"
             },
             "related": {
-              "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/content"
+              "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/content"
             }
           }
         }
       },
       "links": {
         "self": {
-          "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259"
+          "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259"
         }
       }
     },
@@ -114,7 +114,7 @@
       },
       "links": {
         "self": {
-          "href": "http:\/\/api-bam-appsites.localhost\/jsonapi\/detail_page\/45216ae0-fdd5-405b-84dd-c78ef5414444?resourceVersion=id%3A9"
+          "href": "http:\/\/test.com\/jsonapi\/detail_page\/45216ae0-fdd5-405b-84dd-c78ef5414444?resourceVersion=id%3A9"
         }
       }
     }

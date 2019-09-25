@@ -7,7 +7,7 @@ function guessRelationCardinality(relation) {
 }
 
 function transformResource(item) {
-  return Resource.create(item.id, item.type, {}, null, item.meta);
+  return Resource.create(item.id, item.type, null, null, item.meta);
 }
 
 /**
@@ -18,11 +18,14 @@ function transformResource(item) {
 function getResourcesFromData(data) {
   return Object.entries(data.relationships)
     .reduce((carry, [field, relation]) => {
+      if (!relation.data) {
+        return carry;
+      }
       const resources = Array.isArray(relation.data)
         ? relation.data.map(item => transformResource(item))
         : transformResource(relation.data);
-      Object.assign(carry, { [field]: resources });
-      return carry;
+
+      return Object.assign(carry, { [field]: resources });
     }, {});
 }
 
