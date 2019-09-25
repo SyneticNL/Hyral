@@ -146,4 +146,19 @@ describe('The Collection mixin', () => {
     expect(mixin.initCollection).not.toHaveBeenCalled();
     expect(mixin.loadCollection).not.toHaveBeenCalled();
   });
+
+  test('that the collection getter can handle not being initialized yet', () => {
+    const mixin = Object.assign({
+      resourceType: 'product',
+      collectionName: 'products',
+      parameterBag: jest.fn(() => {}),
+      $store: {
+        getters: {
+          'hyral_product/collection': jest.fn(() => null),
+        },
+      },
+    }, collectionMixin);
+
+    expect(mixin.computed.collection.call(mixin)).toBeNull();
+  });
 });
