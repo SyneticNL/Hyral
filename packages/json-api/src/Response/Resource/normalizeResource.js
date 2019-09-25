@@ -6,6 +6,11 @@ function guessRelationCardinality(relation) {
   return Array.isArray(relation.data) ? 'one-to-many' : 'many-to-one';
 }
 
+/**
+ * @param {{id: String, type: String, meta: Object|null}} item
+ *
+ * @returns {object.<string, HyralResource>}
+ */
 function transformResource(item) {
   return Resource.create(item.id, item.type, null, null, item.meta);
 }
