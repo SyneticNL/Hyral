@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/SyneticNL/Hyral/compare/v1.3.0...v1.4.0) (2019-09-25)
+
+
+### Bug Fixes
+
+* **vue:** collection mixin cannot be called from other computed property ([8ba1822](https://github.com/SyneticNL/Hyral/commit/8ba1822))
+
+
+### Features
+
+* **vue:** add documentation on how to catch errors with mixins ([820fb43](https://github.com/SyneticNL/Hyral/commit/820fb43))
+
+
+
+
+
 # [1.3.0](https://github.com/SyneticNL/Hyral/compare/v1.2.0...v1.3.0) (2019-09-17)
 
 **Note:** Version bump only for package @hyral/vue
