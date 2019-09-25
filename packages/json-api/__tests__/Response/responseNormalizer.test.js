@@ -16,8 +16,8 @@ describe('Validations for the responseNormalizer', () => {
     const result = responseNormalizer(jsonRelationResponseFixture);
 
     expect(result.data).toHaveLength(1);
-    expect(result.data[0].data.paragraphs[0].data.content[0].data.content.data.test).toEqual('test detail page');
-    expect(result.data[0].data.paragraphs[0].data.content[0].data.content.id).toEqual('45216ae0-fdd5-405b-84dd-c78ef5414444');
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.data.test).toEqual('test detail page');
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.id).toEqual('45216ae0-fdd5-405b-84dd-c78ef5414444');
     expect(result.data[0]).toMatchSchema(resourceJsonSchema);
   });
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
