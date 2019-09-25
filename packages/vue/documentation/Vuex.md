@@ -32,11 +32,9 @@ $store.dispatch('hyral_book/LOAD_COLLECTION', name)
 ***Make sure all repositories are registered before passing the Vuex plugin to the Vuex store instance
 creation.***
 
-See [the Vuex documentation](https://vuex.vuejs.org/guide/plugins.html) on implementing the plugin
-in Vuex.
+See [the Vuex documentation] on implementing the plugin in Vuex.
 
-Example of the creation of a plugin:
-
+Example:
 ```
 // Assumes you have already defined your connectors and repositories.
 
@@ -50,3 +48,5 @@ const store = new Vuex.Store({
   plugins: [hyralPlugin]
 })
 ```
+
+[the Vuex documentation]: https://vuex.vuejs.org/guide/plugins.html

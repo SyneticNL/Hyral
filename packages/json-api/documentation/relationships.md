@@ -1,6 +1,6 @@
 # Detecting resource relationships
 
-If the Resource decorator `relationshipsDecorator` if not used the JSON API normalizer tries to guess the available
+If the Resource decorator `relationshipsDecorator` is not used the JSON:API normalizer tries to guess the available
 relationships and cardinality of these relationships.
 
 *Note: You can/should correct these guesses if they are incorrect when persisting a resource.*

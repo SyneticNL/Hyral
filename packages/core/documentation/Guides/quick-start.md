@@ -1,4 +1,11 @@
 # Quick start
+A step-by-step guide for the basic Hyral features by code examples:
+
+1. [Configuration](#configuration)
+1. [Deleting a resource](#deleting-a-resource)
+1. [Creating a resource](#creating-a-resource)
+1. [Updating a resource](#updating-a-resource)
+1. [Fetching resources](#fetching-resources)
 
 ## Configuration
 
@@ -23,21 +30,37 @@ export const productRepository = repositoryManager.createRepository(connector, '
 ```
 
 **More information**
-* [Defining relational model](../Core/relationships.md)
-* [Using different backends](multiple-backends.md)
-* [Transformers](../Core/transformers.md)
-* [JSON API integration](../../../json-api/README.md)
+* [Defining relational model]
+* [Using different backends]
+* [Transformers]
+* [JSON:API integration]
 
 ## Fetching resources
 
-More information:
-* [Resource definition](../Core/resource.md)
-* [Repository](../Core/repository.md)
-* [Collection](../Core/collection.md)
-* [Using a ParameterBag](../Core/parameterBag.md)
+Related topics for this section:
+* [Resource definition]
+* [Repository]
+* [Collection]
+* [ParameterBag]
 
-### Fetching mutliple resources
+### Find a single resource.
+```javascript
+import { bookRepository } from './hyral.js';
 
+const paramsFindOne = ParameterBag();
+paramsFindOne.setFilters([
+  {
+   field: 'title',
+   value: 'A great book',
+ },
+]);
+
+bookRepository.findOne(paramsFindOne).then((resource) => {
+  console.log(resource);
+});
+```
+
+### Fetching multiple resources
 ```javascript
 import { bookRepository } from './hyral.js';
 
@@ -59,8 +82,7 @@ bookRepository.find(params).then((resources) => {
 Using a Collection for additional features regarding loading state and paging.
 
 ```javascript
-import Collection from '@hyral/core/lib/Resource/Collection';
-import { bookRepository } from './hyral.js';
+import Collection from '@hyral/core/lib/Resource/Collection';import { bookRepository } from './hyral.js';
 
 const products = Collection.create('products', bookRepository);
 products.setFilters([
@@ -80,24 +102,6 @@ products.load().then(() => {
 })
 ```
 
-### Find a single resource.
-
-```javascript
-import { bookRepository } from './hyral.js';
-
-const paramsFindOne = ParameterBag();
-paramsFindOne.setFilters([
-  {
-    field: 'title',
-    value: 'A great book',
-  },
-]);
-
-bookRepository.findOne(paramsFindOne).then((resource) => {
-  console.log(resource);
-});
-```
-
 ### Fetch a single resource by ID
 ```javascript
 
@@ -108,9 +112,7 @@ bookRepository.findById('2').then((resource) => {
 });
 ```
 
-
 ## Creating a resource
-
 ```javascript
 import Resource from '@hyral/core/lib/Resource/Resource';
 
@@ -209,3 +211,12 @@ changeSet.execute().then(() => {
   console.log('resources created!');
 });
 ```
+
+[Defining relational model]: ../Core/relationships.md
+[Using different backends]: multiple-backends.md
+[Transformers]: ../Core/transformers.md
+[JSON:API integration]: ../../../json-api/README.md
+[Resource definition]: ../Core/resource.md
+[Repository]: ../Core/repository.md
+[Collection]: ../Core/collection.md
+[ParameterBag]: ../Core/parameterBag.md

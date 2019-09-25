@@ -1,16 +1,16 @@
 # Collection
-
-A Collection is a managed way of working with a list of resources. It is connected to a 
-[Resource Repository](repository.md) to fetch data.
-
-A Collection 
+A Collection is a managed way of working with a list of resources. It is connected to a [Repository] to fetch data.
 
 ## Features
-* Only load results if not loaded previously or the state of the parameter bag has changed
+Features / why using a collection makes sense:
+
 * Exposes paging information on the fetched result
+* Exposes metadata on the loading state
+* Prevents unnecessary load on the API by only loading results if there are no results yet or the state of the 
+[ParameterBag] has changed.
+* A collection state can be serialized as it does not contain complex objects.
 
 ## Example
-
 ```javascript
 import Collection from '@hyral/core/lib/Resource/Collection';
 import { bookRepository } from './hyral.js';
@@ -41,3 +41,6 @@ products.load().then(() => {
   // Useful for when using a list of items in different contexts.
 });
 ```
+
+[Repository]: repository.md
+[ParameterBag]: parameterBag.md

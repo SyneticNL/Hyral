@@ -1,6 +1,6 @@
 import urlSerializerPlural from '../../src/Request/urlSerializerPlural';
 
-describe('The jsonApi plural url serializer', () => {
+describe('The JSON:API plural url serializer', () => {
   const repository = {
     resourceType: 'product',
   };

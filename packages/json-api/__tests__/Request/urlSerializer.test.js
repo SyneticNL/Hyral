@@ -1,6 +1,6 @@
 import urlSerializer from '../../src/Request/urlSerializer';
 
-describe('The jsonApi url serializer', () => {
+describe('The JSON:API url serializer', () => {
   const repository = {
     resourceType: 'product',
   };

@@ -6,7 +6,7 @@ import serializeParams from '../../src/Request/Params/serializeParams';
 import serializeSorting from '../../src/Request/Params/serializeSorting';
 
 describe('paramSerializer', () => {
-  test('that serializeParams gives a valid JsonApi response', () => {
+  test('that serializeParams gives a valid JSON:API response', () => {
     const parameterBag = ParameterBag();
     const params = {
       simple: 'value',
@@ -21,7 +21,7 @@ describe('paramSerializer', () => {
     expect(serializeParams({})).toEqual({});
   });
 
-  test('that serializeSorting gives a valid JsonApi response', () => {
+  test('that serializeSorting gives a valid JSON:API response', () => {
     const parameterBag = ParameterBag();
     parameterBag.setSorting([
       {
@@ -46,7 +46,7 @@ describe('paramSerializer', () => {
     expect(serializeSorting(parameterBag)).toBeNull();
   });
 
-  test('that serializePaging gives a valid JsonApi response', () => {
+  test('that serializePaging gives a valid JSON:API response', () => {
     const parameterBag = ParameterBag();
     const paging = {
       offset: 20,
@@ -61,7 +61,7 @@ describe('paramSerializer', () => {
     });
   });
 
-  test('that serializeFilters gives a valid JsonApi response', () => {
+  test('that serializeFilters gives a valid JSON:API response', () => {
     const parameterBag = ParameterBag();
     const filters = [
       {
@@ -85,7 +85,7 @@ describe('paramSerializer', () => {
     });
   });
 
-  test('that paramsSerializer gives a valid, JsonApi compatible, params object', () => {
+  test('that paramsSerializer gives a valid, JSON:API compatible, params object', () => {
     const parameterBag = ParameterBag();
     parameterBag.setSorting([
       {

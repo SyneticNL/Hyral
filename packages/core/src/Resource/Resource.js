@@ -143,10 +143,16 @@ function Resource(id, type, data = null, relationships = null, meta = null) {
         }
 
         if (Array.isArray(normalState.data[relationKey])) {
-          return normalState.data[relationKey].map(value => ({ state: value.state, type: value.type }));
+          return normalState.data[relationKey].map(value => ({
+            state: value.state,
+            type: value.type,
+          }));
         }
 
-        return { state: normalState.data[relationKey].state, type: normalState.data[relationKey].type };
+        return {
+          state: normalState.data[relationKey].state,
+          type: normalState.data[relationKey].type,
+        };
       });
 
       return Object.assign({}, normalState, {
@@ -180,24 +186,11 @@ Resource.create = (id = null, type, data = null, relationships = null, meta = nu
 
 /**
  *
- * @param {string|number|null} id
- * @param {string} type
- * @param {object} state
- *
- * @returns {HyralResource}
+ * @param state
+ * @returns {*}
  */
-Resource.fromState = (id, type, state) => {
-  if (!state || !state.relationships) {
-    return Resource.create(
-      id,
-      type,
-      state ? state.data : null,
-      null,
-      state ? state.meta : null,
-    );
-  }
-
-  const relationData = mapValues(state.relationships, (relation, relationKey) => {
+function createRelatedResource(state) {
+  return mapValues(state.relationships, (relation, relationKey) => {
     if (!state.data[relationKey]) {
       return null;
     }
@@ -216,8 +209,32 @@ Resource.fromState = (id, type, state) => {
       state.data[relationKey].state || null,
     );
   });
+}
 
-  const resourceData = Object.assign({}, state.data, relationData);
+/**
+ *
+ * @param {string|number|null} id
+ * @param {string} type
+ * @param {object} state
+ *
+ * @returns {HyralResource}
+ */
+Resource.fromState = (id, type, state) => {
+  if (!state || !state.relationships) {
+    return Resource.create(
+      id,
+      type,
+      state ? state.data : null,
+      null,
+      state ? state.meta : null,
+    );
+  }
+
+  const resourceData = Object.assign(
+    {},
+    state.data,
+    createRelatedResource(state),
+  );
 
   return Resource.create(
     id,

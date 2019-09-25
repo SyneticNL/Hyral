@@ -71,7 +71,7 @@ export function getChangedResourceRelations(resource) {
  * @returns {HyralResource[]}
  */
 export function getDeletedOneToOneRelatedResources(resource) {
-  if (!resource.relationships) {
+  if (isEmpty(resource.relationships)) {
     return [];
   }
 
