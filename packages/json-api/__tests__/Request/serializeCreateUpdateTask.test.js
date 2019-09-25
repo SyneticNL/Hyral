@@ -9,7 +9,7 @@ import requestSerializer
 import createJsonPayload
   from '../fixtures/JsonApi/Mutations/createRequestPayload';
 
-describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
+describe('The JSON:API request serializeCreateUpdateTask serializer', () => {
   test('that serializeCreateUpdateTask skips execution if not passed a valid task', () => {
     const task = {};
     expect(serializeCreateUpdateTask(task)).toBe(task);
@@ -18,7 +18,7 @@ describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
     expect(serializeCreateUpdateTask(relationTask)).toBe(relationTask);
   });
 
-  test('that serializeCreateUpdateTask results in a correct JsonApi request payload for a new resource', () => {
+  test('that serializeCreateUpdateTask results in a correct JSON:API request payload for a new resource', () => {
     const repository = {};
     const book = Resource.create(null, 'book', { title: 'A great book' });
     const task = Task('create', repository, book);
@@ -28,7 +28,7 @@ describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
     expect(requestSerializer(task)).toEqual(createJsonPayload);
   });
 
-  test('that serializeCreateUpdateTask results in a correct JsonApi request payload', () => {
+  test('that serializeCreateUpdateTask results in a correct JSON:API request payload', () => {
     const repository = {};
     const book = Resource.create(1, 'book', { title: 'A great book' });
     const task = Task('update', repository, book);
@@ -38,7 +38,7 @@ describe('The jsonApi request serializeCreateUpdateTask serializer', () => {
     expect(requestSerializer(task)).toEqual(updateRequestPayload);
   });
 
-  test('that processCreateTask results in a correct JsonApi request payload for a resource with a changed relation', () => {
+  test('that processCreateTask results in a correct JSON:API request payload for a resource with a changed relation', () => {
     const repository = {};
     const author = Resource.create(2, 'author', { name: 'A great author' });
     const publications = [

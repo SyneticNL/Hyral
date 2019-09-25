@@ -9,10 +9,9 @@ The parameterBag support 4 kinds of parameters:
 
 Each is defined separately so they can be implemented by the transformers according to the backend API type.
 
-Each type is defined in a JSDoc type. IDE's supporting this will offer autocomplete and suggestions.
+Each type is defined in a JSDoc type. IDEs supporting this will offer autocomplete and suggestions.
 
 ## Filters
-
 ```javascript
 const params = ParameterBag();
 
@@ -29,7 +28,6 @@ params.setFilters([
 Value can be a string, number, boolean or null.
 
 ## Sorting
-
 ```javascript
 const params = ParameterBag();
 

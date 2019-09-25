@@ -39,11 +39,17 @@
     "type": {
       "type": "string"
     },
+    "relationships": {
+      "$ref": "#/definitions/relationships"
+    },
     "data": {
       "type": "object"
     },
     "metadata": {
       "$ref": "#/definitions/metadata"
+    },
+    "meta": {
+      "type": "object"
     }
   },
   "required": [ "id", "type", "data", "metadata" ]

@@ -1,7 +1,7 @@
 {
   "name": "@hyral/json-api",
   "version": "1.3.0",
-  "description": "JsonApi integration for Hyral",
+  "description": "JSON:API integration for Hyral",
   "author": "SyneticNL",
   "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
   "license": "MIT",

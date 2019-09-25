@@ -123,6 +123,9 @@ describe('Relation tests', () => {
       },
     });
 
+    const beforeChangeddeletedResources = getDeletedOneToOneRelatedResources(resource);
+    expect(beforeChangeddeletedResources).toHaveLength(0);
+
     resource.data = {
       title: 'A great book',
     };
@@ -131,5 +134,8 @@ describe('Relation tests', () => {
 
     expect(deletedResources).toHaveLength(1);
     expect(deletedResources[0]).toBe(thumb);
+
+    const noRelationshipsDeletedResources = getDeletedOneToOneRelatedResources(author);
+    expect(noRelationshipsDeletedResources).toHaveLength(0);
   });
 });
