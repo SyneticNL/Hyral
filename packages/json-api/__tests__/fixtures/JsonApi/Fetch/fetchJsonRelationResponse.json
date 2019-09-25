@@ -52,7 +52,7 @@
         "test": "test teasers"
       },
       "relationships": {
-        "content": {
+        "referenced": {
           "data": [
             {
               "type": "paragraph--referenced_content",
@@ -85,7 +85,7 @@
         "test": "test referenced content"
       },
       "relationships": {
-        "content": {
+        "detail": {
           "data": {
             "type": "detail_page",
             "id": "45216ae0-fdd5-405b-84dd-c78ef5414444"

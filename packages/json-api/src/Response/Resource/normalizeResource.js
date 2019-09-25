@@ -6,6 +6,10 @@ function guessRelationCardinality(relation) {
   return Array.isArray(relation.data) ? 'one-to-many' : 'many-to-one';
 }
 
+function transformResource(item) {
+  return Resource.create(item.id, item.type, {}, null, item.meta);
+}
+
 /**
  * @param {JsonApiResource} data
  *
@@ -13,10 +17,15 @@ function guessRelationCardinality(relation) {
  */
 function getResourcesFromData(data) {
   return Object.entries(data.relationships)
-    .reduce(
-      (carry, [field, relation]) => Object.assign(carry, { [field]: relation.data }), {},
-    );
+    .reduce((carry, [field, relation]) => {
+      const resources = Array.isArray(relation.data)
+        ? relation.data.map(item => transformResource(item))
+        : transformResource(relation.data);
+      Object.assign(carry, { [field]: resources });
+      return carry;
+    }, {});
 }
+
 
 /**
  * @param {JsonApiResource} data

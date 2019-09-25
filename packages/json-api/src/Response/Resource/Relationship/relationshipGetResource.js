@@ -7,6 +7,7 @@ import Resource from '@hyral/core/lib/Resource/Resource';
  * @returns {Resource}
  */
 export default function relationshipGetResource(item, includedRelations) {
+  // item is resource
   const resource = includedRelations[`${item.type}-${item.id}`] || Resource.create(
     item.id,
     item.type,
