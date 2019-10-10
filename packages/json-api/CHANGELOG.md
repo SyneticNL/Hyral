@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/SyneticNL/Hyral/compare/v1.4.0...v1.5.0) (2019-10-10)
+
+
+### Bug Fixes
+
+* **json-api:** applied reset method in responseNormaliser ([b2a93d6](https://github.com/SyneticNL/Hyral/commit/b2a93d6))
+
+
+
+
+
 # [1.4.0](https://github.com/SyneticNL/Hyral/compare/v1.3.0...v1.4.0) (2019-09-25)
 
 
