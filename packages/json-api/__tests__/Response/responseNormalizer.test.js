@@ -205,7 +205,7 @@ describe('Validations for the responseNormalizer', () => {
     expect(result).toBe(emptyResponse);
   });
 
-  test('that the responseNormnalizer does not generate multiple items in the state stack', () => {
+  test('that the responseNormalizer does not generate multiple items in the state stack', () => {
     const result = responseNormalizer(jsonRelationResponseFixture);
     expect(result.data[0].stateStack).toHaveLength(1);
 
