@@ -32,6 +32,13 @@ import normalizePaging from './Resource/normalizePaging';
  */
 
 /**
+ * @param {Object} ResourcesObject
+ */
+function ensureResourceSingleStateInStack(ResourcesObject) {
+  Object.values(ResourcesObject).forEach(resource => resource.resetStateStack());
+}
+
+/**
  * @param {JsonApiResponse} response
  *
  * @returns {{data: Resource[]|Resource, paging: {count: number, pages: number}}|{data: Resource}}
@@ -53,8 +60,8 @@ function responseNormalizer(response) {
   const rootResources = normalizeResources(singleMode ? [response.data] : response.data);
   relationshipApplyToData(rootResources, includedResources);
 
-  Object.values(includedResources).forEach(resource => resource.resetStateStack());
-  Object.values(rootResources).forEach(resource => resource.resetStateStack());
+  ensureResourceSingleStateInStack(includedResources);
+  ensureResourceSingleStateInStack(rootResources);
 
   const normalizedItems = Object.values(rootResources);
   if (singleMode) {
