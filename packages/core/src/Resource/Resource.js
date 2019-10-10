@@ -131,6 +131,14 @@ function Resource(id, type, data = null, relationships = null, meta = null) {
       return state;
     },
 
+    resetStateStack() {
+      if (state.length === 1) {
+        return;
+      }
+
+      state.splice(0, state.length - 1);
+    },
+
     /**
      * @returns {Object}
      */
