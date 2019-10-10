@@ -50,8 +50,8 @@ describe('The Resource state', () => {
 
   test('Test that serialization of a resource state works', () => {
     const authorImage = Resource.create(5, 'authorImage', { src: 'image.jpg' });
-    const publication1 = Resource.create(3, 'publication', { name: 'Publication 1'});
-    const publication2 = Resource.create(4, 'publication', { name: 'Publication 2'});
+    const publication1 = Resource.create(3, 'publication', { name: 'Publication 1' });
+    const publication2 = Resource.create(4, 'publication', { name: 'Publication 2' });
 
     const author = Resource.create(1, 'author', {
       name: 'John',
@@ -92,11 +92,37 @@ describe('The Resource state', () => {
 
     expect(book.state.data.author.state.data.authorImage).not.toBe(authorImage);
     expect(book.state.data.author.state.data.authorImage).not.toHaveProperty('setMetadata');
-    expect(book.state.data.author.state.data.authorImage).toEqual({ state: authorImage.state, type: authorImage.type });
+    expect(book.state.data.author.state.data.authorImage).toEqual({
+      state: authorImage.state,
+      type: authorImage.type,
+    });
 
     expect(book.state.data.publication[0]).not.toBe(publication1);
     expect(book.state.data.publication[0]).not.toHaveProperty('setMetadata');
-    expect(book.state.data.publication[0]).toEqual({ state: publication1.state, type: publication1.type });
+    expect(book.state.data.publication[0]).toEqual({
+      state: publication1.state,
+      type: publication1.type,
+    });
   });
 
+  test('that resetting the state stack resets the state stack', () => {
+    const author = Resource.create(2, 'author', { name: 'A great author' });
+
+    expect(author.stateStack).toHaveLength(1);
+
+    author.resetStateStack();
+
+    expect(author.stateStack).toHaveLength(1);
+    expect(author.data.name).toEqual('A great author');
+
+    author.data = { ...author.data, name: 'Another author' };
+
+    expect(author.data.name).toEqual('Another author');
+    expect(author.stateStack).toHaveLength(2);
+
+    author.resetStateStack();
+
+    expect(author.data.name).toEqual('Another author');
+    expect(author.stateStack).toHaveLength(1);
+  });
 });
