@@ -53,6 +53,9 @@ function responseNormalizer(response) {
   const rootResources = normalizeResources(singleMode ? [response.data] : response.data);
   relationshipApplyToData(rootResources, includedResources);
 
+  Object.values(includedResources).forEach(resource => resource.resetStateStack());
+  Object.values(rootResources).forEach(resource => resource.resetStateStack());
+
   const normalizedItems = Object.values(rootResources);
   if (singleMode) {
     return {

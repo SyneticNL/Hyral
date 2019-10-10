@@ -204,4 +204,16 @@ describe('Validations for the responseNormalizer', () => {
 
     expect(result).toBe(emptyResponse);
   });
+
+  test('that the responseNormnalizer does not generate multiple items in the state stack', () => {
+    const result = responseNormalizer(jsonRelationResponseFixture);
+    expect(result.data[0].stateStack).toHaveLength(1);
+
+    expect(result.data[0].data.paragraphs[0].stateStack).toHaveLength(1);
+
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].stateStack).toHaveLength(1);
+
+    // eslint-disable-next-line max-len
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.stateStack).toHaveLength(1);
+  });
 });
