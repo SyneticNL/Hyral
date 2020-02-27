@@ -14,15 +14,21 @@ export default function normalizePaging(response) {
     };
   }
 
-  const query = parse(
-    url.parse(response.links.last).query,
-  );
+  if (url.parse(response.links.last).query) {
+    const query = parse(
+      url.parse(response.links.last).query,
+    );
 
-  const numPages = parseInt(query.page.number, 10);
-  const numPerPage = parseInt(query.page.size, 10);
+    const numPages = parseInt(query.page.number, 10);
+    const numPerPage = parseInt(query.page.size, 10);
 
+    return {
+      count: numPages * numPerPage,
+      pages: numPages,
+    };
+  }
   return {
-    count: numPages * numPerPage,
-    pages: numPages,
+    count: 1,
+    pages: 1,
   };
 }
