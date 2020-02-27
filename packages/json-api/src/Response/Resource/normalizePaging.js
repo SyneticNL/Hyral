@@ -14,7 +14,7 @@ export default function normalizePaging(response) {
     };
   }
 
-  if (url.parse(response.links.last).query) {
+  if (url.parse(response.links.last) && url.parse(response.links.last).query) {
     const query = parse(
       url.parse(response.links.last).query,
     );
