@@ -1,4 +1,4 @@
-# Hyral
+# TEST Hyral
 [![npm version](https://badge.fury.io/js/%40hyral%2Fcore.svg)](https://badge.fury.io/js/%40hyral%2Fcore)
 [![Known Vulnerabilities](https://snyk.io/test/github/SyneticNL/Hyral/badge.svg)](https://snyk.io/test/github/SyneticNL/Hyral)
 [![devDependencies Status](https://david-dm.org/syneticNL/Hyral/dev-status.svg)](https://david-dm.org/syneticNL/Hyral?type=dev)
