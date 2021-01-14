@@ -1,7 +1,7 @@
 {
-  "name": "hyral",
+  "name": "hyral-avlisodraude",
   "version": "0.2.0",
-  "description": "Hypermedia oriented Resource Api Layer",
+  "description": "Hypermedia oriented Resource Api Layer. Fork version with security updates added to it",
   "main": "lib",
   "directories": {
     "test": "test"
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SyneticNL/Hyral.git"
+    "url": "git+https://github.com/avlisodraude/Hyral.git"
   },
   "keywords": [
     "hypermedia",
