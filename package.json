@@ -48,7 +48,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/runtime": "^7.5.5",
-    "@commitlint/cli": "^8.1.0",
+    "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^8.1.0",
     "babel-jest": "^24.9.0",
     "babel-plugin-add-module-exports": "^1.0.2",
