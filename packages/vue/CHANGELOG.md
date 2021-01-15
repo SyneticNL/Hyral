@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/SyneticNL/Hyral/compare/v1.5.0...v1.6.0) (2021-01-15)
+
+
+### Features
+
+* **core:** security updates ([d9c61ec](https://github.com/SyneticNL/Hyral/commit/d9c61ec7222ee9318970f66beeb4de9e6290c217))
+
+
+
+
+
 # [1.5.0](https://github.com/SyneticNL/Hyral/compare/v1.4.0...v1.5.0) (2019-10-10)
 
 **Note:** Version bump only for package @hyral/vue
