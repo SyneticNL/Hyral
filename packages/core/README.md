@@ -1,4 +1,8 @@
 # Hyral core
+
+## !!BREAKING CHANGES!!
+Warning! Core has been updated and no longer has state assets. Please use core-with-state for resources with state. Use at your own risk.
+
 [![npm version](https://badge.fury.io/js/%40hyral%2Fcore.svg)](https://badge.fury.io/js/%40hyral%2Fcore)
 [![Known Vulnerabilities](https://snyk.io/test/github/SyneticNL/Hyral/badge.svg)](https://snyk.io/test/github/SyneticNL/Hyral)
 [![devDependencies Status](https://david-dm.org/syneticNL/Hyral/dev-status.svg)](https://david-dm.org/syneticNL/Hyral?type=dev)
@@ -18,7 +22,10 @@ API('s).
 * [Hypermedia oriented]
 * Support for multiple backends with 1 interface
 * Full test-coverage
-* Modern codebase with immutability, state management and promises
+* Modern codebase with TypeScript and promises
+
+## State
+When using state management please use the [Hyral Core with state] package
 
 ## Additional features
 * [JSON:API integration]
@@ -36,7 +43,7 @@ For documentation on other integrations please check the packages themselves.
 ```bash
 npm install @hyral/core
 
-// JSON-API support
+// JSON:API support
 npm install @hyral/json-api
 
 // Vue(x) integration
@@ -47,7 +54,8 @@ npm install @hyral/vue
 [Quick start guide]
 
 [Core documentation]: documentation
-[Hypermedia oriented]: documentation/Guides/hypermedia.md
+[Hypermedia oriented]: documentation/guides/hypermedia.md
+[Hyral Core with state]: https://github.com/SyneticNL/Hyral/tree/master/packages/core-with-state
 [JSON:API integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
 [Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
-[Quick start guide]: documentation/Guides/quick-start.md
+[Quick start guide]: documentation/guides/quick-start.md

@@ -10,7 +10,7 @@ This guide will provide examples for each part of the transformer based on the f
 * GET `/products`
 
 Will return a list of products:
-```
+```javascript
 [
   {
     id: "1",
@@ -29,7 +29,7 @@ Sorting is done via `sort=[field]&dir=[direction]`.
 * GET `products/[id]`
 
 Will return a product:
-```
+```javascript
 {
   id: "1",
   title: "product 1",
@@ -49,7 +49,7 @@ The paramsSerializer will receive a `ParameterBag` instance (can be null/undefin
 the Connector can use. In case of the HttpConnector this will be a query-string.
 
 ### Example
-```
+```javascript
 // https://www.npmjs.com/package/qs
 import stringify from 'qs/lib/stringify';
 
@@ -86,7 +86,7 @@ Each method will need to return a format the Connector can use. In case of the H
 string (uri).
 
 ### Example
-```
+```javascript
 const urlSerializer = {
   fetch(repository) {
     return `/${repository.resourceType}`;
@@ -113,7 +113,7 @@ const urlSerializer = {
 The response normalizer converts the backend response format into the Hyral format.
 
 The response normalizer is a function that will receive the following arguments:
-```
+```javascript
 function(response.data, response.headers, repository)
 ```
 
@@ -135,7 +135,7 @@ The paging property must be filled when returning multiple resources. `count` co
 of paging) and `pages` contains the number of pages the results are split into.
 
 ### Example
-```
+```javascript
 function normalizeResources(items, repository) {
   return items.map(item => Resource.create(
     item.id,
@@ -175,7 +175,7 @@ A request serializer converts tasks into a payload the server understands. A tas
 
 
 ### Example
-```
+```javascript
 
 // Should return the body of the request to the backend, in this case simply the data object. 
 function serializeCreateUpdateTask(task) {

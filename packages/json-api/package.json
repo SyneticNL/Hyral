@@ -1,40 +1,35 @@
 {
   "name": "@hyral/json-api",
-  "version": "1.6.0",
-  "description": "JSON:API integration for Hyral",
-  "author": "SyneticNL",
-  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
-  "license": "MIT",
-  "module": "src/index.js",
+  "version": "2.0.0-prerelease",
+  "description": "Json-api implementation module for Hyral",
   "main": "lib/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "devDependencies": {
-    "jest-json-schema": "^2.0.2"
-  },
+  "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^1.6.0",
-    "lodash": "^4.17.11",
-    "pluralize": "^7.0.0",
-    "qs": "^6.7.0",
-    "url": "^0.11.0"
+    "@hyral/core": "^2.0.0-prerelease",
+    "qs": "^6.10.1",
+    "whatwg-url": "^8.4.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.168",
+    "@types/qs": "^6.9.6",
+    "@types/whatwg-url": "^8.2.0",
+    "lodash": "^4.17.21"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SyneticNL/Hyral.git"
+    "url": "git+https://github.com/SyneticNL/hyral.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/SyneticNL/Hyral/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+  "keywords": [
+    "json",
+    "api",
+    "json-api",
+    "normalizer",
+    "serializer"
+  ],
+  "author": "Synetic<info@synetic.nl>",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/json-api#readme",
+  "license": "MIT"
 }

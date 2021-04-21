@@ -12,21 +12,20 @@ therefore Hyral will automatically switch backend based on which repository you 
 ## Example
 ```javascript
 import axios from 'axios';
-import HttpConnector from '@hyral/core/lib/Connector/HttpConnector';
-import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';
+import { HttpConnector, repositoryManager } from '@hyral/core';
 import jsonApi from '@hyral/json-api';
 
 const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
 });
 
-const connector = HttpConnector.create(axiosInstance, jsonApi);
+const connector = new HttpConnector(axiosInstance, jsonApi);
 
 const axiosInstance2 = axios.create({
   baseURL: 'https://another-api-url',
 });
 
-const connector2 = HttpConnector.create(axiosInstance2, jsonApi);
+const connector2 = new HttpConnector(axiosInstance2, jsonApi);
 
 export const bookRepository = repositoryManager.createRepository(connector, 'book');
 export const authorRepository = repositoryManager.createRepository(connector2, 'author');

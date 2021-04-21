@@ -1,8 +1,14 @@
 module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
   roots: [
     'packages/',
+    'implementations/',
   ],
-  collectCoverageFrom: ['packages/**/src/**'],
+  collectCoverageFrom: [
+    'packages/**/src/**/{!(*.d.ts),}.ts',
+    'implementations/**/src/**/{!(*.d.ts),}.ts',
+  ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov'],
   coverageThreshold: {

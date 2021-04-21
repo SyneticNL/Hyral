@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/SyneticNL/Hyral/compare/v1.6.0...v1.6.1) (2021-04-21)
+
+
+### Features
+
+* **core:** security updates ([c60c250](https://github.com/SyneticNL/Hyral/commit/c60c250e2627dbd8f7c81580c9f4ea3ca8dcbf0c))
+
+
+
+
+
 # [1.6.0](https://github.com/SyneticNL/Hyral/compare/v1.5.0...v1.6.0) (2021-01-15)
 
 

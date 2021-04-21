@@ -1,27 +1,31 @@
 {
   "name": "hyral",
-  "version": "0.2.0",
-  "description": "Hypermedia oriented Resource Api Layer",
+  "version": "2.0.0-prerelease",
+  "description": "A modular version of Hyral ORM(-like) architecture",
   "main": "lib",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
+    "build": "npm run build:core && npm run build:json-api && npm run build:vue && npm run build:nuxt-drupal",
+    "build:core": "lerna exec --scope=@hyral/core 'tsc'",
+    "build:json-api": "lerna exec --scope=@hyral/json-api 'tsc'",
+    "build:vue": "lerna exec --scope=@hyral/vue 'tsc'",
+    "build:nuxt-drupal": "lerna exec --scope=@hyral/nuxt-drupal 'tsc'",
+    "postinstall:husky": "husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
+    "postinstall": "lerna bootstrap && npm run build && npm run postinstall:husky",
+    "prerelease": "npm run build",
+    "release": "lerna publish",
+    "lint": "eslint ./packages ./implementations --ext .ts,.json",
+    "fix": ".eslint ./packages ./implementations --ext .ts,.json --fix",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint packages/**/src",
-    "fix": ".eslint --fix packages/**/src",
-    "build": "lerna exec --parallel 'BABEL_ENV=production babel src --root-mode upward --out-dir lib --source-maps --extensions .js --delete-dir-on-start'",
-    "postinstall": "lerna bootstrap && npm run build",
-    "prerelease": "npm run build",
-    "release": "lerna publish"
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SyneticNL/Hyral.git"
   },
   "keywords": [
+    "Hyral",
+    "ORM",
     "hypermedia",
     "vue",
     "vuex",
@@ -33,43 +37,32 @@
     "deserialize",
     "json-api"
   ],
-  "author": "Synetic",
+  "author": "Synetic<info@synetic.nl>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SyneticNL/Hyral/issues"
   },
   "homepage": "https://github.com/SyneticNL/Hyral#readme",
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
-    "@babel/plugin-transform-async-to-generator": "^7.5.0",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
-    "@babel/runtime": "^7.5.5",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^8.1.0",
-    "babel-jest": "^24.9.0",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-preset-minify": "^0.5.1",
-    "cross-env": "^5.2.0",
-    "eslint": "^6.2",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.16.0",
-    "husky": "^3.0.4",
-    "jest": "^24.9.0",
-    "lerna": "^3.16.4"
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@types/jest": "^26.0.21",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.1",
+    "eslint-plugin-json": "^2.1.2",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lerna": "^4.0.0",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
-    }
   }
 }

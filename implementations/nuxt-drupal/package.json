@@ -1,0 +1,39 @@
+{
+  "name": "@hyral/nuxt-drupal",
+  "version": "2.0.0-prerelease",
+  "description": "Implementation Hyral for Nuxt.js and Drupal",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "@hyral/core": "^2.0.0-prerelease",
+    "@hyral/json-api": "^2.0.0-prerelease",
+    "@hyral/vue": "^2.0.0-prerelease",
+    "axios": "^0.21.1",
+    "druxt-router": "^0.18.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.6",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "vue": "^2.6",
+    "vuex": "^3.6.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/hyral.git"
+  },
+  "keywords": [
+    "nuxt",
+    "druxtRouter",
+    "mixin",
+    "state",
+    "plugin"
+  ],
+  "author": "Synetic<info@synetic.nl>",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/implementations/nuxt-drupal#readme",
+  "license": "MIT"
+}

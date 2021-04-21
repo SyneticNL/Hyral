@@ -31,7 +31,7 @@ The `fetch` and `fetchOne` repository methods provide a [ParameterBag]. The para
 
 ### requestSerializer
 A request serializer converts [Tasks] into a format the backend can process. To understand how Hyral processes changes
-please read the [ChangeSet] section.
+please read the [Tasks] section.
 
 ### responseNormalizer
 The response normalizer converts the backend API response into the Hyral format.
@@ -41,5 +41,4 @@ The response normalizer results in converted resource(s) and when returning mult
 [creating a transformer]: ../Guides/creating-transformers.md
 [repositories]: repository.md
 [ParameterBag]: parameterBag.md
-[ChangeSet]: changeSet.md
-[Tasks]: changeSet.md
+[Tasks]: tasks.md

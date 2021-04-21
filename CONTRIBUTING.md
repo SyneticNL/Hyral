@@ -28,8 +28,10 @@ feat(category): added feature x
 | ---------: | -----
 | `empty`    | Changes to monorepo, no change to packages (alternatively, the filename - e.g `readme`)
 | core       | Changes to the `core` package
+| state      | Changes to the `core-with-state` package
 | json-api   | Changes to the `json-api` package
 | vue        | Changes to the `vue` package
+| nux-dru    | Changes to the `nuxt-drupal` implementation
 
 | Type     | Usage
 | -------: | -----
@@ -84,7 +86,7 @@ See [conventional-changelog/commitlint] for a complete list of types and other r
     git push origin your-feature-name
     ```
 
-1. Open a pull request
+1. Open a merge request
 
 [AirBnb coding standards]: https://github.com/airbnb/javascript
 [conventional-changelog/commitlint]: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional

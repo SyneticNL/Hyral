@@ -10,14 +10,16 @@ This guide discuses the overall architecture and design of Hyral and the reasons
 ## Hyral modal
 Hyral is structured as follows:
 
+<!-- TODO: incorrect -->
 ![Hyral model](assets/Hyral%20model.svg)
 
 ## Managed Resources
 Hyral has a managed resource via the `Resource` object. Hyral uses this instead of a simple object to be able to add
-various features in working with resources. The resources encapsulates all data and makes it available via getters. With
+various features in working with resources. The resources encapsulates all data . With
 this Hyral can control how data is accessed and updated.
 
-### State
+<!-- TODO: Move to core-with-state -->
+<!-- ### State
 A Resource has state management, every change to the Resource causes a new state on the stack to be created. With this 
 approach Hyral can detect changes to the Resource. It's in theory even possible to revert the changes to a Resource by 
 reverting to the previous state.
@@ -33,7 +35,7 @@ ChangeSet and Hyral will determine the required calls to the API and the correct
 possible because the relationship model is known and Hyral is able to detect which changes have been made to the 
 Resource.
 So instead of having to implement custom code to do all the required API calls you simply persist all changes to the 
-ChangeSet and execute the ChangeSet, easy!
+ChangeSet and execute the ChangeSet, easy! -->
 
 ## Programming style & paradigms
 
@@ -43,8 +45,5 @@ the code is structured into separate files, grouping functions together. Tests a
 the same tree structure as the src folder.
 
 ### Programming paradigms
-The code for Hyral is written in a Function Programming style. A lot of attention has been given into function purity, 
+The code for Hyral is written in an Object Programming style. A lot of attention has been given into object purity, 
 immutability and containing side-effects.
-
-Additionally it uses, a very classical interpretation of, object oriented structures without inheritance and the `this` 
-variable. This is used with function constructors to enable true encapsulation in JavaScript.

@@ -1,30 +1,33 @@
 # Vuex store plugin
-Hyral provides a Vuex plugin that can be registered on creation. The plugin will create a module for each repository
-with the name `hyral_[resource type]`.
+Hyral provides a Vuex plugin that can be registered on creation. The plugin will create a module for each service
+with the name `hyral_[service]`.
 
 ## Features
 Each module will provide getters, mutations and actions for Resource and Collection:
 
-Example functions for a book repository:
+Example functions for a service named `backend` with a book repository of `type`:
 
 ```javascript
-// Get a resource. Call LOAD_RESOURCE first for Vue reactivity to work properly.
-$store.getters['hyral_book/resource'](id)
+// Get a resource.
+$store.getters['hyral_backend/resource'](type)(id)
 
-// Get a collection (will provision if it does not exist).
-$store.getters['hyral_book/collection'](name)
+// Get a collection.
+$store.getters['hyral_backend/collection'](type)(name)
 
 // Commit an updated Resource to the store.
-$store.commit('hyral_book/SET_RESOURCE', resource)
+$store.commit('hyral_backend/SET_RESOURCE', resource)
+
+// To start a new collection manually you can do this yourself but you will generally not need this mutation.
+$store.commit('hyral_backend/START_COLLECTION', { type, collectionName })
 
 // Any change to the Collection will be automatically committed and you generally will not need this mutation.
-$store.commit('hyral_book/SET_COLLECTION', collection)
+$store.commit('hyral_backend/SET_COLLECTION', { type, collection })
 
-// Will commit the resource to the store once loaded, will immediately commit an empty resource.
-$store.dispatch('hyral_book/LOAD_RESOURCE', id)
+// Will commit the resource to the store once loaded
+$store.dispatch('hyral_backend/LOAD_RESOURCE', { id, type, parameterBag? })
 
-// Will trigger the collection.load() method. You can also just call the load method directly.
-$store.dispatch('hyral_book/LOAD_COLLECTION', name)
+// Will commit collection to the store once loaded. 
+$store.dispatch('hyral_backend/LOAD_COLLECTION', { name, type, parameterBag? })
 ```
 
 ## Configuration
@@ -35,13 +38,13 @@ creation.***
 See [the Vuex documentation] on implementing the plugin in Vuex.
 
 Example:
-```
+```javascript
 // Assumes you have already defined your connectors and repositories.
 
-import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';
-import createVuexPlugin from '@hyral/vue/lib/createVuexPlugin';
+import { repositoryManager } from '@hyral/core';
+import { createVuexPlugin } from '@hyral/vue';
 
-const hyralPlugin = createVuexPlugin(repositoryManager);
+const hyralPlugin = createVuexPlugin(repositoryManager, 'book');
 
 const store = new Vuex.Store({
   // ...

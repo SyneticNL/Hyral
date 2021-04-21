@@ -9,7 +9,7 @@ cache: npm
 matrix:
   fast_finish: true
 script: npm run test:coverage
-after_install: lerna bootstrap
+after_install: npm run postinstall
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

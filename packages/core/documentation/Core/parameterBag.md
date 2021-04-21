@@ -13,7 +13,7 @@ Each type is defined in a JSDoc type. IDEs supporting this will offer autocomple
 
 ## Filters
 ```javascript
-const params = ParameterBag();
+const params = new ParameterBag();
 
 // Add a single filter.
 params.addFilter({ field: 'fieldname', value: 'value' });
@@ -29,7 +29,7 @@ Value can be a string, number, boolean or null.
 
 ## Sorting
 ```javascript
-const params = ParameterBag();
+const params = new ParameterBag();
 
 // Set (overwrite) sorting:
 params.setSorting([
@@ -48,7 +48,7 @@ params.setSorting([
 An object defining the paging information for the backend API in the following format:
 
 ```javascript
-const params = ParameterBag();
+const params = new ParameterBag();
 
 params.setPaging({
   offset: Number,
@@ -60,7 +60,7 @@ params.setPaging({
 The params type is used for any parameter that is not related to filtering, sorting or paging.
 
 ```javascript
-const params = ParameterBag();
+const params = new ParameterBag();
 
 // Add a single param.
 params.addParam('key', 'value');

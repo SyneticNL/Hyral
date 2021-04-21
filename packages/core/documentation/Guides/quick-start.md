@@ -13,15 +13,14 @@ A step-by-step guide for the basic Hyral features by code examples:
 // create a configuration file (hyral.js for example) containing something like this.
 // =========================================================================
 import axios from 'axios';
-import HttpConnector from '@hyral/core/lib/Connector/HttpConnector';
-import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';
+import { HttpConnector, repositoryManager } from '@hyral/core';
 import jsonApi from '@hyral/json-api';
 
 const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
 });
 
-const connector = HttpConnector.create(axiosInstance, jsonApi);
+const connector = new HttpConnector(axiosInstance, jsonApi);
 
 // Create a repository for each resource type you want to use.
 export const bookRepository = repositoryManager.createRepository(connector, 'book');
@@ -46,8 +45,9 @@ Related topics for this section:
 ### Find a single resource.
 ```javascript
 import { bookRepository } from './hyral.js';
+import { ParameterBag } from '@hyral/core';
 
-const paramsFindOne = ParameterBag();
+const paramsFindOne = new ParameterBag();
 paramsFindOne.setFilters([
   {
    field: 'title',
@@ -63,6 +63,7 @@ bookRepository.findOne(paramsFindOne).then((resource) => {
 ### Fetching multiple resources
 ```javascript
 import { bookRepository } from './hyral.js';
+import { ParameterBag } from '@hyral/core';
 
 // Filters, sorting, paging and other params are set using a parameterBag.
 const params = ParameterBag();
@@ -82,18 +83,18 @@ bookRepository.find(params).then((resources) => {
 Using a Collection for additional features regarding loading state and paging.
 
 ```javascript
-import Collection from '@hyral/core/lib/Resource/Collection';import { bookRepository } from './hyral.js';
+import { Collection, ParameterBag } from '@hyral/core';
+import { bookRepository } from './hyral.js';
 
-const products = Collection.create('products', bookRepository);
-products.setFilters([
+const params = new ParamterBag();
+const products = new Collection('products', bookRepository, params);
+products.parameterBag.setFilters([
   {
     field: 'type',
     value: 'ebook',
   },
 ]);
-products.setSorting([{ field: 'title', direction: 'asc' }]);
-
-console.log(products.isLoading);
+products.parameterBag.setSorting([{ field: 'title', direction: 'asc' }]);
 
 products.load().then(() => {
   console.log(products.items);
@@ -114,51 +115,31 @@ bookRepository.findById('2').then((resource) => {
 
 ## Creating a resource
 ```javascript
-import Resource from '@hyral/core/lib/Resource/Resource';
+import { Resource, Task } from '@hyral/core';
+import { bookRepository } from './hyral.js';
 
-const author = Resource.create(null, 'author', {
+const author = new Resource(null, 'author', {
   'name': 'A great author',
 });
-
-const product = Resource.create(null, 'book', {
-  title: 'A great product',
-  price: 200,
-  author,
-}, {
-  author: {
-    cardinality: 'many-to-one',
-    many: false,
-    resource: 'author',
-  },
-});
-
-// Create ChangeSet to queue changes.
-const changeSet = ChangeSet.create();
-
-// persistCascade will also create the author resource.
-changeSet.persistCascadeResource(product);
-
-// Send all queued changes to the backend.
-changeSet.execute().then(() => {
-  // The author and product instances will be updated and now have an ID.
-  console.log('resources created!');
-});
+const task = new Task('create', bookRepository, author)
+bookRepository.create(task);
 ```
 
 ## Updating a resource
 
 ```javascript
-import Resource from '@hyral/core/lib/Resource/Resource';
+import { Resource, Task } from '@hyral/core';
+import { bookRepository } from './hyral.js';
 
 // Assume the following resources have been loaded from a backend.
-const author = Resource.create(1, 'author', {
+const author = new Resource(1, 'author', {
   'name': 'A great author',
 });
-const newAuthor = Resource.create(1, 'author', {
+const newAuthor = new Resource(1, 'author', {
   'name': 'Another great author',
 });
 
-const product = Resource.create(2, 'book', {
+const product = new Resource(2, 'book', {
   title: 'A great product',
   price: 200,
   author,
@@ -177,46 +158,30 @@ product.data = {
   author: newAuthor,
 };
 
-// Create ChangeSet to queue changes.
-const changeSet = ChangeSet.create();
-
-// Use persistChange to only commit changes to the passed resource.
-changeSet.persistResource(product);
-
-// Send all queued changes to the backend.
-changeSet.execute().then(() => {
-  // The author and product instances will be updated and now have an ID.
-  console.log('resources created!');
-});
+const task = new Task('update', bookRepository, product)
+bookRepository.update(task);
 ```
 
 ## Deleting a resource
 
 ```javascript
-import Resource from '@hyral/core/lib/Resource/Resource';
+import { Resource, Task } from '@hyral/core';
+import { bookRepository } from './hyral.js';
 
 // Assume the following resources have been loaded from a backend.
-const author = Resource.create(1, 'author', {
+const author = new Resource(1, 'author', {
   'name': 'A great author',
 });
 
-// Create ChangeSet to queue changes.
-const changeSet = ChangeSet.create();
-
-changeSet.deleteResource(product);
-
-// Send all queued changes to the backend.
-changeSet.execute().then(() => {
-  // The author and product instances will be updated and now have an ID.
-  console.log('resources created!');
-});
+const task = new Task('delete', bookRepository, author);
+bookRepository.delete(task);
 ```
 
-[Defining relational model]: ../Core/relationships.md
+[Defining relational model]: ../core/relationships.md
 [Using different backends]: multiple-backends.md
-[Transformers]: ../Core/transformers.md
+[Transformers]: ../core/transformers.md
 [JSON:API integration]: ../../../json-api/README.md
-[Resource definition]: ../Core/resource.md
-[Repository]: ../Core/repository.md
-[Collection]: ../Core/collection.md
-[ParameterBag]: ../Core/parameterBag.md
+[Resource definition]: ../core/resource.md
+[Repository]: ../core/repository.md
+[Collection]: ../core/collection.md
+[ParameterBag]: ../core/parameterBag.md

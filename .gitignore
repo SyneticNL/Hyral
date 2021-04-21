@@ -3,5 +3,8 @@ node_modules
 playgrounds
 lerna-debug.log
 npm-debug.log
-packages/*/lib
+packages/**/lib
+implementations/**/lib
 coverage
+.DS_STORE
+.husky

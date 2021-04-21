@@ -11,21 +11,20 @@ to a different Connector.
 
 ## Repository Manager
 Each resource repository must be created via the repository manager as this creates a central storage for all
-repositories. The Repository Manager is used in various places in Hyral like [lazy loading] and the [ChangeSet] feature.
+repositories. The Repository Manager is used in various places in Hyral.
 
 ## Example
 
 ```javascript
 import axios from 'axios';
-import HttpConnector from '@hyral/core/lib/Connector/HttpConnector';
-import repositoryManager from '@hyral/core/lib/Resource/repositoryManager';
+import { repositoryManager, HttpConnector } from '@hyral/core';
 import jsonApi from '@hyral/json-api';
 
 const axiosInstance = axios.create({
   baseURL: 'https://your-api-url',
 });
 
-const connector = HttpConnector.create(axiosInstance, jsonApi);
+const connector = new HttpConnector(axiosInstance, jsonApi);
 
 // Create a repository for each resource type you want to use.
 export const bookRepository = repositoryManager.createRepository(connector, 'book');

@@ -1,20 +1,20 @@
 {
   "name": "@hyral/core",
-  "version": "1.6.0",
-  "description": "Hyral core",
-  "author": "SyneticNL",
-  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/core#readme",
-  "license": "MIT",
-  "module": "src/index.js",
+  "version": "2.0.0-prerelease",
+  "description": "Barebone request wrapper for resources and collections",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "dependencies": {
-    "axios": "^0.21",
-    "lodash": "^4.17.11"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
-    "jest-json-schema": "^2.0.2",
-    "jest-mock-axios": "^3.0.0",
-    "wait-for-expect": "^1.1.1"
+    "@types/jest": "^26.0.21",
+    "@types/lodash": "^4.14.168",
+    "jest-mock-axios": "^4.3.0",
+    "lodash": "^4.17.21"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "directories": {
     "lib": "lib",
@@ -25,21 +25,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SyneticNL/Hyral.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/SyneticNL/Hyral/issues"
+    "url": "git+https://github.com/SyneticNL/hyral.git"
   },
   "keywords": [
     "Api",
-    "Rest",
-    "JsonApi",
-    "JSON:API"
+    "core",
+    "resource",
+    "collection"
   ],
-  "publishConfig": {
-    "access": "public"
-  }
+  "author": "Synetic<info@synetic.nl>",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/core#readme",
+  "license": "MIT"
 }

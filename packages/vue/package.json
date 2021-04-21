@@ -1,41 +1,35 @@
 {
   "name": "@hyral/vue",
-  "version": "1.6.0",
+  "version": "2.0.0-prerelease",
   "description": "Vue.js integration for Hyral",
-  "author": "SyneticNL",
-  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/vue#readme",
-  "license": "MIT",
-  "module": "src/index.js",
   "main": "lib/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
+  "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^1.6.0"
+    "@hyral/core": "^2.0.0-prerelease"
   },
   "peerDependencies": {
-    "vue": "^2.0",
-    "vuex": "^3.1.1"
+    "vue": "^2.6",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "vue": "^2.0",
-    "vuex": "^3.1.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SyneticNL/Hyral.git"
+    "vue": "^2.6",
+    "vuex": "^3.6.2"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "bugs": {
-    "url": "https://github.com/SyneticNL/Hyral/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyneticNL/hyral.git"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "keywords": [
+    "vue",
+    "vuex",
+    "mixin",
+    "state",
+    "plugin"
+  ],
+  "author": "Synetic<info@synetic.nl>",
+  "homepage": "https://github.com/SyneticNL/Hyral/tree/master/packages/vue#readme",
+  "license": "MIT"
 }
