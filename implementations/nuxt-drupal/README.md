@@ -10,23 +10,29 @@ npm install @hyral/nuxt-drupal
 ```
 
 # Documentation
-This implementation gives support for the quick implementation of a coupling between Nuxt and Drupal. It consists of various entities, with the main being the DrupalNuxtModule. Added entities are the DrupalMixin, DrupalMiddleware and createWildcards.
+This implementation gives support for the quick implementation of a coupling between Nuxt and Drupal. It consists of various entities, with the main being the DrupalModule. Added entities are the DrupalMixin, DrupalMiddleware, DrupalPlugin and createWildcards.
 
-!important! This implementation requires a [MAPPING] in order to work
+**!important!** This implementation requires a [mapping] in order to work
 
-* [DrupalNuxtModule]
+* [DrupalModule]
 * [DrupalMixin]
 * [DrupalMiddleware]
+* [DrupalPlugin]
 * [createWildcards]
+
+# Quickstart
+For a complete guide please look at the [Quickstart Guide]
 
 # Drupal Requirements
 * [Druxt]
 * [CORS policy]
 
-[DrupalNuxtModule]: documentation/module.md
+[DrupalModule]: documentation/module.md
 [DrupalMixin]: documentation/mixin.md
 [DrupalMiddleware]: documentation/middleware.md
+[DrupalPlugin]: documentation/plugin.md
 [createWildcards]: documentation/wildcards.md
-[MAPPING]: documentation/mapping.md
+[mapping]: documentation/mapping.md
 [Druxt]: documentation/drupal/druxt.md
 [CORS policy]: documentation/drupal/cors.md
+[Quickstart Guide]: documentation/guides/quickstart.md
