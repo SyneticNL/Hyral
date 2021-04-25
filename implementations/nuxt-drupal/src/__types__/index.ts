@@ -25,17 +25,20 @@ export type IDruxtRouterResponse = {
   route: IDruxtRouterRoute;
 };
 
-export type IOptions = {
-  mapping?: {
-    nodes: string[],
-    menus: string[],
-    entities: Record<string, unknown>
-  };
-  baseUrl?: string;
+// The mapping of entities in the front-end
+export type IMapping = {
+  nodes: string[];
+  menus: string[];
+  entities: Record<string, unknown>;
+};
+
+export type IOptions<T> = {
+  mapping: T;
+  baseUrl: string;
+  name?: string;
 };
 
 export type INuxtContext = {
-  addPlugin?: (plugin: any) => void;
   requireModule?: (modulePath: string, once?: boolean) => Promise<void>;
 };
 

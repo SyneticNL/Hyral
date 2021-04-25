@@ -1,10 +1,27 @@
-import DrupalNuxtModule from './Modules';
+import DruxtRouterModule from 'druxt-router';
 import DrupalMixin from './Mixins/DrupalMixin';
 import DrupalMiddleware from './Middleware/DrupalMiddleware';
+import DrupalPlugin from './Plugins/DrupalPlugin';
 import createWildcards from './Helpers/createWildcards';
+import { INuxtContext } from './__types__';
 
-export default DrupalNuxtModule;
+/**
+ * Activates the druxt-router dependency
+ */
+export default async function DrupalModule(this: INuxtContext): Promise<void> {
+  if (!this.requireModule) {
+    return Promise.reject(new Error('Make sure to use the DrupalNuxtModule in a Nuxt environment'));
+  }
 
-export { DrupalMixin, DrupalMiddleware, createWildcards };
+  // Add druxt-router module
+  await this.requireModule(DruxtRouterModule, true);
+}
+
+/**
+ * Exports of the custom nuxt-drupal entities
+ */
+export {
+  DrupalMixin, DrupalMiddleware, DrupalPlugin, createWildcards,
+};
 
 export * from './__types__';
