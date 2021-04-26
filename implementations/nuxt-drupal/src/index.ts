@@ -3,6 +3,7 @@ import DrupalMixin from './Mixins/DrupalMixin';
 import DrupalMiddleware from './Middleware/DrupalMiddleware';
 import DrupalPlugin from './Plugins/DrupalPlugin';
 import createWildcards from './Helpers/createWildcards';
+import parseMenuCollection from './Helpers/parseMenuCollection';
 import { INuxtContext } from './__types__';
 
 /**
@@ -21,7 +22,7 @@ export default async function DrupalModule(this: INuxtContext): Promise<void> {
  * Exports of the custom nuxt-drupal entities
  */
 export {
-  DrupalMixin, DrupalMiddleware, DrupalPlugin, createWildcards,
+  DrupalMixin, DrupalMiddleware, DrupalPlugin, createWildcards, parseMenuCollection,
 };
 
 export * from './__types__';

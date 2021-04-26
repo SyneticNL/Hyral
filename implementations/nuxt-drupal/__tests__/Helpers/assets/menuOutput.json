@@ -1,0 +1,24 @@
+[
+  {
+    "id": "menu_link_content:test",
+    "children": [
+      {
+        "id": "menu_link_content:test2",
+        "children": [],
+        "parent": "menu_link_content:test"
+      },
+      {
+        "id": "menu_link_content:test3",
+        "children": [
+          {
+            "id": "menu_link_content:test4",
+            "children": [],
+            "parent": "menu_link_content:test3"
+          }
+        ],
+        "parent": "menu_link_content:test"
+      }
+    ],
+    "parent": ""
+  }
+]

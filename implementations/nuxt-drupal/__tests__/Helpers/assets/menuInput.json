@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "menu_link_content:test4",
+      "data": {
+        "parent": "menu_link_content:test3"
+      }
+    },
+    {
+      "id": "menu_link_content:test",
+      "data": {
+        "parent": ""
+      }
+    },
+    {
+      "id": "menu_link_content:test2",
+      "data": {
+        "parent": "menu_link_content:test"
+      }
+    },
+    {
+      "id": "menu_link_content:test3",
+      "data": {
+        "parent": "menu_link_content:test"
+      }
+    }
+  ]
+}

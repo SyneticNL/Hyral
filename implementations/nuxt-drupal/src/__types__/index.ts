@@ -42,6 +42,12 @@ export type INuxtContext = {
   requireModule?: (modulePath: string, once?: boolean) => Promise<void>;
 };
 
+export type ID = string | number;
+export type IMenu = {
+  id: ID;
+  parent: ID;
+};
+
 // ====================
 // ABSTRACTS FOR MIXINS
 // ====================
