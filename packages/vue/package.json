@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease"
+    "@hyral/core": "^2.0.0-prerelease.0"
   },
   "peerDependencies": {
     "vue": "^2.6",
