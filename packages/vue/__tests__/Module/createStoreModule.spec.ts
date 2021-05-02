@@ -20,7 +20,6 @@ describe('The createStoreModule', () => {
     expect(module.state).toHaveProperty('collections');
     expect(module).toHaveProperty('mutations');
     expect(module.mutations).toHaveProperty('SET_COLLECTION');
-    expect(module.mutations).toHaveProperty('START_COLLECTION');
     expect(module.mutations).toHaveProperty('SET_RESOURCE');
     expect(module).toHaveProperty('actions');
     expect(module.actions).toHaveProperty('LOAD_RESOURCE');
@@ -61,7 +60,6 @@ describe('The createStoreModule', () => {
     const repository = { resourceType } as IRepository<any>;
     const repositories = {} as Record<string, any>;
     repositories[repository.resourceType] = repository;
-
     const module = createStoreModule(repositories);
 
     const products = new Collection(name, repository);
@@ -69,7 +67,7 @@ describe('The createStoreModule', () => {
     state.collections[resourceType] = { products };
 
     type MockGetters = {
-      collection: (state: unknown) => (type: string) => (name: unknown) => Collection<Record<string, unknown>>
+      collection: (state: unknown) => (type: string) => (name: string) => Collection<Record<string, unknown>>
     };
 
     const getters = module.getters as MockGetters;
@@ -77,44 +75,11 @@ describe('The createStoreModule', () => {
 
     const foundProducts = getter(resourceType)(name);
     const foundNonExistingCollection = getter(resourceType)('non-existingcollection');
-    const foundNonExistingResourceType = getter('non-existingresourceType')(name);
 
     expect(foundProducts.name).toEqual(products.name);
     expect(foundProducts.repository).toBe(repository);
 
     expect(foundNonExistingCollection).toBeNull();
-    expect(foundNonExistingResourceType).toBeNull();
-  });
-
-  test('that it is possible to start an empty collection in the store without a resourceType', () => {
-    const name = 'products';
-    const resourceType = 'items';
-    const repository = { resourceType } as IRepository<any>;
-    const repositories = {} as Record<string, any>;
-    repositories[repository.resourceType] = repository;
-
-    const state = { collections: {} as Record<string, Record<string, any>> };
-    const module = createStoreModule(repositories);
-    module.mutations?.START_COLLECTION(state as any, { name, resourceType });
-
-    expect(state.collections).toHaveProperty(resourceType);
-    expect(state.collections.items.products).toEqual({});
-  });
-
-  test('that it is possible to start an empty collection in the store with a resourceType', () => {
-    const name = 'products';
-    const resourceType = 'items';
-    const repository = { resourceType } as IRepository<any>;
-    const repositories = {} as Record<string, any>;
-    repositories[repository.resourceType] = repository;
-
-    const state = { collections: {} as Record<string, Record<string, any>> };
-    state.collections[resourceType] = {};
-    const module = createStoreModule(repositories);
-    module.mutations?.START_COLLECTION(state as any, { name, resourceType });
-
-    expect(state.collections).toHaveProperty(resourceType);
-    expect(state.collections.items.products).toEqual({});
   });
 
   test('that it is possible to mutate a collection in the store', () => {
@@ -144,7 +109,7 @@ describe('The createStoreModule', () => {
 
     const product = new Resource(identifier, resourceType, { title: 'A great product' });
 
-    const state = { resources: {} as Record<string, Record<string, any>> };
+    const state = { resources: { items: {} } as Record<string, Record<string, any>> };
     const module = createStoreModule(repositories);
     module.mutations?.SET_RESOURCE(state as any, product);
 
@@ -178,15 +143,12 @@ describe('The createStoreModule', () => {
     expect(repository.find).toHaveBeenCalled();
   });
 
-  test('that the collection is initialized on first action', () => {
+  test('that the collection is initialized on first action', async () => {
     const name = 'products';
     const resourceType = 'items';
     const repository = { resourceType, find: jest.fn() };
     const repositories = {} as Record<string, any>;
     repositories[repository.resourceType] = repository;
-
-    const products = new Collection(name, repository as any);
-    products.load = jest.fn();
 
     const module = createStoreModule(repositories);
     module.state = { collections: {}, resources: {} };
@@ -194,8 +156,8 @@ describe('The createStoreModule', () => {
     type Mockactions = { LOAD_COLLECTION: (a: any, b: ICollectionPayload) => any };
     const commit = jest.fn();
     const actions = module.actions as Mockactions;
-    actions.LOAD_COLLECTION(
-      { getters: { collection: jest.fn(() => products) }, commit, state: module.state },
+    await actions.LOAD_COLLECTION(
+      { commit },
       { resourceType, name },
     );
 

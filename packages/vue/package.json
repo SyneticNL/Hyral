@@ -1,6 +1,6 @@
 {
   "name": "@hyral/vue",
-  "version": "2.0.0-prerelease",
+  "version": "2.0.0-prerelease.0",
   "description": "Vue.js integration for Hyral",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
