@@ -20,14 +20,14 @@ export default {
       return collection;
     },
   },
-  created(): void {
-    const self = this as unknown as ICollectionMixin;
-    if (!self.collectionName || !self.resourceType || !self.hyralService) {
-      return;
-    }
+  // created(): void {
+  //   const self = this as unknown as ICollectionMixin;
+  //   if (!self.collectionName || !self.resourceType || !self.hyralService) {
+  //     return;
+  //   }
 
-    self.initCollection();
-  },
+  //   self.initCollection();
+  // },
 
   /**
    * Execute server prefetch actions.
@@ -48,18 +48,18 @@ export default {
     await self.loadCollection();
   },
   methods: {
-    initCollection(): void {
-      const self = this as ICollectionMixin;
-      const collection = self.$store.getters[`hyral_${self.hyralService}/collection`](self.resourceType)(self.collectionName);
-      if (collection) {
-        return;
-      }
+    // initCollection(): void {
+    //   const self = this as ICollectionMixin;
+    //   const collection = self.$store.getters[`hyral_${self.hyralService}/collection`](self.resourceType)(self.collectionName);
+    //   if (collection) {
+    //     return;
+    //   }
 
-      self.$store.commit(`hyral_${self.hyralService}/START_COLLECTION`, {
-        name: self.collectionName,
-        resourceType: self.resourceType,
-      });
-    },
+    //   self.$store.commit(`hyral_${self.hyralService}/START_COLLECTION`, {
+    //     name: self.collectionName,
+    //     resourceType: self.resourceType,
+    //   });
+    // },
     loadCollection(): Promise<void> | undefined {
       const self = this as ICollectionMixin;
       return self.$store.dispatch(

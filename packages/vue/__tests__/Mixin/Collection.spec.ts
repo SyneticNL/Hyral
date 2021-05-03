@@ -63,7 +63,6 @@ describe('The Collection mixin', () => {
         },
         dispatch: jest.fn(),
       },
-      initCollection: collectionMixin.methods.initCollection,
       loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
       ...collectionMixin,
@@ -75,9 +74,6 @@ describe('The Collection mixin', () => {
 
     await mixin.mounted.call(mixin);
     expect(mixin.$store.dispatch).toHaveBeenCalled();
-
-    mixin.created.call(mixin);
-    expect(mixin.$store.commit).toHaveBeenCalled();
   });
 
   test('that the mixin handles errors on serverPrefetch', () => {
@@ -96,31 +92,6 @@ describe('The Collection mixin', () => {
     return mixin.serverPrefetch.call(mixin).catch(() => {
       expect(mixin.$store.getters['hyral_service/collection']).not.toHaveBeenCalled();
     });
-  });
-
-  test('that the initCollection correctly initializes the store', () => {
-    const state: { collections: { products: unknown } } = {
-      collections: { products: undefined },
-    };
-    const mixin = {
-      resourceType: 'product',
-      collectionName: 'products',
-      hyralService: 'service',
-      $store: {
-        commit: jest.fn((s, collection) => { state.collections.products = collection; }),
-        getters: {
-          'hyral_service/collection': jest.fn(() => () => state.collections.products || null),
-        },
-      },
-      initCollection: collectionMixin.methods.initCollection,
-      ...collectionMixin,
-    };
-
-    mixin.initCollection();
-    expect(mixin.$store.commit).toHaveBeenCalledTimes(1);
-
-    mixin.initCollection();
-    expect(mixin.$store.commit).toHaveBeenCalledTimes(1);
   });
 
   test('that the mixin handles errors on mounted', async () => {
@@ -152,10 +123,6 @@ describe('The Collection mixin', () => {
     expect(mixin.loadCollection).not.toHaveBeenCalled();
 
     await mixin.mounted();
-    expect(mixin.initCollection).not.toHaveBeenCalled();
-    expect(mixin.loadCollection).not.toHaveBeenCalled();
-
-    mixin.created();
     expect(mixin.initCollection).not.toHaveBeenCalled();
     expect(mixin.loadCollection).not.toHaveBeenCalled();
   });

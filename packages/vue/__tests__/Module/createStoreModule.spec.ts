@@ -177,7 +177,7 @@ describe('The createStoreModule', () => {
     repositories[repository.resourceType] = repository;
 
     const module = createStoreModule(repositories);
-    const mockModule = { state: { resources: {} }, commit: jest.fn() };
+    const mockModule = { state: { resources: { items: {} } }, commit: jest.fn() };
     type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
     const actions = module.actions as MockActions;
 
@@ -201,7 +201,7 @@ describe('The createStoreModule', () => {
     repositories[repository.resourceType] = repository;
 
     const module = createStoreModule(repositories);
-    const mockModule = { state: { resources: {} }, commit: jest.fn() };
+    const mockModule = { state: { resources: { product: {} } }, commit: jest.fn() };
     type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
     const actions = module.actions as MockActions;
 

@@ -49,7 +49,7 @@ const createStoreModule = (repositories: Record<string, Repository<unknown>>): M
 
   actions: {
     async LOAD_RESOURCE({ state, commit }: IContext, { id, resourceType, parameterBag }: IResourcePayload) {
-      if (!state.resources[resourceType] || !state.resources[resourceType][id]) {
+      if (!state.resources[resourceType][id]) {
         commit('SET_RESOURCE', await repositories[resourceType].findById(id, parameterBag));
       }
     },
