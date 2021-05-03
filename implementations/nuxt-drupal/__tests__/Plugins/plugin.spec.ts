@@ -14,13 +14,11 @@ describe('the nuxt plugin', () => {
 
     const context = {
       store: {
-        dispatch: jest.fn(),
         registerModule: jest.fn(),
       },
     };
 
     DrupalPlugin(options)(context as any);
-    expect(context.store.dispatch).toHaveBeenCalled();
     expect(context.store.registerModule).toHaveBeenCalled();
   });
 
@@ -36,7 +34,6 @@ describe('the nuxt plugin', () => {
 
     const context = {
       store: {
-        dispatch: jest.fn(),
         registerModule: jest.fn(),
       },
     };
