@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.0](https://github.com/SyneticNL/hyral/compare/v1.6.0...v2.0.0-prerelease.0) (2021-05-04)
+
+
+### Bug Fixes
+
+* **vue:** fixed reactivity in store module ([cf7d76a](https://github.com/SyneticNL/hyral/commit/cf7d76a47f9fc9a085db666e7e46d4198fb7e0b9))
+* **vue:** removed initCollection from collection mixin ([473f337](https://github.com/SyneticNL/hyral/commit/473f3372e32997801cdeeda66c37a019b33c5d1c))
+* tsconfig.json's had wrong build includes ([417013d](https://github.com/SyneticNL/hyral/commit/417013d259d1d50ec520ac0686481440bbe7cda9))
+
+
+### Features
+
+* complete rework of Hyral ([e8a6e48](https://github.com/SyneticNL/hyral/commit/e8a6e485f1ec09bd4c8ed6b401cbaed9425ae304))
+
+
+
+
+
 ## [1.6.1](https://github.com/SyneticNL/Hyral/compare/v1.6.0...v1.6.1) (2021-04-21)
 
 
