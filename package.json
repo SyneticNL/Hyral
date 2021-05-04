@@ -12,7 +12,7 @@
     "postinstall:husky": "husky install && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
     "postinstall": "lerna bootstrap && npm run build && npm run postinstall:husky",
     "prerelease": "npm run build",
-    "release": "lerna publish",
+    "release": "lerna publish --dist-tag next",
     "lint": "eslint ./packages ./implementations --ext .ts,.json",
     "fix": ".eslint ./packages ./implementations --ext .ts,.json --fix",
     "test": "jest",
