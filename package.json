@@ -1,6 +1,6 @@
 {
   "name": "hyral",
-  "version": "2.0.0-prerelease.0",
+  "version": "2.0.0-prerelease",
   "description": "A modular version of Hyral ORM(-like) architecture",
   "main": "lib",
   "scripts": {
