@@ -53,9 +53,9 @@ npm install @hyral/vue
 #### Quick start
 [Quick start guide]
 
-[Core documentation]: documentation
-[Hypermedia oriented]: documentation/Guides/hypermedia.md
+[Core documentation]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation
+[Hypermedia oriented]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation/Guides/hypermedia.md
 [Hyral Core with state]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core-with-state
 [JSON:API integration]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/json-api
 [Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/vue
-[Quick start guide]: documentation/Guides/quick-start.md
+[Quick start guide]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation/Guides/quick-start.md

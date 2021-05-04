@@ -29,14 +29,14 @@ For a complete guide please look at the [Quickstart Guide]
 * [CORS policy]
 * [jsonapi_menu_items] (optional)
 
-[DrupalModule]: documentation/module.md
-[DrupalMixin]: documentation/mixin.md
-[DrupalMiddleware]: documentation/middleware.md
-[DrupalPlugin]: documentation/plugin.md
-[createWildcards]: documentation/wildcards.md
-[parseMenuCollection]: documentation/menu-collection.md
-[mapping]: documentation/mapping.md
-[Druxt]: documentation/drupal/druxt.md
-[CORS policy]: documentation/drupal/cors.md
-[jsonapi_menu_items]: documentation/drupal/menu.md
-[Quickstart Guide]: documentation/guides/quickstart.md
+[DrupalModule]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/module.md
+[DrupalMixin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mixin.md
+[DrupalMiddleware]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/middleware.md
+[DrupalPlugin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/plugin.md
+[createWildcards]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/wildcards.md
+[parseMenuCollection]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/menu-collection.md
+[mapping]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mapping.md
+[Druxt]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/drupal/druxt.md
+[CORS policy]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/drupal/cors.md
+[jsonapi_menu_items]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/drupal/menu.md
+[Quickstart Guide]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/guides/quickstart.md
