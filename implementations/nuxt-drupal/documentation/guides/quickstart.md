@@ -1,14 +1,14 @@
 # Quickstart
 Follow these examples to enable the coupling.
 
-## Step 1:
+### Step 1:
 Install the dependencies
 
 ```
 npm install @hyral/core @hyral/json-api @hyral/vue @hyral/nuxt-drupal
 ```
 
-## Step 2:
+### Step 2:
 Register the module and provide the baseUrl (see [DrupalModule])
 ```javascript
 export default {
@@ -21,7 +21,7 @@ export default {
 }
 ```
 
-## Step 3:
+### Step 3:
 Write the plugin and provide the options (see [DrupalPlugin])
 ```javascript
 // drupal.js in plugins folder
@@ -37,7 +37,7 @@ const options = {
 export default DrupalPlugin(options);
 ```
 
-## Step 4:
+### Step 4:
 Write the middleware (see [DrupalMiddleware])
 ```javascript
 // drupal.js in middleware folder
@@ -46,7 +46,7 @@ import { DrupalMiddleware } from '@hyral/nuxt-drupal';
 export default DrupalMiddleware;
 ```
 
-## Step 5:
+### Step 5:
 Register the middleware and plugin in `nuxt.config.js`
 ```javascript
 // nuxt.config.js
@@ -66,7 +66,7 @@ export default {
 };
 ```
 
-## Step 6: 
+### Step 6: 
 Create wildcards and custom endpoints in the router (see [createWildcards])
 ```javascript
 export const createRouter = () => new Router({
@@ -88,7 +88,7 @@ export const createRouter = () => new Router({
   ],
 });
 ```
-## Step 7:
+### Step 7:
 Write the mixin to use in components (see [DrupalMixin])
 ```javascript
 // This mixin can now be used throughout the Nuxt application

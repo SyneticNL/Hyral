@@ -9,7 +9,7 @@ JSON:API transformer for Hyral. The package provides comprehensive support for t
 npm install @hyral/json-api
 ```
 
-## Documenatation
+## Documentation
 [Relationship handling]
 
 

@@ -36,5 +36,3 @@ export const productRepository = repositoryManager.createRepository(connector, '
 
 
 [Connector]: connector.md
-[lazy loading]: resource-decorators.md
-[ChangeSet]: changeSet.md

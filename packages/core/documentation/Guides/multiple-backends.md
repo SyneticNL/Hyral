@@ -1,4 +1,4 @@
-# Multiple backend
+# Multiple backends
 Hyral supports multiple backends by creating multiple connectors. Each repository can only have 1 connector (for now)
 but each repository can have a different connector.
 

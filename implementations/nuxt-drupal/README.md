@@ -19,6 +19,7 @@ This implementation gives support for the quick implementation of a coupling bet
 * [DrupalMiddleware]
 * [DrupalPlugin]
 * [createWildcards]
+* [parseMenuCollection]
 
 # Quickstart
 For a complete guide please look at the [Quickstart Guide]
@@ -26,13 +27,16 @@ For a complete guide please look at the [Quickstart Guide]
 # Drupal Requirements
 * [Druxt]
 * [CORS policy]
+* [jsonapi_menu_items] (optional)
 
 [DrupalModule]: documentation/module.md
 [DrupalMixin]: documentation/mixin.md
 [DrupalMiddleware]: documentation/middleware.md
 [DrupalPlugin]: documentation/plugin.md
 [createWildcards]: documentation/wildcards.md
+[parseMenuCollection]: documentation/menu-collection.md
 [mapping]: documentation/mapping.md
 [Druxt]: documentation/drupal/druxt.md
 [CORS policy]: documentation/drupal/cors.md
+[jsonapi_menu_items]: documentation/drupal/menu.md
 [Quickstart Guide]: documentation/guides/quickstart.md

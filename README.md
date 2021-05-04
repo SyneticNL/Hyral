@@ -1,8 +1,12 @@
 # Hyral
 
 ## !!BREAKING CHANGES!!
-WARNING! This version is a complete rework of Hyral in TypeScript. It is not yet stable for release. Core has been split into Core and Core with state. **Please use at your own risk**<br/><br/>
+WARNING! This version is a complete rework of Hyral in TypeScript. It is not yet stable for release. Core has been split into Core and Core with state. **Please use at your own risk** 
 
+
+To use the stable version please visit **[Hyral v1]**
+
+---
 [![npm version](https://badge.fury.io/js/%40hyral%2Fcore.svg)](https://badge.fury.io/js/%40hyral%2Fcore)
 [![Known Vulnerabilities](https://snyk.io/test/github/SyneticNL/Hyral/badge.svg)](https://snyk.io/test/github/SyneticNL/Hyral)
 [![devDependencies Status](https://david-dm.org/syneticNL/Hyral/dev-status.svg)](https://david-dm.org/syneticNL/Hyral?type=dev)
@@ -50,12 +54,13 @@ See [Github Releases]
 
 All code released under [MIT]
 
-[Core Hyral]: https://github.com/SyneticNL/Hyral/tree/master/packages/core/documentation
-[Core with state]: https://github.com/SyneticNL/Hyral/tree/master/packages/core/documentation/core-with-state.md
-[Quick start guide]: https://github.com/SyneticNL/Hyral/tree/master/packages/core/documentation/Guides/quick-start.md
-[JSON:API]: https://github.com/SyneticNL/Hyral/tree/master/packages/json-api
-[Vue(x)]: https://github.com/SyneticNL/Hyral/tree/master/packages/vue
-[Nuxt-Drupal]:  https://github.com/SyneticNL/Hyral/tree/master/implementations/nuxt-drupal
+[Hyral v1]: https://github.com/SyneticNL/Hyral/tree/master
+[Core Hyral]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation
+[Core with state]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core-with-state
+[Quick start guide]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation/Guides/quick-start.md
+[JSON:API]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/json-api
+[Vue(x)]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/vue
+[Nuxt-Drupal]:  https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal
 [github releases]: https://github.com/SyneticNL/Hyral/releases
-[CONTRIBUTING]: https://github.com/SyneticNL/Hyral/blob/master/CONTRIBUTING.md
-[MIT]: https://github.com/SyneticNL/Hyral/blob/master/LICENSE
+[CONTRIBUTING]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/CONTRIBUTING.md
+[MIT]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/LICENSE

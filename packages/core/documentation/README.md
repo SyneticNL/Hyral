@@ -24,15 +24,15 @@ More general guides for Hyral:
 * [Using multiple backends]
 
 
-[Connector]: core/connector.md
-[Transformers]: core/transformers.md
-[Repository]: core/repository.md
-[Resource]: core/resource.md
-[Relationships]: core/relationships.md
-[ParameterBag]: core/parameterBag.md
-[Collection]: core/collection.md
-[Task (create/update/delete)]: core/tasks.md
-[Quick start]: guides/quick-start.md
-[Hyral design concepts]: guides/hyral-design-concepts.md
-[Creating transformers]: guides/creating-transformers.md
-[Using multiple backends]: guides/multiple-backends.md
+[Connector]: Core/connector.md
+[Transformers]: Core/transformers.md
+[Repository]: Core/repository.md
+[Resource]: Core/resource.md
+[Relationships]: Core/relationships.md
+[ParameterBag]: Core/parameterBag.md
+[Collection]: Core/collection.md
+[Task (create/update/delete)]: Core/tasks.md
+[Quick start]: Guides/quick-start.md
+[Hyral design concepts]: Guides/hyral-design-concepts.md
+[Creating transformers]: Guides/creating-transformers.md
+[Using multiple backends]: Guides/multiple-backends.md

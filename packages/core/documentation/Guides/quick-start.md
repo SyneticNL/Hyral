@@ -177,11 +177,11 @@ const task = new Task('delete', bookRepository, author);
 bookRepository.delete(task);
 ```
 
-[Defining relational model]: ../core/relationships.md
+[Defining relational model]: ../Core/relationships.md
 [Using different backends]: multiple-backends.md
-[Transformers]: ../core/transformers.md
+[Transformers]: ../Core/transformers.md
 [JSON:API integration]: ../../../json-api/README.md
-[Resource definition]: ../core/resource.md
-[Repository]: ../core/repository.md
-[Collection]: ../core/collection.md
-[ParameterBag]: ../core/parameterBag.md
+[Resource definition]: ../Core/resource.md
+[Repository]: ../Core/repository.md
+[Collection]: ../Core/collection.md
+[ParameterBag]: ../Core/parameterBag.md

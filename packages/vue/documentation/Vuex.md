@@ -17,9 +17,6 @@ $store.getters['hyral_backend/collection'](type)(name)
 // Commit an updated Resource to the store.
 $store.commit('hyral_backend/SET_RESOURCE', resource)
 
-// To start a new collection manually you can do this yourself but you will generally not need this mutation.
-$store.commit('hyral_backend/START_COLLECTION', { type, collectionName })
-
 // Any change to the Collection will be automatically committed and you generally will not need this mutation.
 $store.commit('hyral_backend/SET_COLLECTION', { type, collection })
 
