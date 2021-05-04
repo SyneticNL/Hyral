@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.1](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.0...v2.0.0-prerelease.1) (2021-05-04)
+
+**Note:** Version bump only for package @hyral/nuxt-drupal
+
+
+
+
+
 # [2.0.0-prerelease.0](https://github.com/SyneticNL/hyral/compare/v1.6.0...v2.0.0-prerelease.0) (2021-05-04)
 
 
