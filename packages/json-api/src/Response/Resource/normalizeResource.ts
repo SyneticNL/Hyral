@@ -49,7 +49,7 @@ export default function normalizeResource(data: IJsonApiResource): Resource<IDat
   const resource = new Resource(
     data.id,
     data.type,
-    Object.assign(data.attributes, getResourcesFromData(data)),
+    Object.assign(data.attributes ?? {}, getResourcesFromData(data)),
     null,
     data.meta || null,
   );
