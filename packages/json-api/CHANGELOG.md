@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.2](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.1...v2.0.0-prerelease.2) (2021-05-10)
+
+
+### Bug Fixes
+
+* **json-api:** normalizeResource now correctly handles empty attributes ([73a529c](https://github.com/SyneticNL/hyral/commit/73a529cd972858f5cd85f81568c2e486ec5267f7))
+
+
+
+
+
 # [2.0.0-prerelease.1](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.0...v2.0.0-prerelease.1) (2021-05-04)
 
 **Note:** Version bump only for package @hyral/json-api

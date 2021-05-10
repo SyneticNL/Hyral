@@ -1,13 +1,13 @@
 {
   "name": "@hyral/nuxt-drupal",
-  "version": "2.0.0-prerelease.1",
+  "version": "2.0.0-prerelease.2",
   "description": "Implementation Hyral for Nuxt.js and Drupal",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease.1",
-    "@hyral/json-api": "^2.0.0-prerelease.1",
-    "@hyral/vue": "^2.0.0-prerelease.1",
+    "@hyral/core": "^2.0.0-prerelease.2",
+    "@hyral/json-api": "^2.0.0-prerelease.2",
+    "@hyral/vue": "^2.0.0-prerelease.2",
     "axios": "^0.21.1",
     "druxt-router": "^0.18.0"
   },
