@@ -1,7 +1,7 @@
 # Hyral core
 
 ## !!BREAKING CHANGES!!
-Warning! Core has been updated and no longer has state assets. Please use core-with-state for resources with state. Use at your own risk.
+Warning! Core has been updated and no longer has state assets. Please use core-with-state for resources with state. Use at your own risk. 
 
 [![npm version](https://badge.fury.io/js/%40hyral%2Fcore.svg)](https://badge.fury.io/js/%40hyral%2Fcore)
 [![Known Vulnerabilities](https://snyk.io/test/github/SyneticNL/Hyral/badge.svg)](https://snyk.io/test/github/SyneticNL/Hyral)
