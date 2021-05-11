@@ -48,6 +48,12 @@ export type IMenu = {
   parent: ID;
 };
 
+export type IComponentContext = {
+  $store: {
+    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
+  }
+};
+
 // ====================
 // ABSTRACTS FOR MIXINS
 // ====================
