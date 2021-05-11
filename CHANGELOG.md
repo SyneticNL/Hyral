@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.3](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.2...v2.0.0-prerelease.3) (2021-05-11)
+
+
+### Features
+
+* **nux-dru:** add dispatchRoutes to implementations ([78678e8](https://github.com/SyneticNL/Hyral/commit/78678e8c802716541e43df69949ee2f9b8d60433))
+
+
+
+
+
 # [2.0.0-prerelease.2](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.1...v2.0.0-prerelease.2) (2021-05-10)
 
 
