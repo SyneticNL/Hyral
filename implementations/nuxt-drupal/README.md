@@ -19,6 +19,7 @@ This implementation gives support for the quick implementation of a coupling bet
 * [DrupalMiddleware]
 * [DrupalPlugin]
 * [createWildcards]
+* [dispatchRoutes]
 * [parseMenuCollection]
 
 # Quickstart
@@ -33,6 +34,7 @@ For a complete guide please look at the [Quickstart Guide]
 [DrupalMixin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mixin.md
 [DrupalMiddleware]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/middleware.md
 [DrupalPlugin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/plugin.md
+[dispatchRoutes]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/dispatch-routes.md
 [createWildcards]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/wildcards.md
 [parseMenuCollection]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/menu-collection.md
 [mapping]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mapping.md
