@@ -67,7 +67,10 @@ export default function normalizeResource(data) {
   const resource = Resource.create(
     data.id,
     data.type,
-    Object.assign(data.attributes, getResourcesFromData(data)),
+    {
+      ...data.attributes,
+      ...getResourcesFromData(data),
+    },
     null,
     data.meta || null,
   );
