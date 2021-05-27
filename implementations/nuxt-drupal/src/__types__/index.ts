@@ -1,4 +1,5 @@
-import Vue from 'vue';
+import { Resource } from '@hyral/core';
+import { Component } from 'vue/types';
 import { Store } from 'vuex';
 
 // =====
@@ -71,10 +72,12 @@ export interface IStore extends Store<any> {
   dispatch: (type: string, payload?: any) => Promise<IDruxtRouterResponse>;
 }
 
-export interface IDrupalMixin {
-  mixins: any[],
-  uuid: string,
-  type: string,
+export interface IHyralEntity {
+  $attrs: Record<string, any>;
+  $slots: Record<string, unknown>;
+  resource: Resource<unknown> | null;
+  resourceAsProp: Resource<unknown>;
   $store: IStore;
-  mapping: Record<string, Vue>;
+  mapping: Record<string, Component>;
+  getEntity(type?: string): Component;
 }

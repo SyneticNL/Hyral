@@ -27,12 +27,12 @@ const createStoreModule = (repositories: Record<string, Repository<unknown>>): M
 
   getters: {
     resource: (state: IState) => (resourceType: string) => (id: string) => (
-      state.resources[resourceType][id]
+      state.resources[resourceType] && state.resources[resourceType][id]
         ? state.resources[resourceType][id]
         : null
     ),
     collection: (state: IState) => (resourceType: string) => (name: string) => (
-      state.collections[resourceType][name]
+      state.collections[resourceType] && state.collections[resourceType][name]
         ? state.collections[resourceType][name]
         : null
     ),
@@ -49,6 +49,10 @@ const createStoreModule = (repositories: Record<string, Repository<unknown>>): M
 
   actions: {
     async LOAD_RESOURCE({ state, commit }: IContext, { id, resourceType, parameterBag }: IResourcePayload) {
+      if (!state.resources[resourceType]) {
+        return;
+      }
+
       if (!state.resources[resourceType][id]) {
         commit('SET_RESOURCE', await repositories[resourceType].findById(id, parameterBag));
       }

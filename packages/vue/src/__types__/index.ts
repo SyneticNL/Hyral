@@ -49,9 +49,8 @@ export interface ICollectionMixin extends Vue {
 
 export interface IResourceMixin extends Vue {
   $store: IStore<Resource<unknown>>;
+  resourceAsProp: Resource<unknown> | null;
   resource: Resource<unknown> | null;
-  resourceType: string;
-  id: string;
   hyralService: string;
   parameterBag: ParameterBag;
   loadResource(): Promise<void>;
