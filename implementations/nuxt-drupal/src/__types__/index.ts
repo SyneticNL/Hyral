@@ -1,5 +1,5 @@
 import { Resource } from '@hyral/core';
-import { Component } from 'vue/types';
+import { AsyncComponent, Component } from 'vue/types';
 import { Store } from 'vuex';
 
 // =====
@@ -74,10 +74,10 @@ export interface IStore extends Store<any> {
 
 export interface IHyralEntity {
   $attrs: Record<string, any>;
-  $slots: Record<string, unknown>;
-  resource: Resource<unknown> | null;
-  resourceAsProp: Resource<unknown>;
   $store: IStore;
-  mapping: Record<string, Component>;
-  getEntity(type?: string): Component;
+  $props: { viewMode?: string }
+  viewMode: string;
+  resource: Resource<unknown>;
+  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
+  getEntity(type?: string, mode?: string): Component;
 }
