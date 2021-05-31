@@ -7,15 +7,20 @@ import { Store } from 'vuex';
 // =====
 export type IContext = {
   store: IStore;
-  route: IRoute;
+  route: IRecord;
   redirect: (path: string) => void;
 };
 
 export type IRoute = {
   path: string;
+  name: string;
   props?: { default: { drupal: boolean } };
-  matched: IRoute[];
 };
+
+export interface IRecord extends IRoute {
+  matched: IRecord[];
+  meta: Record<string, string[] | undefined>;
+}
 
 export type IDruxtRouterRoute = {
   resolvedPath: string;

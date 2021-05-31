@@ -10,8 +10,10 @@ import { IContext } from '../__types__';
 export default async ({ store, route, redirect }: IContext): Promise<void> => {
   const { path, matched } = route;
 
-  // If there is a matched path but there is no drupal prop on the route return
-  if (matched.length && !matched[0].props?.default?.drupal) return;
+  // If there is no matched path with drupal service
+  if (!matched.some((record) => record.meta.services?.some((str) => str === 'drupal'))) {
+    return;
+  }
 
   // If the response is invalid return
   const response = await store.dispatch('druxtRouter/get', path);

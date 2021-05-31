@@ -1,9 +1,6 @@
-export default (depth: number, component: unknown): {
-  path: string,
-  name: string,
-  component: unknown
-  props: { drupal: boolean }
-}[] => {
+import { IRoute } from '../__types__';
+
+export default (depth: number, component: unknown): IRoute[] => {
   const list = [];
   let name = '';
   for (let i = 0; i < depth; i += 1) {
@@ -12,8 +9,8 @@ export default (depth: number, component: unknown): {
       path: name,
       name: `drupal_${i + 1}`,
       component,
-      props: {
-        drupal: true,
+      meta: {
+        services: ['drupal'],
       },
     });
   }
