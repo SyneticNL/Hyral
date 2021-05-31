@@ -58,8 +58,8 @@ export default function Entity(hyralService: string, mapping: IMapping): Compone
         }
 
         // If no default is present
-        if (!mappingAsObject.default) {
-          throw new Error(`No 'default' value present in ${name}`);
+        if (!mappingAsObject[viewMode]) {
+          throw new Error(`No '${viewMode}' view mode value present in ${name} mapping.`);
         }
 
         return mappingAsObject[viewMode];
