@@ -186,6 +186,27 @@ describe('The createStoreModule', () => {
     expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
   });
 
+  test('that the store returns when accesssing a non existing resourceType', async () => {
+    const identifier = '1';
+    const resourceType = 'items';
+    const product = new Resource(identifier, resourceType, { title: 'A great product' });
+
+    const repository = {
+      resourceType,
+      findById: jest.fn(() => Promise.resolve(product)),
+    };
+    const repositories = {} as Record<string, any>;
+    repositories[repository.resourceType] = repository;
+
+    const module = createStoreModule(repositories);
+    const mockModule = { state: { resources: {} }, commit: jest.fn() };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    const actions = module.actions as MockActions;
+
+    await actions.LOAD_RESOURCE(mockModule, { resourceType, id: identifier });
+    expect(repository.findById).not.toHaveBeenCalled();
+  });
+
   test('that it is possible to set a resource with a paramaterbag in the store', async () => {
     const identifier = 2;
     const resourceType = 'product';

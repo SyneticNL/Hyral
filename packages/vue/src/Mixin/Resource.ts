@@ -4,7 +4,7 @@ import { IResourceMixin } from '../__types__';
 
 export default {
   computed: {
-    resource(): Resource<unknown> | any {
+    resource(): Resource<unknown> | null {
       const self = this as unknown as IResourceMixin;
 
       if (!self.resourceAsProp?.id || !self.resourceAsProp?.type) {
