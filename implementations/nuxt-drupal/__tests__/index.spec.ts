@@ -3,18 +3,18 @@ import DruxtRouterModule from 'druxt-router';
 import DrupalNuxtModule, { INuxtContext } from '../src';
 
 import * as options from '../src';
-import DrupalMixin from '../src/Mixins/DrupalMixin';
+import EntityMixin from '../src/Mixins/EntityMixin';
+import ResourceMixin from '../src/Mixins/ResourceMixin';
 import DrupalMiddleware from '../src/Middleware/DrupalMiddleware';
 import DrupalPlugin from '../src/Plugins/DrupalPlugin';
-import createWildcards from '../src/Helpers/createWildcards';
 
 describe('the nuxt-drupal index', () => {
   test('that nuxt-drupal exports the correct features', () => {
     expect(options).toEqual(expect.objectContaining({
-      DrupalMixin,
+      EntityMixin,
+      ResourceMixin,
       DrupalMiddleware,
       DrupalPlugin,
-      createWildcards,
     }));
   });
 });

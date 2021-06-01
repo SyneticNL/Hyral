@@ -6,7 +6,7 @@ import Entity from './Components/Entity';
 import EntityMixin from './Mixins/EntityMixin';
 import ResourceMixin from './Mixins/ResourceMixin';
 
-import createWildcards from './Helpers/createWildcards';
+import createRoute from './Helpers/createRoute';
 import dispatchRoutes from './Helpers/dispatchRoutes';
 import parseMenuCollection from './Helpers/parseMenuCollection';
 
@@ -33,7 +33,7 @@ export {
   Entity,
   EntityMixin,
   ResourceMixin,
-  createWildcards,
+  createRoute,
   dispatchRoutes,
   parseMenuCollection,
 };

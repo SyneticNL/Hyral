@@ -11,15 +11,23 @@ export type IContext = {
   redirect: (path: string) => void;
 };
 
+export type IRouteMetaOptions = {
+  resolve?: string;
+  services?: string[];
+};
+
 export type IRoute = {
   path: string;
-  name: string;
-  props?: { default: { drupal: boolean } };
+  component: Component;
+  meta?: IRouteMetaOptions;
 };
+
+export interface IDrupalRoute extends IRoute {
+  resolve?: string;
+}
 
 export interface IRecord extends IRoute {
   matched: IRecord[];
-  meta: Record<string, string[] | undefined>;
 }
 
 export type IDruxtRouterRoute = {
