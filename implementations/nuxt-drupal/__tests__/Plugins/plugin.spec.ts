@@ -1,4 +1,4 @@
-import DrupalPlugin from '../../src/Plugins/DrupalPlugin';
+import DrupalPlugin from '../../src/Plugins/Drupal';
 
 describe('the nuxt plugin', () => {
   test('that the plugin correctly initiates', () => {

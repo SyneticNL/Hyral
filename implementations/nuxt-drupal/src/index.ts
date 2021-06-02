@@ -1,10 +1,10 @@
 import DruxtRouterModule from 'druxt-router';
-import DrupalMiddleware from './Middleware/DrupalMiddleware';
-import DrupalPlugin from './Plugins/DrupalPlugin';
+import DrupalMiddleware from './Middleware/Drupal';
+import DrupalPlugin from './Plugins/Drupal';
 
 import Entity from './Components/Entity';
-import EntityMixin from './Mixins/EntityMixin';
-import ResourceMixin from './Mixins/ResourceMixin';
+import EntityMixin from './Mixins/Entity';
+import ResourceMixin from './Mixins/Resource';
 
 import createRoute from './Helpers/createRoute';
 import dispatchRoutes from './Helpers/dispatchRoutes';

@@ -1,5 +1,5 @@
 import { Resource } from '@hyral/core';
-import ResourceMixin from '../../src/Mixins/ResourceMixin';
+import ResourceMixin from '../../src/Mixins/Resource';
 
 describe('the resource mixin', () => {
   const hyralService = 'drupal';

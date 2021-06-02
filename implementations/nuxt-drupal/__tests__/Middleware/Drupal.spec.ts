@@ -1,4 +1,4 @@
-import drupalMiddleware, { createResolve } from '../../src/Middleware/DrupalMiddleware';
+import drupalMiddleware, { createResolve } from '../../src/Middleware/Drupal';
 
 describe('The Drupal middleware', () => {
   test('that the middleware returns when paths are matched and meta isnt specified', async () => {

@@ -3,7 +3,7 @@ import {
 } from 'vue';
 import isFunction from 'lodash/isFunction';
 import { IHyralEntity, IMapping } from '../__types__';
-import ResourceMixin from '../Mixins/ResourceMixin';
+import ResourceMixin from '../Mixins/Resource';
 
 /**
  * Uses HyralResourceMixin to fetch the required drupal data automatically

@@ -1,4 +1,4 @@
-import EntityMixin from '../../src/Mixins/EntityMixin';
+import EntityMixin from '../../src/Mixins/Entity';
 
 describe('the entity mixin', () => {
   test('that the entity mixin handles the resource as a prop', () => {
