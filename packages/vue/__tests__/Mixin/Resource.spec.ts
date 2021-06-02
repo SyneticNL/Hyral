@@ -7,7 +7,7 @@ describe('The Resource mixin', () => {
   test('that a resource is available as a computed property', () => {
     const data = { test: 'test' };
     const mixin = {
-      resourceAsProp: new Resource(1, 'product'),
+      source: new Resource(1, 'product'),
       hyralService: 'service',
       $store: {
         getters: {
@@ -27,7 +27,7 @@ describe('The Resource mixin', () => {
   test('that the mixin returns a computed property if resource data is available', () => {
     const data = { test: 'test' };
     const mixin = {
-      resourceAsProp: new Resource(1, 'product', data),
+      source: new Resource(1, 'product', data),
       hyralService: 'service',
       ...resourceMixin,
     };
@@ -39,7 +39,7 @@ describe('The Resource mixin', () => {
     expect(resource?.data).toEqual(data);
   });
 
-  test('that the mixin returns \'null\' without resourceAsProp', () => {
+  test('that the mixin returns \'null\' without source', () => {
     const mixin = {
       hyralService: 'service',
       ...resourceMixin,
@@ -87,7 +87,7 @@ describe('The Resource mixin', () => {
   test('that the mixin does not load available resources', () => {
     const product = new Resource(1, 'product', { data: { test: '' } });
     const mixin = {
-      resourceAsProp: product,
+      source: product,
       hyralService: 'service',
       $store: {
         getters: {
@@ -105,7 +105,7 @@ describe('The Resource mixin', () => {
   test('that a resource will be loaded on initialization of the component', async () => {
     const product = new Resource('1', 'product');
     const mixin = {
-      resourceAsProp: product,
+      source: product,
       hyralService: 'service',
       $store: {
         dispatch: jest.fn(),
@@ -132,7 +132,7 @@ describe('The Resource mixin', () => {
     const product = new Resource('2', 'product');
 
     const mixin = {
-      resourceAsProp: product,
+      source: product,
       hyralService: 'service',
       $store: {
         dispatch: jest.fn(),

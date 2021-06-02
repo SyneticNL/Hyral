@@ -9,7 +9,7 @@ export default function ResourceMixin(hyralService: string): any {
   return {
     mixins: [RootMixin],
     props: {
-      resourceAsProp: {
+      source: {
         type: Object,
         default(): Resource<unknown> {
           const self = this as unknown as IHyralEntity;

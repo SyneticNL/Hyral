@@ -49,7 +49,7 @@ export interface ICollectionMixin extends Vue {
 
 export interface IResourceMixin extends Vue {
   $store: IStore<Resource<unknown>>;
-  resourceAsProp: Resource<unknown> | null;
+  source: Resource<unknown> | null;
   resource: Resource<unknown> | null;
   hyralService: string;
   parameterBag: ParameterBag;

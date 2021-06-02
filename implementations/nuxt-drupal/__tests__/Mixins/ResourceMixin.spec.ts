@@ -5,7 +5,7 @@ describe('the resource mixin', () => {
   const hyralService = 'drupal';
   const mixin = ResourceMixin(hyralService) as {
     mixins: Record<string, unknown>[],
-    props: { resourceAsProp: { default: () => Resource<unknown> } },
+    props: { source: { default: () => Resource<unknown> } },
     data(): string,
   };
   const context = {
@@ -18,9 +18,9 @@ describe('the resource mixin', () => {
     },
   };
 
-  test('that the resourceAsProp defaults is a function and creates an empty resource', () => {
-    expect(typeof mixin.props.resourceAsProp.default).toEqual('function');
-    expect(mixin.props.resourceAsProp.default.call(context)).toEqual(new Resource('test', 'test'));
+  test('that the source defaults is a function and creates an empty resource', () => {
+    expect(typeof mixin.props.source.default).toEqual('function');
+    expect(mixin.props.source.default.call(context)).toEqual(new Resource('test', 'test'));
   });
 
   test('that the mixin extends the vue mixin', () => {
