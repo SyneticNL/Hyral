@@ -9,13 +9,15 @@
     "@hyral/json-api": "^2.0.0-prerelease.2",
     "@hyral/vue": "^2.0.0-prerelease.2",
     "axios": "^0.21.1",
-    "druxt-router": "^0.18.0"
+    "druxt-router": "^0.18.0",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "vue": "^2.6",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.170",
     "vue": "^2.6",
     "vuex": "^3.6.2"
   },

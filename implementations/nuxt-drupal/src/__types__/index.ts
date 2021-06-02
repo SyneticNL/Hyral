@@ -1,20 +1,43 @@
-import Vue from 'vue';
+import { Resource } from '@hyral/core';
+import { AsyncComponent, Component } from 'vue/types';
 import { Store } from 'vuex';
 
 // =====
 // TYPES
 // =====
-export type IContext = {
-  store: IStore;
-  route: IRoute;
-  redirect: (path: string) => void;
+export type IComponentContext = {
+  $store: {
+    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
+  }
+};
+
+export type IHyralEntity = {
+  $attrs: Record<string, any>;
+  $store: IStore;
+  $props: { viewMode?: string }
+  viewMode: string;
+  resource: Resource<unknown>;
+  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
+  getEntity(type?: string, mode?: string): Component;
+};
+
+export type IRouteMetaOptions = {
+  resolve?: string;
+  services?: string[];
 };
 
 export type IRoute = {
   path: string;
-  props?: { default: { drupal: boolean } };
-  matched: IRoute[];
+  meta?: IRouteMetaOptions;
 };
+
+export interface IDrupalRoute extends IRoute {
+  resolve?: string;
+}
+
+export interface IRecord extends IRoute {
+  matched: IRecord[];
+}
 
 export type IDruxtRouterRoute = {
   resolvedPath: string;
@@ -26,6 +49,7 @@ export type IDruxtRouterResponse = {
 };
 
 // The mapping of entities in the front-end
+// TODO: remove unnec attr
 export type IMapping = {
   nodes: string[];
   menus: string[];
@@ -38,6 +62,12 @@ export type IOptions<T> = {
   name?: string;
 };
 
+export type IContext = {
+  store: IStore;
+  route: IRecord;
+  redirect: (path: string) => void;
+};
+
 export type INuxtContext = {
   requireModule?: (modulePath: string, once?: boolean) => Promise<void>;
 };
@@ -48,15 +78,9 @@ export type IMenu = {
   parent: ID;
 };
 
-export type IComponentContext = {
-  $store: {
-    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
-  }
-};
-
-// ====================
-// ABSTRACTS FOR MIXINS
-// ====================
+// =========
+// ABSTRACTS
+// =========
 export interface IStore extends Store<any> {
   state :{
     druxtRouter: {
@@ -69,12 +93,4 @@ export interface IStore extends Store<any> {
     }
   };
   dispatch: (type: string, payload?: any) => Promise<IDruxtRouterResponse>;
-}
-
-export interface IDrupalMixin {
-  mixins: any[],
-  uuid: string,
-  type: string,
-  $store: IStore;
-  mapping: Record<string, Vue>;
 }

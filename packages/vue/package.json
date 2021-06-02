@@ -5,13 +5,15 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease.2"
+    "@hyral/core": "^2.0.0-prerelease.2",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
     "vue": "^2.6",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.170",
     "vue": "^2.6",
     "vuex": "^3.6.2"
   },
