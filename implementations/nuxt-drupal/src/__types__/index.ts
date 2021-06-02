@@ -5,10 +5,20 @@ import { Store } from 'vuex';
 // =====
 // TYPES
 // =====
-export type IContext = {
-  store: IStore;
-  route: IRecord;
-  redirect: (path: string) => void;
+export type IComponentContext = {
+  $store: {
+    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
+  }
+};
+
+export type IHyralEntity = {
+  $attrs: Record<string, any>;
+  $store: IStore;
+  $props: { viewMode?: string }
+  viewMode: string;
+  resource: Resource<unknown>;
+  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
+  getEntity(type?: string, mode?: string): Component;
 };
 
 export type IRouteMetaOptions = {
@@ -18,7 +28,6 @@ export type IRouteMetaOptions = {
 
 export type IRoute = {
   path: string;
-  component: Component;
   meta?: IRouteMetaOptions;
 };
 
@@ -40,6 +49,7 @@ export type IDruxtRouterResponse = {
 };
 
 // The mapping of entities in the front-end
+// TODO: remove unnec attr
 export type IMapping = {
   nodes: string[];
   menus: string[];
@@ -52,6 +62,12 @@ export type IOptions<T> = {
   name?: string;
 };
 
+export type IContext = {
+  store: IStore;
+  route: IRecord;
+  redirect: (path: string) => void;
+};
+
 export type INuxtContext = {
   requireModule?: (modulePath: string, once?: boolean) => Promise<void>;
 };
@@ -62,15 +78,9 @@ export type IMenu = {
   parent: ID;
 };
 
-export type IComponentContext = {
-  $store: {
-    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
-  }
-};
-
-// ====================
-// ABSTRACTS FOR MIXINS
-// ====================
+// =========
+// ABSTRACTS
+// =========
 export interface IStore extends Store<any> {
   state :{
     druxtRouter: {
@@ -83,14 +93,4 @@ export interface IStore extends Store<any> {
     }
   };
   dispatch: (type: string, payload?: any) => Promise<IDruxtRouterResponse>;
-}
-
-export interface IHyralEntity {
-  $attrs: Record<string, any>;
-  $store: IStore;
-  $props: { viewMode?: string }
-  viewMode: string;
-  resource: Resource<unknown>;
-  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
-  getEntity(type?: string, mode?: string): Component;
 }

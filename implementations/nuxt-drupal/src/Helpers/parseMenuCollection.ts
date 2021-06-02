@@ -1,6 +1,9 @@
 import { ICollection } from '@hyral/core';
 import { IMenu } from '../__types__';
 
+/**
+ * Parses a menu collection with hierarchy
+ */
 export default (collection: ICollection<IMenu>): unknown[] => {
   if (!collection || !collection.data) {
     return [];

@@ -35,7 +35,7 @@ export default function Entity(hyralService: string, mapping: IMapping): Compone
        */
       getEntity(name?: string): AsyncComponent | Component | null {
         const self = this as IHyralEntity;
-        const viewMode = self.$props.viewMode ?? 'default';
+        const viewMode = self.$props?.viewMode ?? 'default';
 
         // If no mapping is present
         if (!self.mapping) {
