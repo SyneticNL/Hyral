@@ -9,16 +9,26 @@ import { IData, IJsonApiResponse } from '../../src/__types__';
 import jsonResponseFixture from '../fixtures/fetchJsonResponse.json';
 import jsonSingleResponseFixture from '../fixtures/fetchJsonSingleResponse.json';
 import jsonRelationResponseFixture from '../fixtures/fetchJsonRelationResponse.json';
+import jsonFlattenedResponseFixture from '../fixtures/fetchJsonFlattenedResponse.json';
 import fetchJsonSingleResponseNoIncluded from '../fixtures/fetchJsonSingleResponseNoIncluded.json';
 
 describe('Validations for the responseNormalizer', () => {
   test('that the responseNormalizer returns a schema-valid array of resources with correct relations', () => {
-    const result = responseNormalizer(jsonRelationResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonRelationResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data).toHaveLength(1);
     expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.data.test).toEqual('test detail page');
     expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.id).toEqual('45216ae0-fdd5-405b-84dd-c78ef5414444');
   });
+
+  test('that the responseNormalizer can handle flattened data', () => {
+    const result = responseNormalizer(jsonFlattenedResponseFixture as any) as any as IResource<IData>;
+
+    expect(result.data).toHaveLength(1);
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.data.test).toEqual('test detail page');
+    expect(result.data[0].data.paragraphs[0].data.referenced[0].data.detail.id).toEqual('45216ae0-fdd5-405b-84dd-c78ef5414444');
+  });
+
   test('that the responseNormalizer returns a schema-valid array of resources', () => {
     const result = responseNormalizer(jsonResponseFixture as any);
 
@@ -26,7 +36,7 @@ describe('Validations for the responseNormalizer', () => {
   });
 
   test('that the responseNormalizer returns a single response', () => {
-    const result = responseNormalizer(jsonSingleResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonSingleResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data).toHaveProperty('meta');
     expect(result.data).toHaveProperty('relationships');
@@ -42,7 +52,7 @@ describe('Validations for the responseNormalizer', () => {
   });
 
   test('that the responseNormalizer returns a single response that has no included relationships', () => {
-    const result = responseNormalizer(fetchJsonSingleResponseNoIncluded as any) as IResource<IData>;
+    const result = responseNormalizer(fetchJsonSingleResponseNoIncluded as any) as any as IResource<IData>;
 
     expect(result.data).toHaveProperty('meta');
     expect(result.data).toHaveProperty('relationships');
@@ -57,7 +67,7 @@ describe('Validations for the responseNormalizer', () => {
   });
 
   test('that the responseNormalizer returns the list of relationships', () => {
-    const result = responseNormalizer(jsonResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data[0]).toHaveProperty('meta');
     expect(result.data[0]).toHaveProperty('relationships');
@@ -87,7 +97,7 @@ describe('Validations for the responseNormalizer', () => {
   });
 
   test('that the responseNormalizer returns the expected resource with properties as in the fixture data', () => {
-    const result = responseNormalizer(jsonResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data[0]).toHaveProperty('data');
     expect(result.data[0].type).toEqual('products');
@@ -96,20 +106,20 @@ describe('Validations for the responseNormalizer', () => {
   });
 
   test('that the responseNormalizer returns a relation that is not included', () => {
-    const result = responseNormalizer(jsonResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data[0].data).toHaveProperty('consultant');
   });
 
   test('that the responseNormalizer returns a relation that is included', () => {
-    const result = responseNormalizer(jsonResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data[0].data).toHaveProperty('thumbnail');
     expect(result.data[0].data.thumbnail.data).toHaveProperty('focusPoint');
   });
 
   test('that the responseNormalizer returns a many-many relationship', () => {
-    const result = responseNormalizer(jsonResponseFixture as any) as IResource<IData>;
+    const result = responseNormalizer(jsonResponseFixture as any) as any as IResource<IData>;
 
     expect(result.data[1].data).toHaveProperty('images');
     expect(result.data[1].data.images).toHaveLength(3);

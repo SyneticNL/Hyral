@@ -1,0 +1,124 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http:\/\/jsonapi.org\/format\/1.0\/"
+        }
+      }
+    }
+  },
+  "data": [
+    {
+      "type": "page",
+      "id": "ce00cd09-f526-49bc-8b61-f0f4c71ca70a",
+      "attributes": {
+        "test": "test page",
+        "paragraphs": [
+          {
+            "type": "paragraph--teasers",
+            "id": "ef490530-3229-46ea-8280-673055f81690",
+            "attributes": {
+              "test": "test teasers",
+              "referenced": [
+                {
+                  "type": "paragraph--referenced_content",
+                  "id": "0105645d-80b4-421c-8580-c431a77dc259",
+                  "attributes": {
+                    "test": "test referenced content",
+                    "detail": {
+                      "type": "detail_page",
+                      "id": "45216ae0-fdd5-405b-84dd-c78ef5414444",
+                      "attributes": {
+                        "test": "test detail page"
+                      },
+                      "links": {
+                        "self": {
+                          "href": "http:\/\/test.com\/jsonapi\/detail_page\/45216ae0-fdd5-405b-84dd-c78ef5414444?resourceVersion=id%3A9"
+                        }
+                      }
+                    }
+                  },
+                  "relationships": {
+                    "detail": {
+                      "data": {
+                        "type": "detail_page",
+                        "id": "45216ae0-fdd5-405b-84dd-c78ef5414444"
+                      },
+                      "links": {
+                        "self": {
+                          "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/relationships\/content"
+                        },
+                        "related": {
+                          "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259\/content"
+                        }
+                      }
+                    }
+                  },
+                  "links": {
+                    "self": {
+                      "href": "http:\/\/test.com\/jsonapi\/paragraph--referenced_content\/0105645d-80b4-421c-8580-c431a77dc259"
+                    }
+                  }
+                }
+              ]
+            },
+            "relationships": {
+              "referenced": {
+                "data": [
+                  {
+                    "type": "paragraph--referenced_content",
+                    "id": "0105645d-80b4-421c-8580-c431a77dc259",
+                    "meta": {
+                      "target_revision_id": 144
+                    }
+                  }
+                ],
+                "links": {
+                  "self": {
+                    "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/relationships\/content"
+                  },
+                  "related": {
+                    "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690\/content"
+                  }
+                }
+              }
+            },
+            "links": {
+              "self": {
+                "href": "http:\/\/test.com\/jsonapi\/paragraph--teasers\/ef490530-3229-46ea-8280-673055f81690"
+              }
+            }
+          }
+        ]
+      },
+      "relationships": {
+        "paragraphs": {
+          "data": [
+            {
+              "type": "paragraph--teasers",
+              "id": "ef490530-3229-46ea-8280-673055f81690",
+              "meta": {
+                "target_revision_id": 145
+              }
+            }
+          ],
+          "links": {
+            "self": {
+              "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/relationships\/paragraphs?resourceVersion=id%3A40"
+            },
+            "related": {
+              "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a\/paragraphs?resourceVersion=id%3A40"
+            }
+          }
+        }
+      },
+      "links": {
+        "self": {
+          "href": "http:\/\/test.com\/jsonapi\/page\/ce00cd09-f526-49bc-8b61-f0f4c71ca70a?resourceVersion=id%3A40"
+        }
+      }
+    }
+  ]
+}

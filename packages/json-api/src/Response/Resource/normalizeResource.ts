@@ -1,13 +1,30 @@
 import { Resource } from '@hyral/core';
 import relationshipGetType from './Relationship/relationshipGetType';
-import { IData, IItem, IJsonApiResource } from '../../__types__';
+import { IData, IJsonApiResource } from '../../__types__';
 
 function guessRelationCardinality(relation: Resource<IData>) {
   return Array.isArray(relation.data) ? 'one-to-many' : 'many-to-one';
 }
 
-function transformResource(item: IItem): Resource<IData> {
-  return new Resource(item.id, item.type, null, null, item.meta);
+function transformResource(item: IJsonApiResource): Resource<IData> {
+  return new Resource(item.id, item.type, item.attributes, null, item.meta);
+}
+
+function flattenData(source: IData): unknown {
+  const resources = transformResource(source as IJsonApiResource);
+  const isResource = (value: IData) => value && typeof value === 'object' && 'id' in value && 'type' in value;
+
+  Object.entries(resources.data).forEach(([key, value]) => {
+    if (isResource(value)) {
+      resources.data[key] = flattenData(value);
+    }
+
+    if (Array.isArray(value)) {
+      resources.data[key] = value.map((item: IData) => (isResource(item) ? flattenData(item) : item));
+    }
+  });
+
+  return resources;
 }
 
 function getResourcesFromData(data: IJsonApiResource): Record<string, Resource<IData>> {
@@ -16,11 +33,15 @@ function getResourcesFromData(data: IJsonApiResource): Record<string, Resource<I
       if (!relation.data) {
         return carry;
       }
-      const resources = Array.isArray(relation.data)
-        ? relation.data.map((item: IItem) => transformResource(item))
-        : transformResource(relation.data as IItem);
 
-      return Object.assign(carry, { [field]: resources });
+      const flattenableData = data.attributes && data.attributes[field]
+        ? data.attributes[field] as IData
+        : relation.data;
+
+      const resources = Array.isArray(flattenableData)
+        ? flattenableData.map((item) => flattenData(item))
+        : flattenData(flattenableData);
+      return { [field]: resources, ...carry };
     }, {});
 }
 

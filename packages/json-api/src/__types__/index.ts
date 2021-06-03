@@ -8,8 +8,7 @@ export type IserializedPaging = { page?: Record<string, unknown> };
 export type IserializedSorting = { sort?: string };
 export type ISerializedParams = Record<string, unknown>;
 
-export type IItem = { id: string | number, type: string, meta: Record<string, any> };
-export type IData = Record<string, any> | any;
+export type IData = Record<string, any>;
 
 export type IJsonApiResource = {
   id: string | number;
