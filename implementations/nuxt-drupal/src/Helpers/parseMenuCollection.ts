@@ -4,12 +4,15 @@ import { IMenu } from '../__types__';
 /**
  * Parses a menu collection with hierarchy
  */
-export default (collection: ICollection<IMenu>): unknown[] => {
+export default (collection: ICollection<IMenu>, options?: { prefix:string, postfix: string }): unknown[] => {
   if (!collection || !collection.data) {
     return [];
   }
 
-  const list = collection.data.map((item) => ({ ...item.data, children: [], id: item.id }));
+  const generateUrl = (url: string) => `${options?.prefix ?? ''}${url}${options?.postfix ?? ''}`;
+  const list = collection.data.map((item) => ({
+    ...item.data, children: [], id: item.id, url: generateUrl(item.data.url),
+  }));
 
   list
     .filter((item) => item.parent !== '')

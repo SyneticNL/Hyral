@@ -3,24 +3,25 @@ import {
   AsyncComponent, Component, CreateElement, VNode,
 } from 'vue';
 import Entity from '../../src/Components/Entity';
+import { IMapping } from '../../src/__types__';
 
 type EntityMock = {
   mixins: [],
   methods: { getEntity(name?: string): AsyncComponent | Component | null },
   render(createElement: CreateElement): VNode,
-  computed: { mapping: () => unknown }
+  data(): IMapping
 };
 
 describe('the drupal entity', () => {
-  const mapping = { entities: { component: () => {} } };
-  const entity = Entity('drupal', mapping as any) as EntityMock;
+  const mapping = { component: () => {} };
+  const entity = Entity('drupal', mapping) as EntityMock;
 
   test('that the entity has the correct properties', () => {
     expect(entity).toBeTruthy();
     expect(entity).toHaveProperty('name');
     expect(entity).toHaveProperty('mixins');
     expect(entity).toHaveProperty('props');
-    expect(entity).toHaveProperty('computed');
+    expect(entity).toHaveProperty('data');
     expect(entity).toHaveProperty('methods');
     expect(entity).toHaveProperty('render');
 
@@ -28,8 +29,8 @@ describe('the drupal entity', () => {
     expect(entity.methods).toHaveProperty('getEntity');
   });
 
-  test('that the entity sets the computed mapping value', () => {
-    expect(entity.computed.mapping()).toEqual(mapping.entities);
+  test('that the entity data function sets the mapping value', () => {
+    expect(entity.data()).toEqual({ mapping });
   });
 
   test('that getEntity throws an error without a mapping', () => {

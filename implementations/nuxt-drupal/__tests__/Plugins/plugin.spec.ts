@@ -1,16 +1,13 @@
 import DrupalPlugin from '../../src/Plugins/Drupal';
 
 describe('the nuxt plugin', () => {
+  const options = {
+    mapping: { menu1: null, node1: () => {}, paragraph1: { default: () => {} } },
+    baseUrl: 'http://test.com',
+  };
+
   test('that the plugin correctly initiates', () => {
-    const options = {
-      mapping: {
-        nodes: ['node1', 'node2'],
-        menus: ['menu1'],
-        entities: { paragraph1: 'test' },
-      },
-      baseUrl: 'http://test.com',
-      name: 'test',
-    };
+    const options1 = { ...options, name: 'test' };
 
     const context = {
       store: {
@@ -18,27 +15,18 @@ describe('the nuxt plugin', () => {
       },
     };
 
-    DrupalPlugin(options)(context as any);
-    expect(context.store.registerModule).toHaveBeenCalled();
+    DrupalPlugin(options1 as any)(context as any);
+    expect(context.store.registerModule).toBeCalledWith('hyral_test', expect.anything());
   });
 
   test('that the plugin name defaults to \'drupal\' > \'hyral_drupal\'', () => {
-    const options = {
-      mapping: {
-        nodes: ['node1', 'node2'],
-        menus: ['menu1'],
-        entities: { paragraph1: 'test' },
-      },
-      baseUrl: 'http://test.com',
-    };
-
     const context = {
       store: {
         registerModule: jest.fn(),
       },
     };
 
-    DrupalPlugin(options)(context as any);
+    DrupalPlugin(options as any)(context as any);
     expect(context.store.registerModule).toBeCalledWith('hyral_drupal', expect.anything());
   });
 });

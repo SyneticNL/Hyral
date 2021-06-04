@@ -3,25 +3,29 @@
     {
       "id": "menu_link_content:test4",
       "data": {
-        "parent": "menu_link_content:test3"
+        "parent": "menu_link_content:test3",
+        "url": ""
       }
     },
     {
       "id": "menu_link_content:test",
       "data": {
-        "parent": ""
+        "parent": "",
+        "url": ""
       }
     },
     {
       "id": "menu_link_content:test2",
       "data": {
-        "parent": "menu_link_content:test"
+        "parent": "menu_link_content:test",
+        "url": ""
       }
     },
     {
       "id": "menu_link_content:test3",
       "data": {
-        "parent": "menu_link_content:test"
+        "parent": "menu_link_content:test",
+        "url": ""
       }
     }
   ]

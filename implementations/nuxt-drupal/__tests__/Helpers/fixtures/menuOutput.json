@@ -5,7 +5,8 @@
       {
         "id": "menu_link_content:test2",
         "children": [],
-        "parent": "menu_link_content:test"
+        "parent": "menu_link_content:test",
+        "url": ""
       },
       {
         "id": "menu_link_content:test3",
@@ -13,12 +14,15 @@
           {
             "id": "menu_link_content:test4",
             "children": [],
-            "parent": "menu_link_content:test3"
+            "parent": "menu_link_content:test3",
+            "url": ""
           }
         ],
-        "parent": "menu_link_content:test"
+        "parent": "menu_link_content:test",
+        "url": ""
       }
     ],
-    "parent": ""
+    "parent": "",
+    "url": ""
   }
 ]

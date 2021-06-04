@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import { IMapping, IOptions } from '../../__types__';
 
 /**
@@ -17,7 +18,7 @@ export const validateBaseUrl = (options: IOptions<IMapping>): void => {
 /**
  * Checks the validity of the mapping.
  *
- * IMapping: { nodes: [], menus: [], entities: {}}
+ * @param options: IOptions<IMapping>
  */
 export const validateMapping = (options: IOptions<IMapping>): void => {
   const { mapping } = options;
@@ -26,15 +27,15 @@ export const validateMapping = (options: IOptions<IMapping>): void => {
     throw new Error('DrupalNuxtPlugin requires a mapping in options');
   }
 
-  if (!mapping.entities || !mapping.menus || !mapping.nodes) {
-    throw new Error('DrupalNuxtPlugin requires a nodes, menus and entities attribute');
-  }
+  const isFunction = (entry: any) => typeof entry === 'function';
+  const isRecordOfFunctions = (entry: any) => !Object.values(entry).some((item) => typeof item !== 'function');
+  const isNull = (entry: any) => entry === null;
 
-  if (!Array.isArray(mapping.nodes) || !Array.isArray(mapping.menus)) {
-    throw new Error('DrupalNuxtPlugin requires nodes and menus as array');
-  }
+  Object.values(mapping).forEach((entry) => {
+    const error = 'Mapping should consist of: \n\n1: An async component\n2: A record of async components \n3: Have a null value';
 
-  if (Array.isArray(mapping.entities)) {
-    throw new Error('DrupalNuxtPlugin requires entities to be a record');
-  }
+    if (!(isNull(entry) || isFunction(entry) || (isRecordOfFunctions(entry) && !isEmpty(entry)))) {
+      throw Error(error);
+    }
+  });
 };

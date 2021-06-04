@@ -49,12 +49,10 @@ export type IDruxtRouterResponse = {
 };
 
 // The mapping of entities in the front-end
-// TODO: remove unnec attr
-export type IMapping = {
-  nodes: string[];
-  menus: string[];
-  entities: Record<string, unknown>;
-};
+export type IMapping =
+  Record<string, AsyncComponent> |
+  Record<string, Record<string, AsyncComponent>> |
+  Record<string, null>;
 
 export type IOptions<T> = {
   mapping: T;
@@ -76,6 +74,7 @@ export type ID = string | number;
 export type IMenu = {
   id: ID;
   parent: ID;
+  url: string;
 };
 
 // =========

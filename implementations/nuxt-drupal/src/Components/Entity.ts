@@ -23,8 +23,10 @@ export default function Entity(hyralService: string, mapping: IMapping): Compone
         required: false,
       },
     },
-    computed: {
-      mapping: () => (mapping.entities),
+    data() {
+      return {
+        mapping,
+      };
     },
     methods: {
       /**

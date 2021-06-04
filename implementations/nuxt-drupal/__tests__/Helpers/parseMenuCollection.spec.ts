@@ -1,6 +1,6 @@
 import parseMenuCollection from '../../src/Helpers/parseMenuCollection';
-import input from './assets/menuInput.json';
-import output from './assets/menuOutput.json';
+import input from './fixtures/menuInput.json';
+import output from './fixtures/menuOutput.json';
 
 describe('the parseMenuCollection function', () => {
   test('that the function returns the valid structure', () => {

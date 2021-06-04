@@ -11,11 +11,7 @@ export const createRepositories = (options: IOptions<IMapping>, repositoryManage
   const axiosInstance = axios.create({ baseURL: `${options.baseUrl}/jsonapi` });
   const connector = new HttpConnector(axiosInstance, jsonApi);
 
-  const repositories = [
-    ...options.mapping.nodes,
-    ...options.mapping.menus.map((menu) => `menu_items/${menu}`),
-    ...Object.keys(options.mapping.entities),
-  ];
+  const repositories = Object.keys(options.mapping);
 
   repositories.forEach((type) => repositoryManager.createRepository(connector, type));
 };
