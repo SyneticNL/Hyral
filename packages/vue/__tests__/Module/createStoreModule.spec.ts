@@ -255,6 +255,28 @@ describe('The createStoreModule', () => {
     expect(mockModule.commit).toHaveBeenCalledTimes(0);
   });
 
+  test('that it is possible to load an array of resources', async () => {
+    const identifier = '1';
+    const resourceType = 'items';
+    const product = new Resource(identifier, resourceType, { title: 'A great product' });
+
+    const repository = {
+      resourceType,
+      findById: jest.fn(() => Promise.resolve([product])),
+    };
+    const repositories = {} as Record<string, any>;
+    repositories[repository.resourceType] = repository;
+
+    const module = createStoreModule(repositories);
+    const mockModule = { state: { resources: { items: {} } }, commit: jest.fn() };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    const actions = module.actions as MockActions;
+
+    await actions.LOAD_RESOURCE(mockModule, { resourceType, id: identifier });
+    expect(repository.findById).toHaveBeenCalledWith(identifier, undefined);
+    expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', new Resource(identifier, resourceType, [product]));
+  });
+
   test('that the Vuex store is correctly initialized', () => {
     const identifier = '1';
     const resourceType = 'product';
