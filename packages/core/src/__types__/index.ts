@@ -13,13 +13,12 @@ export type IResourceRelationship = Record<string, { resource: string; cardinali
 export type ITaskType = 'create' | 'update' | 'delete';
 
 export type IAxiosResponseType = ResponseType;
-
+export type IResponse<T> = { data: INormalizedResponse<T> };
 export type INormalizedResponse<T> = {
   data: IResource<T> | IResource<T>[],
   paging?: { count: number, pages: number }
 };
 
-export type IResponse<T> = { data: INormalizedResponse<T> };
 export type ISerializers<T> = {
   urlSerializer: IUrlSerializer<T>,
   paramsSerializer: IParamsSerializer<T>,
@@ -30,10 +29,6 @@ export type ISerializers<T> = {
 // ==========
 // INTERFACES
 // ==========
-
-// -------
-// OBJECTS
-// -------
 export interface ICollection<T> {
   name: string;
   repository: IRepository<T>;
