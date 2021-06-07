@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.4](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.3...v2.0.0-prerelease.4) (2021-06-07)
+
+
+### Features
+
+* **nux-dru:** add Entity viewMode prop ([6867ca8](https://github.com/SyneticNL/hyral/commit/6867ca8093787dc1861858cc4fbe9eafb54c89e1))
+* rework on mixins (teasers WIP) ([e469607](https://github.com/SyneticNL/hyral/commit/e469607f31d2c2b7acaa05d321714416198721d3))
+* rework on mixins (WIP) ([7f3ead7](https://github.com/SyneticNL/hyral/commit/7f3ead7c1d6a3c498d590994619f235aaa392a27))
+
+
+
+
+
 # [2.0.0-prerelease.3](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.2...v2.0.0-prerelease.3) (2021-05-11)
 
 

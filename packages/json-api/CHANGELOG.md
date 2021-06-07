@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.4](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.3...v2.0.0-prerelease.4) (2021-06-07)
+
+
+### Features
+
+* **json-api:** add flattened data normalizing ([5d116fa](https://github.com/SyneticNL/hyral/commit/5d116fa267322fb6a803b0d50b9a4eb55172a191))
+* rework on mixins (WIP) ([7f3ead7](https://github.com/SyneticNL/hyral/commit/7f3ead7c1d6a3c498d590994619f235aaa392a27))
+
+
+
+
+
 # [2.0.0-prerelease.2](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.1...v2.0.0-prerelease.2) (2021-05-10)
 
 

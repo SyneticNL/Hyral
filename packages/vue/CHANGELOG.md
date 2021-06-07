@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.4](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.3...v2.0.0-prerelease.4) (2021-06-07)
+
+
+### Bug Fixes
+
+* **vue:** resource mixin now correctly handles resource as array ([6463abf](https://github.com/SyneticNL/hyral/commit/6463abfb4b7dac00b84bc57ba83b7a940e0be184))
+
+
+### Features
+
+* rework on mixins (WIP) ([7f3ead7](https://github.com/SyneticNL/hyral/commit/7f3ead7c1d6a3c498d590994619f235aaa392a27))
+
+
+
+
+
 # [2.0.0-prerelease.2](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.1...v2.0.0-prerelease.2) (2021-05-10)
 
 **Note:** Version bump only for package @hyral/vue

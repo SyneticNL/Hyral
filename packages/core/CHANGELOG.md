@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.4](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.3...v2.0.0-prerelease.4) (2021-06-07)
+
+**Note:** Version bump only for package @hyral/core
+
+
+
+
+
 # [2.0.0-prerelease.2](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.1...v2.0.0-prerelease.2) (2021-05-10)
 
 **Note:** Version bump only for package @hyral/core
