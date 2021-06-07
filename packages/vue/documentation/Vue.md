@@ -6,7 +6,7 @@ The implementation support Server Side Rendering.
 The mixins require that the Vuex store modules are initialized.
 
 ## Resource mixin
-When the properties, data entries or computed properties `id` and `resourceType` are defined a
+When the properties, data entry or computed property `source` is defined a
 resource is loaded via the Hyral Vuex store modules.
 
 The resource is available via a computed property `resource`.
@@ -14,11 +14,10 @@ The resource is available via a computed property `resource`.
 ### Example
 ```javascript
 const Component = Vue.extend({
-  mixins: [HyralResourceMixin],
+  mixins: [ResourceMixin],
   data() {
     return {
-      id: 5,
-      resourceType: 'book',
+      source: new Resource(5, 'book'),
     }
   },
 });
@@ -28,7 +27,7 @@ const Component = Vue.extend({
 You can also register the mixin globally:
 
 ```javascript
-Vue.mixin(HyralResourceMixin);
+Vue.mixin(ResourceMixin);
 ```
 
 Use the mixin as described in the above example.
@@ -38,25 +37,24 @@ Use the mixin as described in the above example.
 You can catch errors for the mixin by overriding the loadResource as in this example:
 ```javascript
 const Component = Vue.extend({
-  mixins: [HyralResourceMixin],
+  mixins: [ResourceMixin],
   data() {
     return {
-      id: 5,
-      resourceType: 'book',
+      source: new Resource(5, 'book'),
     }
   },
   methods: {
-      loadResource() {
-        HyralResourceMixin.methods.loadResource.call(this).catch(() => {
-          console.log('error');
-        });
-      },
+    loadResource() {
+      HyralResourceMixin.methods.loadResource.call(this).catch(() => {
+        console.log('error');
+      });
     },
+  },
 });
 ```
 
 ## Collection mixin
-When the properties, data entries or computed properties `collectionName` and `resourceType` are 
+When the properties, data entries or computed properties `collectionName`, `resourceType` and `hyralService` are 
 defined a collection is created and the items loaded via the Hyral Vuex store modules.
 
 You can also provide a data entry or computed property `parameterBag` to filter the collection.
@@ -69,6 +67,7 @@ const Component = Vue.extend({
     return {
       collectionName: 'books',
       resourceType: 'book',
+      hyralService: 'service',
     }
   },
   computed: {
@@ -88,7 +87,7 @@ const Component = Vue.extend({
 You can also register the mixin globally:
 
 ```javascript
-Vue.mixin(HyralCollectionMixin);
+Vue.mixin(CollectionMixin);
 ```
 
 Use the mixin as described in the above example.
@@ -97,11 +96,12 @@ Use the mixin as described in the above example.
 You can catch errors for the mixin by overriding the loadResource as in this example:
 ```javascript
 const Component = Vue.extend({
-  mixins: [HyralCollectionMixin],
+  mixins: [CollectionMixin],
   data() {
     return {
       collectionName: 'books',
       resourceType: 'book',
+      hyralService: 'service',
     }
   },
   methods: {
