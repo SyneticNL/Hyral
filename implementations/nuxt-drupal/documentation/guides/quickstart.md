@@ -5,7 +5,7 @@ Follow these examples to enable the coupling.
 Install the dependencies
 
 ```
-npm install @hyral/core @hyral/json-api @hyral/vue @hyral/nuxt-drupal
+npm install @hyral/nuxt-drupal
 ```
 
 ### Step 2:
@@ -66,45 +66,38 @@ export default {
 };
 ```
 
-### Step 6: 
-Create wildcards and custom endpoints in the router (see [createWildcards])
+### Step 6:
+Write the Entity (see [Entity])
 ```javascript
+// This component can now be used throughout the Nuxt application
+import { Entity } from '@hyral/nuxt-drupal';
+import mapping from '@/modules/drupal/mapping';
+
+export default Entity('drupal', mapping);
+```
+
+### Step 7: 
+Create wildcards and custom endpoints in the router (see [createRoute])
+```javascript
+import Entity from './entity';
+import { createRoute } from '@hyral/nuxt-drupal';
+
 export const createRouter = () => new Router({
   routes: [
     {
       path: '/default',
-      name: 'default', // Non drupal page
-      component: component1,
+      component: Default,
     },
-    {
-      path: '/components',
-      name: 'custom', // Custom page with drupal resources
-      component: drupalCustomComponent,
-      props: {
-        drupal: true,
-      },
-    },
-    ...createWildcards(3, drupalComponent),
+    createRoute({
+      path: '/:wildcard',
+      component: Entity,
+    }),
   ],
 });
-```
-### Step 7:
-Write the mixin to use in components (see [DrupalMixin])
-```javascript
-// This mixin can now be used throughout the Nuxt application
-import { DrupalMixin } from '@hyral/nuxt-drupal';
-import mapping from './mapping';
-
-export default {
-  mixins: [DrupalMixin],
-  computed: {
-    mapping: () => (mapping.entities),
-  },
-};
 ```
 
 [DrupalModule]: ../module.md
 [DrupalPlugin]: ../plugin.md
 [DrupalMiddleware]: ../middleware.md
-[createWildcards]: ../wildcards.md
-[DrupalMixin]: ../mixin.md
+[createRoute]: ../route.md
+[Entity]: ../entity.md

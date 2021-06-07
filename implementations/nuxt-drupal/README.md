@@ -10,15 +10,16 @@ npm install @hyral/nuxt-drupal
 ```
 
 # Documentation
-This implementation gives support for the quick implementation of a coupling between Nuxt and Drupal. It consists of various entities, with the main being the DrupalModule. Added entities are the DrupalMixin, DrupalMiddleware, DrupalPlugin and createWildcards.
+This implementation gives support for the quick implementation of a coupling between Nuxt and Drupal. It consists of various entities, with the main being the DrupalModule. Added entities are the DrupalMiddleware, DrupalPlugin, Entity, EntityMixin, ResourceMixin, createRoute, dispatchRoutes and parseMenuCollection.
 
 **!important!** This implementation requires a [mapping] in order to work
 
 * [DrupalModule]
-* [DrupalMixin]
+* [Entity]
+* [ResourceMixin]
 * [DrupalMiddleware]
 * [DrupalPlugin]
-* [createWildcards]
+* [createRoute]
 * [dispatchRoutes]
 * [parseMenuCollection]
 
@@ -31,11 +32,12 @@ For a complete guide please look at the [Quickstart Guide]
 * [jsonapi_menu_items] (optional)
 
 [DrupalModule]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/module.md
-[DrupalMixin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mixin.md
+[Entity]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/entity.md
+[ResourceMixin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mixin.md
 [DrupalMiddleware]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/middleware.md
 [DrupalPlugin]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/plugin.md
 [dispatchRoutes]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/dispatch-routes.md
-[createWildcards]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/wildcards.md
+[createRoute]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/route.md
 [parseMenuCollection]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/menu-collection.md
 [mapping]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/mapping.md
 [Druxt]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/implementations/nuxt-drupal/documentation/drupal/druxt.md

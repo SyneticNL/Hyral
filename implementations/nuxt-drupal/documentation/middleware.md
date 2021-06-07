@@ -1,9 +1,9 @@
 # DrupalMiddleware
-The `DrupalMiddleware` uses [DruxtRouter] and the wildcards created by [createWildcards] to map routes from Drupal to a route in the `vue-router`. 
+The `DrupalMiddleware` uses [DruxtRouter] and the routes created by [createRoute] to map routes from Drupal to a route in the `vue-router`. 
 
-The `DrupalMiddleware` looks for a prop on the resolved route retrieved from Drupal to see if it matches either a static `route` or `wildcard` with prop `drupal: true`.
+It looks for meta on the route to see if it matches either a static `route` or `wildcard` with meta `{ services:  ['drupal'] }`. It also uses `resolve` if it is present to resolve the route to Drupal.
 
-To create the wildcards required for the middleware to handle the depth of routes it is recommended to create the wildcards using the [createWildcards] function.
+To create the routes required for the middleware to handle the routes it is recommended to create the routes using the [createRoute] function.
 
 ## Usage
 ```javascript
@@ -23,4 +23,4 @@ export default {
 ```
 
 [DruxtRouter]: druxt.md
-[createWildcards]: wildcards.md
+[createRoute]: route.md

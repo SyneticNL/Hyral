@@ -7,59 +7,48 @@ To provide the resources required for the implementation to work two factors nee
 In an effort to combine these two, a format has been made where the key of the mapping represents the resourceType (for more information check [Repository]), and an optional value represents each mapped component that handles the [Resource].
 
 ## Content
-The content of the mapping is made up of the following:
+The content of the mapping is made up of a combination of the following:
 
-* The nodes that are available for each page within the Drupal JSON:API
-* The menus that are available within the Drupal JSON:API
-* The entities that are available and are mapped to components
+* `Record<string, AsyncComponent>`
+* `Record<string, Record<string, AsyncComponent>>`
+* `Record<string, null>`
+
+Important to note is that only async components are allowed. This is because the `mapping` is shared amongst all components.
 
 ## Usage
-The `mapping` is passed along in the `options` of the [DrupalPlugin]. Next to that the [DrupalMixin] requires this mapping present in the Nuxt application components to find the matching components within the entities.
-<br/>
-<br/>
-### Examples
-The following format is required for a mapping to work correctly:
+The `mapping` is passed along in the `options` of the [DrupalPlugin]. Next to that [Entity] requires this mapping present in the Nuxt application component to find the matching components within the `mapping`.
 
-```typescript
-export default {
-  nodes: Array,
-  menus: Array,
-  entities: Record<string, Object>,
-};
-```
+### Examples
 
 An example format could be as short as this:
 ```javascript
 export default {
-  nodes: [
-    'node--page',
-  ],
-  menus: [
-    'main',
-  ]
-  entities: {
-    'paragraph--text': () => import('@/components/text.vue'),
+  'paragraph--text': () => import('@/components/text.vue'),
+  'node--event': null,
+  'node--page': {
+    default: () => import('@/components/page.vue'),
+    teaser: () => import('@/components/teaser.vue'),
+  },
+  'menu_items': {
+    sidebar: () => import('@/modules/drupal/components/menus/sidebar.vue'),
   },
 };
 ```
 
-A more extended mapping could have the following format:
+A more extended mapping could have the following format using spread operators:
 ```javascript
 import nodes from './nodes';
 import menus from './menus';
-
 import paragraphs from './paragraphs';
 import media from './media';
 import files from './files';
 
 export default {
-  nodes,
-  menus,
-  entities: {
-    ...paragraphs,
-    ...media,
-    ...files,
-  },
+  ...nodes,
+  ...menus,
+  ...paragraphs,
+  ...media,
+  ...files,
 };
 ```
 
@@ -67,3 +56,4 @@ export default {
 [Resource]: ../../../packages/core/documentation/core/resource.md
 [DruxtNuxtModule]: module.md
 [DrupalMixin]: mixin.md
+[DrupalPlugin]: plugin.md

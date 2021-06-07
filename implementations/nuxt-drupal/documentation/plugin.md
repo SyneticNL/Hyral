@@ -27,7 +27,7 @@ export default {
 ```
 
 ## Options
-The options that must be provided are the Drupal `name`, `baseUrl` and [mapping].
+The options that must be provided are the Drupal `baseUrl` and [mapping] with an optional `name`. Name will default to 'drupal' if not specified.
 
 ### Example
 ```javascript
