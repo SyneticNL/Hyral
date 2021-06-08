@@ -1,25 +1,27 @@
-import { Resource } from '@hyral/core';
-import { AsyncComponent, Component } from 'vue/types';
+import { Collection, Resource } from '@hyral/core';
+import { AsyncComponent } from 'vue/types';
 import { Store } from 'vuex';
 
 // =====
 // TYPES
 // =====
 export type IComponentContext = {
-  $store: {
-    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
-  }
-};
-
-export type IHyralEntity = {
   $attrs: Record<string, any>;
   $store: IStore;
-  $props: { viewMode?: string }
+};
+
+export interface IHyralEntity extends IComponentContext {
   viewMode: string;
   resource: Resource<unknown>;
-  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
-  getEntity(type?: string, mode?: string): Component;
-};
+}
+
+export interface IHyralView extends IComponentContext {
+  source: { name: string, type: string };
+  hyralService: string;
+  viewMode: string;
+  collection: Collection<unknown>;
+  initCollection(): void;
+}
 
 export type IRouteMetaOptions = {
   resolve?: string;
@@ -45,6 +47,7 @@ export type IDruxtRouterRoute = {
 
 export type IDruxtRouterResponse = {
   statusCode?: string | number;
+  error?: string | number;
   route: IDruxtRouterRoute;
 };
 
@@ -91,5 +94,6 @@ export interface IStore extends Store<any> {
       }
     }
   };
+  getters: Record<string, (j: string) => (i:string) => any>;
   dispatch: (type: string, payload?: any) => Promise<IDruxtRouterResponse>;
 }
