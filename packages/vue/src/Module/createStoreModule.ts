@@ -1,10 +1,7 @@
-import {
-  Collection,
-  Repository,
-  Resource,
-} from '@hyral/core';
+import { Repository, Resource } from '@hyral/core';
 import Vue from 'vue';
 import { Module } from 'vuex';
+import createVuexCollectionFromState from '../Collection/createVuexCollectionFromState';
 import {
   IContext,
   ICollectionPayload,
@@ -26,45 +23,47 @@ const createStoreModule = (repositories: Record<string, Repository<unknown>>): M
   },
 
   getters: {
-    resource: (state: IState) => (resourceType: string) => (id: string) => (
-      state.resources[resourceType] && state.resources[resourceType][id]
-        ? state.resources[resourceType][id]
+    resource: (state: IState) => (type: string) => (id: string) => (
+      state.resources[type] && state.resources[type][id]
+        ? state.resources[type][id]
         : null
     ),
-    collection: (state: IState) => (resourceType: string) => (name: string) => (
-      state.collections[resourceType] && state.collections[resourceType][name]
-        ? state.collections[resourceType][name]
+    collection: (state: IState) => (type: string) => (name: string) => (
+      state.collections[type] && state.collections[type][name]
+        ? createVuexCollectionFromState(name, state, repositories[type])
         : null
     ),
+    repository: () => (type: string) => repositories[type],
   },
 
   mutations: {
     SET_RESOURCE(state: IState, resource: Resource<unknown>) {
       Vue.set(state.resources[resource.type], resource.id as string, resource);
     },
-    SET_COLLECTION(state: IState, { name, resourceType, collection }) {
-      Vue.set(state.collections[resourceType as string], name, collection);
+    SET_COLLECTION(state: IState, { name, type, collection }) {
+      Vue.set(state.collections[type as string], name, collection);
     },
   },
 
   actions: {
-    async LOAD_RESOURCE({ state, commit }: IContext, { id, resourceType, parameterBag }: IResourcePayload) {
-      if (!state.resources[resourceType] || state.resources[resourceType][id]) {
+    async LOAD_RESOURCE({ state, commit }: IContext, { id, type, parameterBag }: IResourcePayload) {
+      if (!state.resources[type] || state.resources[type][id]) {
         return;
       }
 
-      const response = await repositories[resourceType].findById(id, parameterBag);
+      const response = await repositories[type].findById(id, parameterBag);
       if (Array.isArray(response)) {
-        commit('SET_RESOURCE', new Resource(id, resourceType, response));
+        commit('SET_RESOURCE', new Resource(id, type, response));
         return;
       }
       commit('SET_RESOURCE', response);
     },
-    async LOAD_COLLECTION({ commit }: IContext, { name, resourceType, parameterBag }: ICollectionPayload) {
-      const collection = new Collection(name, repositories[resourceType], parameterBag);
+    async LOAD_COLLECTION({ getters }: IContext, { name, type }: ICollectionPayload) {
+      const collection = getters.collection(type)(name);
 
-      await collection.load();
-      commit('SET_COLLECTION', { name, resourceType, collection });
+      if (collection) {
+        await collection.load();
+      }
     },
   },
 });

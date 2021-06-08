@@ -37,19 +37,16 @@ export default {
     loadResource(): Promise<any> {
       const self = this as IResourceMixin;
 
+      if (!self.source?.id || !self.source?.type || !self.hyralService) {
+        return Promise.resolve();
+      }
+
       if (!isEmpty(self.source?.data)) {
         return Promise.resolve();
       }
 
-      if (!self.source?.id || !self.source?.type || !self.hyralService) {
-        return Promise.reject();
-      }
-
       const { id, type } = self.source;
-      return self.$store.dispatch(
-        `hyral_${self.hyralService}/LOAD_RESOURCE`,
-        { id, resourceType: type, parameterBag: self.parameterBag },
-      );
+      return self.$store.dispatch(`hyral_${self.hyralService}/LOAD_RESOURCE`, { id, type, parameterBag: self.parameterBag });
     },
   },
 };
