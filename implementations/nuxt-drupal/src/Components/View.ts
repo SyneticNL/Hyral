@@ -1,7 +1,7 @@
 import {
   CreateElement, Component, VNode,
 } from 'vue';
-import { Collection, ParameterBag } from '@hyral/core';
+import { Collection } from '@hyral/core';
 import { IHyralView, IMapping } from '../__types__';
 import getEntity from '../Helpers/getEntity';
 
@@ -37,10 +37,10 @@ export default function View(hyralService = 'drupal', mapping: IMapping): Compon
     computed: {
       collection(): any {
         const self = this as unknown as IHyralView;
-        const service = `hyral_${self.hyralService}/collection`;
-        const { type, name } = self.source;
+        const { name, type, parameterBag } = self.source;
+        const repository = self.$store.getters[`hyral_${self.hyralService}/repository`](type);
 
-        return self.$store.getters[service](type)(name) as Collection<unknown>;
+        return new Collection(name, repository as any, parameterBag);
       },
     },
     created() {
@@ -50,23 +50,27 @@ export default function View(hyralService = 'drupal', mapping: IMapping): Compon
         return;
       }
 
-      const { name, type } = self.source;
-      let collection = self.$store.getters[`hyral_${self.hyralService}/collection`](type)(name) as Collection<unknown>;
-      if (collection) {
-        return;
-      }
-      const repository = self.$store.getters[`hyral_${self.hyralService}/repository`](type);
-      collection = new Collection(name, repository as any);
+      self.initCollection();
+    },
+    async updated() {
+      const self = this as IHyralView;
+      const { name, type, parameterBag } = self.source;
 
-      self.$store.commit(`hyral_${self.hyralService}/SET_COLLECTION`, { name, type, collection });
+      if (parameterBag) {
+        await self.collection.load();
+        self.$store.commit(`hyral_${self.hyralService}/SET_COLLECTION`, { name, type, collection: self.collection });
+      }
     },
     methods: {
-      async loadCollection(parameterBag: ParameterBag): Promise<void> {
+      initCollection() {
         const self = this as IHyralView;
 
-        self.collection.parameterBag = parameterBag;
-        await self.collection.load();
         const { name, type } = self.source;
+        const collection = self.$store.getters[`hyral_${self.hyralService}/collection`](type)(name) as Collection<unknown>;
+        if (collection) {
+          return;
+        }
+
         self.$store.commit(`hyral_${self.hyralService}/SET_COLLECTION`, { name, type, collection: self.collection });
       },
     },
@@ -74,7 +78,7 @@ export default function View(hyralService = 'drupal', mapping: IMapping): Compon
       const self = this as unknown as IHyralView;
 
       const settings = {
-        props: { collection: self.collection },
+        props: { source: self.source, hyralService },
         attrs: self.$attrs,
         class: [],
       };

@@ -1,4 +1,4 @@
-import { Collection, Resource } from '@hyral/core';
+import { Collection, ParameterBag, Resource } from '@hyral/core';
 import { AsyncComponent } from 'vue/types';
 import { Store } from 'vuex';
 
@@ -8,6 +8,7 @@ import { Store } from 'vuex';
 export type IComponentContext = {
   $attrs: Record<string, any>;
   $store: IStore;
+  $set(target: any, key: any, val: any): void;
 };
 
 export interface IHyralEntity extends IComponentContext {
@@ -16,7 +17,7 @@ export interface IHyralEntity extends IComponentContext {
 }
 
 export interface IHyralView extends IComponentContext {
-  source: { name: string, type: string };
+  source: { name: string, type: string, parameterBag: ParameterBag };
   hyralService: string;
   viewMode: string;
   collection: Collection<unknown>;
