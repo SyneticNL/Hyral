@@ -3,67 +3,64 @@ import { ICollectionMixin } from '../__types__';
 
 export default {
   computed: {
-    collection(): Collection<unknown> | null {
-      const self = this as unknown as ICollectionMixin;
-      const service = `hyral_${self.hyralService}/collection`;
-      const { type, name } = self.source;
+    collection(this: ICollectionMixin): Collection<unknown> | null {
+      if (!this.source?.name || !this.source?.type) {
+        return null;
+      }
 
-      const collection = self.$store.getters[service](type)(name);
+      const service = `hyral_${this.hyralService}/collection`;
+      const { type, name } = this.source;
+
+      const collection = this.$store.getters[service](type)(name);
       if (!collection) {
         return null;
       }
 
-      if (!self.source.parameterBag) {
+      if (!this.source.parameterBag) {
         return collection;
       }
 
-      collection.parameterBag = self.source.parameterBag;
+      collection.parameterBag = this.source.parameterBag;
 
       return collection;
     },
   },
-  created(): void {
-    const self = this as unknown as ICollectionMixin;
-
-    if (!self.source.name || !self.source.type) {
-      return;
-    }
-
-    self.initCollection();
+  created(this: ICollectionMixin): void {
+    this.initCollection();
   },
   /**
    * Execute server prefetch actions.
    */
-  async serverPrefetch(): Promise<void> {
-    const self = this as unknown as ICollectionMixin;
-
-    await self.loadCollection();
+  async serverPrefetch(this: ICollectionMixin): Promise<void> {
+    await this.loadCollection();
   },
-  async mounted(): Promise<void> {
-    const self = this as unknown as ICollectionMixin;
-
-    await self.loadCollection();
+  async mounted(this: ICollectionMixin): Promise<void> {
+    await this.loadCollection();
   },
   methods: {
-    initCollection(): void {
-      const self = this as ICollectionMixin;
+    initCollection(this: ICollectionMixin): void {
+      if (!this.source?.name || !this.source?.type) {
+        return;
+      }
 
-      const { name, type } = self.source;
-      let collection = self.$store.getters[`hyral_${self.hyralService}/collection`](type)(name);
+      const { name, type } = this.source;
+      let collection = this.$store.getters[`hyral_${this.hyralService}/collection`](type)(name);
       if (collection) {
         return;
       }
-      const repository = self.$store.getters[`hyral_${self.hyralService}/repository`](type);
+      const repository = this.$store.getters[`hyral_${this.hyralService}/repository`](type);
       collection = new Collection(name, repository as any);
 
-      self.$store.commit(`hyral_${self.hyralService}/SET_COLLECTION`, { name, type, collection });
+      this.$store.commit(`hyral_${this.hyralService}/SET_COLLECTION`, { name, type, collection });
     },
-    async loadCollection(): Promise<void> {
-      const self = this as ICollectionMixin;
+    async loadCollection(this: ICollectionMixin): Promise<void> {
+      if (!this.collection || !this.source?.parameterBag) {
+        return;
+      }
 
-      await self.collection.load();
-      const { name, type } = self.source;
-      self.$store.commit(`hyral_${self.hyralService}/SET_COLLECTION`, { name, type, collection: self.collection });
+      await this.collection.load();
+      const { name, type } = this.source;
+      this.$store.commit(`hyral_${this.hyralService}/SET_COLLECTION`, { name, type, collection: this.collection });
     },
   },
 };

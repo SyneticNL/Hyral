@@ -35,17 +35,19 @@ export interface IStore<T> extends Store<T> {
   getters: Record<string, (j: string) => (i:string) => T>;
 }
 
-export interface ICollectionMixin extends Vue {
-  $store: IStore<Collection<unknown>>;
-  source: { type: string, name: string, parameterBag: ParameterBag; };
-  collection: Collection<unknown>;
+export interface IMixin<T> extends Vue {
+  $store: IStore<T>;
   hyralService: string;
+}
+
+export interface ICollectionMixin extends IMixin<Collection<unknown>> {
+  source: { type: string, name: string, parameterBag: ParameterBag; } | null;
+  collection: Collection<unknown>;
   initCollection(): void;
   loadCollection(): Promise<void>;
 }
 
-export interface IResourceMixin extends Vue {
-  $store: IStore<Resource<unknown>>;
+export interface IResourceMixin extends IMixin<Resource<unknown>> {
   source: Resource<unknown> | null;
   hyralService: string;
   parameterBag?: ParameterBag;
