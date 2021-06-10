@@ -56,7 +56,7 @@ const createStoreModule = (repositories: Record<string, Repository<unknown>>): M
         commit('SET_RESOURCE', new Resource(id, type, response));
         return;
       }
-      commit('SET_RESOURCE', await repositories[type].findById(id, parameterBag));
+      commit('SET_RESOURCE', response);
     },
     async LOAD_COLLECTION({ getters }: IContext, { name, type }: ICollectionPayload) {
       const collection = getters.collection(type)(name);
