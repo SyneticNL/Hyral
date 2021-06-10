@@ -10,7 +10,7 @@
     "build:vue": "lerna exec --scope=@hyral/vue 'tsc'",
     "build:nuxt-drupal": "lerna exec --scope=@hyral/nuxt-drupal 'tsc'",
     "postinstall": "lerna bootstrap && npm run build && npm run postinstall:husky",
-    "postinstall:husky": "npx husky install && npx husky add ./.husky/commit-msg 'npx commitlint --edit $1'",
+    "postinstall:husky": "echo \"No husky enabled\" && exit 0",
     "prerelease": "npm run build",
     "release": "lerna publish --dist-tag next",
     "lint": "eslint ./packages ./implementations --ext .ts,.json",
@@ -44,8 +44,6 @@
   },
   "homepage": "https://github.com/SyneticNL/Hyral#readme",
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
     "@types/jest": "^26.0.21",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -54,20 +52,9 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.1",
     "eslint-plugin-json": "^2.1.2",
-    "husky": "^6.0.0",
     "jest": "^26.6.3",
     "lerna": "^4.0.0",
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.3"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
