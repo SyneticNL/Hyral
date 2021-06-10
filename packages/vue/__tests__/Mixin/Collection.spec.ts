@@ -6,9 +6,9 @@ import collectionMixin from '../../src/Mixin/Collection';
 describe('The Collection mixin', () => {
   test('that a collection is available as a computed property with a default parameterBag', () => {
     const mockRepository: any = {};
+    const source = { name: 'products', type: 'products' };
     const mixin = {
-      resourceType: 'product',
-      collectionName: 'products',
+      source,
       hyralService: 'service',
       $store: {
         getters: {
@@ -18,7 +18,7 @@ describe('The Collection mixin', () => {
       ...collectionMixin,
     };
 
-    const collection = mixin.computed.collection.call(mixin) as Collection<unknown>;
+    const collection = mixin.computed.collection.call(mixin as any) as Collection<unknown>;
     expect(collection).toHaveProperty('name');
     expect(collection.name).toEqual('products');
 
@@ -29,11 +29,10 @@ describe('The Collection mixin', () => {
     const mockRepository: any = {};
     const parameterBag = new ParameterBag();
     parameterBag.setParams({ test: 'value' });
+    const source = { name: 'products', type: 'products', parameterBag };
     const mixin = {
-      resourceType: 'product',
-      collectionName: 'products',
+      source,
       hyralService: 'service',
-      parameterBag,
       $store: {
         getters: {
           'hyral_service/collection': jest.fn(() => () => new Collection('products', mockRepository)),
@@ -42,7 +41,7 @@ describe('The Collection mixin', () => {
       ...collectionMixin,
     };
 
-    const collection = mixin.computed.collection.call(mixin) as Collection<unknown>;
+    const collection = mixin.computed.collection.call(mixin as any) as Collection<unknown>;
 
     expect(collection).toHaveProperty('name');
     expect(collection.parameterBag.params).toEqual(parameterBag.params);
@@ -53,86 +52,86 @@ describe('The Collection mixin', () => {
       load: jest.fn(),
     };
     const mixin = {
-      resourceType: 'product',
-      collectionName: 'products',
+      source: { parameterBag: {} },
       hyralService: 'service',
       $store: {
         commit: jest.fn(),
         getters: {
-          'hyral_service/collection': jest.fn(() => () => null),
+          'hyral_service/collection': () => () => mockCollection,
         },
-        dispatch: jest.fn(),
       },
       loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
       ...collectionMixin,
     };
-    await mixin.serverPrefetch.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalled();
+    await mixin.serverPrefetch.call(mixin as any);
+    expect(mockCollection.load).toHaveBeenCalled();
+    expect(mixin.$store.commit).toHaveBeenCalled();
 
-    mixin.$store.dispatch.mockClear();
+    mockCollection.load.mockClear();
 
-    await mixin.mounted.call(mixin);
-    expect(mixin.$store.dispatch).toHaveBeenCalled();
+    await mixin.mounted.call(mixin as any);
+    expect(mockCollection.load).toHaveBeenCalled();
+    expect(mixin.$store.commit).toHaveBeenCalled();
   });
 
-  test('that the mixin handles errors on serverPrefetch', () => {
-    const mockRepository: any = {};
+  test('that the mixin handles no source on serverPrefetch', async () => {
+    const mockCollection = {
+      load: jest.fn(),
+    };
     const mixin = {
-      $store: {
-        getters: {
-          'hyral_service/collection': jest.fn(() => () => new Collection('products', mockRepository)),
-        },
-      },
+      collection: null,
       hyralService: 'service',
+      loadCollection: collectionMixin.methods.loadCollection,
       ...collectionMixin,
     };
 
     expect.assertions(1);
-    return mixin.serverPrefetch.call(mixin).catch(() => {
-      expect(mixin.$store.getters['hyral_service/collection']).not.toHaveBeenCalled();
-    });
+    await mixin.serverPrefetch.call(mixin as any);
+    expect(mockCollection.load).not.toHaveBeenCalled();
   });
 
-  test('that the mixin handles errors on mounted', async () => {
-    const mockRepository: any = {};
+  test('that the mixin handles no source on mounted', async () => {
+    const mockCollection = {
+      load: jest.fn(),
+    };
     const mixin = {
+      collection: null,
       hyralService: 'service',
-      $store: {
-        getters: {
-          'hyral_service/collection': jest.fn(() => () => new Collection('products', mockRepository)),
-        },
-      },
+      loadCollection: collectionMixin.methods.loadCollection,
       ...collectionMixin,
     };
 
-    await mixin.mounted.call(mixin);
-
-    expect(mixin.$store.getters['hyral_service/collection']).not.toHaveBeenCalled();
+    expect.assertions(1);
+    await mixin.mounted.call(mixin as any);
+    expect(mockCollection.load).not.toHaveBeenCalled();
   });
 
-  test('that the mixin doesn\'t initialize if the component does not define the collectionName or resourceType', async () => {
+  test('that the mixin doesn\'t load if the component does not define the name, type and parameterBag', async () => {
     const mixin = {
       initCollection: jest.fn(),
-      loadCollection: jest.fn(),
+      loadCollection: collectionMixin.methods.loadCollection,
+      collection: { load: jest.fn() },
       ...collectionMixin,
     };
 
-    mixin.serverPrefetch().catch(() => {});
-    expect(mixin.initCollection).not.toHaveBeenCalled();
-    expect(mixin.loadCollection).not.toHaveBeenCalled();
+    mixin.created.call(mixin as any);
+    expect(mixin.initCollection).toHaveBeenCalled();
 
-    await mixin.mounted();
-    expect(mixin.initCollection).not.toHaveBeenCalled();
-    expect(mixin.loadCollection).not.toHaveBeenCalled();
+    await mixin.serverPrefetch.call(mixin as any);
+    expect(mixin.collection.load).not.toHaveBeenCalled();
+
+    mixin.collection.load.mockClear();
+
+    await mixin.mounted.call(mixin as any);
+    expect(mixin.collection.load).not.toHaveBeenCalled();
   });
 
   test('that the collection getter can handle not being initialized yet', () => {
+    const source = { name: 'product', type: 'product' };
     const mixin = {
-      resourceType: 'product',
-      collectionName: 'products',
+      source,
       hyralService: 'service',
-      parameterBag: jest.fn(() => {}),
       $store: {
         getters: {
           'hyral_service/collection': jest.fn(() => () => null),
@@ -141,6 +140,6 @@ describe('The Collection mixin', () => {
       ...collectionMixin,
     };
 
-    expect(mixin.computed.collection.call(mixin)).toBeNull();
+    expect(mixin.computed.collection.call(mixin as any)).toBeNull();
   });
 });

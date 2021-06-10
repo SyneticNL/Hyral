@@ -42,7 +42,7 @@ export type IDruxtRouterRoute = {
 
 export type IDruxtRouterResponse = {
   statusCode?: string | number;
-  error?: string | number;
+  error?: Error;
   route: IDruxtRouterRoute;
 };
 
