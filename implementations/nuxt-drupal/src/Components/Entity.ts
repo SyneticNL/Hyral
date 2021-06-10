@@ -2,7 +2,7 @@ import {
   CreateElement, Component, VNode,
 } from 'vue';
 import { IHyralEntity, IMapping } from '../__types__';
-import ResourceMixin from '../Mixins/Resource';
+import ContentMixin from '../Mixins/Content';
 import getEntity from '../Helpers/getEntity';
 
 /**
@@ -10,13 +10,13 @@ import getEntity from '../Helpers/getEntity';
  * @param hyralService String
  * @param mapping IMapping
  *
- * @requires source? Resource
+ * @requires source? Resource || { name, type, parameterBag }
  * @requires viewMode? String
  */
 export default function Entity(hyralService: string, mapping: IMapping): Component {
   return {
-    name: 'HyralEntity',
-    mixins: [ResourceMixin(hyralService)],
+    name: 'Entity',
+    mixins: [ContentMixin(hyralService)],
     props: {
       viewMode: {
         type: String,
@@ -28,16 +28,16 @@ export default function Entity(hyralService: string, mapping: IMapping): Compone
         mapping,
       };
     },
-    render(createElement: CreateElement): VNode {
-      const self = this as unknown as IHyralEntity;
-
+    render(this: IHyralEntity, createElement: CreateElement): VNode {
       const settings = {
-        props: { resource: self.resource },
-        attrs: self.$attrs,
+        props: { resource: this.resource, collection: this.collection },
+        attrs: this.$attrs,
         class: [],
       };
 
-      const elem = getEntity(self.resource?.type, mapping as any, self.viewMode) as Component;
+      const type = this.resource?.type ?? this.collection?.repository.resourceType;
+
+      const elem = getEntity(type, mapping as any, this.viewMode) as Component;
       return createElement(elem, settings);
     },
   };

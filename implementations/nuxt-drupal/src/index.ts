@@ -2,11 +2,9 @@ import DruxtRouterModule from 'druxt-router';
 import HyralMiddleware from './Middleware/Drupal';
 import HyralPlugin from './Plugins/Drupal';
 
-import HyralView from './Components/View';
-import HyralViewMixin from './Mixins/View';
-import HyralEntity from './Components/Entity';
-import HyralEntityMixin from './Mixins/Entity';
-import ResourceMixin from './Mixins/Resource';
+import Entity from './Components/Entity';
+import EntityMixin from './Mixins/Entity';
+import ContentMixin from './Mixins/Content';
 
 import createRoute from './Helpers/createRoute';
 import dispatchRoutes from './Helpers/dispatchRoutes';
@@ -32,11 +30,9 @@ export default async function DrupalModule(this: INuxtContext): Promise<void> {
 export {
   HyralMiddleware,
   HyralPlugin,
-  HyralView,
-  HyralViewMixin,
-  HyralEntity,
-  HyralEntityMixin,
-  ResourceMixin,
+  Entity,
+  EntityMixin,
+  ContentMixin,
   createRoute,
   dispatchRoutes,
   parseMenuCollection,
