@@ -6,7 +6,7 @@ import resourceMixin from '../../src/Mixin/Resource';
 describe('The Resource mixin', () => {
   test('that a resource is available as a computed property', () => {
     const data = { test: 'test' };
-    const mixin = {
+    const context = {
       source: new Resource(1, 'product'),
       hyralService: 'service',
       $store: {
@@ -14,10 +14,9 @@ describe('The Resource mixin', () => {
           'hyral_service/resource': jest.fn(() => () => new Resource(1, 'product', data)),
         },
       },
-      ...resourceMixin,
     };
 
-    const resource = mixin.computed.resource?.call(mixin as any);
+    const resource = resourceMixin.computed.resource?.call(context as any);
 
     expect(resource).toHaveProperty('id');
     expect(resource?.id).toEqual(1);
@@ -26,13 +25,12 @@ describe('The Resource mixin', () => {
 
   test('that the mixin returns a computed property if resource data is available', () => {
     const data = { test: 'test' };
-    const mixin = {
+    const context = {
       source: new Resource(1, 'product', data),
       hyralService: 'service',
-      ...resourceMixin,
     };
 
-    const resource = mixin.computed.resource?.call(mixin as any);
+    const resource = resourceMixin.computed.resource?.call(context as any);
 
     expect(resource).toHaveProperty('id');
     expect(resource?.id).toEqual(1);
@@ -40,47 +38,44 @@ describe('The Resource mixin', () => {
   });
 
   test('that the mixin returns \'null\' without source', () => {
-    const mixin = {
+    const context = {
       hyralService: 'service',
-      ...resourceMixin,
     };
 
-    const resource = mixin.computed.resource?.call(mixin as any);
+    const resource = resourceMixin.computed.resource?.call(context as any);
 
     expect(resource).toEqual(null);
   });
 
   test('that the mixin handles no source on serverPrefetch', async () => {
-    const mixin = {
+    const context = {
       $store: {
         dispatch: jest.fn(),
       },
       loadResource: resourceMixin.methods.loadResource,
-      ...resourceMixin,
     };
 
     expect.assertions(1);
-    await mixin.mounted.call(mixin as any);
-    expect(mixin.$store.dispatch).not.toHaveBeenCalled();
+    await resourceMixin.mounted.call(context as any);
+    expect(context.$store.dispatch).not.toHaveBeenCalled();
   });
 
   test('that the mixin handles no source on mounted', async () => {
-    const mixin = {
+    const context = {
       $store: {
         dispatch: jest.fn(),
       },
       loadResource: resourceMixin.methods.loadResource,
-      ...resourceMixin,
     };
 
     expect.assertions(1);
-    await mixin.serverPrefetch.call(mixin as any);
-    expect(mixin.$store.dispatch).not.toHaveBeenCalled();
+    await resourceMixin.serverPrefetch.call(context as any);
+    expect(context.$store.dispatch).not.toHaveBeenCalled();
   });
 
   test('that the mixin does not load available resources', () => {
     const product = new Resource(1, 'product', { data: { test: '' } });
-    const mixin = {
+    const context = {
       source: product,
       hyralService: 'service',
       $store: {
@@ -89,17 +84,15 @@ describe('The Resource mixin', () => {
         },
         dispatch: jest.fn(),
       },
-      loadResource: resourceMixin.methods.loadResource,
-      ...resourceMixin,
     };
 
-    expect(mixin.loadResource.call(mixin as any)).toEqual(Promise.resolve());
+    expect(resourceMixin.methods.loadResource.call(context as any)).toEqual(Promise.resolve());
   });
 
   test('that a resource will be loaded on initialization of the component', async () => {
     const product = new Resource('1', 'product');
     const object = { id: '1', type: 'product' };
-    const mixin = {
+    const context = {
       source: product,
       hyralService: 'service',
       $store: {
@@ -109,16 +102,15 @@ describe('The Resource mixin', () => {
         },
       },
       loadResource: resourceMixin.methods.loadResource,
-      ...resourceMixin,
     };
 
-    await mixin.serverPrefetch.call(mixin as any);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    await resourceMixin.serverPrefetch.call(context as any);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
 
-    mixin.$store.dispatch.mockClear();
+    context.$store.dispatch.mockClear();
 
-    await mixin.mounted.call(mixin as any);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    await resourceMixin.mounted.call(context as any);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
   });
 
   test('that a resource with a parameter bag will be loaded on initialization of the component', async () => {
@@ -127,7 +119,7 @@ describe('The Resource mixin', () => {
     const product = new Resource('2', 'product');
     const object = { id: '2', type: 'product', parameterBag };
 
-    const mixin = {
+    const context = {
       source: product,
       hyralService: 'service',
       $store: {
@@ -138,15 +130,14 @@ describe('The Resource mixin', () => {
       },
       parameterBag,
       loadResource: resourceMixin.methods.loadResource,
-      ...resourceMixin,
     };
 
-    await mixin.serverPrefetch.call(mixin as any);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    await resourceMixin.serverPrefetch.call(context as any);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
 
-    mixin.$store.dispatch.mockClear();
+    context.$store.dispatch.mockClear();
 
-    await mixin.mounted.call(mixin as any);
-    expect(mixin.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    await resourceMixin.mounted.call(context as any);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
   });
 });

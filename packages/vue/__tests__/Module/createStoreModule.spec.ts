@@ -4,6 +4,7 @@ import {
   ParameterBag,
   IRepository,
   IResource,
+  Repository,
 } from '@hyral/core';
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -80,6 +81,22 @@ describe('The createStoreModule', () => {
     expect(foundProducts.repository).toBe(repository);
 
     expect(foundNonExistingCollection).toBeNull();
+  });
+
+  test('that is is possible to get a repository from the store', () => {
+    const resourceType = 'items';
+    const repository = { resourceType } as IRepository<any>;
+    const repositories = {} as Record<string, any>;
+    repositories[repository.resourceType] = repository;
+    const module = createStoreModule(repositories);
+
+    type MockGetters = {
+      repository: (state?: unknown) => (type: string) => Repository<unknown>
+    };
+
+    const getters = module.getters as MockGetters;
+
+    expect(getters.repository()(resourceType)).toEqual(repository);
   });
 
   test('that it is possible to mutate a collection in the store', () => {
