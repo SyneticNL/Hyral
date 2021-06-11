@@ -1,17 +1,17 @@
 import { Collection } from '@hyral/core';
-import { ICollectionMixin } from '../__types__';
+import { ICollectionGetter, ICollectionMixin } from '../__types__';
 
 export default {
   computed: {
     collection(this: ICollectionMixin): Collection<unknown> | null {
-      if (!this.source?.name || !this.source?.type) {
+      if (!this.source?.name || !this.source?.type || !this.hyralService) {
         return null;
       }
 
-      const service = `hyral_${this.hyralService}/collection`;
+      const getter = `hyral_${this.hyralService}/collection`;
       const { type, name } = this.source;
 
-      const collection = this.$store.getters[service](type)(name);
+      const collection = (this.$store.getters[getter] as ICollectionGetter)(type)(name);
       if (!collection) {
         return null;
       }
@@ -39,28 +39,25 @@ export default {
   },
   methods: {
     initCollection(this: ICollectionMixin): void {
-      if (!this.source?.name || !this.source?.type) {
+      if (!this.source?.name || !this.source?.type || !this.hyralService) {
         return;
       }
 
-      const { name, type } = this.source;
-      let collection = this.$store.getters[`hyral_${this.hyralService}/collection`](type)(name);
-      if (collection) {
+      const getter = `hyral_${this.hyralService}/collection`;
+      const { type, name } = this.source;
+
+      if ((this.$store.getters[getter] as ICollectionGetter)(type)(name)) {
         return;
       }
-      const repository = this.$store.getters[`hyral_${this.hyralService}/repository`](type);
-      collection = new Collection(name, repository as any);
 
-      this.$store.commit(`hyral_${this.hyralService}/SET_COLLECTION`, { name, type, collection });
+      this.$store.commit(`hyral_${this.hyralService}/SET_COLLECTION`, new Collection(name, type));
     },
     async loadCollection(this: ICollectionMixin): Promise<void> {
-      if (!this.collection || !this.source?.parameterBag) {
+      if (!this.source?.parameterBag || !this.hyralService) {
         return;
       }
 
-      await this.collection.load();
-      const { name, type } = this.source;
-      this.$store.commit(`hyral_${this.hyralService}/SET_COLLECTION`, { name, type, collection: this.collection });
+      await this.$store.dispatch(`hyral_${this.hyralService}/LOAD_COLLECTION`, this.collection);
     },
   },
 };

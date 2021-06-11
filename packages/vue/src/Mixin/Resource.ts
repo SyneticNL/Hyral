@@ -1,11 +1,11 @@
 import isEmpty from 'lodash/isEmpty';
 import { Resource } from '@hyral/core';
-import { IResourceMixin } from '../__types__';
+import { IResourceGetter, IResourceMixin } from '../__types__';
 
 export default {
   computed: {
     resource(this: IResourceMixin): Resource<unknown> | null {
-      if (!this.source?.id || !this.source?.type) {
+      if (!this.source?.id || !this.source?.type || !this.hyralService) {
         return null;
       }
 
@@ -14,8 +14,9 @@ export default {
       }
 
       const { id, type } = this.source;
+      const getter = `hyral_${this.hyralService}/resource`;
 
-      return this.$store.getters[`hyral_${this.hyralService}/resource`](type)(id.toString());
+      return (this.$store.getters[getter] as IResourceGetter)(type)(id.toString());
     },
   },
   /**
@@ -37,8 +38,7 @@ export default {
         return;
       }
 
-      const { id, type } = this.source;
-      await this.$store.dispatch(`hyral_${this.hyralService}/LOAD_RESOURCE`, { id, type, parameterBag: this.parameterBag });
+      await this.$store.dispatch(`hyral_${this.hyralService}/LOAD_RESOURCE`, this.source);
     },
   },
 };

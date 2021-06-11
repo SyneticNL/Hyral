@@ -1,4 +1,6 @@
-import { Collection, Resource, ParameterBag } from '@hyral/core';
+import {
+  Collection, Resource, ParameterBag,
+} from '@hyral/core';
 import Vue from 'vue';
 import { Store } from 'vuex';
 
@@ -25,23 +27,23 @@ export type IContext = {
   getters: IGetters;
 };
 
-export type IResourcePayload = { id: string | number, type: string, parameterBag?: ParameterBag };
-export type ICollectionPayload = { name: string, type: string, parameterBag?: ParameterBag };
-
 // ====================
 // ABSTRACTS FOR MIXINS
 // ====================
+export type ICollectionGetter = (j: string) => (i:string) => Collection<unknown> | null;
+export type IResourceGetter = (j: string) => (i:string) => Resource<unknown> | null;
+
 export interface IStore<T> extends Store<T> {
-  getters: Record<string, (j: string) => (i:string) => T>;
+  getters: Record<string, ICollectionGetter | IResourceGetter>;
 }
 
 export interface IMixin<T> extends Vue {
   $store: IStore<T>;
-  hyralService: string;
+  hyralService?: string;
 }
 
 export interface ICollectionMixin extends IMixin<Collection<unknown>> {
-  source: { type: string, name: string, parameterBag: ParameterBag; } | null;
+  source?: Collection<unknown> | null;
   collection: Collection<unknown>;
   initCollection(): void;
   loadCollection(): Promise<void>;
@@ -49,7 +51,6 @@ export interface ICollectionMixin extends IMixin<Collection<unknown>> {
 
 export interface IResourceMixin extends IMixin<Resource<unknown>> {
   source: Resource<unknown> | null;
-  hyralService: string;
   parameterBag?: ParameterBag;
   loadResource(): Promise<void>;
 }
