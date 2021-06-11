@@ -12,12 +12,14 @@ import ParameterBag from './ParameterBag';
  */
 export default class Collection<T> implements ICollection<T> {
   name: string;
-  repository: IRepository<T>;
+  type: string;
+  repository?: IRepository<T>;
   data: IResource<T>[] = [];
   parameterBag: ParameterBag;
 
-  constructor(name: string, repository: IRepository<T>, parameterBag = new ParameterBag()) {
+  constructor(name: string, type: string, repository?: IRepository<T>, parameterBag = new ParameterBag()) {
     this.name = name;
+    this.type = type;
     this.repository = repository;
     this.parameterBag = parameterBag;
   }
@@ -31,6 +33,10 @@ export default class Collection<T> implements ICollection<T> {
   }
 
   async load(): Promise<void> {
+    if (!this.repository) {
+      throw new Error(`No repository was present in collection ${this.name}`);
+    }
+
     this.data = await this.repository.find(this.parameterBag);
   }
 }

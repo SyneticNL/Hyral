@@ -31,7 +31,8 @@ export type ISerializers<T> = {
 // ==========
 export interface ICollection<T> {
   name: string;
-  repository: IRepository<T>;
+  type: string;
+  repository?: IRepository<T>;
   data: IResource<T>[];
   parameterBag: IParameterBag;
 
