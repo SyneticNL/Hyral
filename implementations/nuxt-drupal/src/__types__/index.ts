@@ -26,6 +26,7 @@ export type IRouteMetaOptions = {
 export type IRoute = {
   path: string;
   meta?: IRouteMetaOptions;
+  props: any;
 };
 
 export interface IDrupalRoute extends IRoute {
@@ -38,6 +39,10 @@ export interface IRecord extends IRoute {
 
 export type IDruxtRouterRoute = {
   resolvedPath: string;
+  props: {
+    uuid: string,
+    type: string,
+  }
 };
 
 export type IDruxtRouterResponse = {

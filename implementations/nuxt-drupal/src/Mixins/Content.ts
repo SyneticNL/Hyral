@@ -1,9 +1,11 @@
-import { Resource } from '@hyral/core';
 import { ResourceMixin as RootResourceMixin, CollectionMixin as RootCollectionMixin } from '@hyral/vue';
 import { IHyralEntity } from '../__types__';
 
 /**
  * Uses ResourceMixin and CollectionMixin to fetch the required drupal data automatically
+ * @param hyralService: string
+ *
+ * @requires source? Resource | Collection
  */
 export default function ContentMixin(hyralService: string): any {
   return {
@@ -11,20 +13,25 @@ export default function ContentMixin(hyralService: string): any {
     props: {
       source: {
         type: Object,
-        default(this: IHyralEntity): Resource<unknown> {
-          const { route } = this.$store.state.druxtRouter;
-          return new Resource(route.props.uuid, route.props.type);
-        },
+        required: false,
+        // TODO: Get this from router middleware
+        // default(this: IHyralEntity): Resource<unknown> {
+        //   const { route } = this.$store.state.druxtRouter;
+        //   return new Resource(route.props.uuid, route.props.type);
+        // },
       },
     },
     watch: {
-      source(this: IHyralEntity) {
-        if (this.collection) {
-          this.loadCollection();
-        }
-        if (this.resource) {
-          this.loadResource();
-        }
+      source: {
+        handler(this: IHyralEntity) {
+          if (this.collection) {
+            this.loadCollection();
+          }
+          if (this.resource) {
+            this.loadResource();
+          }
+        },
+        deep: true,
       },
     },
     data(): { hyralService: string } {
