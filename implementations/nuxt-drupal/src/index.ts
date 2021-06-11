@@ -1,6 +1,6 @@
 import DruxtRouterModule from 'druxt-router';
-import HyralMiddleware from './Middleware/Drupal';
-import HyralPlugin from './Plugins/Drupal';
+import HyralMiddleware from './Middleware/Hyral';
+import HyralPlugin from './Plugins/Hyral';
 
 import Entity from './Components/Entity';
 import EntityMixin from './Mixins/Entity';

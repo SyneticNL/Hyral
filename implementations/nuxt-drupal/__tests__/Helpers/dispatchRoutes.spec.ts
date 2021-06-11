@@ -8,7 +8,7 @@ describe('the dispatchRoutes component function', () => {
       },
     };
 
-    await dispatchRoutes.call(mockStore, []);
+    await dispatchRoutes.call(mockStore as any, []);
 
     expect(mockStore.$store.dispatch).not.toHaveBeenCalled();
   });
@@ -22,7 +22,7 @@ describe('the dispatchRoutes component function', () => {
     };
 
     const expectedResult = list.map((url) => ({ url, route: {} }));
-    const result = await dispatchRoutes.call(mockStore, list);
+    const result = await dispatchRoutes.call(mockStore as any, list);
 
     expect(mockStore.$store.dispatch).toHaveBeenCalledTimes(3);
     expect(result).toEqual(expectedResult);
@@ -37,7 +37,7 @@ describe('the dispatchRoutes component function', () => {
       },
     };
 
-    await dispatchRoutes.call(mockStore, list).catch((err) => {
+    await dispatchRoutes.call(mockStore as any, list).catch((err) => {
       expect(err).toEqual(routerError.error);
     });
 

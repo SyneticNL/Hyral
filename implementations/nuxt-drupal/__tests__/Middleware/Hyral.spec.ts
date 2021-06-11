@@ -1,7 +1,7 @@
-import drupalMiddleware, { createResolve } from '../../src/Middleware/Drupal';
+import middleware, { createResolve } from '../../src/Middleware/Hyral';
 
 describe('The Drupal middleware', () => {
-  test('that the middleware returns when paths are matched and meta isnt specified', async () => {
+  test('that the middleware returns when paths are matched and meta isn\'t specified', async () => {
     const mockContext = {
       store: {
         dispatch: jest.fn(() => Promise.resolve()),
@@ -13,20 +13,34 @@ describe('The Drupal middleware', () => {
       redirect: jest.fn(),
     };
 
-    await drupalMiddleware(mockContext as any).then(() => {
+    await middleware(mockContext as any).then(() => {
       expect(mockContext.store.dispatch).not.toBeCalled();
       expect(mockContext.redirect).not.toBeCalled();
     });
   });
 
-  test('that the middleware returns when a statusCode is returned from the dispatch', async () => {
-    const mockDruxtRouterResponse = {
-      statusCode: 500,
-    };
-
+  test('that the middleware resolves', async () => {
     const mockContext = {
       store: {
-        dispatch: jest.fn(() => Promise.resolve(mockDruxtRouterResponse)),
+        dispatch: jest.fn(() => Promise.resolve()),
+      },
+      route: {
+        path: '/home',
+        matched: [{ path: '/home', meta: { services: ['drupal'], resolve: '/page/home' } }],
+      },
+      redirect: jest.fn(),
+    };
+
+    await middleware(mockContext as any).then(() => {
+      expect(mockContext.store.dispatch).toHaveBeenCalled();
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith('druxtRouter/get', '/page/home');
+    });
+  });
+
+  test('that the middleware resolves to path without resolve', async () => {
+    const mockContext = {
+      store: {
+        dispatch: jest.fn(() => Promise.resolve()),
       },
       route: {
         path: '/home',
@@ -35,9 +49,9 @@ describe('The Drupal middleware', () => {
       redirect: jest.fn(),
     };
 
-    await drupalMiddleware(mockContext as any).then(() => {
-      expect(mockContext.store.dispatch).toBeCalled();
-      expect(mockContext.redirect).not.toBeCalled();
+    await middleware(mockContext as any).then(() => {
+      expect(mockContext.store.dispatch).toHaveBeenCalled();
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith('druxtRouter/get', '/home');
     });
   });
 });

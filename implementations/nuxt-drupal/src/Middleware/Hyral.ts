@@ -49,6 +49,5 @@ export default async ({ route, store }: IContext): Promise<void> => {
   const match = matched.find((record) => record.meta?.resolve);
   const druxtPath = createResolve(path, match?.meta?.resolve, match?.path);
 
-  // const response = await store.dispatch('druxtRouter/get', druxtPath);
   await store.dispatch('druxtRouter/get', druxtPath);
 };
