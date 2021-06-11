@@ -12,9 +12,10 @@ describe('Collection tests', () => {
   const productRepository = {
     find: jest.fn(() => Promise.resolve(mockResponse.data)),
   };
-  const collection = new Collection('product', productRepository as any);
 
   test('that the collection is initialized correctly', () => {
+    const collection = new Collection('product', productRepository as any);
+
     expect(collection.name).toEqual('product');
     expect(collection.repository).toBe(productRepository);
     expect(collection.length).toBe(0);
@@ -22,10 +23,25 @@ describe('Collection tests', () => {
     expect(collection.data).toHaveLength(0);
   });
 
-  test('that the collection correctly uses the repository to find items', () => collection.load().then(() => {
+  test('that the collectionn can be initialized with a parameterbag', () => {
+    const parameterbag = {};
+    const collection = new Collection('product', productRepository as any, parameterbag as any);
+
+    expect(collection.name).toEqual('product');
+    expect(collection.parameterBag).toEqual({});
+    expect(collection.repository).toBe(productRepository);
+    expect(collection.length).toBe(0);
+    expect(collection.items).toHaveLength(0);
+    expect(collection.data).toHaveLength(0);
+  });
+
+  test('that the collection correctly uses the repository to find items', async () => {
+    const collection = new Collection('product', productRepository as any);
+
+    await collection.load();
     expect(productRepository.find.mock.calls).toHaveLength(1);
     expect(collection.length).toEqual(2);
     expect(collection.items).toHaveLength(2);
     expect(collection.data).toHaveLength(2);
-  }));
+  });
 });
