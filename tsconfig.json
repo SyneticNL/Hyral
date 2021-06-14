@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types"],
+    "lib": ["ESNext"],
     "target": "es5",
     "declaration": true,
     "declarationMap": true,

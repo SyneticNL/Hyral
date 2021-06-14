@@ -10,6 +10,15 @@ describe('ParameterBag', () => {
     expect(parameterBag.params).toEqual({});
   });
 
+  test('that it can be initialized with the contructor', () => {
+    const parameterBag = new ParameterBag([], [], {}, {});
+
+    expect(parameterBag.filters).toEqual([]);
+    expect(parameterBag.paging).toEqual({});
+    expect(parameterBag.sorting).toEqual([]);
+    expect(parameterBag.params).toEqual({});
+  });
+
   test('that two instances do not share data', () => {
     const parameterBag = new ParameterBag();
     const parameterBag2 = new ParameterBag();

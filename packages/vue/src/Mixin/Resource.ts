@@ -1,55 +1,44 @@
 import isEmpty from 'lodash/isEmpty';
 import { Resource } from '@hyral/core';
-import { IResourceMixin } from '../__types__';
+import { IResourceGetter, IResourceMixin } from '../__types__';
 
 export default {
   computed: {
-    resource(): Resource<unknown> | null {
-      const self = this as unknown as IResourceMixin;
-
-      if (!self.source?.id || !self.source?.type) {
+    resource(this: IResourceMixin): Resource<unknown> | null {
+      if (!this.source?.id || !this.source?.type || !this.hyralService) {
         return null;
       }
 
-      if (!isEmpty(self.source.data)) {
-        return self.source;
+      if (!isEmpty(this.source.data)) {
+        return this.source;
       }
 
-      const { id, type } = self.source;
+      const { id, type } = this.source;
+      const getter = `hyral_${this.hyralService}/resource`;
 
-      return self.$store.getters[`hyral_${self.hyralService}/resource`](type)(id.toString());
+      return (this.$store.getters[getter] as IResourceGetter)(type)(id.toString());
     },
   },
   /**
    * Executes prefetch actions. This also caches the data by not retrieving it again
    */
-  serverPrefetch(): Promise<void> {
-    const self = this as unknown as IResourceMixin;
-
-    return self.loadResource();
+  async serverPrefetch(this: IResourceMixin): Promise<void> {
+    await this.loadResource();
   },
-  mounted(): Promise<void> {
-    const self = this as unknown as IResourceMixin;
-
-    return self.loadResource();
+  async mounted(this: IResourceMixin): Promise<void> {
+    await this.loadResource();
   },
   methods: {
-    loadResource(): Promise<any> {
-      const self = this as IResourceMixin;
-
-      if (!isEmpty(self.source?.data)) {
-        return Promise.resolve();
+    async loadResource(this: IResourceMixin): Promise<any> {
+      if (!this.source?.id || !this.source?.type || !this.hyralService) {
+        return;
       }
 
-      if (!self.source?.id || !self.source?.type || !self.hyralService) {
-        return Promise.reject();
+      if (!isEmpty(this.source?.data)) {
+        return;
       }
 
-      const { id, type } = self.source;
-      return self.$store.dispatch(
-        `hyral_${self.hyralService}/LOAD_RESOURCE`,
-        { id, resourceType: type, parameterBag: self.parameterBag },
-      );
+      await this.$store.dispatch(`hyral_${this.hyralService}/LOAD_RESOURCE`, this.source);
     },
   },
 };

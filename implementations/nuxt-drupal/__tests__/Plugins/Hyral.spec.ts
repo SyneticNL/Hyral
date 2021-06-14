@@ -1,4 +1,4 @@
-import DrupalPlugin from '../../src/Plugins/Drupal';
+import DrupalPlugin from '../../src/Plugins/Hyral';
 
 describe('the nuxt plugin', () => {
   const options = {

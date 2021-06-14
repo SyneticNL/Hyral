@@ -15,6 +15,9 @@ export default (route: IDrupalRoute): IRoute => (
         resolve: route.resolve,
         services: [...route.meta?.services ?? [], 'drupal'],
       },
+      props: {
+        root: true,
+      },
     }
   )
 )(route);

@@ -2,19 +2,21 @@ import '../src/__types__/DruxtRouterModule.d';
 import DruxtRouterModule from 'druxt-router';
 import DrupalNuxtModule, { INuxtContext } from '../src';
 
+import HyralPlugin from '../src/Plugins/Hyral';
+import HyralMiddleware from '../src/Middleware/Hyral';
 import * as options from '../src';
+import Entity from '../src/Components/Entity';
+import ContentMixin from '../src/Mixins/Content';
 import EntityMixin from '../src/Mixins/Entity';
-import ResourceMixin from '../src/Mixins/Resource';
-import DrupalMiddleware from '../src/Middleware/Drupal';
-import DrupalPlugin from '../src/Plugins/Drupal';
 
 describe('the nuxt-drupal index', () => {
   test('that nuxt-drupal exports the correct features', () => {
     expect(options).toEqual(expect.objectContaining({
+      HyralMiddleware,
+      HyralPlugin,
+      Entity,
       EntityMixin,
-      ResourceMixin,
-      DrupalMiddleware,
-      DrupalPlugin,
+      ContentMixin,
     }));
   });
 });

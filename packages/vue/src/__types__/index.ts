@@ -1,11 +1,12 @@
-import { Collection, Resource, ParameterBag } from '@hyral/core';
+import {
+  Collection, Resource, ParameterBag,
+} from '@hyral/core';
 import Vue from 'vue';
 import { Store } from 'vuex';
 
 // =====
 // TYPES
 // =====
-// resources.<resourceType>.<id>
 export type IState = {
   resources: Record<string, Record<string, Resource<unknown>>>;
   collections: Record<string, Record<string, Collection<unknown>>>;
@@ -26,32 +27,30 @@ export type IContext = {
   getters: IGetters;
 };
 
-export type IResourcePayload = { id: string | number, resourceType: string, parameterBag?: ParameterBag };
-export type ICollectionPayload = { name: string, resourceType: string, parameterBag?: ParameterBag };
-
 // ====================
 // ABSTRACTS FOR MIXINS
 // ====================
+export type ICollectionGetter = (j: string) => (i:string) => Collection<unknown> | null;
+export type IResourceGetter = (j: string) => (i:string) => Resource<unknown> | null;
+
 export interface IStore<T> extends Store<T> {
-  getters: Record<string, (j: string) => (i:string) => T>;
+  getters: Record<string, ICollectionGetter | IResourceGetter>;
 }
 
-export interface ICollectionMixin extends Vue {
-  $store: IStore<Collection<unknown>>;
-  collection: Collection<unknown> | null;
-  resourceType: string;
-  collectionName: string;
-  hyralService: string;
-  parameterBag: ParameterBag;
-  loadCollection(): Promise<void>;
+export interface IMixin<T> extends Vue {
+  $store: IStore<T>;
+  hyralService?: string;
+}
+
+export interface ICollectionMixin extends IMixin<Collection<unknown>> {
+  source?: Collection<unknown> | null;
+  collection: Collection<unknown>;
   initCollection(): void;
+  loadCollection(): Promise<void>;
 }
 
-export interface IResourceMixin extends Vue {
-  $store: IStore<Resource<unknown>>;
+export interface IResourceMixin extends IMixin<Resource<unknown>> {
   source: Resource<unknown> | null;
-  resource: Resource<unknown> | null;
-  hyralService: string;
-  parameterBag: ParameterBag;
+  parameterBag?: ParameterBag;
   loadResource(): Promise<void>;
 }

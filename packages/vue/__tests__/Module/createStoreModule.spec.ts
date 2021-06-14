@@ -1,14 +1,12 @@
 import {
   Resource,
   Collection,
-  ParameterBag,
   IRepository,
   IResource,
 } from '@hyral/core';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createStoreModule from '../../src/Module/createStoreModule';
-import { IResourcePayload, ICollectionPayload } from '../../src/__types__';
 
 describe('The createStoreModule', () => {
   test('that a store module is created with the required methods', () => {
@@ -62,7 +60,7 @@ describe('The createStoreModule', () => {
     repositories[repository.resourceType] = repository;
     const module = createStoreModule(repositories);
 
-    const products = new Collection(name, repository);
+    const products = new Collection(name, resourceType, repository);
     const state = { collections: {} as Record<string, any> };
     state.collections[resourceType] = { products };
 
@@ -89,12 +87,12 @@ describe('The createStoreModule', () => {
     const repositories = {} as Record<string, any>;
     repositories[repository.resourceType] = repository;
 
-    const products = new Collection(name, repository);
+    const products = new Collection(name, resourceType, repository);
 
     const state = { collections: {} as Record<string, Record<string, any>> };
     state.collections[resourceType] = {};
     const module = createStoreModule(repositories);
-    module.mutations?.SET_COLLECTION(state as any, { name, resourceType, collection: products });
+    module.mutations?.SET_COLLECTION(state as any, products);
 
     expect(state.collections).toHaveProperty(resourceType);
     expect(state.collections.items.products).toEqual(products);
@@ -127,41 +125,21 @@ describe('The createStoreModule', () => {
     repositories[repository.resourceType] = repository;
 
     const products = new Collection(name, repository as any);
-    products.load = jest.fn();
+    products.load = jest.fn(() => Promise.resolve());
 
     const module = createStoreModule(repositories);
     module.state = { collections: {}, resources: {} };
     module.state.collections[resourceType] = { products };
 
-    type Mockactions = { LOAD_COLLECTION: (a: unknown, b: ICollectionPayload) => any };
+    type Mockactions = { LOAD_COLLECTION: (a: unknown, b: Collection<unknown>) => any };
     const actions = module.actions as Mockactions;
     actions.LOAD_COLLECTION(
       { getters: { collection: jest.fn(() => () => products) }, state: module.state, commit: jest.fn() },
-      { resourceType, name },
+      products,
     );
 
-    expect(repository.find).toHaveBeenCalled();
-  });
-
-  test('that the collection is initialized on first action', async () => {
-    const name = 'products';
-    const resourceType = 'items';
-    const repository = { resourceType, find: jest.fn() };
-    const repositories = {} as Record<string, any>;
-    repositories[repository.resourceType] = repository;
-
-    const module = createStoreModule(repositories);
-    module.state = { collections: {}, resources: {} };
-
-    type Mockactions = { LOAD_COLLECTION: (a: any, b: ICollectionPayload) => any };
-    const commit = jest.fn();
-    const actions = module.actions as Mockactions;
-    await actions.LOAD_COLLECTION(
-      { commit },
-      { resourceType, name },
-    );
-
-    expect(commit).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(products.load).toHaveBeenCalled();
   });
 
   test('that it is possible to get a non existing resource in the store', async () => {
@@ -178,11 +156,11 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(repositories);
     const mockModule = { state: { resources: { items: {} } }, commit: jest.fn() };
-    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: Resource<unknown>) => Promise<any> };
     const actions = module.actions as MockActions;
 
-    await actions.LOAD_RESOURCE(mockModule, { resourceType, id: identifier });
-    expect(repository.findById).toHaveBeenCalledWith(identifier, undefined);
+    await actions.LOAD_RESOURCE(mockModule, new Resource(identifier, resourceType));
+    expect(repository.findById).toHaveBeenCalledWith(identifier);
     expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
   });
 
@@ -200,37 +178,11 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(repositories);
     const mockModule = { state: { resources: {} }, commit: jest.fn() };
-    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: Resource<unknown>) => Promise<any> };
     const actions = module.actions as MockActions;
 
-    await actions.LOAD_RESOURCE(mockModule, { resourceType, id: identifier });
+    await actions.LOAD_RESOURCE(mockModule, new Resource(identifier, resourceType));
     expect(repository.findById).not.toHaveBeenCalled();
-  });
-
-  test('that it is possible to set a resource with a paramaterbag in the store', async () => {
-    const identifier = 2;
-    const resourceType = 'product';
-    const product = new Resource(identifier, resourceType, { title: 'A great product' });
-    const parameterBag = new ParameterBag();
-    parameterBag.addParam('include', 'relation1,relation2');
-
-    const repository = {
-      resourceType: 'product',
-      findById: jest.fn(() => Promise.resolve(product)),
-    };
-    const repositories = {} as Record<string, any>;
-    repositories[repository.resourceType] = repository;
-
-    const module = createStoreModule(repositories);
-    const mockModule = { state: { resources: { product: {} } }, commit: jest.fn() };
-    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
-    const actions = module.actions as MockActions;
-
-    await actions.LOAD_RESOURCE(mockModule, { id: identifier, resourceType, parameterBag });
-    expect(repository.findById).toHaveBeenCalledWith(identifier, parameterBag);
-    expect(repository.findById).toHaveBeenCalledTimes(1);
-    expect(mockModule.commit).toHaveBeenCalledTimes(1);
-    expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', product);
   });
 
   test('that it is possible to cache an existing resource in the store', async () => {
@@ -247,10 +199,10 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(repositories);
     const mockModule = { state: { resources: { product: { 1: product } } }, commit: jest.fn() };
-    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: Resource<unknown>) => Promise<any> };
     const actions = module.actions as MockActions;
 
-    await actions.LOAD_RESOURCE(mockModule, { id: identifier, resourceType });
+    await actions.LOAD_RESOURCE(mockModule, new Resource(identifier, resourceType));
     expect(repository.findById).toHaveBeenCalledTimes(0);
     expect(mockModule.commit).toHaveBeenCalledTimes(0);
   });
@@ -269,11 +221,11 @@ describe('The createStoreModule', () => {
 
     const module = createStoreModule(repositories);
     const mockModule = { state: { resources: { items: {} } }, commit: jest.fn() };
-    type MockActions = { LOAD_RESOURCE: (a: unknown, b: IResourcePayload) => Promise<any> };
+    type MockActions = { LOAD_RESOURCE: (a: unknown, b: Resource<unknown>) => Promise<any> };
     const actions = module.actions as MockActions;
 
-    await actions.LOAD_RESOURCE(mockModule, { resourceType, id: identifier });
-    expect(repository.findById).toHaveBeenCalledWith(identifier, undefined);
+    await actions.LOAD_RESOURCE(mockModule, new Resource(identifier, resourceType));
+    expect(repository.findById).toHaveBeenCalledWith(identifier);
     expect(mockModule.commit).toHaveBeenCalledWith('SET_RESOURCE', new Resource(identifier, resourceType, [product]));
   });
 

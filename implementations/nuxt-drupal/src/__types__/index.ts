@@ -1,25 +1,23 @@
-import { Resource } from '@hyral/core';
-import { AsyncComponent, Component } from 'vue/types';
+import { Collection, Resource } from '@hyral/core';
+import { AsyncComponent } from 'vue/types';
 import { Store } from 'vuex';
 
 // =====
 // TYPES
 // =====
 export type IComponentContext = {
-  $store: {
-    dispatch: (type: string, payload: string) => Promise<{ error?: any }>
-  }
-};
-
-export type IHyralEntity = {
   $attrs: Record<string, any>;
   $store: IStore;
-  $props: { viewMode?: string }
-  viewMode: string;
-  resource: Resource<unknown>;
-  mapping: Record<string, AsyncComponent | Record<string, AsyncComponent>>;
-  getEntity(type?: string, mode?: string): Component;
 };
+
+export interface IHyralEntity extends IComponentContext {
+  viewMode: string;
+  $options: { propsData?: { root?: boolean } };
+  resource: Resource<unknown>;
+  collection: Collection<unknown>;
+  loadCollection(): void;
+  loadResource(): void;
+}
 
 export type IRouteMetaOptions = {
   resolve?: string;
@@ -41,18 +39,21 @@ export interface IRecord extends IRoute {
 
 export type IDruxtRouterRoute = {
   resolvedPath: string;
+  props: {
+    uuid: string,
+    type: string,
+  }
 };
 
 export type IDruxtRouterResponse = {
   statusCode?: string | number;
+  error?: Error;
   route: IDruxtRouterRoute;
 };
 
 // The mapping of entities in the front-end
-export type IMapping =
-  Record<string, AsyncComponent> |
-  Record<string, Record<string, AsyncComponent>> |
-  Record<string, null>;
+export type IMapping = Record<string, IMap>;
+export type IMap = AsyncComponent | Record<string, AsyncComponent | null>;
 
 export type IOptions<T> = {
   mapping: T;
@@ -63,7 +64,6 @@ export type IOptions<T> = {
 export type IContext = {
   store: IStore;
   route: IRecord;
-  redirect: (path: string) => void;
 };
 
 export type INuxtContext = {
@@ -91,5 +91,6 @@ export interface IStore extends Store<any> {
       }
     }
   };
+  getters: Record<string, (j: string) => (i:string) => any>;
   dispatch: (type: string, payload?: any) => Promise<IDruxtRouterResponse>;
 }

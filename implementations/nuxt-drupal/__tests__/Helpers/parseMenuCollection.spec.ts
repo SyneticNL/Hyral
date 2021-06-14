@@ -17,4 +17,10 @@ describe('the parseMenuCollection function', () => {
     const result = parseMenuCollection(null as any);
     expect(result).toEqual([]);
   });
+
+  test('that the function handles options', () => {
+    const options = { prefix: '/prefix', postfix: '/postfix' };
+    const result = parseMenuCollection(input as any, options) as Record<string, unknown>[];
+    expect(result[0].url).toEqual('/prefix/postfix');
+  });
 });

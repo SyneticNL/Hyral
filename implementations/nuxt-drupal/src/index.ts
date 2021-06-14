@@ -1,10 +1,10 @@
 import DruxtRouterModule from 'druxt-router';
-import DrupalMiddleware from './Middleware/Drupal';
-import DrupalPlugin from './Plugins/Drupal';
+import HyralMiddleware from './Middleware/Hyral';
+import HyralPlugin from './Plugins/Hyral';
 
 import Entity from './Components/Entity';
 import EntityMixin from './Mixins/Entity';
-import ResourceMixin from './Mixins/Resource';
+import ContentMixin from './Mixins/Content';
 
 import createRoute from './Helpers/createRoute';
 import dispatchRoutes from './Helpers/dispatchRoutes';
@@ -28,11 +28,11 @@ export default async function DrupalModule(this: INuxtContext): Promise<void> {
  * Exports of the custom nuxt-drupal entities
  */
 export {
-  DrupalMiddleware,
-  DrupalPlugin,
+  HyralMiddleware,
+  HyralPlugin,
   Entity,
   EntityMixin,
-  ResourceMixin,
+  ContentMixin,
   createRoute,
   dispatchRoutes,
   parseMenuCollection,
