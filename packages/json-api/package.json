@@ -1,11 +1,11 @@
 {
   "name": "@hyral/json-api",
-  "version": "2.0.0-prerelease.4",
+  "version": "2.0.0-prerelease.5",
   "description": "Json-api implementation module for Hyral",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease.4",
+    "@hyral/core": "^2.0.0-prerelease.5",
     "qs": "^6.10.1",
     "whatwg-url": "^8.4.0"
   },

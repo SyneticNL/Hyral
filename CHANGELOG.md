@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.5](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.4...v2.0.0-prerelease.5) (2021-06-14)
+
+
+### Bug Fixes
+
+* **vue:** load resource now ignores collections ([01ee2fd](https://github.com/SyneticNL/Hyral/commit/01ee2fdd910a8d98faaf5860a674ac7705ae8d5e))
+
+
+### Features
+
+* **nux-dru:** add view, wip ([2352f56](https://github.com/SyneticNL/Hyral/commit/2352f565a29f69c6c64f3549b76a3874b92718d1))
+* **nux-du:** merge view into entity ([eaebfb2](https://github.com/SyneticNL/Hyral/commit/eaebfb2faa258970bf7de90b99334932206676dc))
+
+
+
+
+
 # [2.0.0-prerelease.4](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.3...v2.0.0-prerelease.4) (2021-06-07)
 
 
