@@ -18,7 +18,7 @@ application use the Resource constructor to ensure a correct structure.
 ```javascript
 import { Resource } from '@hyral/core';
 
-const newResource = new Resource(1, 'product', {});
+const newResource = new Resource(1, 'product', {/* data */});
 ```
 
 ## Resource metadata & meta

@@ -1,10 +1,10 @@
 # Entity
 The `Entity` component together with the accompanying `EntityMixin` acts as the entry point for your data. It will automate the process of retrieving the data and rendering the correct component from the [mapping].
 
-**!important!** The `Entity` uses the [ResourceMixin] and therefor requires a `source` to be a [Resource] passed along as a prop. 
-This `source` can be passed down to the component as a prop or provided by the [DruxtRouter]. If the data is empty inside the resource the [ResourceMixin] will activate to retrieve the data first. It then passes along the filled resource as a prop to the **mapped component**.
+**!important!** The `Entity` uses the [ContentMixin] and therefor requires a `source` as a [Resource] or [Collection] passed along as a prop. 
+This `source` can be passed down to the component as a prop or provided by the [DruxtRouter]. If the data is empty inside the resource the [ContentMixin] will activate to retrieve the data first. It then passes along the filled resource as a prop to the **mapped component**.
 
-The `EntityMixin` handles the passed along prop `resource` in the **mapped component** thereby giving it access to the loaded resource from Drupal.
+The `EntityMixin` handles the passed along prop `resource` or `collection` in the **mapped component** thereby giving it access to the loaded resource from Drupal.
 
 ## Recursive automation
 When automating all content from Drupal resources the mixin enters a recursive loop because all components rendered by the `Entity` can have the `Entity` implemented as well. 
@@ -51,8 +51,9 @@ export default {
 ```
 
 [mapping]: mapping.md
-[ResourceMixin]: mixin.md
+[ContentMixin]: mixin.md
 [DruxtRouter]: druxt.md
 [DrupalMiddleware]: middleware.md
 [Resource]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/packages/core/documentation/Core/resource.md
+[Collection]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/packages/core/documentation/Core/collection.md
 [Vue chrome extension]: https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd

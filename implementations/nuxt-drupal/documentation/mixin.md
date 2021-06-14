@@ -1,5 +1,5 @@
-# ResourceMixin
-The ResourceMixin is a function that extends the [ResourceMixin] from `hyral/vue` by providing a param `hyralService` and a `source` prop that defaults to the current route from [Druxt].
+# ContentMixin
+The ResourceMixin is a function that extends the [Mixins] from `hyral/vue` by providing a param `hyralService` and a `source` prop that defaults to the current route from [Druxt] when the `root` attribute is set to true.
 
 ## Usage
 
@@ -13,5 +13,5 @@ export default {
 </script>
 ```
 
-[ResourceMixin]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/packages/vue/documentation/Vue.md
+[Mixins]: https://github.com/SyneticNL/Hyral/blob/v2.0.0-prerelease/packages/vue/documentation/Vue.md
 [Druxt]: ./druxt.md

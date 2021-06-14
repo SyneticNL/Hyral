@@ -18,13 +18,13 @@ $store.getters['hyral_backend/collection'](type)(name)
 $store.commit('hyral_backend/SET_RESOURCE', resource)
 
 // Any change to the Collection will be automatically committed and you generally will not need this mutation.
-$store.commit('hyral_backend/SET_COLLECTION', { type, collection })
+$store.commit('hyral_backend/SET_COLLECTION', collection)
 
 // Will commit the resource to the store once loaded
-$store.dispatch('hyral_backend/LOAD_RESOURCE', { id, type, parameterBag? })
+$store.dispatch('hyral_backend/LOAD_RESOURCE', resource)
 
 // Will commit collection to the store once loaded. 
-$store.dispatch('hyral_backend/LOAD_COLLECTION', { name, type, parameterBag? })
+$store.dispatch('hyral_backend/LOAD_COLLECTION', collection)
 ```
 
 ## Configuration

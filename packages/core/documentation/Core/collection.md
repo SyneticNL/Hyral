@@ -7,7 +7,7 @@ import { Collection, ParameterBag } from '@hyral/core';
 import { bookRepository } from './hyral.js';
 
 const params = new ParameterBag();
-const products = new Collection('products', bookRepository, params);
+const products = new Collection('products', 'product', bookRepository, params);
 products.parameterBag.setFilters([
   {
     field: 'type',

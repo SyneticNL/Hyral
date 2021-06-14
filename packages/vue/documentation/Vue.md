@@ -45,7 +45,7 @@ const Component = Vue.extend({
   },
   methods: {
     loadResource() {
-      HyralResourceMixin.methods.loadResource.call(this).catch(() => {
+      ResourceMixin.methods.loadResource.call(this).catch(() => {
         console.log('error');
       });
     },
@@ -54,7 +54,7 @@ const Component = Vue.extend({
 ```
 
 ## Collection mixin
-When the properties, data entries or computed properties `collectionName`, `resourceType` and `hyralService` are 
+When the properties, data entries or computed properties `source` is 
 defined a collection is created and the items loaded via the Hyral Vuex store modules.
 
 You can also provide a data entry or computed property `parameterBag` to filter the collection.
@@ -62,17 +62,13 @@ You can also provide a data entry or computed property `parameterBag` to filter 
 ### Example
 ```javascript
 const Component = Vue.extend({
-  mixins: [HyralCollectionMixin],
+  mixins: [CollectionMixin],
   data() {
-    return {
-      collectionName: 'books',
-      resourceType: 'book',
-      hyralService: 'service',
-    }
+    return new Collection('books', 'book');
   },
   computed: {
     parameterBag() {
-      const parameterBag = ParameterBag();
+      const parameterBag = new ParameterBag();
 
       parameterBag.addFilter({ field: 'category', value: 'science-fiction' });
       parameterBag.setSorting([{ field: 'title', direction: 'asc'} ]);
@@ -98,15 +94,11 @@ You can catch errors for the mixin by overriding the loadResource as in this exa
 const Component = Vue.extend({
   mixins: [CollectionMixin],
   data() {
-    return {
-      collectionName: 'books',
-      resourceType: 'book',
-      hyralService: 'service',
-    }
+    return new Collection('books', 'book');
   },
   methods: {
     loadCollection() {
-      HyralCollectionMixin.methods.loadCollection.call(this).catch(() => {
+      CollectionMixin.methods.loadCollection.call(this).catch(() => {
           console.log('error');
       });
     },
