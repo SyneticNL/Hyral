@@ -6,11 +6,11 @@ describe('the resource mixin', () => {
   const mixin = ContentMixin(hyralService) as {
     mixins: Record<string, unknown>[],
     props: { source: { default: () => Resource<unknown> } },
-    watch: { source(): void },
+    watch: { source: { handler(): void } },
     data(): string,
   };
 
-  test('that the source defaults is a function and creates an empty resource', () => {
+  test('that the source with root as true defaults to Druxt', () => {
     const context = {
       $store: {
         state: {
@@ -19,15 +19,38 @@ describe('the resource mixin', () => {
           },
         },
       },
+      $options: {
+        propsData: {
+          root: true,
+        },
+      },
     };
 
     expect(typeof mixin.props.source.default).toEqual('function');
     expect(mixin.props.source.default.call(context)).toEqual(new Resource('test', 'test'));
   });
 
-  test('that the mixin extends the vue mixin', () => {
+  test('that the source without root as true defaults to undefined', () => {
+    const context = {
+      $store: {
+        state: {
+          druxtRouter: {
+            route: { props: { uuid: 'test', type: 'test' } },
+          },
+        },
+      },
+      $options: { propsData: null },
+    };
+
+    expect(typeof mixin.props.source.default).toEqual('function');
+    expect(mixin.props.source.default.call(context)).toEqual(undefined);
+  });
+
+  test('that the mixin extends the vue mixins', () => {
     expect(mixin.mixins[0].computed).toHaveProperty('resource');
     expect(mixin.mixins[0].methods).toHaveProperty('loadResource');
+    expect(mixin.mixins[1].computed).toHaveProperty('collection');
+    expect(mixin.mixins[1].methods).toHaveProperty('loadCollection');
   });
 
   test('that the source as collection is correctly watched', () => {
@@ -37,7 +60,7 @@ describe('the resource mixin', () => {
       collection: {},
     };
 
-    mixin.watch.source.call(context);
+    mixin.watch.source.handler.call(context);
 
     expect(context.loadCollection).toHaveBeenCalled();
     expect(context.loadResource).not.toHaveBeenCalled();
@@ -50,7 +73,7 @@ describe('the resource mixin', () => {
       resource: {},
     };
 
-    mixin.watch.source.call(context);
+    mixin.watch.source.handler.call(context);
 
     expect(context.loadResource).toHaveBeenCalled();
     expect(context.loadCollection).not.toHaveBeenCalled();

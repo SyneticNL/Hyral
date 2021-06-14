@@ -42,7 +42,7 @@ describe('the drupal entity', () => {
 
   test('that render calls createElement correctly with a collection', () => {
     const createElementMock = jest.fn() as CreateElement;
-    const collection = { repository: { resourceType: 'component' } };
+    const collection = { type: 'component' };
     const context = { collection };
     const expectedSettings = { props: { collection }, attrs: undefined, class: [] };
 
@@ -50,5 +50,16 @@ describe('the drupal entity', () => {
 
     expect(createElementMock).toHaveBeenCalled();
     expect(createElementMock).toHaveBeenCalledWith(mapping.component, expectedSettings);
+  });
+
+  test('that render calls createElement correctly without any source', () => {
+    const createElementMock = jest.fn() as CreateElement;
+    const context = {};
+    const expectedSettings = { props: {}, attrs: undefined, class: [] };
+
+    entity.render.call(context, createElementMock);
+
+    expect(createElementMock).toHaveBeenCalled();
+    expect(createElementMock).toHaveBeenCalledWith(null, expectedSettings);
   });
 });

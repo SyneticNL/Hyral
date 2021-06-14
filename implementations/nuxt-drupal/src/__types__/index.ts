@@ -12,6 +12,7 @@ export type IComponentContext = {
 
 export interface IHyralEntity extends IComponentContext {
   viewMode: string;
+  $options: { propsData?: { root?: boolean } };
   resource: Resource<unknown>;
   collection: Collection<unknown>;
   loadCollection(): void;
@@ -26,7 +27,6 @@ export type IRouteMetaOptions = {
 export type IRoute = {
   path: string;
   meta?: IRouteMetaOptions;
-  props: any;
 };
 
 export interface IDrupalRoute extends IRoute {
@@ -52,10 +52,8 @@ export type IDruxtRouterResponse = {
 };
 
 // The mapping of entities in the front-end
-export type IMapping =
-  Record<string, AsyncComponent> |
-  Record<string, Record<string, AsyncComponent>> |
-  Record<string, null>;
+export type IMapping = Record<string, IMap>;
+export type IMap = AsyncComponent | Record<string, AsyncComponent | null>;
 
 export type IOptions<T> = {
   mapping: T;
@@ -66,7 +64,6 @@ export type IOptions<T> = {
 export type IContext = {
   store: IStore;
   route: IRecord;
-  redirect: (path: string) => void;
 };
 
 export type INuxtContext = {

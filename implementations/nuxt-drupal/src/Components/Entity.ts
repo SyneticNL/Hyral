@@ -20,6 +20,10 @@ export default function Entity(hyralService: string, mapping: IMapping): Compone
         type: String,
         required: false,
       },
+      root: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
