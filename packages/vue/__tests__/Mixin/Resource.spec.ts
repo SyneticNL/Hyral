@@ -1,6 +1,6 @@
 // We have to asume Vue binds mixin methods to 'this'
 /* eslint-disable @typescript-eslint/unbound-method */
-import { Resource, ParameterBag } from '@hyral/core';
+import { Resource } from '@hyral/core';
 import resourceMixin from '../../src/Mixin/Resource';
 
 describe('The Resource mixin', () => {
@@ -91,7 +91,6 @@ describe('The Resource mixin', () => {
 
   test('that a resource will be loaded on initialization of the component', async () => {
     const product = new Resource('1', 'product');
-    const object = { id: '1', type: 'product' };
     const context = {
       source: product,
       hyralService: 'service',
@@ -105,39 +104,11 @@ describe('The Resource mixin', () => {
     };
 
     await resourceMixin.serverPrefetch.call(context as any);
-    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', product);
 
     context.$store.dispatch.mockClear();
 
     await resourceMixin.mounted.call(context as any);
-    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
-  });
-
-  test('that a resource with a parameter bag will be loaded on initialization of the component', async () => {
-    const parameterBag = new ParameterBag();
-    parameterBag.addParam('include', 'relation1');
-    const product = new Resource('2', 'product');
-    const object = { id: '2', type: 'product', parameterBag };
-
-    const context = {
-      source: product,
-      hyralService: 'service',
-      $store: {
-        dispatch: jest.fn(),
-        getters: {
-          'hyral_service/resource': jest.fn(() => () => null),
-        },
-      },
-      parameterBag,
-      loadResource: resourceMixin.methods.loadResource,
-    };
-
-    await resourceMixin.serverPrefetch.call(context as any);
-    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
-
-    context.$store.dispatch.mockClear();
-
-    await resourceMixin.mounted.call(context as any);
-    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', object);
+    expect(context.$store.dispatch).toHaveBeenCalledWith('hyral_service/LOAD_RESOURCE', product);
   });
 });

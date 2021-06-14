@@ -111,23 +111,18 @@ describe('The Collection mixin', () => {
       source: { parameterBag: {} },
       hyralService: 'service',
       $store: {
-        commit: jest.fn(),
-        getters: {
-          'hyral_service/collection': () => () => mockCollection,
-        },
+        dispatch: jest.fn(),
       },
       loadCollection: collectionMixin.methods.loadCollection,
       collection: mockCollection,
     };
     await collectionMixin.serverPrefetch.call(context as any);
-    expect(mockCollection.load).toHaveBeenCalled();
-    expect(context.$store.commit).toHaveBeenCalled();
+    expect(context.$store.dispatch).toHaveBeenCalled();
 
-    mockCollection.load.mockClear();
+    context.$store.dispatch.mockClear();
 
     await collectionMixin.mounted.call(context as any);
-    expect(mockCollection.load).toHaveBeenCalled();
-    expect(context.$store.commit).toHaveBeenCalled();
+    expect(context.$store.dispatch).toHaveBeenCalled();
   });
 
   test('that the mixin handles no source on serverPrefetch', async () => {
