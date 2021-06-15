@@ -45,4 +45,8 @@ describe('The resource factory', () => {
 
     expect(repositoryManager.getRepository('testtype3')?.connector).toBe(connectorMock1);
   });
+
+  test('that a non-existing repository returns null', () => {
+    expect(repositoryManager.getRepository('testtype4')).toBe(null);
+  });
 });

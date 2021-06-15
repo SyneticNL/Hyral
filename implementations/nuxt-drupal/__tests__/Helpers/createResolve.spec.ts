@@ -8,8 +8,16 @@ describe('the createResolve function', () => {
     expect(createResolve('/path', '/resolve')).toEqual('/resolve');
   });
   test('that the function throws an error when only resolve has a wildcard', () => {
+    const error = 'Both resolve and match need wildcards';
+
     expect.assertions(1);
-    expect(() => createResolve('/path', '/:wildcard')).toThrowError('Both resolve and match need wildcards');
+    expect(() => createResolve('/path', '/:wildcard')).toThrowError(error);
+  });
+  test('that the function throws error on wrong input', () => {
+    const error = 'Something wen\'t wrong with resolving the route. Your path and resolve might not be valid';
+
+    expect.assertions(1);
+    expect(() => createResolve('/path', ':test', ':test')).toThrowError(error);
   });
   test('that the function returns the correct output', () => {
     expect(createResolve('/prefix/path', '/:wildcard', '/prefix/:id')).toEqual('/path');

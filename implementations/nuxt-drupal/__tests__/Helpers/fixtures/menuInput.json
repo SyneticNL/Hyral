@@ -27,6 +27,13 @@
         "parent": "menu_link_content:test",
         "url": ""
       }
+    },
+    {
+      "id": "menu_link_content:standalone",
+      "data": {
+        "parent": "no_exist",
+        "url": ""
+      }
     }
   ]
 }

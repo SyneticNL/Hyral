@@ -46,6 +46,11 @@ describe('paramSerializer', () => {
     expect(serializeSorting(parameterBag)).toBeNull();
   });
 
+  test('that empty serializeSorting gives a valid JSON:API response', () => {
+    const parameterBag = {};
+    expect(serializeSorting(parameterBag)).toEqual({});
+  });
+
   test('that serializePaging gives a valid JSON:API response', () => {
     const parameterBag = new ParameterBag();
     const paging = {
@@ -83,6 +88,11 @@ describe('paramSerializer', () => {
         f2: 'v2',
       },
     });
+  });
+
+  test('that empty serializeFilters gives  valid JSON:API response', () => {
+    const result = serializeFilters({});
+    expect(result).toEqual({ filter: {} });
   });
 
   test('that paramsSerializer gives a valid, JSON:API compatible, params object', () => {

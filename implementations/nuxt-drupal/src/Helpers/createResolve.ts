@@ -18,9 +18,13 @@ export default (path: string, resolve?: string, match?: string): string => {
   // Capture what is not wildcard
   const exclude = (/(.*)\/:[^/]*(.*)/.exec(match))?.filter((item) => typeof item === 'string');
 
+  if (!exclude) {
+    throw new Error('Something wen\'t wrong with resolving the route. Your path and resolve might not be valid');
+  }
+
   // Replace in path what is not wildcard
   let result = path;
-  exclude?.forEach((item) => {
+  exclude.forEach((item) => {
     result = result.replace(item, '');
   });
 

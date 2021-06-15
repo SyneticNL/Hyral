@@ -5,7 +5,7 @@ import { IResourceGetter, IResourceMixin } from '../__types__';
 export default {
   computed: {
     resource(this: IResourceMixin): Resource<unknown> | null {
-      if (!this.source?.id || !this.source?.type || !this.hyralService) {
+      if (!this.source?.id || !this.source.type || !this.hyralService) {
         return null;
       }
 
@@ -30,11 +30,11 @@ export default {
   },
   methods: {
     async loadResource(this: IResourceMixin): Promise<any> {
-      if (!this.source?.id || !this.source?.type || !this.hyralService) {
+      if (!this.source?.id || !this.source.type || !this.hyralService) {
         return;
       }
 
-      if (!isEmpty(this.source?.data)) {
+      if (!isEmpty(this.source.data)) {
         return;
       }
 

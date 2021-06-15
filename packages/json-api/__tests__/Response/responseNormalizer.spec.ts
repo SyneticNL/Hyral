@@ -8,7 +8,10 @@ import { IData, IJsonApiResponse } from '../../src/__types__';
 
 import jsonResponseFixture from '../fixtures/fetchJsonResponse.json';
 import jsonSingleResponseFixture from '../fixtures/fetchJsonSingleResponse.json';
+import jsonSingleResponseFixtureEmpty from '../fixtures/fetchJsonSingleResponseEmpty.json';
 import jsonRelationResponseFixture from '../fixtures/fetchJsonRelationResponse.json';
+import jsonRelationEmptyAttributesResponseFixture from '../fixtures/fetchJsonRelationEmptyAttributesResponse.json';
+import jsonRelationEmptyListResponseFixture from '../fixtures/fetchJsonRelationEmptyListResponse.json';
 import jsonFlattenedResponseFixture from '../fixtures/fetchJsonFlattenedResponse.json';
 import fetchJsonSingleResponseNoIncluded from '../fixtures/fetchJsonSingleResponseNoIncluded.json';
 
@@ -49,6 +52,27 @@ describe('Validations for the responseNormalizer', () => {
     expect(result.data.data.images[0]).toHaveProperty('id');
     expect(result.data.data.images[0]).toHaveProperty('type');
     expect(result.data.data.images[0].data['image.name']).toEqual('list-imago-tracker.jpg');
+  });
+
+  test('that the responseNormalizer returns on empty data', () => {
+    const result = responseNormalizer(jsonSingleResponseFixtureEmpty as any) as any as IResource<IData>;
+
+    expect(result.data).toBeTruthy();
+    expect(result.data.id).toEqual(undefined);
+    expect(result.data.type).toEqual(undefined);
+    expect(result.data.data).toEqual({});
+    expect(result.data.relationships).toEqual({});
+    expect(result.data.meta).toEqual(undefined);
+  });
+
+  test('that the responseNormalizer returns on missing relation attributes', () => {
+    const result = responseNormalizer(jsonRelationEmptyAttributesResponseFixture as any) as any as IResource<IData>;
+    expect(result).toBeTruthy();
+  });
+
+  test('that the responseNormalizer returns on empty relationships', () => {
+    const result = responseNormalizer(jsonRelationEmptyListResponseFixture as any) as any as IResource<IData>;
+    expect(result).toBeTruthy();
   });
 
   test('that the responseNormalizer returns a single response that has no included relationships', () => {

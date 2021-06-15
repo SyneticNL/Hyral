@@ -4,7 +4,7 @@ import { ICollectionGetter, ICollectionMixin } from '../__types__';
 export default {
   computed: {
     collection(this: ICollectionMixin): Collection<unknown> | null {
-      if (!this.source?.name || !this.source?.type || !this.hyralService) {
+      if (!this.source?.name || !this.source.type || !this.hyralService) {
         return null;
       }
 
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     initCollection(this: ICollectionMixin): void {
-      if (!this.source?.name || !this.source?.type || !this.hyralService) {
+      if (!this.source?.name || !this.source.type || !this.hyralService) {
         return;
       }
 

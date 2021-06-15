@@ -1,18 +1,19 @@
 // We have to asume Vue binds mixin methods to 'this'
 /* eslint-disable @typescript-eslint/unbound-method */
-import { ParameterBag, Collection, Repository } from '@hyral/core';
+import { ParameterBag, Collection } from '@hyral/core';
 import collectionMixin from '../../src/Mixin/Collection';
 
 describe('The Collection mixin', () => {
+  const type = 'products';
+  const name = type;
   test('that a collection is available as a computed property with a default parameterBag', () => {
-    const mockRepository: any = {};
-    const source = { name: 'products', type: 'products' };
+    const source = { name, type };
     const context = {
       source,
       hyralService: 'service',
       $store: {
         getters: {
-          'hyral_service/collection': jest.fn(() => () => new Collection('products', mockRepository)),
+          'hyral_service/collection': jest.fn(() => () => new Collection(name, type)),
         },
       },
     };
@@ -22,6 +23,22 @@ describe('The Collection mixin', () => {
     expect(collection.name).toEqual('products');
 
     expect(collection.parameterBag).not.toBeNull();
+  });
+
+  test('that the collection is null when no hyralService is provided', () => {
+    const source = { name, type };
+    const context = {
+      source,
+      $store: {
+        getters: {
+          'hyral_service/collection': jest.fn(() => () => new Collection(name, type)),
+        },
+      },
+    };
+
+    expect(collectionMixin.computed.collection.call(context as any)).toEqual(null);
+    collectionMixin.methods.initCollection.call(context as any);
+    expect(context.$store.getters['hyral_service/collection']).not.toHaveBeenCalled();
   });
 
   test('that the collection is null as a computed property without source', () => {
@@ -34,14 +51,12 @@ describe('The Collection mixin', () => {
   });
 
   test('that a collection is initialized on created', () => {
-    const mockRepository = {};
-    const source = { name: 'products', type: 'products' };
+    const source = { name, type };
     const context = {
       source,
       hyralService: 'service',
       $store: {
         getters: {
-          'hyral_service/repository': jest.fn(() => mockRepository as Repository<unknown>),
           'hyral_service/collection': jest.fn(() => () => null),
         },
         commit: jest.fn(),
@@ -83,16 +98,15 @@ describe('The Collection mixin', () => {
   });
 
   test('that the collection is initialized with the provided parameterBag', () => {
-    const mockRepository: any = {};
     const parameterBag = new ParameterBag();
     parameterBag.setParams({ test: 'value' });
-    const source = { name: 'products', type: 'products', parameterBag };
+    const source = { name, type, parameterBag };
     const context = {
       source,
       hyralService: 'service',
       $store: {
         getters: {
-          'hyral_service/collection': jest.fn(() => () => new Collection('products', mockRepository)),
+          'hyral_service/collection': jest.fn(() => () => new Collection(name, type)),
         },
       },
     };
@@ -176,7 +190,7 @@ describe('The Collection mixin', () => {
   });
 
   test('that the collection getter can handle not being initialized yet', () => {
-    const source = { name: 'product', type: 'product' };
+    const source = { name, type };
     const context = {
       source,
       hyralService: 'service',

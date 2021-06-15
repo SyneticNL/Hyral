@@ -26,7 +26,7 @@ export type IRouteMetaOptions = {
 
 export type IRoute = {
   path: string;
-  meta?: IRouteMetaOptions;
+  meta: IRouteMetaOptions;
 };
 
 export interface IDrupalRoute extends IRoute {

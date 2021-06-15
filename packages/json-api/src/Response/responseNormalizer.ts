@@ -25,7 +25,7 @@ function responseNormalizer(response: IJsonApiResponse): IResponse {
   const normalizedItems = Object.values(rootResources);
   if (!Array.isArray(response.data)) {
     return {
-      data: normalizedItems.shift() || {} as IResource<any>,
+      data: normalizedItems.shift() as IResource<any>,
     };
   }
 

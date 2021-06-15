@@ -21,6 +21,7 @@
             "id": "ef490530-3229-46ea-8280-673055f81690",
             "attributes": {
               "test": "test teasers",
+              "non-resource": ["test"],
               "referenced": [
                 {
                   "type": "paragraph--referenced_content",

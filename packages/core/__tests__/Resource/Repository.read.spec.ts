@@ -2,7 +2,7 @@ import repositoryManager from '../../src/Resource/repositoryManager';
 import ParameterBag from '../../src/Resource/ParameterBag';
 
 describe('The resource repository', () => {
-  const responseData = {
+  const responseDataAsArray = {
     data: {
       data: [
         {
@@ -19,10 +19,20 @@ describe('The resource repository', () => {
     statusText: 'OK',
   };
 
+  const responseDataAsObject = {
+    ...responseDataAsArray,
+    data: {
+      data: {
+        id: 1,
+        title: 'test',
+      },
+    },
+  };
+
   const identifier = 'tid';
   const connector: any = {
-    fetch: jest.fn(() => Promise.resolve(responseData)),
-    fetchOne: jest.fn(() => Promise.resolve({ data: { data: responseData.data.data[0] } })),
+    fetch: jest.fn(() => Promise.resolve(responseDataAsArray)),
+    fetchOne: jest.fn(() => Promise.resolve({ data: { data: responseDataAsArray.data.data[0] } })),
   };
 
   it('should have the correct identifier and resource type after the creation', () => {
@@ -44,40 +54,50 @@ describe('The resource repository', () => {
 
   it('should use the connector fetch once for the find method to do requests.', async () => {
     const connectorFind = {
-      fetch: jest.fn(() => Promise.resolve(responseData)),
+      fetch: jest.fn(() => Promise.resolve(responseDataAsArray)),
     };
     const repository = repositoryManager.createRepository(connectorFind as any, 'testtype4', identifier);
     await repository.find(new ParameterBag());
     expect(connectorFind.fetch.mock.calls).toHaveLength(1);
   });
 
-  it('should return the promise of the connector after a find containing the data array', () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype5', identifier);
+  it('should return the promise of the connector after a find containing the data object', () => {
+    const connectorSingle: any = {
+      fetch: jest.fn(() => Promise.resolve(responseDataAsObject)),
+    };
+    const repository = repositoryManager.createRepository(connectorSingle, 'testtype5', identifier);
     return repository.find(new ParameterBag()).then((data) => {
-      expect(data).toBe(responseData.data.data);
+      expect(data).toEqual([responseDataAsObject.data.data]);
+    });
+  });
+
+  it('should return the promise of the connector after find containing the data array', () => {
+    const repository = repositoryManager.createRepository(connector, 'testtype6', identifier);
+    return repository.find(new ParameterBag()).then((data) => {
+      expect(data).toBe(responseDataAsArray.data.data);
     });
   });
 
   it('should use the connector fetch once for the findOne method to do requests.', async () => {
     const connectorFindOne = {
-      fetch: jest.fn(() => Promise.resolve(responseData)),
+      fetch: jest.fn(() => Promise.resolve(responseDataAsArray)),
     };
-    const repository = repositoryManager.createRepository(connectorFindOne as any, 'testtype6', identifier);
+    const repository = repositoryManager.createRepository(connectorFindOne as any, 'testtype7', identifier);
     await repository.findOne(new ParameterBag());
     expect(connectorFindOne.fetch.mock.calls).toHaveLength(1);
   });
 
   it('should return the promise of the connector after a findOne containing the first element of the data array', async () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype7', identifier);
+    const repository = repositoryManager.createRepository(connector, 'testtype8', identifier);
     const data = await repository.findOne(new ParameterBag());
-    expect(data).toEqual(responseData.data.data[0]);
+    expect(data).toEqual(responseDataAsArray.data.data[0]);
   });
 
   it('should use the connector fetchOne once for the findById method to do requests.', async () => {
     const connectorFindById = {
-      fetchOne: jest.fn(() => Promise.resolve(responseData.data)),
+      fetchOne: jest.fn(() => Promise.resolve(responseDataAsArray.data)),
     };
-    const repository = repositoryManager.createRepository(connectorFindById as any, 'testtype8', identifier);
+    const repository = repositoryManager.createRepository(connectorFindById as any, 'testtype9', identifier);
     await repository.findById(1);
     expect(connectorFindById.fetchOne.mock.calls).toHaveLength(1);
   });
@@ -86,7 +106,7 @@ describe('The resource repository', () => {
     const connectorNullTest = {
       fetch: jest.fn(() => Promise.resolve(null)),
     };
-    const repository = repositoryManager.createRepository(connectorNullTest as any, 'testtype9', identifier);
+    const repository = repositoryManager.createRepository(connectorNullTest as any, 'testtype10', identifier);
     const response = await repository.findOne(new ParameterBag());
     expect(response).toBeNull();
   });
@@ -95,22 +115,22 @@ describe('The resource repository', () => {
     const connectorNullTest = {
       fetchOne: jest.fn(() => Promise.resolve(null)),
     };
-    const repository = repositoryManager.createRepository(connectorNullTest as any, 'testtype10', identifier);
+    const repository = repositoryManager.createRepository(connectorNullTest as any, 'testtype11', identifier);
     const response = await repository.findById(1);
     expect(response).toBeNull();
   });
 
   it('should return the promise of the connector after a findById containing the data', async () => {
-    const repository = repositoryManager.createRepository(connector, 'testtype11', identifier);
+    const repository = repositoryManager.createRepository(connector, 'testtype12', identifier);
     const data = await repository.findById(1);
-    expect(data).toBe(responseData.data.data[0]);
+    expect(data).toBe(responseDataAsArray.data.data[0]);
   });
 
   it('should allow a parameter bag in the connector for the findById method to do requests', async () => {
     const connectorFindOne = {
-      fetchOne: jest.fn(() => Promise.resolve(responseData)),
+      fetchOne: jest.fn(() => Promise.resolve(responseDataAsArray)),
     };
-    const repository = repositoryManager.createRepository(connectorFindOne as any, 'testtype12', identifier);
+    const repository = repositoryManager.createRepository(connectorFindOne as any, 'testtype13', identifier);
     const parameterBag = new ParameterBag();
     parameterBag.addParam('include', 'relation1,relation2');
 

@@ -18,7 +18,7 @@ export default async ({ store, route }: IContext): Promise<any> => {
   }
 
   // Retrieve the drupal route
-  const match = matched.find((record) => record.meta?.resolve);
+  const match = matched.find((record) => record.meta.resolve);
   const druxtPath = createResolve(path, match?.meta?.resolve, match?.path);
 
   await store.dispatch('druxtRouter/get', druxtPath);
