@@ -6,13 +6,11 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@hyral/core": "^2.0.0-prerelease.5",
-    "qs": "^6.10.1",
-    "whatwg-url": "^8.4.0"
+    "qs": "^6.10.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
-    "@types/qs": "^6.9.6",
-    "@types/whatwg-url": "^8.2.0",
+    "@types/qs": "^6.9.7",
     "lodash": "^4.17.21"
   },
   "scripts": {

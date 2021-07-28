@@ -1,5 +1,4 @@
-import { parse } from 'qs';
-import { URL } from 'whatwg-url';
+import { URLSearchParams, URL } from 'url';
 import { IJsonApiResponse } from '../../__types__';
 
 /**
@@ -13,10 +12,10 @@ export default function normalizePaging(response: IJsonApiResponse): { count: nu
     };
   }
 
-  const whatwgUrl = new URL(response.links.last, 'http://_');
-  const query = parse(whatwgUrl.search.substring(1)) as { page: { number: string, size: string } };
-  const numPages = parseInt(query.page.number, 10);
-  const numPerPage = parseInt(query.page.size, 10);
+  const url = new URL(`http://${response.links.last}`);
+  const params = new URLSearchParams(url.searchParams);
+  const numPages = parseInt(params.get('page[number]') || '0', 10);
+  const numPerPage = parseInt(params.get('page[size]') || '0', 10);
 
   return {
     count: numPages * numPerPage,
