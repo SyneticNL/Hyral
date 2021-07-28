@@ -18,3 +18,4 @@ Collections from a Vue component.
 
 [Vue]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/vue/documentation/Vue.md
 [Vuex]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/vue/documentation/Vuex.md
+ 
