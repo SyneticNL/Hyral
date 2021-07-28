@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.6](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.5...v2.0.0-prerelease.6) (2021-07-28)
+
+
+### Bug Fixes
+
+* **nux-dru:** fixed ts linting error in test ([cacdc03](https://github.com/SyneticNL/Hyral/commit/cacdc0390881cc9b3c41b1d561cb9378d0282971))
+
+
+
+
+
 # [2.0.0-prerelease.5](https://github.com/SyneticNL/Hyral/compare/v2.0.0-prerelease.4...v2.0.0-prerelease.5) (2021-06-14)
 
 
