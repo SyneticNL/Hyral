@@ -6,7 +6,7 @@ describe('the create route helper function', () => {
     const expected = {
       path: '/path', component: {}, meta: { resolve: '/resolve', services: ['drupal'] }, props: { root: true },
     };
-    const route = createRoute(input);
+    const route = createRoute(input as any);
 
     expect(route).toEqual(expected);
   });
