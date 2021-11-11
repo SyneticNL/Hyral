@@ -59,4 +59,3 @@ npm install @hyral/vue
 [JSON:API integration]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/json-api
 [Vue(x) integration]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/vue
 [Quick start guide]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/core/documentation/Guides/quick-start.md
- 

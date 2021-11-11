@@ -9,10 +9,10 @@ export const validateOptions = (options: IOptions<IMapping>): void => {
 };
 
 /**
- * Checks the validity of the baseUrl
+ * Checks the validity of the axios request config
  */
-export const validateBaseUrl = (options: IOptions<IMapping>): void => {
-  if (!options.baseUrl) throw new Error('DrupalNuxtPlugin requires a baseUrl in options');
+export const validateAxios = (options: IOptions<IMapping>): void => {
+  if (!options.axios) throw new Error('DrupalNuxtPlugin requires axios request config in options');
 };
 
 /**

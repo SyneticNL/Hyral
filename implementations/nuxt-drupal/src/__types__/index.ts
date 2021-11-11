@@ -1,6 +1,7 @@
 import { Collection, Resource } from '@hyral/core';
 import { AsyncComponent } from 'vue/types';
 import { Store } from 'vuex';
+import { AxiosRequestConfig } from 'axios';
 
 // =====
 // TYPES
@@ -57,7 +58,7 @@ export type IMap = AsyncComponent | Record<string, AsyncComponent | null>;
 
 export type IOptions<T> = {
   mapping: T;
-  baseUrl: string;
+  axios: AxiosRequestConfig
   name?: string;
 };
 

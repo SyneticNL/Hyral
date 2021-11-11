@@ -3,7 +3,7 @@ import DrupalPlugin from '../../src/Plugins/Hyral';
 describe('the nuxt plugin', () => {
   const options = {
     mapping: { menu1: null, node1: () => {}, paragraph1: { default: () => {} } },
-    baseUrl: 'http://test.com',
+    axios: {},
   };
 
   test('that the plugin correctly initiates', () => {

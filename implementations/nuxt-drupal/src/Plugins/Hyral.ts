@@ -2,7 +2,7 @@ import { repositoryManager } from '@hyral/core';
 import { createVuexPlugin } from '@hyral/vue';
 import { IContext, IMapping, IOptions } from '../__types__';
 import { createRepositories } from './Init/Repository';
-import { validateOptions, validateBaseUrl, validateMapping } from './Validators/Options';
+import { validateOptions, validateAxios, validateMapping } from './Validators/Options';
 
 /**
  * The plugin activates the VueX Plugin and loads menu items
@@ -11,7 +11,7 @@ import { validateOptions, validateBaseUrl, validateMapping } from './Validators/
  */
 export default (options: IOptions<IMapping>) => ({ store }: IContext): void => {
   validateOptions(options);
-  validateBaseUrl(options);
+  validateAxios(options);
   validateMapping(options);
   const hyralService = options.name || 'drupal';
 
