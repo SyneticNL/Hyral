@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.8](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.7...v2.0.0-prerelease.8) (2021-11-11)
+
+
+### Bug Fixes
+
+* **nux-dru:** nuxt plugin now requires axios request config ([d87a8c4](https://github.com/SyneticNL/hyral/commit/d87a8c4c9ff0539eba1e20bdbbb272283717581a))
+
+
+
+
+
 # [2.0.0-prerelease.7](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.6...v2.0.0-prerelease.7) (2021-07-28)
 
 **Note:** Version bump only for package @hyral/core
