@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-prerelease.10](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.9...v2.0.0-prerelease.10) (2021-12-08)
+
+
+### Features
+
+* **nux-dru:** hyral plugin now uses publicRuntimeConfig for axios ([8c1add6](https://github.com/SyneticNL/hyral/commit/8c1add68c116ae5e8cd067453444028ff640b7a4))
+
+
+
+
+
 # [2.0.0-prerelease.9](https://github.com/SyneticNL/hyral/compare/v2.0.0-prerelease.8...v2.0.0-prerelease.9) (2021-12-08)
 
 **Note:** Version bump only for package @hyral/nuxt-drupal
