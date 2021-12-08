@@ -64,7 +64,7 @@ export type IOptions<T> = {
 export type IContext = {
   store: IStore;
   route: IRecord;
-  app: { $config: { druxt: { baseUrl: string, axios: AxiosRequestConfig } } };
+  app: { $config: { hyralAxiosConfig: AxiosRequestConfig } };
 };
 
 export type INuxtContext = {

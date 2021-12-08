@@ -5,11 +5,6 @@ describe('the nuxt plugin', () => {
     mapping: { menu1: null, node1: () => {}, paragraph1: { default: () => {} } },
   };
 
-  const druxt = {
-    baseUrl: 'http://test/',
-    axios: {},
-  };
-
   test('that the plugin correctly initiates', () => {
     const options1 = { ...options, name: 'test' };
 
@@ -17,7 +12,7 @@ describe('the nuxt plugin', () => {
       store: {
         registerModule: jest.fn(),
       },
-      app: { $config: { druxt } },
+      app: { $config: {} },
     };
 
     DrupalPlugin(options1 as any)(context as any);
@@ -29,7 +24,7 @@ describe('the nuxt plugin', () => {
       store: {
         registerModule: jest.fn(),
       },
-      app: { $config: { druxt } },
+      app: { $config: {} },
     };
 
     DrupalPlugin(options as any)(context as any);

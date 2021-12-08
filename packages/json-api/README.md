@@ -14,4 +14,3 @@ npm install @hyral/json-api
 
 
 [Relationship handling]: https://github.com/SyneticNL/Hyral/tree/v2.0.0-prerelease/packages/json-api/documentation/relationships.md
- 

@@ -13,11 +13,7 @@ export default (options: IOptions<IMapping>) => ({ store, app }: IContext): void
   validateOptions(options);
   validateMapping(options);
   const hyralService = options.name || 'drupal';
-
-  const requestConfig = {
-    ...app.$config.druxt.axios,
-    baseURL: `${app.$config.druxt.baseUrl}/jsonapi`,
-  };
+  const requestConfig = app.$config.hyralAxiosConfig;
 
   // Create repositories
   createRepositories(options, requestConfig, repositoryManager);
