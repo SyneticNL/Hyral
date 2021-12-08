@@ -3,6 +3,10 @@ import DrupalPlugin from '../../src/Plugins/Hyral';
 describe('the nuxt plugin', () => {
   const options = {
     mapping: { menu1: null, node1: () => {}, paragraph1: { default: () => {} } },
+  };
+
+  const druxt = {
+    baseUrl: 'http://test/',
     axios: {},
   };
 
@@ -13,6 +17,7 @@ describe('the nuxt plugin', () => {
       store: {
         registerModule: jest.fn(),
       },
+      app: { $config: { druxt } },
     };
 
     DrupalPlugin(options1 as any)(context as any);
@@ -24,6 +29,7 @@ describe('the nuxt plugin', () => {
       store: {
         registerModule: jest.fn(),
       },
+      app: { $config: { druxt } },
     };
 
     DrupalPlugin(options as any)(context as any);

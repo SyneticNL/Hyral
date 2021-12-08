@@ -1,14 +1,8 @@
-import { validateAxios, validateMapping, validateOptions } from '../../../src/Plugins/Validators/Options';
+import { validateMapping, validateOptions } from '../../../src/Plugins/Validators/Options';
 
 describe('the validators', () => {
   test('that the validateOptions throws the error without options', () => {
     expect(validateOptions).toThrowError('DrupalNuxtPlugin requires options as a parameter');
-  });
-
-  test('that the validateBaseUrl throws the error without axiosConfig', () => {
-    const options = {};
-
-    expect(() => validateAxios(options as any)).toThrowError('DrupalNuxtPlugin requires axios request config in options');
   });
 
   test('that the validateMapping throws the error when no mapping is found', () => {

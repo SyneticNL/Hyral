@@ -9,13 +9,6 @@ export const validateOptions = (options: IOptions<IMapping>): void => {
 };
 
 /**
- * Checks the validity of the axios request config
- */
-export const validateAxios = (options: IOptions<IMapping>): void => {
-  if (!options.axios) throw new Error('DrupalNuxtPlugin requires axios request config in options');
-};
-
-/**
  * Checks the validity of the mapping.
  *
  * @param options: IOptions<IMapping>
