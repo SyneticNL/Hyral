@@ -1,11 +1,11 @@
 {
   "name": "@hyral/json-api",
-  "version": "2.0.0-prerelease.8",
+  "version": "2.0.0-prerelease.9",
   "description": "Json-api implementation module for Hyral",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease.8",
+    "@hyral/core": "^2.0.0-prerelease.9",
     "qs": "^6.10.1"
   },
   "devDependencies": {

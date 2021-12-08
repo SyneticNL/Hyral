@@ -1,11 +1,11 @@
 {
   "name": "@hyral/vue",
-  "version": "2.0.0-prerelease.8",
+  "version": "2.0.0-prerelease.9",
   "description": "Vue.js integration for Hyral",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "@hyral/core": "^2.0.0-prerelease.8",
+    "@hyral/core": "^2.0.0-prerelease.9",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
